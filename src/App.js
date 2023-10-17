@@ -44,7 +44,8 @@ function App() {
   let [cars, setCars] = useState([
     {id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000, info: {}},
     {id: 2, brand: "VAZ", model: "2115", price: 120000, old_price: null, info: {}},
-    {id: 3, brand: "VAZ", model: "2114", price: 130000, old_price: null, info: {}}
+    {id: 3, brand: "VAZ", model: "2114", price: 130000, old_price: null, info: {}},
+    {id: 4, brand: "VAZ", model: "2114", price: 100, old_price: null, info: {}}
   ]);
   let [filterCars, setFilterCars] = useState(cars);
 
