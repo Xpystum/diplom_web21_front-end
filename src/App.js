@@ -1,15 +1,49 @@
 import logo from './logo.svg';
 import './App.css';
 import Filter from './components/Filter/Filter';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import axios from 'axios'
+import { request } from './request';
 
 function App() {
+
+
+
+/*
+  function request(){
+    axios({
+      method: 'get',
+      url: `${URL_BACK}items-menu`,
+    })
+    .then(function (response) {
+      //return response;
+
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+*/
+  let [menuItems, setMenuItems] = useState([]);
+
+  useEffect(()=>{
+    request('get', 'items-menu', (response)=>{
+      
+      if(response.status == 200 && response.data.length > 0){
+        setMenuItems(response.data);
+      }
+    });
+  }, []);
+
+
   
   
   let [cars, setCars] = useState([
-    {id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000},
-    {id: 2, brand: "VAZ", model: "2115", price: 120000, old_price: null},
-    {id: 3, brand: "VAZ", model: "2114", price: 130000, old_price: null}
+    {id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000, info: {}},
+    {id: 2, brand: "VAZ", model: "2115", price: 120000, old_price: null, info: {}},
+    {id: 3, brand: "VAZ", model: "2114", price: 130000, old_price: null, info: {}}
   ]);
   let [filterCars, setFilterCars] = useState(cars);
 
@@ -40,6 +74,14 @@ function App() {
 
   return (
     <div className="App">
+
+      {
+        menuItems.map((item)=>
+          <div>
+            {item.item_name}
+          </div>
+        )
+      }
       
       <img src={logo} className="App-logo" alt="logo" />
 
