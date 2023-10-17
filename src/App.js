@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import axios from 'axios'
 import { request } from './request';
+import Menu from './components/Menu/Menu';
 
 function App() {
 
@@ -75,13 +76,9 @@ function App() {
   return (
     <div className="App">
 
-      {
-        menuItems.map((item)=>
-          <div>
-            {item.item_name}
-          </div>
-        )
-      }
+      <Menu menuItems = {menuItems}/>
+
+      
       
       <img src={logo} className="App-logo" alt="logo" />
 
