@@ -4,11 +4,11 @@ export default function ItemsMenu(props){
     let items = props.items;
   return (
     <li>
-        {
+        {/* {
           items.map((item, index)=>
           <Link>{item.name}</Link>
           )
-        }
+        } */}
     </li>
   )
 };

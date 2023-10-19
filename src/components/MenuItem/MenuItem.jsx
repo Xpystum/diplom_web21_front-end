@@ -1,10 +1,12 @@
 
 export default function MenuItem(props){
-    let item = props.item;
-
+    let items = props.menuItems;
+    
   return (
-    <li>
-        {item.item_name}
-    </li>
+    items.map((item, index)=>{
+      <li key={item.id}>
+        <span>{item.item_name}</span>
+      </li>
+    })
   )
 };

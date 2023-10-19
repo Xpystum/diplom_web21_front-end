@@ -6,7 +6,7 @@ import { BrowserRouter} from 'react-router-dom';
 
 import axios from 'axios'
 import { request } from './request';
-import Menu from './components/Menu/Menu';
+import MenuItem from './components/MenuItem/MenuItem';
 import Header from './components/Menu/Header/Header';
 
 function App() {
@@ -58,13 +58,12 @@ function App() {
     // механизм фильтрации
   }
 
+
   return (
-    <BrowserRouter>
       <div className="App">
 
-        <Header menuItems = {menuItems}/>
+        {/* <Header menuItems = {menuItems}/> */}
 
-        <Header menuItems = {menuItems}/>
 
         <img src={logo} className="App-logo" alt="logo" />
 
@@ -77,6 +76,9 @@ function App() {
             <button onClick={onFilterCars}>Показать</button>
         </form>
 
+        <MenuItem menuItems={menuItems} />
+
+
         {
           filterCars.map((car)=>
             <div key={car.id}>
@@ -86,9 +88,10 @@ function App() {
             </div>
           )
         }
-          
+        
       </div>
-    </BrowserRouter>
+        
+
   );
 }
 
