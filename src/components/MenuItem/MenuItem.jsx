@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 export default function MenuItem(props){
@@ -8,7 +9,7 @@ export default function MenuItem(props){
   return (
     (item.parrent_item_id === null)?
     <li>
-        {item.item_name}
+      <Link to ="/">{item.item_name}</Link>  
     </li>
     :
     <li>{item.item_name} 
