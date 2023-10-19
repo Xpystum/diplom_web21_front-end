@@ -1,14 +1,10 @@
 import { Router, Routes, Route, NavLink, Link } from 'react-router-dom';
 
 export default function ItemsMenu(props){
-    let items = props.items;
+    let item = props.item;
   return (
     <li>
-        {/* {
-          items.map((item, index)=>
-          <Link>{item.name}</Link>
-          )
-        } */}
+      <Link className='main-manu__item' to='#' >{item.item_name}</Link>
     </li>
   )
 };

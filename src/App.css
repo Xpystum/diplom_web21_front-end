@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+
+.main-manu__item{
+  text-decoration:none;
+  margin: 0 8px;
+}
+
+.main-menu__ul{
+  width: 85%;
+  margin: 0 auto;
+  list-style-type:none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+header{
+  width: 100%;
+  
+}
+
+.header-wrapp{
+  max-width: 1920px;
+  height: 100%;
+  margin: 0 auto;
+}

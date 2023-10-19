@@ -62,12 +62,10 @@ function App() {
   return (
       <div className="App">
 
-        {/* <Header menuItems = {menuItems}/> */}
+        <Header menuItems = {menuItems}/>
 
 
         <img src={logo} className="App-logo" alt="logo" />
-
-        {/* <Filter/> */}
 
         <form>
             <input type="text" ref={model} placeholder='Модель'/>
@@ -76,7 +74,7 @@ function App() {
             <button onClick={onFilterCars}>Показать</button>
         </form>
 
-        <MenuItem menuItems={menuItems} />
+        {/* <MenuItem menuItems={menuItems} /> */}
 
 
         {
