@@ -1,32 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
-import Filter from './components/Filter/Filter';
+
 import { useEffect, useRef, useState } from 'react';
 
-import axios from 'axios'
+
 import { request } from './request';
 import Menu from './components/Menu/Menu';
 
 function App() {
 
 
-
-/*
-  function request(){
-    axios({
-      method: 'get',
-      url: `${URL_BACK}items-menu`,
-    })
-    .then(function (response) {
-      //return response;
-
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-*/
   let [menuItems, setMenuItems] = useState([]);
 
   useEffect(()=>{
