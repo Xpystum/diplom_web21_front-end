@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './ResetStyle.css';
 import Filter from './components/Filter/Filter';
 import { useEffect, useRef, useState } from 'react';
 import { BrowserRouter} from 'react-router-dom';
@@ -8,6 +9,8 @@ import axios from 'axios'
 import { request } from './request';
 import MenuItem from './components/MenuItem/MenuItem';
 import Header from './components/Menu/Header/Header';
+
+
 
 function App() {
 
@@ -18,6 +21,7 @@ function App() {
     request('get', 'items-menu', (response)=>{
       
       if(response.status == 200 && response.data.length > 0){
+        console.log(response.data)
         setMenuItems(response.data);
       }
     });
