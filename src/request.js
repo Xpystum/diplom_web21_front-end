@@ -9,7 +9,6 @@ export function request(method, url, callback, data = {}){
         "data": data
     })
     .then(function (response) {
-        //return response;
         callback(response);
     })
     .catch(function (error) {
