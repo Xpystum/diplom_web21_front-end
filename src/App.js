@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import './ResetStyle.css';
-import Filter from './components/Filter/Filter';
+// import Filter from './components/Filter/Filter';
 import { useEffect, useRef, useState } from 'react';
 
 
@@ -22,8 +21,7 @@ function App() {
 
       setLoading(false);
       
-      if(response.status == 200 && response.data.length > 0){
-        console.log(response.data)
+      if(response.status === 200 && response.data.length > 0){
         setMenuItems(response.data);
       }
 
@@ -51,8 +49,8 @@ function App() {
   function onFilterCars(evt){
     evt.preventDefault();
 
-    if(model.current.value.length != 0){
-      setFilterCars(cars.filter((car) => car.model == model.current.value));
+    if(model.current.value.length !== 0){
+      setFilterCars(cars.filter((car) => car.model === model.current.value));
     }
     else{
       setFilterCars(cars);
@@ -77,7 +75,6 @@ function App() {
         :
           <div>
               <Header menuItems = {menuItems}/>
-              <img src={logo} className="App-logo" alt="logo" />
               {/* <Filter/> */}
               <form>
                   <input type="text" ref={model} placeholder='Модель'/>
