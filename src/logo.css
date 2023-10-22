@@ -1,0 +1,9 @@
+.logo_wrap{
+    display: flex;
+    background-color: #eee;
+
+}
+.app_logo {
+    width: 100px;
+    height: 25px;
+}

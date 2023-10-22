@@ -2,11 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import Filter from './components/Filter/Filter';
 import { useEffect, useRef, useState } from 'react';
-
+import './logo.css';
 import axios from 'axios'
 import { request } from './request';
 import Menu from './components/Menu/Menu';
 import Loader from './components/Loader/Loader';
+import { Routes, Route, Router, Link } from 'react-router-dom';
+import { func } from 'prop-types';
 
 function App() {
 
@@ -22,12 +24,11 @@ function App() {
       if(response.status == 200 && response.data.length > 0){
         setMenuItems(response.data);
       }
-
-
+      
     });
   }, []);
-
-
+  
+  
   
   
   let [cars, setCars] = useState([
@@ -63,36 +64,59 @@ function App() {
 
 
   return (
-    <div className="App">
+    
+        <div className="App">
+          <Routes>
+            <Route
+              path='/'
+              element={
+              <div className='menu_wrap'>
+                <div className='logo_wrap'>
+                  <Link>
+                    <img src={logo} className="app_logo" alt="logo"></img>
+                  </Link>
+                  
+                  <Link to='/'>Нижний Новгород</Link>
+                </div>  
+                  <Menu menuItems = {menuItems}/>
+                
+              </div>}
+            >              
+            </Route>
+          </Routes>          
+          {
+            // (loading)?
+            //   <Loader/>
+            // :
+              <div>
+                <div className='menu_wrap'>
+                  
+                    
+                  
+                  {/* <link to='/'>Нижний Новгород</link>                 */}
+                </div>
+                  <Filter/> 
+                  <form>
+                      <input type="text" ref={model} placeholder='Модель'/>
+                      <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt)=>{editPrice(evt, "minPrice")}}/>
+                      <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена'onChange={(evt)=>{editPrice(evt, "maxPrice")}}/>
+                      <button onClick={onFilterCars}>Показать</button>
+                  </form>
+                  {
+                    filterCars.map((car)=>
+                      <div key={car.id}>
+                        <span>{car.brand} </span>
+                        <span>{car.model} </span>
+                        <span>{car.price} руб.</span>
+                      </div>
+                    )
+                  }
+              </div>
+          }
+          
+            
+        </div>
       
-      {
-        (loading)?
-          <Loader/>
-        :
-          <div>{/* сюда будет лого */}
-              <Menu menuItems = {menuItems}/>
-              <img src={logo} className="App-logo" alt="logo" />
-              {/* <Filter/> */}
-              <form>
-                  <input type="text" ref={model} placeholder='Модель'/>
-                  <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt)=>{editPrice(evt, "minPrice")}}/>
-                  <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена'onChange={(evt)=>{editPrice(evt, "maxPrice")}}/>
-                  <button onClick={onFilterCars}>Показать</button>
-              </form>
-              {
-                filterCars.map((car)=>
-                  <div key={car.id}>
-                    <span>{car.brand} </span>
-                    <span>{car.model} </span>
-                    <span>{car.price} руб.</span>
-                  </div>
-                )
-              }
-          </div>
-      }
-      
-        
-    </div>
   );
 }
 
