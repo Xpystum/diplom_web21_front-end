@@ -1,9 +1,20 @@
 .logo_wrap{
     display: flex;
-    background-color: #eee;
-
+    background-color: #000000;
+    padding: 10px;
 }
 .app_logo {
+    display: flex;
     width: 100px;
     height: 25px;
+    margin-right: 20px;
+    align-items: flex-start;
+}
+.logo_wrap .location{
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
 }

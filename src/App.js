@@ -10,6 +10,8 @@ import Loader from './components/Loader/Loader';
 import { Routes, Route, Router, Link } from 'react-router-dom';
 import { func } from 'prop-types';
 
+
+
 function App() {
 
   let [loading, setLoading] = useState(true);
@@ -66,7 +68,12 @@ function App() {
   return (
     
         <div className="App">
-          <Routes>
+                   
+          {
+            (loading)?
+              <Loader/>
+            :
+              <div><Routes>
             <Route
               path='/'
               element={
@@ -74,26 +81,16 @@ function App() {
                 <div className='logo_wrap'>
                   <Link>
                     <img src={logo} className="app_logo" alt="logo"></img>
-                  </Link>
-                  
-                  <Link to='/'>Нижний Новгород</Link>
+                  </Link>                  
+                  <Link className="location"to='/'>Нижний Новгород</Link>
                 </div>  
                   <Menu menuItems = {menuItems}/>
                 
               </div>}
             >              
             </Route>
-          </Routes>          
-          {
-            // (loading)?
-            //   <Loader/>
-            // :
-              <div>
+          </Routes> 
                 <div className='menu_wrap'>
-                  
-                    
-                  
-                  {/* <link to='/'>Нижний Новгород</link>                 */}
                 </div>
                   <Filter/> 
                   <form>
