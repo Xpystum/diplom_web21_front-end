@@ -69,7 +69,7 @@ function App() {
         (loading)?
           <Loader/>
         :
-          <div>
+          <div>{/* сюда будет лого */}
               <Menu menuItems = {menuItems}/>
               <img src={logo} className="App-logo" alt="logo" />
               {/* <Filter/> */}
