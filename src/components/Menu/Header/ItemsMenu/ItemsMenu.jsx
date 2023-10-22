@@ -1,41 +1,28 @@
 import { Link } from 'react-router-dom';
 import './ItemsMenu.sass';
-// import SubItemsMenu from './SubItemsMenu/SubItemsMenu';
+import SubItemsMenu from '../SubItemsMenu/SubItemsMenu';
+
 export default function ItemsMenu(props){
     let item = props.item;
-    let firstItems = props.firstItems;
-  return (
-            (item.parrent_item_id == null)?
-              <li className='main-menu__item' key={item.id}>
-                <Link className='main-menu__link' to='#' >{item.item_name} 1</Link>
-              </li> 
-              :
-              <ul>
-              {firstItems.map((first_item)=>
-                  (first_item.id === item.parrent_item_id)?
-                  <li className='main-sub-menu__item' key={item.id}>
-                    <Link className='main-sub-menu__link' to='#' >{item.item_name} 2</Link>
-                  </li>
-                  // ""
-                  :
-                  ""
-                )}  
-              </ul>
-              
-                // :
-                // <li className='main-menu__item' key={item.id}>
-                //   <span className='main-menu__link' to='#' >{item.item_name} 2</span>
-                //     <ul className='main-sub-menu__ul'>
-                //       {firstItems.map((first_item)=>
-                //         (item.parrent_item_id === first_item.id)?
-                //         // console.log("раз вход")
-                //         <li className='main-sub-menu__item' key={item.id}>
-                //           1
-                //         </li>  
-                //         :
-                //         "" 
-                //       ) }
-                //     </ul> 
-                // </li>
+    let items = props.items;
+  return (  
+   (item.id <= 6)?
+    <li className='main-menu__item' key={item.id}>
+        <Link className='main-menu__link' to='#'>{item.item_name}</Link>
+    </li>
+    :
+    (item.id == 7)?
+    <li className='main-menu__item' key={item.id}>
+        <span className='main-menu__span'>{item.item_name} 
+          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+            <path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/>
+          </svg>
+        </span>
+        <ul className='main-sub-menu__ul'>
+          <SubItemsMenu items={items}/>
+        </ul>
+    </li>
+    :
+    ''
   )
 };

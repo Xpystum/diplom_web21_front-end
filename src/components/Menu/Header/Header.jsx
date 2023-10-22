@@ -1,5 +1,7 @@
-import ItemsMenu from './ItemsMenu/ItemsMenu';
 import './Header.sass';
+import ItemsMenu from './ItemsMenu/ItemsMenu';
+
+
 export default function Header(props){
     let items = props.menuItems;
     let firstItems = items.filter((item)=>{
@@ -12,7 +14,7 @@ export default function Header(props){
           <ul className='header-wrapp__main-menu__ul'>
             {
               items.map((item)=>
-                <ItemsMenu key={item.id} item={item} firstItems ={firstItems}/>
+                <ItemsMenu key={item.id} item={item} items ={items}/>
               )
             }  
             </ul> 
