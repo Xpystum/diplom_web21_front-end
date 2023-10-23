@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap')
+
+.ProductPreviewCard
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+
+    padding: 20px
+
+    font-family: 'Roboto', sans-serif
+    color: #000
+
+    text-decoration: none
+
+    border-top: 1px solid rgba(0, 0, 0, 0.1)
+    & .Image
+        flex-basis: 272px
+        width: 272px
+        height: 205px
+
+        position: relative
+
+        margin-right: 40px
+        @media(max-width: 1600px)
+            flex-basis: 240px
+            width: 240px
+            height: 180px
+        @media(max-width: 1280px)
+            margin-right: 20px
+        & img
+            width: 100%
+            height: 100%
+            overflow: hidden
+
+            border-radius: 6px
+
+    & .PreviewText
+        flex-basis: 406px
+        min-width: 264px
+
+        margin-right: 40px
+
+        // display: flex
+        // flex-wrap: wrap
+        // justify-content: start
+        @media(max-width: 1280px)
+            margin-right: 20px
+
+        & .Title
+            & .Model
+                display: flex
+                justify-content: flex-start
+                align-items: baseline
+                & .MarkPromotion
+                    display: inline-block
+                    width: 16px
+                    height: 16px
+                    margin-right: 5px
+                    mask-image: url("https://c.rdrom.ru/js/bundles/media/promote-up.e619d85bf6df2f38900a.svg")
+                    background-color: rgb(132, 182, 62)
+
+                    font-size: 18px
+                    font-weight: normal
+                    line-height: 25px
+                & span
+                    font-size: 18px
+                    font-weight: normal
+                    line-height: 25px
+            & .Equipment
+                display: flex
+                justify-content: flex-start
+                font-size: 13px
+                line-height: 20px
+                color: rgba(0, 0, 0, 0.4)
+
+                margin-top: 5px
+
+        & .Components
+            display: flex
+            justify-content: flex-start
+
+            font-size: 15px
+            line-height: 1.5
+
+            margin-top: 5px
+            & span
+                white-space: nowrap
+
+                margin-right: 5px
+
+        & .Labels
+            margin-top: 10px

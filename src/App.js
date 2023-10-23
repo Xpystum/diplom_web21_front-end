@@ -7,7 +7,8 @@ import axios from 'axios'
 import { request } from './request';
 import Menu from './components/Menu/Menu';
 import Loader from './components/Loader/Loader';
-import ProductPreviewCard from './components/ProductPreviewCard/ProductPreviewCard';
+import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListProductsPreviewCard';
+
 
 function App() {
 
@@ -91,8 +92,8 @@ function App() {
             }
           </div>
       }
+      <ListProductsPreviewCard />
 
-      <ProductPreviewCard />
     </div>
   );
 }
