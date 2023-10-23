@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from './logo.svg';
 import './Logo.sass';
+
 export default function LogoAndLocation()/*будет удалена локация и вынесена отдельно в компонент*/
 {
     return(

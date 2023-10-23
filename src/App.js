@@ -79,22 +79,13 @@ function App() {
                   <Route
                     path='/'
                     element={
-                    <div className='menu_wrap'>
-                      {/* <div className='logo_wrap'>
-                        <Link to='#'>
-                           <img src={logo} className="app_logo" alt="logo"></img> 
-                        </Link>                  
-                        <Link className="location" to='#'>Нижний Новгород</Link>
-                      </div>   */}
-                        <Header menuItems = {menuItems}/>
-                      
+                    <div>
+                      <Header menuItems = {menuItems}/>
                     </div>}
                   >              
                   </Route>
                 </Routes> 
-                <div className='menu_wrap'>
-                </div>
-                  <Filter/> 
+                <Filter/> 
                   <form>
                       <input type="text" ref={model} placeholder='Модель'/>
                       <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt)=>{editPrice(evt, "minPrice")}}/>
