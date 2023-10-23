@@ -2,12 +2,24 @@ import style from './ListProductsPreviewCard.module.sass';
 
 import ProductPreviewCard from "../ProductPreviewCard/ProductPreviewCard";
 
+
 export default function ListProductsPreviewCard(props) {
-    return (
-        <div className={style.ListProductsPreviewCard}>
 
-            <ProductPreviewCard />
+  const cars = props.cars;
 
-        </div>
-    )
+  return (
+    <div className={style.ListProductsPreviewCard}>
+
+      {
+        cars.map((car) =>
+          <ProductPreviewCard
+            key={car.id}
+            car={car}
+          />
+        )
+      }
+
+
+    </div>
+  )
 };

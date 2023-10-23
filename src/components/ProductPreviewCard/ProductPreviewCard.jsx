@@ -1,14 +1,18 @@
 import style from './ProductPreviewCard.module.sass';
 
 import LabelsProduct from "../LabelsProduct/LabelsProduct";
-
+import FavouritesStar from '../../UI/FavouritesStar/FavouritesStar';
 
 
 export default function ProductPreviewCard(props) {
+
+  const car = props.car;
+  console.log(car);
+
   return (
     <a className={style.ProductPreviewCard} href="#">
       <div className={style.Image}>
-        <img alt="Седан Лада 2110 2005 года, 205000 рублей, Ангарск" src="vaz2110.jpg" />
+        <img alt="Седан Лада 2110 2005 года, 100000 рублей, Нижний Новгород" src="vaz2110.jpg" />
       </div>
 
       <div className={style.PreviewText}>
@@ -16,7 +20,7 @@ export default function ProductPreviewCard(props) {
           <div className={style.Model}>
             <div className={style.MarkPromotion} />
             <span>
-              Лада 2110, 2005
+              {`${car.brand} ${car.model}`}, 2005
             </span>
           </div>
           <div className={style.Equipment}>
@@ -40,7 +44,7 @@ export default function ProductPreviewCard(props) {
             передний,
           </span>
           <span>
-            230 000 км
+            {new Intl.NumberFormat("ru-RU").format(230000)} км
           </span>
         </div>
 
@@ -49,31 +53,32 @@ export default function ProductPreviewCard(props) {
         </div>
       </div>
 
-      <div className="css-1dkhqyq e1f2m3x80">
-        <div>
-          <div class="css-1i8tk3y eyvqki92">
-            <div class="css-1dv8s3l eyvqki91">
-              <span class="css-46itwz e162wx9x0">
-                <span data-ftid="bull_price">205000
-                </span>₽</span>
-            </div>
-            <div class="css-11m58oj evjskuu0">
-              <div class="css-16vzcmq ejipaoe0">высокая цена</div>
-            </div>
+      <div className={style.PricesLocation}>
+        <div className={style.Prices}>
+          <div className={style.Price}>
+            <span>
+              {new Intl.NumberFormat("ru-RU").format(car.price)} ₽
+            </span>
           </div>
+          {
+            (car.old_price !== null) ?
+              <div className={style.OldPrice}>
+                <div className={style.OldPrice__Label}>хорошая цена</div>
+                <div className={style.OldPrice__Value}>
+                  <span>{new Intl.NumberFormat("ru-RU").format(car.old_price)} ₽</span>
+                </div>
+              </div>
+              :
+              ''
+          }
         </div>
-        <div class="css-1hrfta1 e162wx9x0">
-          <div class="css-1x4jcds eotelyr0">
-            <span data-ftid="bull_location" class="css-1488ad e162wx9x0">Ангарск</span>
-            <div data-ftid="bull_date">50 минут назад</div>
-          </div>
+
+        <div className={style.Location}>
+          <div>Нижний Новгород</div>
+          <div>сегодня</div>
         </div>
-        <div class="css-pivpd8 e13r0v7w0">
-          <div class="css-1rozdag">
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M13.606.973a1.485 1.485 0 0 1 2.788 0l3.043 7.653c.217.547.709.92 1.273.968l7.9.662c1.337.112 1.88 1.86.86 2.773l-6.018 5.393c-.43.385-.618.989-.486 1.565l1.838 8.063c.312 1.366-1.109 2.446-2.255 1.714l-6.762-4.321a1.453 1.453 0 0 0-1.574 0l-6.763 4.32c-1.145.733-2.566-.347-2.255-1.713l1.84-8.063a1.623 1.623 0 0 0-.487-1.565L.53 13.029c-1.02-.914-.477-2.66.86-2.773l7.9-.662a1.517 1.517 0 0 0 1.273-.968L13.606.973Z" fill="currentColor" />
-            </svg>
-          </div>
+        <div class={style.Favourites}>
+          <FavouritesStar />
         </div>
       </div>
 

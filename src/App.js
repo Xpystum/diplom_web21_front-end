@@ -92,7 +92,7 @@ function App() {
             }
           </div>
       }
-      <ListProductsPreviewCard />
+      <ListProductsPreviewCard cars={cars} />
 
     </div>
   );
