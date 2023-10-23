@@ -2,13 +2,14 @@ import './App.css';
 import './ResetStyle.css';
 import Filter from './components/Filter/Filter';
 import { useEffect, useRef, useState } from 'react';
-import './logo.css';
+// import logo from './logo.svg';
+// import './logo.css';
 import axios from 'axios'
 import { request } from './request';
 import Loader from './components/Loader/Loader';
 import Header from './components/Menu/Header/Header';
 import { Routes, Route, Router, Link } from 'react-router-dom';
-import './logo.svg';
+
 
 
 function App() {
@@ -76,15 +77,15 @@ function App() {
               <div>
                 <Routes>
                   <Route
-                    path='#'
+                    path='/'
                     element={
                     <div className='menu_wrap'>
-                      <div className='logo_wrap'>
-                        <Link>
-                           <img src={'./logo.svg'} className="app_logo" alt="logo"></img> 
+                      {/* <div className='logo_wrap'>
+                        <Link to='#'>
+                           <img src={logo} className="app_logo" alt="logo"></img> 
                         </Link>                  
-                        <Link className="location"to='#'>Нижний Новгород</Link>
-                      </div>  
+                        <Link className="location" to='#'>Нижний Новгород</Link>
+                      </div>   */}
                         <Header menuItems = {menuItems}/>
                       
                     </div>}

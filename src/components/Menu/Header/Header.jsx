@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import './Header.sass';
 import ItemsMenu from './ItemsMenu/ItemsMenu';
-
+import LogoAndLocation from './Logo/Logo';
 
 export default function Header(props){
     let items = props.menuItems;
@@ -11,7 +12,8 @@ export default function Header(props){
     <header>
       <div className='header-wrapp'>
         <nav className='header-wrapp__main-menu'>
-          <ul className='header-wrapp__main-menu__ul'>
+          {LogoAndLocation()}
+            <ul className='header-wrapp__main-menu__ul'>
             {
               items.map((item)=>
                 <ItemsMenu key={item.id} item={item} items ={items}/>
