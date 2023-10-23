@@ -3,24 +3,12 @@ import './App.css';
 import './ResetStyle.css';
 import Filter from './components/Filter/Filter';
 import { useEffect, useRef, useState } from 'react';
-<<<<<<< HEAD
-
-
-=======
-import './logo.css';
+import './logo.css'
 import axios from 'axios'
->>>>>>> feature_menu_logo
 import { request } from './request';
 import Loader from './components/Loader/Loader';
-<<<<<<< HEAD
 import Header from './components/Menu/Header/Header';
-=======
-import { Routes, Route, Router, Link } from 'react-router-dom';
-import { func } from 'prop-types';
->>>>>>> feature_menu_logo
-
-
-
+import { Route, Link, Routes } from 'react-router-dom';
 function App() {
 
   let [loading, setLoading] = useState(true);
@@ -39,14 +27,8 @@ function App() {
       
     });
   }, []);
-<<<<<<< HEAD
 
 
-
-=======
-  
-  
->>>>>>> feature_menu_logo
   
   
   let [cars, setCars] = useState([
@@ -89,25 +71,25 @@ function App() {
             (loading)?
               <Loader/>
             :
-              <div><Routes>
-            <Route
-              path='/'
-              element={
-              <div className='menu_wrap'>
-                <div className='logo_wrap'>
-                  <Link>
-                    <img src={logo} className="app_logo" alt="logo"></img>
-                  </Link>                  
-                  <Link className="location"to='/'>Нижний Новгород</Link>
-                </div>  
-                  <Menu menuItems = {menuItems}/>
+              <div>
+                <Routes>
+                  <Route
+                    path='/'
+                    element={
+                    <header>
+                      <div className='logo_wrap'>
+                        <Link>
+                          <img src={logo} className="app_logo" alt="logo"></img>
+                        </Link>                  
+                        <Link className="location"to='/'>Нижний Новгород</Link>
+                      </div>  
+                        <Header menuItems = {menuItems}/>
+                      
+                    </header>}
+                  >              
+                  </Route>
+                </Routes> 
                 
-              </div>}
-            >              
-            </Route>
-          </Routes> 
-                <div className='menu_wrap'>
-                </div>
                   <Filter/> 
                   <form>
                       <input type="text" ref={model} placeholder='Модель'/>
@@ -130,37 +112,6 @@ function App() {
             
         </div>
       
-<<<<<<< HEAD
-      {
-        (loading)?
-          <Loader/>
-        :
-          <div>
-              <Header menuItems = {menuItems}/>
-              <img src={logo} className="App-logo" alt="logo" />
-              {/* <Filter/> */}
-              <form>
-                  <input type="text" ref={model} placeholder='Модель'/>
-                  <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt)=>{editPrice(evt, "minPrice")}}/>
-                  <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена'onChange={(evt)=>{editPrice(evt, "maxPrice")}}/>
-                  <button onClick={onFilterCars}>Показать</button>
-              </form>
-              {
-                filterCars.map((car)=>
-                  <div key={car.id}>
-                    <span>{car.brand} </span>
-                    <span>{car.model} </span>
-                    <span>{car.price} руб.</span>
-                  </div>
-                )
-              }
-          </div>
-      }
-    </div>
-        
-
-=======
->>>>>>> feature_menu_logo
   );
 }
 

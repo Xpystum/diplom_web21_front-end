@@ -11,6 +11,7 @@ export default function Header(props){
     <header>
       <div className='header-wrapp'>
         <nav className='header-wrapp__main-menu'>
+        
           <ul className='header-wrapp__main-menu__ul'>
             {
               newItems.map((item)=>
