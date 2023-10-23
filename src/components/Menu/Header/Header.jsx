@@ -1,24 +1,25 @@
-import ItemsMenu from './ItemsMenu/ItemsMenu';
+import { Link } from "react-router-dom";
 import './Header.sass';
+import ItemsMenu from './ItemsMenu/ItemsMenu';
+import LogoAndLocation from './Logo/Logo';
 
 export default function Header(props){
     let items = props.menuItems;
-    let newItems = items.filter((item)=>{
-      return (item.id <= 7);
+    let firstItems = items.filter((item)=>{
+      return (item.parrent_item_id == null);
     });
-    
   return (
     <header>
       <div className='header-wrapp'>
         <nav className='header-wrapp__main-menu'>
-        
-          <ul className='header-wrapp__main-menu__ul'>
+          {LogoAndLocation()}
+            <ul className='header-wrapp__main-menu__ul'>
             {
-              newItems.map((item)=>
-                <ItemsMenu key={item.id} item={item}/>
+              items.map((item)=>
+                <ItemsMenu key={item.id} item={item} items ={items}/>
               )
-            }
-          </ul>
+            }  
+            </ul> 
         </nav>
       </div>
     </header>
