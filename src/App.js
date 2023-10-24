@@ -9,25 +9,29 @@ import Menu from './components/Menu/Menu';
 import Loader from './components/Loader/Loader';
 import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListProductsPreviewCard';
 
+import { useSelector, useDispatch } from 'react-redux';
+
+import { reloadMenu, loaderSwitch } from './redux/dataState';
+
 
 function App() {
 
-  let [loading, setLoading] = useState(true);
+  let loading = useSelector(state => state.dataState.value);
 
-  let [menuItems, setMenuItems] = useState([]);
-
-  useEffect(() => {
-    request('get', 'items-menu', (response) => {
-
-      setLoading(false);
-
-      if (response.status == 200 && response.data.length > 0) {
-        setMenuItems(response.data);
-      }
+  let dispatch = useDispatch();
 
 
-    });
-  }, []);
+  //let [menuItems, setMenuItems] = useState([]);
+
+  request('get', 'items-menu', (response) => {
+    dispatch(loaderSwitch(false));
+    
+    if (response.status == 200 && response.data.length > 0) {
+      //dispatch(reloadMenu(response.data))
+    }
+
+
+  });
 
 
 
@@ -67,12 +71,13 @@ function App() {
   return (
     <div className="App">
 
+      
       {
         (loading) ?
           <Loader />
           :
           <div>
-            <Menu menuItems={menuItems} />
+            <Menu/>
             <img src={logo} className="App-logo" alt="logo" />
             {/* <Filter/> */}
             <form>
