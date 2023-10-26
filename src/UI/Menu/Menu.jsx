@@ -13,17 +13,18 @@ export default function Menu(props){
   if(props.nameMenu !== "undefined"){
     variation = props.mainMenu
   }
-  console.log(variation)
+
   menuItems = useSelector(state => state.dataState.value[variation]);
-  
+
+
   return (
-      <nav className={styles.menu_nav}>
+      <nav className={styles[variation]}>
         <ul className={styles.menu_ul}>
           
           {
             menuItems.map((item)=>
               
-              <ItemsMenu key={item.id} item={item}/>
+              <ItemsMenu variation={variation} key={item.id} item={item}/>
             )
           }
 

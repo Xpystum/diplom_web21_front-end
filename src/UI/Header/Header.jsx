@@ -1,5 +1,5 @@
 import style from './Header.module.sass';
-import Menu from '../../components/Menu/Menu';
+import Menu from '../Menu/Menu';
 
 export default function Header(props) {
   let mainMenu = 'mainMenu';

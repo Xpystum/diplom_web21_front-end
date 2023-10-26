@@ -8,7 +8,7 @@ import { request } from './request';
 
 
 // Компоненты
-import Loader from './components/Loader/Loader';
+import Loader from './UI/Loader/Loader';
 import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListProductsPreviewCard';
 import Header from './UI/Header/Header';
 
