@@ -15,11 +15,11 @@ import PreloaderSmall from './components/PreloaderSmall/PreloaderSmall';
 import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListProductsPreviewCard';
 import Header from './UI/Header/Header';
 
-
-
-
 import { useSelector, useDispatch } from 'react-redux';
 import { reloadMenu, loaderSwitch } from './redux/dataState';
+import { Route, Routes } from 'react-router';
+import Home from './pages/Home/Home';
+import ListProducts from './pages/ListProducts/ListProducts';
 
 
 
@@ -102,6 +102,11 @@ function App() {
     return (
         <div className="App">
 
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/category" element={<ListProducts/>}/>
+          </Routes>
+
 
             {
                 (loading) ?
@@ -109,7 +114,7 @@ function App() {
                     :
                     <div>
                         <Header />
-                        <img src={logo} className="App-logo" alt="logo" />
+                        {/* <img src={logo} className="App-logo" alt="logo" /> */}
                         {/* <Filter/> */}
                         <form>
                             <input type="text" ref={model} placeholder='Модель' />

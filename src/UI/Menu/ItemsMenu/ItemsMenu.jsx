@@ -7,7 +7,6 @@ export default function ItemsMenu(props){
     let item = props.item;
     let variation = props.variation;
     variation += '_menu_item'
-    console.log(variation);
 
   return (
     <li className={styles[variation]}>
