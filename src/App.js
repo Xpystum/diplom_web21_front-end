@@ -6,9 +6,12 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios'
 import { request } from './request';
 
-
 // Компоненты
 import Loader from './UI/Loader/Loader';
+
+import PreloaderStartPage from './components/PreloaderStartPage/PreloaderStartPage';
+import PreloaderSmall from './components/PreloaderSmall/PreloaderSmall';
+
 import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListProductsPreviewCard';
 import Header from './UI/Header/Header';
 
@@ -16,19 +19,20 @@ import Header from './UI/Header/Header';
 
 
 import { useSelector, useDispatch } from 'react-redux';
-
 import { reloadMenu, loaderSwitch } from './redux/dataState';
 
 
 
 function App() {
 
+
   let loading = useSelector(state => state.dataState.value.app.loader);
 
-  let dispatch = useDispatch();
+    let dispatch = useDispatch();
 
 
-  //let [menuItems, setMenuItems] = useState([]);
+    //let [menuItems, setMenuItems] = useState([]);
+
 
   request('get', 'items-menu', (response) => {
     dispatch(loaderSwitch(false));
@@ -73,40 +77,63 @@ function App() {
     // механизм фильтрации
   }
 
-  return (
-    <div className="App">
 
-      
-      {
-        (loading) ?
-          <Loader />
-          :
-          <div>
-            <Header />
 
-            <img src={logo} className="App-logo" alt="logo" />
-            {/* <Filter/> */}
-            <form>
-              <input type="text" ref={model} placeholder='Модель' />
-              <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt) => { editPrice(evt, "minPrice") }} />
-              <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена' onChange={(evt) => { editPrice(evt, "maxPrice") }} />
-              <button onClick={onFilterCars}>Показать</button>
-            </form>
+    function onFilterCars(evt) {
+        evt.preventDefault();
+
+        if (model.current.value.length != 0) {
+            setFilterCars(cars.filter((car) => car.model == model.current.value));
+        }
+        else {
+            setFilterCars(cars);
+        }
+
+    }
+
+    function editPrice(evt, property) {
+        filterPrice[property] = evt.target.value;
+        setFilterPrice(Object.assign({}, filterPrice));
+
+        // механизм фильтрации
+    }
+
+
+    return (
+        <div className="App">
+
+
             {
-              filterCars.map((car) =>
-                <div key={car.id}>
-                  <span>{car.brand} </span>
-                  <span>{car.model} </span>
-                  <span>{car.price} руб.</span>
-                </div>
-              )
+                (loading) ?
+                    <PreloaderStartPage />
+                    :
+                    <div>
+                        <Header />
+                        <img src={logo} className="App-logo" alt="logo" />
+                        {/* <Filter/> */}
+                        <form>
+                            <input type="text" ref={model} placeholder='Модель' />
+                            <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt) => { editPrice(evt, "minPrice") }} />
+                            <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена' onChange={(evt) => { editPrice(evt, "maxPrice") }} />
+                            <button onClick={onFilterCars}>Показать</button>
+                        </form>
+                        {
+                            filterCars.map((car) =>
+                                <div key={car.id}>
+                                    <span>{car.brand} </span>
+                                    <span>{car.model} </span>
+                                    <span>{car.price} руб.</span>
+                                </div>
+                            )
+                        }
+                    </div>
             }
-          </div>
-      }
-      <ListProductsPreviewCard cars={cars} />
+            <ListProductsPreviewCard cars={cars} />
 
-    </div>
-  );
+            {/* <PreloaderSmall /> */}
+
+        </div>
+    );
 }
 
 export default App;
