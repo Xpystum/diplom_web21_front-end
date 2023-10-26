@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import Filter from './components/Filter/Filter';
 import { useEffect, useRef, useState } from 'react';
 
-import axios from 'axios'
+import axios from 'axios';
 import { request } from './request';
 import Menu from './components/Menu/Menu';
 import Loader from './components/Loader/Loader';
@@ -14,21 +13,29 @@ function App() {
 
   let [menuItems, setMenuItems] = useState([]);
 
+  let [products, setProducts] = useState([]);
+
   useEffect(()=>{
     request('get', 'items-menu', (response)=>{
-
       setLoading(false);
-      
       if(response.status == 200 && response.data.length > 0){
         setMenuItems(response.data);
       }
 
 
     });
+    request('get', 'products', (response)=>{
+      setLoading(false);
+      if(response.status == 200 && response.data.length > 0){
+        setProducts(response.data);
+      }
+    });
   }, []);
 
 
   
+
+
   
   let [cars, setCars] = useState([
     {id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000, info: {}},
@@ -71,7 +78,6 @@ function App() {
         :
           <div>
               <Menu menuItems = {menuItems}/>
-              <img src={logo} className="App-logo" alt="logo" />
               {/* <Filter/> */}
               <form>
                   <input type="text" ref={model} placeholder='Модель'/>
@@ -79,15 +85,16 @@ function App() {
                   <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена'onChange={(evt)=>{editPrice(evt, "maxPrice")}}/>
                   <button onClick={onFilterCars}>Показать</button>
               </form>
-              {
-                filterCars.map((car)=>
-                  <div key={car.id}>
-                    <span>{car.brand} </span>
-                    <span>{car.model} </span>
-                    <span>{car.price} руб.</span>
+              <div>
+                {products.map(product => (
+                  <div key={product.id}>
+                    <h2>{product.name}</h2>
+                    <img src={product.img_src}/>
+                    <p>{product.description}</p>
+                    <p>{product.price}</p>
                   </div>
-                )
-              }
+                ))}
+              </div>
           </div>
       }
       
