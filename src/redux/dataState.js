@@ -11,16 +11,16 @@ export const dataSlice = createSlice({
     }
   },
   reducers: {
-    increment: state => {
-      state.value += 1
-    },
-    decrement: state => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value = action.payload
-    },
-
+    // increment: state => {
+    //   state.value += 1
+    // },
+    // decrement: state => {
+    //   state.value -= 1
+    // },
+    // incrementByAmount: (state, action) => {
+    //   state.value = action.payload
+    // },
+    
     loaderSwitch: (state, action) => {
       state.value.app.loader = action.payload
     },
