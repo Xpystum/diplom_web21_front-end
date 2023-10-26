@@ -10,20 +10,13 @@ export default function Menu(props){
   let variation = 'defaultMenu';
   let menuItems = [];
 
-  // if(props.nameMenu !== "undefined"){
-  //   variation = props.nameMenu
-  // }else{
-  //   variation = props[0];
-  // }
-
-  variation = props.mainMenu
-  console.log(variation);
-  menuItems = useSelector(state => state.dataState.value.variation);
-
+  if(props.nameMenu !== "undefined"){
+    variation = props.mainMenu
+  }
+  console.log(variation)
+  menuItems = useSelector(state => state.dataState.value[variation]);
   
-
   return (
-    <div className={variation}>
       <nav className={styles.menu_nav}>
         <ul className={styles.menu_ul}>
           
@@ -36,8 +29,5 @@ export default function Menu(props){
 
         </ul>
       </nav>
-    </div>
-   
-
   )
 };

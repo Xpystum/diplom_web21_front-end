@@ -20,7 +20,7 @@ export const dataSlice = createSlice({
     incrementByAmount: (state, action) => {
       state.value = action.payload
     },
-
+    
     loaderSwitch: (state, action) => {
       state.value.app.loader = action.payload
     },
