@@ -5,13 +5,20 @@ import { useEffect, useRef, useState } from 'react';
 
 import axios from 'axios'
 import { request } from './request';
-import Menu from './components/Menu/Menu';
+
+
+// Компоненты
 import Loader from './components/Loader/Loader';
 import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListProductsPreviewCard';
+import Header from './UI/Header/Header';
+
+
+
 
 import { useSelector, useDispatch } from 'react-redux';
 
 import { reloadMenu, loaderSwitch } from './redux/dataState';
+
 
 
 function App() {
@@ -30,11 +37,10 @@ function App() {
       dispatch(reloadMenu(response.data))
     }
 
-
   });
 
 
-
+ 
 
   let [cars, setCars] = useState([
     { id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000, info: {} },
@@ -67,7 +73,6 @@ function App() {
     // механизм фильтрации
   }
 
-
   return (
     <div className="App">
 
@@ -77,12 +82,7 @@ function App() {
           <Loader />
           :
           <div>
-
-            <header>
-              <div className='header-wrap'>
-                <Menu/>
-              </div>
-            </header>
+            <Header />
 
             <img src={logo} className="App-logo" alt="logo" />
             {/* <Filter/> */}
