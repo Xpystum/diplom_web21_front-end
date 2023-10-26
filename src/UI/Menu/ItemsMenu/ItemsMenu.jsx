@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import styles from './ItemsMenu.module.sass';
 
@@ -10,7 +10,7 @@ export default function ItemsMenu(props){
 
   return (
     <li className={styles[variation]}>
-      <Link className={styles.menu_link} to='#' >{item.item_name}</Link>
+      <NavLink className={styles.menu_link} to={item.link}>{item.item_name}</NavLink>
     </li>
   )
 };

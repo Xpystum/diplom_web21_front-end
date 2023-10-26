@@ -1,8 +1,14 @@
+import Header from "../../UI/Header/Header";
+import CaruselWidget from "../../widgets/CaruselWidget/CaruselWidget";
 
 export default function Home(props){
   return (
     <div>
-      Home
+      <Header/>
+
+      <CaruselWidget/>
+
+      home content
     </div>
   )
 };
