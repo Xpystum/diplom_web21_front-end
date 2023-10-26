@@ -77,7 +77,13 @@ function App() {
           <Loader />
           :
           <div>
-            <Menu/>
+
+            <header>
+              <div className='header-wrap'>
+                <Menu/>
+              </div>
+            </header>
+
             <img src={logo} className="App-logo" alt="logo" />
             {/* <Filter/> */}
             <form>

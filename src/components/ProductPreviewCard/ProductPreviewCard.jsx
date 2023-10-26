@@ -7,7 +7,6 @@ import FavouritesStar from '../../UI/FavouritesStar/FavouritesStar';
 export default function ProductPreviewCard(props) {
 
   const car = props.car;
-  console.log(car);
 
   return (
     <a className={style.ProductPreviewCard} href="#">
@@ -48,7 +47,7 @@ export default function ProductPreviewCard(props) {
           </span>
         </div>
 
-        <div class={style.Labels}>
+        <div className={style.Labels}>
           <LabelsProduct />
         </div>
       </div>
@@ -77,7 +76,7 @@ export default function ProductPreviewCard(props) {
           <div>Нижний Новгород</div>
           <div>сегодня</div>
         </div>
-        <div class={style.Favourites}>
+        <div className={style.Favourites}>
           <FavouritesStar />
         </div>
       </div>

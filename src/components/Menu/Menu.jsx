@@ -1,24 +1,28 @@
-import MenuItem from "../MenuItem/MenuItem";
+
 import { useSelector } from 'react-redux';
+import ItemsMenu from './ItemsMenu/ItemsMenu';
+import styles from './Menu.module.sass';
 
 
 export default function Menu(props){
 
 
-    let menuItems = useSelector(state => state.dataState.value.mainMenu);
+  let menuItems = useSelector(state => state.dataState.value.mainMenu);
 
-  console.log(menuItems) ;
 
   return (
+    <nav className={styles.menu}>
+      <ul className={styles.menu_ul}>
+        
+        {
+          menuItems.map((item)=>
+            
+            <ItemsMenu key={item.id} item={item}/>
+          )
+        }
 
-    <div>
-        <ul>
-            {
-              menuItems.map((item)=>
-                <li key={item.id}><a href={item.link}>{item.item_name}</a></li>
-              )
-            }
-        </ul>
-    </div>
+      </ul>
+    </nav>
+
   )
 };
