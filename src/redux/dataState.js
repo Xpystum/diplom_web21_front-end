@@ -3,7 +3,12 @@ import { createSlice } from '@reduxjs/toolkit'
 export const dataSlice = createSlice({
   name: 'dataState',
   initialState: {
-    value: true
+    value: {
+      app: {
+        loader: true,
+      },
+      mainMenu: []
+    }
   },
   reducers: {
     increment: state => {
@@ -17,11 +22,11 @@ export const dataSlice = createSlice({
     },
 
     loaderSwitch: (state, action) => {
-      state.value = action.payload
+      state.value.app.loader = action.payload
     },
 
     reloadMenu: (state, action) => {
-      state.value = action.payload
+      state.value.mainMenu = action.payload
     }
   }
 })

@@ -16,7 +16,7 @@ import { reloadMenu, loaderSwitch } from './redux/dataState';
 
 function App() {
 
-  let loading = useSelector(state => state.dataState.value);
+  let loading = useSelector(state => state.dataState.value.app.loader);
 
   let dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ function App() {
     dispatch(loaderSwitch(false));
     
     if (response.status == 200 && response.data.length > 0) {
-      //dispatch(reloadMenu(response.data))
+      dispatch(reloadMenu(response.data))
     }
 
 
