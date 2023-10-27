@@ -29,22 +29,17 @@ function App() {
     let dispatch = useDispatch();
 
 
-    //let [menuItems, setMenuItems] = useState([]);
+    request('post', 'items-menu', (response) => {
+      dispatch(loaderSwitch(false));
+      
+      if (response.status == 200 && response.data.length > 0) {
+        dispatch(reloadMenu(response.data))
+      }
+
+    },{name_menu: 'main_menu'}
+  );
 
 
-  request('get', 'items-menu', (response) => {
-    dispatch(loaderSwitch(false));
-    
-    if (response.status === 200 && response.data.length > 0) {
-      dispatch(reloadMenu(response.data))
-    }
-
-  });
-
-
- 
-
-  
 
 
     return (
@@ -61,7 +56,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/category/:alias" element={<ListProducts/>}/>
-                    
+                    <Route path="/category" element={<ListProducts/>}/>
                   </Routes> 
                 </div>
             }

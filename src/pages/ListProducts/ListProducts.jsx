@@ -12,12 +12,12 @@ export default function ListProducts(props){
 
         //dispatch(loaderSwitch(false));
         
-        if (response.status == 200 && response.data.length > 0) {
+        if (response.status === 200 && response.data.length > 0) {
           //dispatch(reloadMenu(response.data))
           
         }
     
-    }, {data: alias});
+    }, {alias: (alias != undefined)? alias: null});
 
 
     

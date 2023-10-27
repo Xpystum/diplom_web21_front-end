@@ -11,7 +11,7 @@ export default function ProductPreviewCard(props) {
   return (
     <a className={style.ProductPreviewCard} href="#">
       <div className={style.Image}>
-        <img alt="Седан Лада 2110 2005 года, 100000 рублей, Нижний Новгород" src="vaz2110.jpg" />
+        <img alt="Седан Лада 2110 2005 года, 100000 рублей, Нижний Новгород" src="/vaz2110.jpg" />
       </div>
 
       <div className={style.PreviewText}>
