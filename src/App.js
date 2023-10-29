@@ -33,12 +33,14 @@ function App() {
 
     request('post', 'items-menu', (response) => {
       dispatch(loaderSwitch(false));
-      
+      console.log(1)
       if (response.status == 200 && response.data.length > 0) {
-        dispatch(reloadMenu(response.data))
+        dispatch(reloadMenu(response.data));
+        
       }
 
     },{name_menu: 'main_menu'}
+    
   );
 
 
@@ -46,10 +48,6 @@ function App() {
 
     return (
         <div className="App">
-
-          
-
-
             {
               (loading) ?
                 <PreloaderStartPage />
