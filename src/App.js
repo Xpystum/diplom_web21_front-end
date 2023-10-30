@@ -30,13 +30,15 @@ function App() {
 
     let dispatch = useDispatch();
 
-
+    
     request('post', 'items-menu', (response) => {
+
       dispatch(loaderSwitch(false));
-      
+      // console.log('01');
       if (response.status == 200 && response.data.length > 0) {
+        // console.log(response);
         dispatch(reloadMenu(response.data));
-        console.log(1)
+        
       }
 
     },{name_menu: 'main_menu'}
