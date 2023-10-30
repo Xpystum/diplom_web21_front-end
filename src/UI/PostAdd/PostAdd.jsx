@@ -6,7 +6,7 @@ export default function PostAdd(props){
     let urlImg = URL_IMG
     return(
         <div className={style.postadd}>
-            <Link className={style.postadd__link}><img src={urlImg+"header/pluse.svg"} alt="pluse" /> Подать объявление</Link>
+            <Link className={style.postadd__link}><img src={urlImg+"header/pluse.svg"} alt="pluse" /><p>Подать объявление</p></Link>
         </div>
         
     )
