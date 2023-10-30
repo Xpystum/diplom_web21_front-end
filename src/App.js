@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import Filter from './components/Filter/Filter';
+import './ResetStyle.css';
 import { useEffect, useRef, useState } from 'react';
 
 import axios from 'axios'
