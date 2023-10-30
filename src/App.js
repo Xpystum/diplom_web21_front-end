@@ -32,11 +32,11 @@ function App() {
 
     
     request('post', 'items-menu', (response) => {
-
+      console.log(response);
       dispatch(loaderSwitch(false));
-      // console.log('01');
+      console.log('01');
       if (response.status == 200 && response.data.length > 0) {
-        // console.log(response);
+        
         dispatch(reloadMenu(response.data));
         
       }
