@@ -1,5 +1,6 @@
 import Header from "../../UI/Header/Header";
 import CaruselWidget from "../../widgets/CaruselWidget/CaruselWidget";
+import ReviewsOwnersWidget from "../../widgets/ReviewsOwnersWidget/ReviewsOwnersWidget";
 
 export default function Home(props){
   return (
@@ -7,7 +8,8 @@ export default function Home(props){
       <Header/>
 
       <CaruselWidget/>
-
+      
+      <ReviewsOwnersWidget/>
       home content
     </div>
   )
