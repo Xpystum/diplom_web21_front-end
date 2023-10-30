@@ -32,6 +32,7 @@ export default function CaruselWidget(props){
        { cars.map((item)=>
           <div class="carusel__item">
             <img src={img} alt="0" />
+            
           </div>
        )}
         
