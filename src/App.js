@@ -4,7 +4,7 @@ import Filter from './components/Filter/Filter';
 import { useEffect, useRef, useState } from 'react';
 
 import axios from 'axios'
-import { request } from './request';
+import { request } from './Action/request';
 
 // Компоненты
 import Loader from './UI/Loader/Loader';
@@ -48,7 +48,7 @@ function App() {
         <div className="App">
 
           
-
+          
 
             {
               (loading) ?

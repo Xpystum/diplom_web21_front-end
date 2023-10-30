@@ -2,14 +2,14 @@ import { useRef, useState } from "react";
 import Header from "../../UI/Header/Header"
 import ListProductsPreviewCard from "../../components/ListProductsPreviewCard/ListProductsPreviewCard";
 import { useParams } from "react-router";
-import { request } from "../../request";
+import { request } from "../../Action/request";
+import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
 
 export default function ListProducts(props){
     let { alias } = useParams();
-
     request('post', 'category-products', (response) => {
         console.log(response);
-
+        
         //dispatch(loaderSwitch(false));
         
         if (response.status === 200 && response.data.length > 0) {
@@ -79,6 +79,7 @@ export default function ListProducts(props){
 
   return (
     <div>
+      <RelevanceProductWidget />
       <Header/>
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         {/* <Filter/> */}

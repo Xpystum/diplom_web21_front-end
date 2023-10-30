@@ -1,4 +1,4 @@
-import { URL_BACK } from './config';
+import { URL_BACK } from '../config';
 import axios from 'axios';
 
 
