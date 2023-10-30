@@ -4,22 +4,24 @@ import axios from 'axios';
 
 
    export function request(method, url, callback, data = {}){
-    // let p1 = method;
-    // let p2 = `${URL_BACK}${url}`;
-    // let p3 = callback;
-    // let p4 = [data = {}];
+
+     // let p4 = axios[data = {}];
     // let arr = [method, url, callback, data = {}];
-    // axios({
-    //         "method": method,
-    //         "url": `${URL_BACK}${url}`,
-    //         "data": data
-    //     })
+    axios({
+            "method": method,
+            "url": `${URL_BACK}${url}`,
+            "data": data
+        })
+    // let p1 = axios({"method": method,});
+    // let p2 = axios({"url": `${URL_BACK}${url}`});
+    // let p3 = axios({"data": data});
+   
     
 
-    Promise.all(method, url, callback, data = {})
+    // Promise.all([p1, p2, p3])
     .then(function (response) {
         callback(response);
-        // console.log(method, url, callback, data = {});
+        console.log(response);
     })
     .catch(function (error) {
         console.log(error);
@@ -31,6 +33,7 @@ import axios from 'axios';
     // })
     // .then(function (response) {
     //     callback(response);
+    //     console.log(response);
     // })
     // .catch(function (error) {
     //     console.log(error);

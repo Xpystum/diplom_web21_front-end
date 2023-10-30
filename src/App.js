@@ -33,10 +33,10 @@ function App() {
 
     request('post', 'items-menu', (response) => {
       dispatch(loaderSwitch(false));
-      console.log(1)
+      
       if (response.status == 200 && response.data.length > 0) {
         dispatch(reloadMenu(response.data));
-        
+        console.log(1)
       }
 
     },{name_menu: 'main_menu'}
