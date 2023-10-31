@@ -8,7 +8,8 @@ export default function ProductPreviewCard(props) {
 
   const car = props.car;
   let time = car.created_at
-
+  time = time.substring(0, 10).split('-')
+    
 
   return (
     <a className={style.ProductPreviewCard} href="#">
@@ -73,7 +74,7 @@ export default function ProductPreviewCard(props) {
 
         <div className={style.Location}>
           <div>{car.city}</div>
-          <div>{console.log(time)}</div>
+          <div>{`${time[2]}.${time[1]}.${time[0]}`}</div>
         </div>
         <div className={style.Favourites}>
           <FavouritesStar />
