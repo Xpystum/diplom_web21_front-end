@@ -13,7 +13,7 @@ import PreloaderSmall from './components/PreloaderSmall/PreloaderSmall';
 
 import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListProductsPreviewCard';
 import Header from './UI/Header/Header';
-
+import { useParams } from "react-router";
 import { useSelector, useDispatch } from 'react-redux';
 import { reloadMenu, loaderSwitch, reloadProducts } from './redux/dataState';
 import { Route, Routes } from 'react-router';
@@ -28,16 +28,6 @@ function App() {
   let loading = useSelector(state => state.dataState.value.app.loader);
 
   let dispatch = useDispatch();
-
-    
-  request('get', 'items-product', (response) => {
-    
-    if (response.status == 200 && response.data.length > 0) {
-      dispatch(reloadProducts(response.data))
-    }
-
-  });
-
 
   request('post', 'items-menu', (response) => {
     dispatch(loaderSwitch(false));
@@ -66,7 +56,7 @@ function App() {
           }
           
 
-          {/* <PreloaderSmall /> */}
+         
 
       </div>
   );

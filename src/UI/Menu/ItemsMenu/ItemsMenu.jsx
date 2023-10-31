@@ -1,8 +1,14 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 import styles from './ItemsMenu.module.sass';
 
+
+
+
+
 export default function ItemsMenu(props){
+    
+
 
     let item = props.item;
     let variation = props.variation;

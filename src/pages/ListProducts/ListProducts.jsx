@@ -1,33 +1,37 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "../../UI/Header/Header"
 import ListProductsPreviewCard from "../../components/ListProductsPreviewCard/ListProductsPreviewCard";
 import { useParams } from "react-router";
 import { request } from "../../Action/request";
 import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
+import { useSelector, useDispatch } from 'react-redux';
+
+import { reloadProducts, loaderSwitchProducts } from "../../redux/dataState";
+
 
 export default function ListProducts(props){
+    let dispatch = useDispatch();
     let { alias } = useParams();
-    request('post', 'category-products', (response) => {
-        console.log(response);
-        
-        // dispatch(loaderSwitch(false));
-        
-        if (response.status === 200 && response.data.length > 0) {
-          //dispatch(reloadMenu(response.data))
-          
+
+    useEffect(()=>{
+      dispatch(loaderSwitchProducts(true));
+      request('post', 'category-products', (response) => {
+        if (response.status === 200) {
+          dispatch(loaderSwitchProducts(false));
+          dispatch(reloadProducts(response.data));
         }
-    
-    }, {alias: (alias != undefined)? alias: null});
+      }, {alias: (alias != undefined)? alias: null});
+    },[window.location.pathname]);
+
+    let cars = useSelector(state => state.dataState.value.products.data);
 
 
-    
-    console.log(alias);
 
-    let [cars, setCars] = useState([
-        { id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000, info: {} },
-        { id: 2, brand: "VAZ", model: "2115", price: 120000, old_price: null, info: {} },
-        { id: 3, brand: "VAZ", model: "2114", price: 130000, old_price: null, info: {} }
-      ]);
+    // let [cars, setCars] = useState([
+    //     { id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000, info: {} },
+    //     { id: 2, brand: "VAZ", model: "2115", price: 120000, old_price: null, info: {} },
+    //     { id: 3, brand: "VAZ", model: "2114", price: 130000, old_price: null, info: {} }
+    //   ]);
       let [filterCars, setFilterCars] = useState(cars);
     
       let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
@@ -98,6 +102,8 @@ export default function ListProducts(props){
                 </div>
             )
         }
+
+
         <ListProductsPreviewCard cars={cars} />
 
     </div>
