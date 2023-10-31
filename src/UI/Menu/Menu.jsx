@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import styles from './Menu.module.sass';
 
 import ItemsMenu from './ItemsMenu/ItemsMenu';
-
 import { useEffect } from 'react';
 
 import { URL_IMG } from '../../config';
