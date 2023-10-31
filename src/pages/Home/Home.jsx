@@ -5,12 +5,13 @@ import ReviewsOwnersWidget from "../../widgets/ReviewsOwnersWidget/ReviewsOwners
 import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
 
 export default function Home(props){
+
   return (
     <div>
 
       <Header/>
 
-      <CaruselWidget/>
+      <CaruselWidget />
       
       <ReviewsOwnersWidget/>
 

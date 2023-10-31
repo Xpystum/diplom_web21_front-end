@@ -23,17 +23,17 @@
         transition: 0.2s ease
     
 .carusel__loading__item
-    width: 274px
+    width: 100%
     height: 279px
     padding: 0 2px
     position: relative
-    
+    transition: 1s ease
     & .loader-small
-        background: rgba(200, 200, 200, .8)
+        background: linear-gradient(to left, #aaa 0%, transparent 50%, #aaa 100%)
         position: absolute
         inset: 5px
         box-sizing: border-box
-        border-radius: 6px
+        
 .carusel__item
     width: 274px
     height: 279px
