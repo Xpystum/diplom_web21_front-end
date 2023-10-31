@@ -8,9 +8,7 @@ export default function ProductPreviewCard(props) {
 
   const car = props.car;
   let time = car.created_at
-    for(let i=10; time.length > i; i--){
-      console.log(i)
-    }
+
 
   return (
     <a className={style.ProductPreviewCard} href="#">
