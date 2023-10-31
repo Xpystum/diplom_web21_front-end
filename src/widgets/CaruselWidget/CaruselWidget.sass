@@ -1,0 +1,45 @@
+.slide
+    display: flex
+    justify-content: center
+.slider-list
+    background: #f8f1b5
+    cursor: pointer
+.slider-control-bottomcenter
+    display: none
+.slider-control-centerleft,
+.slider-control-centerright
+    height: 100%
+.angel
+    background: linear-gradient(to left,  transparent 0% , #333 200%)
+    height: 100%
+    width: 70px
+    border: none
+    opacity: 0.3
+    transition: 0.2s ease
+    &__Right
+        transform: rotate(180deg)
+    &:hover
+        opacity: 1
+        transition: 0.2s ease
+    
+.carusel__loading__item
+    width: 274px
+    height: 279px
+    padding: 0 2px
+    position: relative
+    
+    & div
+        background: rgba(200, 200, 200, .8)
+        inset: 5px
+        box-sizing: border-box
+        border-radius: 6px
+.carusel__item
+    width: 274px
+    height: 279px
+    padding: 2px
+    position: relative
+        
+    & img
+        width: 272px
+        height: 205px
+        background: #ccc
