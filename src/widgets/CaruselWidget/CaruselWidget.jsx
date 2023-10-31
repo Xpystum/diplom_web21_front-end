@@ -1,8 +1,8 @@
 import Carousel from "nuka-carousel"
 import './CaruselWidget.sass'
 import img from './272x205.png'
+import angel from './icons/angel.svg'
 import { useState } from "react";
-import { URL_IMG } from "../../config";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 
 export default function CaruselWidget(props){
@@ -29,12 +29,12 @@ export default function CaruselWidget(props){
         wrapAround="true"
         renderCenterLeftControls={({ previousSlide }) => (
           <button onClick={previousSlide}  className="angel__Left angel">
-            <img src={URL_IMG + "carusel/angel.svg"} alt="" />
+            <img src={angel} alt="" />
           </button>
         )}
         renderCenterRightControls={({ nextSlide }) => (
           <button onClick={nextSlide} className="angel__Right angel">
-            <img src={URL_IMG + "carusel/angel.svg"} alt="" />
+            <img src={angel} alt="" />
           </button>
         )}
         >

@@ -4,16 +4,12 @@ import styles from './Menu.module.sass';
 import ItemsMenu from './ItemsMenu/ItemsMenu';
 import { useEffect } from 'react';
 
-import { URL_IMG } from '../../config';
+import icon from './angel.svg'
 import SubMenu from './SubMenu/SubMenu';
-
-
-// import Submenu from './SuBmenu/Submenu';
 
 
 export default function Menu(props){
 
-  let urlImg = URL_IMG
   let variation = 'defaultMenu';
   let menuItems = [];
   if(props.nameMenu !== "undefined"){
@@ -45,7 +41,7 @@ export default function Menu(props){
               (item.parrent_item_id == null)?
 
               <li className={styles.submenu} key={item.id}>
-                <span>{item.item_name} <img src={urlImg+"header/angel.svg"} alt="" /></span>
+                <span>{item.item_name} <img src={icon} alt="" /></span>
                   <ul className={styles.submenu__ul}>
                     <SubMenu variation={variation} key={item.id} item={item} menuItems={menuItems}/>
                   </ul>
