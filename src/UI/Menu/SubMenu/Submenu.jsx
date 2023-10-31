@@ -1,8 +1,8 @@
 import { URL_IMG } from '../../../config';
-import styles from './Submenu.module.sass';
+import styles from './SubMenu.module.sass';
 import { NavLink } from 'react-router-dom';
 
-export default function Submenu(props){
+export default function SubMenu(props){
     let itemGlob = props.item
     let menuItems = props.menuItems
     let urlImg = URL_IMG

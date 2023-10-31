@@ -28,11 +28,16 @@ export const dataSlice = createSlice({
 
     reloadMenu: (state, action) => {
       state.value.mainMenu = action.payload
+    },
+
+    reloadProducts: (state, action) => {
+      //при первом получении какое количество продуктов нужно получать?
+      state.value.products = action.payload
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount, reloadMenu, loaderSwitch } = dataSlice.actions
+export const { increment, decrement, incrementByAmount, reloadMenu, loaderSwitch, reloadProducts } = dataSlice.actions
 
 export default dataSlice.reducer

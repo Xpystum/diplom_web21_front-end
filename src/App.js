@@ -15,7 +15,7 @@ import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListPr
 import Header from './UI/Header/Header';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { reloadMenu, loaderSwitch } from './redux/dataState';
+import { reloadMenu, loaderSwitch, reloadProducts } from './redux/dataState';
 import { Route, Routes } from 'react-router';
 import Home from './pages/Home/Home';
 import ListProducts from './pages/ListProducts/ListProducts';
@@ -27,42 +27,49 @@ function App() {
 
   let loading = useSelector(state => state.dataState.value.app.loader);
 
-    console.log(1)
-    let dispatch = useDispatch();
+  let dispatch = useDispatch();
+
+    
+  request('get', 'items-product', (response) => {
+    
+    if (response.status == 200 && response.data.length > 0) {
+      dispatch(reloadProducts(response.data))
+    }
+
+  });
 
 
-    request('post', 'items-menu', (response) => {
-      dispatch(loaderSwitch(false));
-      
-      if (response.status == 200 && response.data.length > 0) {
-        dispatch(reloadMenu(response.data))
-      }
+  request('post', 'items-menu', (response) => {
+    dispatch(loaderSwitch(false));
+    
+    if (response.status == 200 && response.data.length > 0) {
+      dispatch(reloadMenu(response.data))
+    }
 
-    },{name_menu: 'main_menu'}
+  },{name_menu: 'main_menu'});
+
+
+  return (
+      <div className="App">
+
+          {
+            (loading) ?
+              <PreloaderStartPage />
+            :
+              <div>
+                <Routes>
+                  <Route path="/" element={<Home/>}/>
+                  <Route path="/category/:alias" element={<ListProducts/>}/>
+                  <Route path="/category" element={<ListProducts/>}/>
+                </Routes> 
+              </div>
+          }
+          
+
+          {/* <PreloaderSmall /> */}
+
+      </div>
   );
-
-
-    return (
-        <div className="App">
-
-            {
-              (loading) ?
-                <PreloaderStartPage />
-              :
-                <div>
-                  <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/category/:alias" element={<ListProducts/>}/>
-                    <Route path="/category" element={<ListProducts/>}/>
-                  </Routes> 
-                </div>
-            }
-            
-
-            {/* <PreloaderSmall /> */}
-
-        </div>
-    );
 }
 
 export default App;
