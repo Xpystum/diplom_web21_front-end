@@ -3,6 +3,7 @@ import './CaruselWidget.sass'
 import img from './272x205.png'
 import { useState } from "react";
 import { URL_IMG } from "../../config";
+import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 
 export default function CaruselWidget(props){
   let [cars, setCars] = useState([
@@ -20,35 +21,44 @@ export default function CaruselWidget(props){
     { id: 12, brand: "VAZ"},
   ]);
   let screen = window.outerWidth
+  let loading = false
   return (
-    <Carousel 
-      slidesToShow={(screen >= 3300)? "12":(screen >= 3030)? "11":(screen >= 2750)? "10":(screen >= 2480)? "9":(screen >= 2200)? "8":(screen >= 1920)? "7":(screen >= 1660)? "6":(screen >= 1383)?"5":(screen >= 1108)?"4":(screen >= 835)?"3":(screen >= 576)?"2":"1"}
-      wrapAround="true"
-      renderCenterLeftControls={({ previousSlide }) => (
-        <button onClick={previousSlide}  className="angel__Left angel">
-          <img src={URL_IMG + "carusel/angel.svg"} alt="" />
-        </button>
-      )}
-      renderCenterRightControls={({ nextSlide }) => (
-        <button onClick={nextSlide} className="angel__Right angel">
-          <img src={URL_IMG + "carusel/angel.svg"} alt="" />
-        </button>
-      )}
-      >
-       { cars.map((item)=>
-          <div className="carusel__item" key={item.id}>
-            <img src={img} alt="0" />
-            <p>
-              test {item.id}
-            </p>
-          </div>
-       )}
-        
+    <div>
+      <Carousel 
+        slidesToShow={(screen >= 3300)? "12":(screen >= 3030)? "11":(screen >= 2750)? "10":(screen >= 2480)? "9":(screen >= 2200)? "8":(screen >= 1920)? "7":(screen >= 1660)? "6":(screen >= 1383)?"5":(screen >= 1108)?"4":(screen >= 835)?"3":(screen >= 576)?"2":"1"}
+        wrapAround="true"
+        renderCenterLeftControls={({ previousSlide }) => (
+          <button onClick={previousSlide}  className="angel__Left angel">
+            <img src={URL_IMG + "carusel/angel.svg"} alt="" />
+          </button>
+        )}
+        renderCenterRightControls={({ nextSlide }) => (
+          <button onClick={nextSlide} className="angel__Right angel">
+            <img src={URL_IMG + "carusel/angel.svg"} alt="" />
+          </button>
+        )}
+        >
+        { cars.map((item)=>
+            (!loading)?
+            <div className="carusel__loading__item" key={item.id}>
+              <PreloaderSmall />
+            </div>
+            :
+            <div className="carusel__item" key={item.id}>
+              <img src={img} alt="0" />
+              <p>
+                test {item.id}
+              </p>
+            </div>
+        )}
           
+            
+          
+
         
 
-       
-
-    </Carousel>
+      </Carousel>  
+    </div>
+    
   )
 };
