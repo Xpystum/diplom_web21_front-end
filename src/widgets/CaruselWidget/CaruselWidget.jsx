@@ -6,17 +6,23 @@ import { URL_IMG } from "../../config";
 
 export default function CaruselWidget(props){
   let [cars, setCars] = useState([
-    { id: 1, brand: "VAZ"},{ id: 1, brand: "VAZ"},{ id: 1, brand: "VAZ"},{ id: 1, brand: "VAZ"},{ id: 1, brand: "VAZ"},{ id: 1, brand: "VAZ"},
-    { id: 2, brand: "VAZ"},
-    { id: 3, brand: "VAZ"},
     { id: 1, brand: "VAZ"},
     { id: 2, brand: "VAZ"},
     { id: 3, brand: "VAZ"},
+    { id: 4, brand: "VAZ"},
+    { id: 5, brand: "VAZ"},
+    { id: 6, brand: "VAZ"},
+    { id: 7, brand: "VAZ"},
+    { id: 8, brand: "VAZ"},
+    { id: 9, brand: "VAZ"},
+    { id: 10, brand: "VAZ"},
+    { id: 11, brand: "VAZ"},
+    { id: 12, brand: "VAZ"},
   ]);
-    
+  let screen = window.outerWidth
   return (
     <Carousel 
-      slidesToShow="7" 
+      slidesToShow={(screen >= 3300)? "12":(screen >= 3030)? "11":(screen >= 2750)? "10":(screen >= 2480)? "9":(screen >= 2200)? "8":(screen >= 1920)? "7":(screen >= 1660)? "6":(screen >= 1383)?"5":(screen >= 1108)?"4":(screen >= 835)?"3":(screen >= 576)?"2":"1"}
       wrapAround="true"
       renderCenterLeftControls={({ previousSlide }) => (
         <button onClick={previousSlide}  className="angel__Left angel">
@@ -30,10 +36,10 @@ export default function CaruselWidget(props){
       )}
       >
        { cars.map((item)=>
-          <div class="carusel__item">
+          <div className="carusel__item" key={item.id}>
             <img src={img} alt="0" />
             <p>
-              test
+              test {item.id}
             </p>
           </div>
        )}
