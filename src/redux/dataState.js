@@ -7,7 +7,8 @@ export const dataSlice = createSlice({
       app: {
         loader: true,
       },
-      mainMenu: []
+      mainMenu: [],
+      products: []
     }
   },
   reducers: {

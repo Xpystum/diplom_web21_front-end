@@ -27,6 +27,7 @@ function App() {
 
   let loading = useSelector(state => state.dataState.value.app.loader);
 
+    console.log(1)
     let dispatch = useDispatch();
 
 
@@ -41,13 +42,8 @@ function App() {
   );
 
 
-
-
     return (
         <div className="App">
-
-          
-          
 
             {
               (loading) ?

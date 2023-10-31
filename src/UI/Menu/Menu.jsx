@@ -4,11 +4,11 @@ import styles from './Menu.module.sass';
 import ItemsMenu from './ItemsMenu/ItemsMenu';
 
 import { useEffect } from 'react';
-import SubMenu from './Submenu/Submenu';
+
 import { URL_IMG } from '../../config';
 
 
-
+import SubMenu from './Submenu/Submenu';
 
 export default function Menu(props){
   let urlImg = URL_IMG

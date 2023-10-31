@@ -10,7 +10,7 @@ export default function ListProducts(props){
     request('post', 'category-products', (response) => {
         console.log(response);
         
-        //dispatch(loaderSwitch(false));
+        // dispatch(loaderSwitch(false));
         
         if (response.status === 200 && response.data.length > 0) {
           //dispatch(reloadMenu(response.data))
@@ -79,7 +79,7 @@ export default function ListProducts(props){
 
   return (
     <div>
-      <RelevanceProductWidget />
+
       <Header/>
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         {/* <Filter/> */}
@@ -99,6 +99,7 @@ export default function ListProducts(props){
             )
         }
         <ListProductsPreviewCard cars={cars} />
+
     </div>
   )
 };

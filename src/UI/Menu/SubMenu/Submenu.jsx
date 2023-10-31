@@ -1,5 +1,5 @@
 import { URL_IMG } from '../../../config';
-import styles from './SubMenu.module.sass';
+import styles from './Submenu.module.sass';
 import { NavLink } from 'react-router-dom';
 
 export default function Submenu(props){
