@@ -7,6 +7,10 @@ import FavouritesStar from '../../UI/FavouritesStar/FavouritesStar';
 export default function ProductPreviewCard(props) {
 
   const car = props.car;
+  let time = car.created_at
+    for(let i=10; time.length > i; i--){
+      console.log(i)
+    }
 
   return (
     <a className={style.ProductPreviewCard} href="#">
@@ -19,31 +23,28 @@ export default function ProductPreviewCard(props) {
           <div className={style.Model}>
             <div className={style.MarkPromotion} />
             <span>
-              {`${car.brand} ${car.model}`}, 2005
+              {`${car.name} ${car.model}`}, {car.year}
             </span>
           </div>
           <div className={style.Equipment}>
             <span>
-              1.6i MT 21104
+            {car.equipment}
             </span>
           </div>
         </div>
 
         <div className={style.Components}>
           <span>
-            1.6 л (89 л.с.),
+            {car.engine},
           </span>
           <span>
-            бензин,
+            {car.transmission},
           </span>
           <span>
-            механика,
+            {car.drive_unit},
           </span>
           <span>
-            передний,
-          </span>
-          <span>
-            {new Intl.NumberFormat("ru-RU").format(230000)} км
+            {new Intl.NumberFormat("ru-RU").format(car.mileage)} км
           </span>
         </div>
 
@@ -73,8 +74,8 @@ export default function ProductPreviewCard(props) {
         </div>
 
         <div className={style.Location}>
-          <div>Нижний Новгород</div>
-          <div>сегодня</div>
+          <div>{car.city}</div>
+          <div>{console.log(time)}</div>
         </div>
         <div className={style.Favourites}>
           <FavouritesStar />

@@ -18,7 +18,9 @@ export default function ListProductsPreviewCard(props) {
 
       {
         (loaderProducts)?
-          <PreloaderSmall />
+          <div className={style.loaderSmall}>
+            <PreloaderSmall />
+          </div>
         :
           (cars.length != 0)?
             cars.map((car) =>
@@ -28,7 +30,10 @@ export default function ListProductsPreviewCard(props) {
               />
             )
           :
-            "товаров в данной категории нет"
+          <div className={style.NoProduct}>
+            <p>Товаров в данной категории нет</p>
+          </div>
+            
           
 
       }

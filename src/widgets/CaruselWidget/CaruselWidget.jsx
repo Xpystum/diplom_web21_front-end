@@ -2,7 +2,7 @@ import Carousel from "nuka-carousel"
 import './CaruselWidget.sass'
 import img from './272x205.png'
 import angel from './icons/angel.svg'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 
 export default function CaruselWidget(props){
@@ -25,7 +25,19 @@ export default function CaruselWidget(props){
   return (
     <div>
       <Carousel 
-        slidesToShow={(screen >= 3300)? "12":(screen >= 3030)? "11":(screen >= 2750)? "10":(screen >= 2480)? "9":(screen >= 2200)? "8":(screen >= 1920)? "7":(screen >= 1660)? "6":(screen >= 1383)?"5":(screen >= 1108)?"4":(screen >= 835)?"3":(screen >= 576)?"2":"1"}
+        slidesToShow={
+          
+          (screen >= 3300)? "12":
+          (screen >= 3030)? "11":
+          (screen >= 2750)? "10":
+          (screen >= 2480)? "9":
+          (screen >= 2200)? "8":
+          (screen >= 1920)? "7":
+          (screen >= 1660)? "6":
+          (screen >= 1383)?"5":
+          (screen >= 1108)?"4":
+          (screen >= 835)?"3":
+          (screen >= 576)?"2":"1"}
         wrapAround="true"
         renderCenterLeftControls={({ previousSlide }) => (
           <button onClick={previousSlide}  className="angel__Left angel">

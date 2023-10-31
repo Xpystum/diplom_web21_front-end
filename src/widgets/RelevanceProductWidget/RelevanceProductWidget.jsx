@@ -8,7 +8,7 @@ import RelevanceProductCart from './RelevanceProductCart/RelevanceProductCart';
 
 export default function RelevanceProductWidget(props){
 
-  let productsRedux = useSelector(state => state.dataState.value.products);
+  let productsRedux = useSelector(state => state.dataState.value.products.data);
   let start = 0;
 
   let [end, endState] = useState(3);
