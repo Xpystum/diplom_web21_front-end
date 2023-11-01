@@ -1,7 +1,9 @@
 import Header from "../../UI/Header/Header"
-
 import style from './Catalog.module.sass';
 import { Link } from "react-router-dom";
+import { FilterIcon } from "../../components/Icons/FilterIcon";
+
+
 
 
 export default function Catalog(){
@@ -12,11 +14,10 @@ export default function Catalog(){
         <div className="ButtonWrap">
             <Link to="/catalog/advanced-search/">
                 <button className={style.AdvancedSearch}>
-                
-                
-                
-
-                    Расширенный поиск
+                    <div className="FilterIcon">
+                       <FilterIcon/>
+                       <span>Расширенный поиск </span>
+                    </div>
                 </button>
             </Link>
         </div>
