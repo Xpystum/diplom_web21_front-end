@@ -5,7 +5,6 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 library.add(faFilter);
 
 export function FilterIcon(){
-return(
-    <FontAwesomeIcon icon={faFilter} />
-)
-}
+return (        
+  <FontAwesomeIcon icon={faFilter} />
+)};
