@@ -52,9 +52,9 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home/>}/>
                   <Route path="/category/:alias" element={<ListProducts/>}/>
-                  <Route path="/category" element={<ListProducts/>}/>
+                  {/* <Route path="/category" element={<ListProducts/>}/>комент от Дениса: возможно не нужно???? */}
                   <Route path="/catalog/advanced-search/" element={<AdvancedSearch/>}/>
-                  <Route path="/catalog/" element={<Catalog/>}/>
+                  <Route path="/category" element={<Catalog/>}/>{/**в меню прописан URL "/category" исправить на /catalog */}
                 </Routes> 
               </div>
           }

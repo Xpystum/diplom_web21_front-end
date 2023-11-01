@@ -3,7 +3,7 @@ import CaruselWidget from "../../widgets/CaruselWidget/CaruselWidget";
 import ReviewsOwnersWidget from "../../widgets/ReviewsOwnersWidget/ReviewsOwnersWidget";
 
 import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
-import Catalog from "../Catalog/Catalog";
+
 
 export default function Home(props){
   return (
@@ -16,7 +16,7 @@ export default function Home(props){
       <ReviewsOwnersWidget/>
 
       <RelevanceProductWidget />
-      <Catalog/>{/**создана для теста, удалить при мерже */}
+      
     </div>
   )
 };

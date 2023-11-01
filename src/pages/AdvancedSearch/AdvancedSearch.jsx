@@ -1,4 +1,4 @@
-import Button from "../../UI/Button/Button"
+import Header from "../../UI/Header/Header"
 
 
 export default function AdvancedSearch(){
@@ -6,6 +6,7 @@ export default function AdvancedSearch(){
   
     return (
       <div>
+        <Header/>
         AdvancedSearch
       </div>
     )

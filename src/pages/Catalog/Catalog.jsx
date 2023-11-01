@@ -1,13 +1,17 @@
-import Button from "../../UI/Button/Button"
+import Header from "../../UI/Header/Header"
+import { Styles } from "@fortawesome/fontawesome-svg-core"
+import style from './Catalog.module.sass';
+import { Link } from "react-router-dom";
 
 
 export default function Catalog(){
-    function redirectToAdvancedSearch(){
-        window.location.href ='/catalog/advanced-search/'
-    }
+
     return (
-      <div>
-        <Button method={redirectToAdvancedSearch} name_class='AdvancedSearch' name='Расширенный поиск' type="button"/>
-      </div>
+    <div>
+        <Header/>
+        <Link to="/catalog/advanced-search/">
+            <button className={style.AdvancedSearch}></button>
+        </Link>
+    </div>
     )
   };
