@@ -19,6 +19,9 @@ import { reloadMenu, loaderSwitch, reloadProducts } from './redux/dataState';
 import { Route, Routes } from 'react-router';
 import Home from './pages/Home/Home';
 import ListProducts from './pages/ListProducts/ListProducts';
+import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
+import Catalog from './pages/Catalog/Catalog';
+
 
 
 
@@ -50,7 +53,8 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home/>}/>
                   <Route path="/category/:alias" element={<ListProducts/>}/>
-                  <Route path="/category" element={<ListProducts/>}/>
+                  <Route path="/category" element={<Catalog/>}/>
+                  <Route path="/catalog/advanced-search/" element={<AdvancedSearch/>}/>
                 </Routes> 
               </div>
           }

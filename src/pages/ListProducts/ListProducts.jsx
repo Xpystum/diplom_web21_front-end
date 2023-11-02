@@ -86,6 +86,7 @@ export default function ListProducts(props){
       <Header/>
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         {/* <Filter/> */}
+        
         <form>
             <input type="text" ref={model} placeholder='Модель' />
             <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt) => { editPrice(evt, "minPrice") }} />
