@@ -1,9 +1,9 @@
 import style from './RelevanceProductCart.module.sass';
-import { URL_IMG2 } from "../../../config";
+import { URL_BACK_FILES } from "../../../config";
 
 export default function RelevanceProductCart(props){
     let product = props.product;
-    let urlImg = URL_IMG2
+    let urlImg = URL_BACK_FILES
 
     let price = product.price.toLocaleString();
 
