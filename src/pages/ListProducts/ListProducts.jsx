@@ -12,7 +12,7 @@ import { reloadProducts, loaderSwitchProducts } from "../../redux/dataState";
 export default function ListProducts(props){
     let dispatch = useDispatch();
     let { alias } = useParams();
-
+    
     useEffect(()=>{
       dispatch(loaderSwitchProducts(true));
       request('post', 'category-products', (response) => {
@@ -21,6 +21,7 @@ export default function ListProducts(props){
           dispatch(reloadProducts(response.data));
         }
       }, {alias: (alias != undefined)? alias: null});
+      
     },[window.location.pathname]);
 
     let cars = useSelector(state => state.dataState.value.products.data);
@@ -92,15 +93,7 @@ export default function ListProducts(props){
             <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена' onChange={(evt) => { editPrice(evt, "maxPrice") }} />
             <button onClick={onFilterCars}>Показать</button>
         </form>
-        {
-            filterCars.map((car) =>
-                <div key={car.id}>
-                    <span>{car.brand} </span>
-                    <span>{car.model} </span>
-                    <span>{car.price} руб.</span>
-                </div>
-            )
-        }
+        
 
 
         <ListProductsPreviewCard cars={cars} />
