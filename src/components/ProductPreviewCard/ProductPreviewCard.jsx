@@ -3,14 +3,13 @@ import style from './ProductPreviewCard.module.sass';
 import LabelsProduct from "../LabelsProduct/LabelsProduct";
 import FavouritesStar from '../../UI/FavouritesStar/FavouritesStar';
 import { URL_BACK_FILES } from '../../config';
+import moment from 'moment/moment';
+import 'moment/locale/ru';
 
 export default function ProductPreviewCard(props) {
-  
   const car = props.car;
   let time = car.created_at
-  time = time.substring(0, 10).split('-')
-  let realTime = Date()
-  console.log(realTime)
+  time = time.substring(0, 10).split('-').join('')
 
   return (
     <a className={style.ProductPreviewCard} href="#">
@@ -49,7 +48,7 @@ export default function ProductPreviewCard(props) {
         </div>
 
         <div className={style.Labels}>
-          <LabelsProduct />
+          <LabelsProduct car ={car}/>
         </div>
       </div>
 
@@ -75,7 +74,7 @@ export default function ProductPreviewCard(props) {
 
         <div className={style.Location}>
           <div>{car.city}</div>
-          <div>{`${time[2]}.${time[1]}.${time[0]}`}</div>
+          <div>{moment(time, "YYYYMMDD").fromNow()}</div>
         </div>
         <div className={style.Favourites}>
           <FavouritesStar />
