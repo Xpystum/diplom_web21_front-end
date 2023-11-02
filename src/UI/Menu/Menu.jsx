@@ -2,10 +2,8 @@ import { useSelector } from 'react-redux';
 import styles from './Menu.module.sass';
 
 import ItemsMenu from './ItemsMenu/ItemsMenu';
-import { useEffect } from 'react';
 
 import icon from './angel.svg'
-import SubMenu from './SubMenu/SubMenu';
 
 
 export default function Menu(props){
@@ -16,11 +14,10 @@ export default function Menu(props){
     variation = props.mainMenu
   }
 
-  menuItems = useSelector(state => state.dataState.value[variation]);
+  menuItems = useSelector(state => state.dataState.value.mainMenu);
   let parrent = []
 
   for(let item of menuItems){
-    
     if(item.parrent_item_id != null){
       parrent.push(item.parrent_item_id)
       
@@ -29,8 +26,6 @@ export default function Menu(props){
   let parrentFilter = parrent.filter(function(item, pos) {
     return parrent.indexOf(item) == pos;
   })
-  // let img = "1";
-  // img = {img}
 
   return (
       <nav className={styles[variation]}>
@@ -43,12 +38,29 @@ export default function Menu(props){
               (item.parrent_item_id == null)?
 
               <li className={styles.submenu} key={item.id}>
-                <span>{item.item_name} <img src={icon} alt="" /></span>
-                  <ul className={styles.submenu__ul}>
-                    <SubMenu variation={variation} key={item.id} item={item} menuItems={menuItems}/>
-                  </ul>
+              <span>{item.item_name} <img src={icon} alt="МАКСИМ НАКОДИЛ"/></span>
+                <ul className={styles.submenu__ul}>
+                  {
+                    menuItems.map((item_inner)=>
+                    (item.id == item_inner.parrent_item_id)?
+                        <ItemsMenu variationLi={'submenu__item'} variationNav={'submenu__link'} item={item_inner}/>
+                        :
+                        "" 
+                    )
+                  }
+                </ul>
               </li>
-              :""
+
+              // <li className={styles.submenu} key={item.id}>
+              //   <span>{item.item_name} <img src={icon} alt="" /></span>
+              //     <ul className={styles.submenu__ul}>
+              //       <SubMenu variation={variation} key={item.id} item={item} menuItems={menuItems}/>
+              //     </ul>
+              // </li>
+
+             
+              :
+              ""
             )
           }
         </ul>

@@ -8,11 +8,11 @@ export default function ItemsMenu(props){
   let item = props.item;
   let variationLi = props.variationLi;
   let variationNav = props.variationNav;
-  let urlImg = URL_IMG;
+  let urlImg = URL_IMG ?? 'http://127.0.0.1:8000';
 
 
   return (
-    <li className={styles[variationLi + '_menu_item']}>
+    <li className={styles[variationLi]}>
       <NavLink  style={({ isActive, isPending, isTransitioning }) => {
         return {
           fontWeight: isActive ? "bold" : "",
