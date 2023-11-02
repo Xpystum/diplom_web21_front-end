@@ -5,7 +5,7 @@ import ItemsMenu from './ItemsMenu/ItemsMenu';
 import { useEffect } from 'react';
 
 import icon from './angel.svg'
-import SubMenu from './SubMenu/SubMenu1';
+import SubMenu from './SubMenu/SubMenu';
 
 
 export default function Menu(props){
@@ -29,6 +29,8 @@ export default function Menu(props){
   let parrentFilter = parrent.filter(function(item, pos) {
     return parrent.indexOf(item) == pos;
   })
+  // let img = "1";
+  // img = {img}
 
   return (
       <nav className={styles[variation]}>
@@ -36,7 +38,7 @@ export default function Menu(props){
           {
             menuItems.map((item)=>
               (item.parrent_item_id == null && !parrentFilter.includes(item.id))?
-              <ItemsMenu variation={variation} key={item.id} item={item} />
+              <ItemsMenu variationNav={'menu_link'} variationLi={variation} key={item.id} item={item} />
               :
               (item.parrent_item_id == null)?
 
@@ -47,7 +49,6 @@ export default function Menu(props){
                   </ul>
               </li>
               :""
-              
             )
           }
         </ul>
