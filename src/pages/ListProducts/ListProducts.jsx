@@ -26,7 +26,6 @@ export default function ListProducts(props){
     let cars = useSelector(state => state.dataState.value.products.data);
 
 
-
     // let [cars, setCars] = useState([
     //     { id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000, info: {} },
     //     { id: 2, brand: "VAZ", model: "2115", price: 120000, old_price: null, info: {} },
