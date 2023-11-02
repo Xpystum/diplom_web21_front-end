@@ -1,0 +1,33 @@
+import style from './RelevanceProductCart.module.sass';
+import { URL_IMG2 } from "../../../config";
+
+export default function RelevanceProductCart(props){
+    let product = props.product;
+    let urlImg = URL_IMG2
+
+    let price = product.price.toLocaleString();
+
+    return (
+        <a id={style.ProductCartLink} href="">
+            
+            <div className={style.WrappImage}>
+                <img className={style.Image} src={urlImg + product.img_src}/>
+            </div>
+
+            <div className={style.WrappName}>
+                <span className={style.Name}>
+                {product.name}, {product.year}
+                </span>
+            </div>
+
+            <div className={style.WrappPrice}>
+                <span className={style.Price}>
+                    {price}
+                </span>
+            </div>
+
+        </a>
+    )
+
+  };
+  
