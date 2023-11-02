@@ -24,6 +24,11 @@ export default function CaruselWidget(props){
   let loading = false
   return (
     <div>
+      {(!loading)?
+            <div className="carusel__loading__item">
+              <PreloaderSmall />
+            </div>
+            :
       <Carousel 
         slidesToShow={
           
@@ -51,11 +56,7 @@ export default function CaruselWidget(props){
         )}
         >
         { cars.map((item)=>
-            (!loading)?
-            <div className="carusel__loading__item" key={item.id}>
-              <PreloaderSmall />
-            </div>
-            :
+            
             <div className="carusel__item" key={item.id}>
               <img src={img} alt="0" />
               <p>
@@ -70,7 +71,7 @@ export default function CaruselWidget(props){
         
 
       </Carousel>  
-    </div>
+    }</div>
     
   )
 };

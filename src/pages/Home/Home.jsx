@@ -6,12 +6,13 @@ import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/Relevan
 
 
 export default function Home(props){
+
   return (
     <div>
 
       <Header/>
 
-      <CaruselWidget/>
+      <CaruselWidget />
       
       <ReviewsOwnersWidget/>
 
