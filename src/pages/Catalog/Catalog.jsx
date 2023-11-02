@@ -21,8 +21,6 @@ export default function Catalog(){
                 </button>
             </Link>
         </div>
-
-         
     </div>
     )
   };
