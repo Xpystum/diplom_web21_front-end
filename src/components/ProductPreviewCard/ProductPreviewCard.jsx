@@ -9,12 +9,13 @@ export default function ProductPreviewCard(props) {
   const car = props.car;
   let time = car.created_at
   time = time.substring(0, 10).split('-')
-    
+  let realTime = Date()
+  console.log(realTime)
 
   return (
     <a className={style.ProductPreviewCard} href="#">
       <div className={style.Image}>
-        <img alt="Седан Лада 2110 2005 года, 100000 рублей, Нижний Новгород" src={URL_BACK_FILES + car.img_src} />
+        <img alt={car.img_src} src={URL_BACK_FILES + car.img_src} />
       </div>
 
       <div className={style.PreviewText}>
@@ -22,7 +23,7 @@ export default function ProductPreviewCard(props) {
           <div className={style.Model}>
             <div className={style.MarkPromotion} />
             <span>
-              {`${car.mark} ${car.model}`}, {car.year}
+              {`${car.mark} ${car.model}, ${car.year}`} 
             </span>
           </div>
           <div className={style.Equipment}>
