@@ -5,7 +5,7 @@ import ItemsMenu from './ItemsMenu/ItemsMenu';
 import { useEffect } from 'react';
 
 import icon from './angel.svg'
-import SubMenu from './SubMenu/SubMenu1';
+import SubMenu from './SubMenu/SubMenu';
 
 
 export default function Menu(props){
