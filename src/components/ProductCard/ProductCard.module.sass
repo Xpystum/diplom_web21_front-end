@@ -1,0 +1,231 @@
+.ProductCard
+    display: flex
+    flex-wrap: wrap
+    max-width: 1226px
+    padding: 0 20px
+
+    margin: 0 auto
+    & span
+        margin: 0
+
+    & .Headline
+        flex-basis: 100%
+        width: 100%
+
+        display: flex
+        justify-content: start
+        align-items: baseline
+
+        margin-bottom: 20px
+        & .Labell
+            color: #BDC2C7
+        & h1
+            position: relative
+            font-size: 36px
+            font-weight: bold
+            line-height: 1.3
+
+            margin: 0
+            & span
+                margin-right: 10px
+
+    & .Сolumn
+        flex-basis: 100%
+        max-width: 966px
+
+        display: flex
+
+        & .СolumnLeft
+            flex: 0 0 60%
+            margin-right: 20px
+            & .PhotoGallery
+                width: 100%
+                margin-bottom: 40px
+
+            & .QuickLabelleds
+                display: flex
+                flex-wrap: wrap
+                justify-content: space-between
+                & .Labell
+                    flex-basis: 50%
+
+                    position: relative
+                    z-index: 3
+
+                    display: flex
+                    justify-content: flex-start
+
+                    color: #1a76cb
+
+                    margin-bottom: 20px
+                    @media(max-width: 980px)
+                        flex-basis: 100%
+
+            & .DataAdPlacement
+                display: flex
+                flex-wrap: nowrap
+                justify-content: start
+                align-items: center
+
+                font-size: 15px
+                line-height: 1.55
+                color: rgba(0, 0, 0, 0.4)
+
+                margin-bottom: 60px
+
+                & .NumberDateAd
+                    display: flex
+                    flex-wrap: nowrap
+                    justify-content: start
+                    align-items: center
+                    margin-right: 20px
+                    & span
+                        margin-right: 3px
+
+                & .CountViewsAd
+                    display: flex
+                    flex-wrap: nowrap
+                    justify-content: start
+                    align-items: center
+                    & svg
+                        margin-right: 5px
+
+        & .СolumnRight
+            flex: 1 1 auto
+            position: relative
+            & .Prices
+                display: block
+                // flex-wrap: wrap
+                // justify-content: start
+                // align-items: center
+                // position: relative
+
+                margin-bottom: 20px
+                & .Price
+                    display: block
+
+                    font-size: 30px
+                    font-weight: bold
+                    line-height: 1.3
+                    text-align: left
+                    &>span
+                        display: block
+                & .MinPrice
+                    display: block
+                    text-align: left
+                    margin-top: 20px
+                    color: #db001a
+                    & div, button
+                        display: block
+                        color: #db001a
+
+                    & .MinPriceLabel
+                        font-size: 14px
+                        line-height: 1
+                        margin-bottom: 4px
+                    & .MinPriceValue
+                        background: none
+                        border: none
+                        border-bottom: 1px dashed #db001a33
+
+                        font-size: 24px
+                        font-weight: bold
+                        line-height: 1
+
+                        padding: 0
+                        cursor: pointer
+                        &:hover
+                            border-bottom: 1px dashed #db001a
+
+                & .CalculationMinPrice
+                    display: none
+
+                & .ShowCalculationMinPrice
+                    display: block
+                    width: 100%
+                    height: 320px
+                    padding: 20px
+                    position: absolute
+                    z-index: 999
+                    top: -20px
+                    left: -20px
+
+                    background: #fff
+
+                    border-radius: 16px
+                    box-shadow: rgba(81, 21, 21, 0.08) 0px 10px 20px -15px, rgba(55, 84, 169, 0.2) 0px 20px 60px -10px
+                    & .PricesCalculation
+                        margin-bottom: 20px
+                        & .Price
+                            color: grey
+                            text-decoration: line-through
+                        & .MinPrice
+                            & .MinPriceValue
+                                border: none
+                                padding: 0
+                                cursor: default
+
+                    & .PricesCalculationTerm
+                        padding-top: 20px
+
+                        & .AdditionalDiscount
+                            width: 100%
+                            line-height: 1.55
+                            & .AdditionalDiscountValue
+                                display: flex
+                                justify-content: space-between
+                                align-items: center
+
+                                font-size: 16px
+                                margin-bottom: 10px
+                                &>span
+                                    margin-right: 10px
+                                &>div
+                                    font-weight: bold
+                                    &>span
+                                        margin: 0 3px
+                            & .AdditionalDiscountText
+                                font-size: 14px
+                                color: #00000066
+                                text-align: left
+
+                        & .Line
+                            width: 100%
+                            height: 1px
+                            margin: 20px 0
+
+                            background: #0000001a
+
+                        & .MaxDiscount
+                            width: 100%
+                            line-height: 1.55
+                            & .MaxDiscountValue
+                                display: flex
+                                justify-content: space-between
+                                align-items: center
+
+                                font-size: 16px
+                                margin-bottom: 10px
+                                &>span
+                                    margin-right: 10px
+                                &>div
+                                    font-weight: bold
+                                    &>span
+                                        margin: 0 3px
+                            & .MaxDiscountText
+                                font-size: 14px
+                                color: #00000066
+                                text-align: left
+
+                    & .BtnCalculationMinPrice
+                        position: absolute
+                        top: 20px
+                        right: 20px
+                        color: #00000066
+
+                        cursor: pointer
+                        &:hover
+                            color: #000
+
+            & .CreditCalculator
+                margin-bottom: 20px

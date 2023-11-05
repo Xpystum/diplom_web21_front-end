@@ -4,17 +4,17 @@ import ReviewsOwnersWidget from "../../widgets/ReviewsOwnersWidget/ReviewsOwners
 
 import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
 
-export default function Home(props){
-  return (
-    <div>
+export default function Home(props) {
+    return (
+        <div>
 
-      <Header/>
+            <Header />
 
-      <CaruselWidget/>
-      
-      <ReviewsOwnersWidget/>
+            <CaruselWidget />
 
-      <RelevanceProductWidget />
-    </div>
-  )
+            <ReviewsOwnersWidget />
+
+            <RelevanceProductWidget />
+        </div>
+    )
 };

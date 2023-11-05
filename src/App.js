@@ -21,49 +21,52 @@ import Home from './pages/Home/Home';
 import ListProducts from './pages/ListProducts/ListProducts';
 import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
 import Catalog from './pages/Catalog/Catalog';
-
+import Card from './pages/Card/Card';
+import Curtain from './components/Curtain/Curtain';
 
 
 
 function App() {
 
 
-  let loading = useSelector(state => state.dataState.value.app.loader);
+    let loading = useSelector(state => state.dataState.value.app.loader);
 
-  let dispatch = useDispatch();
+    let dispatch = useDispatch();
 
-  request('post', 'items-menu', (response) => {
-    dispatch(loaderSwitch(false));
-    
-    if (response.status == 200 && response.data.length > 0) {
-      dispatch(reloadMenu(response.data))
-    }
+    request('post', 'items-menu', (response) => {
+        dispatch(loaderSwitch(false));
 
-  },{name_menu: 'main_menu'});
+        if (response.status == 200 && response.data.length > 0) {
+            dispatch(reloadMenu(response.data))
+        }
+
+    }, { name_menu: 'main_menu' });
 
 
-  return (
-      <div className="App">
+    return (
+        <div className="App">
 
-          {
-            (loading) ?
-              <PreloaderStartPage />
-            :
-              <div>
-                <Routes>
-                  <Route path="/" element={<Home/>}/>
-                  <Route path="/category/:alias" element={<ListProducts/>}/>
-                  <Route path="/category" element={<Catalog/>}/>
-                  <Route path="/catalog/advanced-search/" element={<AdvancedSearch/>}/>
-                </Routes> 
-              </div>
-          }
-          
+            {
+                (loading) ?
+                    <PreloaderStartPage />
+                    :
+                    <div>
+                        <Curtain />
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/category/:alias" element={<ListProducts />} />
+                            <Route path="/category" element={<Catalog />} />
+                            <Route path="/catalog/advanced-search/" element={<AdvancedSearch />} />
+                            <Route path="/card" element={<Card />} />
+                        </Routes>
+                    </div>
+            }
 
-         
 
-      </div>
-  );
+
+
+        </div>
+    );
 }
 
 export default App;
