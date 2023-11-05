@@ -11,7 +11,7 @@ export default function ProductPreviewCard(props) {
   time = time.substring(0, 10).split('-')
     
 
-  return (
+  return (  
     <a className={style.ProductPreviewCard} href="#">
       <div className={style.Image}>
         <img alt="Седан Лада 2110 2005 года, 100000 рублей, Нижний Новгород" src={URL_BACK_FILES + car.img_src} />

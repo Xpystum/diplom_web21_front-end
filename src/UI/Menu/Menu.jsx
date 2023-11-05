@@ -43,7 +43,7 @@ export default function Menu(props){
                   {
                     menuItems.map((item_inner)=>
                     (item.id == item_inner.parrent_item_id)?
-                        <ItemsMenu variationLi={'submenu__item'} variationNav={'submenu__link'} item={item_inner}/>
+                        <ItemsMenu key={item_inner.id} variationLi={'submenu__item'} variationNav={'submenu__link'} item={item_inner}/>
                         :
                         "" 
                     )

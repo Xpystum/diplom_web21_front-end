@@ -16,6 +16,7 @@ export default function RelevanceProductWidget(props){
 
   function buttonOnClick(){
 
+    console.log(productsRedux);
     end += 3;
 
     if(end >= productsRedux.length  ) { 
