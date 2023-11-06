@@ -16,7 +16,7 @@ export default function RelevanceProductCart(props){
 
             <div className={style.WrappName}>
                 <span className={style.Name}>
-                {product.model} + {product.model.mark}, {product.year}
+                { `${product.mark} ${product.model}` } , {product.year}
                 </span>
             </div>
 

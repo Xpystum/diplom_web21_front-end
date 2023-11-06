@@ -5,8 +5,7 @@ export default function Button(props) {
     let type_button = props.type ?? 'button'; 
     let method = props.method ?? Function.prototype;
     // let styleName = props.name_class ?? 'defaultButton';
-    let styleName = 'relevance';
-    // className={style.}
+    let styleName = props.name_class;
 
     return (
       <button onClick={()=>{
