@@ -231,6 +231,7 @@ export default function ProductCard(props) {
                 </div>
 
                 <div className={style.СolumnRight}>
+
                     <div className={style.Prices}>
                         <div className={style.Price}>
                             <span>
@@ -322,10 +323,9 @@ export default function ProductCard(props) {
                                     sizeHeight={20}
                                 />
                             </div>
-                        </div>
-                        {/* END высплывающего меню */}
-                    </div>
-                    {/* END раздела Price */}
+                        </div>{/* END высплывающего меню */}
+                    </div> {/* END раздела Price */}
+
 
                     <div className={style.CreditCalculator}>
                         <Button
@@ -334,14 +334,109 @@ export default function ProductCard(props) {
                         />
                     </div>
 
-                    <div>
+                    <div className={style.CharacteristicsProduct}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Двигатель</th>
+                                    <td>
+                                        <span>бензин, 1.5 л</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Мощность</th>
+                                    <td>
+                                        <span>147 л.с.</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Коробка передач</th>
+                                    <td>
+                                        <span>вариатор</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Привод</th>
+                                    <td>
+                                        <span>передний</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Цвет</th>
+                                    <td>
+                                        <span>черный</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Пробег</th>
+                                    <td>
+                                        <span className={style.Green}>новый автомобиль</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Руль</th>
+                                    <td>
+                                        <span>левый</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Поколение</th>
+                                    <td>
+                                        <span><a href='#'>1 поколение</a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Комплектация</th>
+                                    <td>
+                                        <span><a href='#'>1.5PT CVT Ultimate</a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>VIN</th>
+                                    <td>
+                                        <span>LVV**************</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className={style.DescriptionProduct}>
+                        <div className={style.DescriptionText}>
+                            <span>Дополнительно:</span>
+                            <span>
+                                <span>Месяц продаж CHERY в «У Сервис+»! Увеличиваем выгоды на все автомобили в наличии + дополнительное оборудование в ПОДАРОК! Успейте купить на специальных условиях!</span>
+                                <span>Комплектация: Chery Tiggo 4 PRO Ultimate</span>
+                                <span>Основные опции: 2023, климат-контроль, аудио, кожа, airbags, ABS, ESP, светодиодные фары, центральный замок, электропривод стекол, электропривод сидений, электропривод зеркал, круиз-контроль, датчик дождя, обогрев сидений, парктроник, видеокамера, люк, литые диски, R18.</span>
+                                <span>Цвет кузова: Глубокий черный Metallic.</span>
+                                <span>Кожаная отделка сидений.</span>
+                                <span>Цвет обивки сидений: черный, серая прошивка.</span>
+                                <span>Автомобиль в наличии на складе дилера.</span>
+                                <span>Предложение обновлено 06 ноября 2023 г. в 08 ч 56 мин.</span>
+                                <span>Интерьер: Тип сидений: обычные</span>
+                                <span>Кожаная отделка сидений</span>
+                                <span>Цвет обивки сидений: черный, серая прошивка</span>
+                                <span>Цвет передней панели: черный</span>
+                                <span>Цвет коврового покрытия: черный</span>
+                                <span>Цвет потолка: серый</span>
+                            </span>
+                        </div>
+                        <div className={style.DescriptionLocation}>
+                            <span>Город:</span>
+                            <span>Москва</span>
+                        </div>
+                    </div>
+
+                    <div className={style.AdContacts}>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
 
                     </div>
 
-
-
                 </div>
             </div>
-        </div >
+        </div>
     )
 };
