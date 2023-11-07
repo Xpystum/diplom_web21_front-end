@@ -23,40 +23,85 @@ export default function ListProducts(props){
       }, {alias: (alias != undefined)? alias: null});
     },[window.location.pathname]);
 
+
     let cars = useSelector(state => state.dataState.value.products.data);
-
-
-    // let [cars, setCars] = useState([
-    //     { id: 1, brand: "VAZ", model: "2110", price: 100000, old_price: 120000, info: {} },
-    //     { id: 2, brand: "VAZ", model: "2115", price: 120000, old_price: null, info: {} },
-    //     { id: 3, brand: "VAZ", model: "2114", price: 130000, old_price: null, info: {} }
-    //   ]);
-      //let [filterCars, setFilterCars] = useState(cars);
-
-      let filterCars = cars;
       
     
       let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
 
-      let [filters, setFilters] = useState({mark: null});
+      let [filters, setFilters] = useState({mark: '', truePhoto: false});
+      
 
       let [listFilterCars, setListFilterCars] = useState(cars);
+
+
+      function nullFilters(){
+        for(let key in filters){
+          if(filters[key]){
+            return false;
+          }
+          if(typeof(filters[key]) != 'boolean' && filters[key].trim() != ''){
+            return false;
+          }
+        }
+        return true;
+      }
     
     
       function onFilterCars(){
         let data = [];
-        if(filters.mark){
-          filterCars.forEach((car, index)=>{
-            if(car.mark == filters.mark){
-              data.push(car);
-            }
-          })
+
+
+        if(nullFilters() == false){
+
+          if(filters.truePhoto){
+            cars.forEach((car, index)=>{
+              console.log(car);
+              if(car.img_src != "null"){
+                data.push(car);
+              }
+            })
+          }
+
+
+          if(filters.mark){
+            filters.mark = filters.mark.toLowerCase().trim();
+
+            cars.forEach((car, index)=>{
+              if(car.mark.toLowerCase().indexOf(filters.mark) != -1){
+
+                data.push(car);
+              }
+            })
+          }
+
+     
+
+          
+
+          setListFilterCars(data);
+
         }
-        setListFilterCars(data);
+
+
       }
 
+      useEffect(()=>{
+        onFilterCars();
+      }, [filters])
+
+
+
       function onModel(evt){
-        setFilters({mark: evt.target.value});
+        let copy = Object.assign({}, filters);
+        copy.mark = evt.target.value
+        setFilters(copy);
+      }
+
+      function onPhoto(evt){
+        let copy = Object.assign({}, filters);
+        copy.truePhoto = !copy.truePhoto;
+        setFilters(copy);
       }
 
 
@@ -68,7 +113,24 @@ export default function ListProducts(props){
         {/* <Filter/> */}
 
         <form>
-            <input type="text"  placeholder='Марка' value={(filters.mark)} onChange={(evt)=>{onModel(evt)}}/>
+            <input 
+              autoFocus={true}
+              type="text"  
+              placeholder='Марка' 
+              value={(filters.mark)} 
+              onChange={(evt)=>{onModel(evt)}} 
+            />
+            
+            <input 
+              type="checkbox"
+              id="true_photo"
+              onChange={(evt)=>{onPhoto(evt)}} 
+              checked={filters.truePhoto}
+            />
+            <label htmlFor="true_photo">С фото</label>
+
+
+
             {/* <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt) => { editPrice(evt, "minPrice") }} />
             <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена' onChange={(evt) => { editPrice(evt, "maxPrice") }} /> */}
             <button type="button" onClick={onFilterCars}>Показать</button>
@@ -84,7 +146,7 @@ export default function ListProducts(props){
         } */}
 
 
-        <ListProductsPreviewCard cars={listFilterCars} />
+        <ListProductsPreviewCard cars={(nullFilters())? cars :listFilterCars} />
         <RelevanceProductWidget />
 
     </div>
