@@ -6,6 +6,7 @@ import QuickLabelled from '../../UI/QuickLabelled/QuickLabelled';
 import Slider from "../Slider/Slider";
 import Button from '../../UI/Button/Button';
 import Icons from '../../UI/Icons/Icons';
+import RelevanceProductWidget from '../../widgets/RelevanceProductWidget/RelevanceProductWidget';
 
 
 export default function ProductCard(props) {
@@ -232,6 +233,7 @@ export default function ProductCard(props) {
                     <div className={style.SimilarProducts}>
 
                     </div>
+                    <RelevanceProductWidget />
                 </div>
 
                 <div className={style.СolumnRight}>

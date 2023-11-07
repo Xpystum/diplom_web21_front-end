@@ -14,7 +14,6 @@ export default function Home(props) {
 
             <ReviewsOwnersWidget />
 
-            <RelevanceProductWidget />
         </div>
     )
 };
