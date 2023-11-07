@@ -1,9 +1,9 @@
 import style from './RelevanceProductCart.module.sass';
-import { URL_BACK_FILES } from "../../../config";
+import { URL_IMG } from "../../../config";
 
 export default function RelevanceProductCart(props){
     let product = props.product;
-    let urlImg = URL_BACK_FILES
+    let urlImg = URL_IMG
 
     let price = product.price.toLocaleString();
 
@@ -11,18 +11,18 @@ export default function RelevanceProductCart(props){
         <a id={style.ProductCartLink} href="">
 
             <div className={style.WrappImage}>
-                <img className={style.Image} src={urlImg + product.img_src}/>
+                <img className={style.Image} src={urlImg + "/" + product.img_src}/>
             </div>
 
             <div className={style.WrappName}>
                 <span className={style.Name}>
-                { `${product.mark} ${product.model}` } , {product.year}
+                {product.mark} {product.model}, {product.year}
                 </span>
             </div>
 
             <div className={style.WrappPrice}>
                 <span className={style.Price}>
-                    {price}
+                    {price} ₽
                 </span>
             </div>
 

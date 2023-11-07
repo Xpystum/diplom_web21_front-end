@@ -2,7 +2,7 @@ import style from './ProductPreviewCard.module.sass';
 
 import LabelsProduct from "../LabelsProduct/LabelsProduct";
 import FavouritesStar from '../../UI/FavouritesStar/FavouritesStar';
-import { URL_BACK_FILES } from '../../config';
+import { URL_IMG } from '../../config';
 import moment from 'moment/moment';
 import 'moment/locale/ru';
 
@@ -11,10 +11,12 @@ export default function ProductPreviewCard(props) {
   let time = car.created_at
   time = time.substring(0, 10).split('-').join('')
 
+  let urlImg = URL_IMG
+
   return (
     <a className={style.ProductPreviewCard} href="#">
       <div className={style.Image}>
-        <img alt={car.img_src} src={URL_BACK_FILES + car.img_src} />
+        <img alt={car.img_src} src={urlImg + car.img_src} />
       </div>
 
       <div className={style.PreviewText}>

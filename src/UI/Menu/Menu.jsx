@@ -38,7 +38,7 @@ export default function Menu(props){
               (item.parrent_item_id == null)?
 
               <li className={styles.submenu} key={item.id}>
-              <span>{item.item_name} <img src={icon} alt="МАКСИМ НАКОДИЛ"/></span>
+              <span>{item.item_name} <img src={icon} alt=""/></span>
                 <ul className={styles.submenu__ul}>
                   {
                     menuItems.map((item_inner)=>
