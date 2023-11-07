@@ -32,7 +32,7 @@ export default function ListBrands(props){
                     <Tab className="tabs__menu__item">Грузовики</Tab> 
                 </TabList>
                 <TabPanel className="tabs__content">
-                        <BrandColumn brands={brands} itemColumn={39} popular={true}/>
+                        <BrandColumn brands={brands} itemColumn={42} noPopular={null}/>
                 </TabPanel> 
                 <TabPanel className="tabs__content"> 
                     В разработке
