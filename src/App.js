@@ -55,7 +55,7 @@ function App() {
                   <Route path="/category/:alias" element={<ListProducts/>}/>
                   <Route path="/category" element={<Catalog/>}/>
                   <Route path="/catalog/advanced-search/" element={<AdvancedSearch/>}/>
-                </Routes> 
+                </Routes>   
               </div>
           }
           

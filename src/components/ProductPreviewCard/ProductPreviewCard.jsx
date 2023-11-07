@@ -11,7 +11,7 @@ export default function ProductPreviewCard(props) {
   let time = car.created_at
   time = time.substring(0, 10).split('-').join('')
 
-  return (
+  return (  
     <a className={style.ProductPreviewCard} href="#">
       <div className={style.Image}>
         <img alt={car.img_src} src={URL_BACK_FILES + car.img_src} />

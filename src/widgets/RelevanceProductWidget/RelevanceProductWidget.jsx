@@ -4,25 +4,37 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import RelevanceProductCart from './RelevanceProductCart/RelevanceProductCart';
+import { request } from "../../Action/request";
 
 
 export default function RelevanceProductWidget(props){
 
-  let productsRedux = useSelector(state => state.dataState.value.products.data);
-  let start = 0;
+  // let idProduct = props.id;
+
 
   let [end, endState] = useState(3);
-  let [products, productState] = useState(productsRedux.slice(start, end));
+  let [allProduct, allProductState] = useState([]);
+  let [products, productState] = useState([]);
+
+    useEffect(()=>{
+    request('post', 'relevance-product', (response) => {
+      if (response.status === 200) {
+        allProductState(response.data);
+        productState(response.data.slice(0, end));
+      }
+    }, {id:4});
+  }, []);
+
 
   function buttonOnClick(){
-
     end += 3;
-
-    if(end >= productsRedux.length  ) { 
+    if(end > allProduct.length) { 
       return 0; 
     }
+
     endState(end);
-    productState(productsRedux.slice(start, end));
+    
+    productState(allProduct.slice(0, end));
   }
   
   return (
