@@ -1,21 +1,14 @@
 import './App.css';
 import './ResetStyle.css';
-import { useEffect, useRef, useState } from 'react';
 
-import axios from 'axios'
 import { request } from './Action/request';
 
 // Компоненты
-import Loader from './UI/Loader/Loader';
 
 import PreloaderStartPage from './components/PreloaderStartPage/PreloaderStartPage';
-import PreloaderSmall from './components/PreloaderSmall/PreloaderSmall';
 
-import ListProductsPreviewCard from './components/ListProductsPreviewCard/ListProductsPreviewCard';
-import Header from './UI/Header/Header';
-import { useParams } from "react-router";
 import { useSelector, useDispatch } from 'react-redux';
-import { reloadMenu, loaderSwitch, reloadProducts } from './redux/dataState';
+import { reloadMenu, loaderSwitch } from './redux/dataState';
 import { Route, Routes } from 'react-router';
 import Home from './pages/Home/Home';
 import ListProducts from './pages/ListProducts/ListProducts';
@@ -37,6 +30,7 @@ function App() {
     
     if (response.status == 200 && response.data.length > 0) {
       dispatch(reloadMenu(response.data))
+      
     }
 
   },{name_menu: 'main_menu'});

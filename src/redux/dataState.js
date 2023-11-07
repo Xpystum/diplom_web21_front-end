@@ -11,6 +11,10 @@ export const dataSlice = createSlice({
       products: {
         loader: true,
         data: []
+      },
+      brands: {
+        loader: true,
+        data: []
       }
     }
   },
@@ -32,7 +36,12 @@ export const dataSlice = createSlice({
     reloadMenu: (state, action) => {
       state.value.mainMenu = action.payload
     },
-
+    reloadBrands: (state, action) => {
+      state.value.brands.data = action.payload
+    },
+    loaderSwitchBrands: (state, action) => {
+      state.value.brands.loader = action.payload
+    },
     reloadProducts: (state, action) => {
       state.value.products.data = action.payload
     },
@@ -50,7 +59,9 @@ export const { increment,
                 reloadMenu, 
                 loaderSwitch, 
                 reloadProducts, 
-                loaderSwitchProducts 
+                loaderSwitchProducts,
+                reloadBrands,
+                loaderSwitchBrands
               } = dataSlice.actions
 
 export default dataSlice.reducer
