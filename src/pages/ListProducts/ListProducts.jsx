@@ -39,6 +39,8 @@ export default function ListProducts(props){
       let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
 
       let [filters, setFilters] = useState({mark: null});
+
+      let [listFilterCars, setListFilterCars] = useState(cars);
     
     
       function onFilterCars(){
@@ -50,8 +52,7 @@ export default function ListProducts(props){
             }
           })
         }
-        filterCars = data;
-        console.log(filterCars);
+        setListFilterCars(data);
       }
 
       function onModel(evt){
@@ -83,7 +84,7 @@ export default function ListProducts(props){
         } */}
 
 
-        <ListProductsPreviewCard cars={cars} />
+        <ListProductsPreviewCard cars={listFilterCars} />
         <RelevanceProductWidget />
 
     </div>
