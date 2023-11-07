@@ -57,7 +57,7 @@ export default function ListProducts(props){
           if(filters.truePhoto){
             cars.forEach((car, index)=>{
               console.log(car);
-              if(car.img_src != "null"){
+              if(car.img_src != null){
                 data.push(car);
               }
             })
