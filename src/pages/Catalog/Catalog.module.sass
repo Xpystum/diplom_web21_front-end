@@ -8,11 +8,28 @@
     background-color: rgb(220, 235, 255)
     color: rgb(46, 111, 219)
     cursor: pointer
-    
+    span
+        margin-left: 20px
+
 .AdvancedSearch:hover
     background-color: rgb(184, 214, 255)
     transition-duration: 0.25s
     transition-timing-function: ease-out
-span
-    margin-left: 20px
+.main
+    max-width: 1226px
+    margin: 0 auto
+    padding: 0 20px
+    & > h2
+        font-size: 3.5rem
+        font-weight: 600
+        margin-bottom: 20px 
+    & .search
+        display: flex
+        &__brand
+            flex-grow: 1
+        &__option
+            height: 45px
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1)
+
+
         

@@ -3,10 +3,10 @@ import Header from "../../UI/Header/Header"
 import ListProductsPreviewCard from "../../components/ListProductsPreviewCard/ListProductsPreviewCard";
 import { useParams } from "react-router";
 import { request } from "../../Action/request";
-import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
-import { useSelector, useDispatch } from 'react-redux';
+    import { useSelector, useDispatch } from 'react-redux';
 
 import { reloadProducts, loaderSwitchProducts } from "../../redux/dataState";
+import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
 
 
 export default function ListProducts(props){
@@ -84,6 +84,7 @@ export default function ListProducts(props){
 
 
         <ListProductsPreviewCard cars={cars} />
+        <RelevanceProductWidget />
 
     </div>
   )

@@ -9,14 +9,14 @@ export default function RelevanceProductCart(props){
 
     return (
         <a id={style.ProductCartLink} href="">
-            
+
             <div className={style.WrappImage}>
                 <img className={style.Image} src={urlImg + product.img_src}/>
             </div>
 
             <div className={style.WrappName}>
                 <span className={style.Name}>
-                {product.name}, {product.year}
+                { `${product.mark} ${product.model}` } , {product.year}
                 </span>
             </div>
 
