@@ -22,6 +22,8 @@ import ListProducts from './pages/ListProducts/ListProducts';
 import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
 import Catalog from './pages/Catalog/Catalog';
 
+import Sign from './pages/Sign/Sign';
+
 
 
 
@@ -55,11 +57,11 @@ function App() {
                   <Route path="/category/:alias" element={<ListProducts/>}/>
                   <Route path="/category" element={<Catalog/>}/>
                   <Route path="/catalog/advanced-search/" element={<AdvancedSearch/>}/>
+                  <Route path="/sign" element={<Sign/>}/>
                 </Routes>   
               </div>
           }
           
-
          
 
       </div>

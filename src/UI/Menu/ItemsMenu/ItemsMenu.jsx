@@ -9,7 +9,7 @@ export default function ItemsMenu(props){
   let variationLi = props.variationLi;
   let variationNav = props.variationNav;
   let urlImg = URL_IMG ?? 'http://127.0.0.1:8000';
-
+  
 
   return (
     <li className={styles[variationLi]}>
