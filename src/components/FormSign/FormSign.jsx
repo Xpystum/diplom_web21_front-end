@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import Button from '../../UI/Button/Button';
 import style from './FormSign.module.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVk } from '@fortawesome/free-brands-svg-icons';
+
 
 
 export default function FormSign(props) {
@@ -27,59 +29,65 @@ export default function FormSign(props) {
 
           </div>
 
-          <div className='controlName'>
+          <div className={style.controlName__selection_login}>
 
-            <div>
-              <label for="desc_login" >
+            <div className={style.loginWrapp__label}>
+              <label for="desc_login" className={style.loginWrapp__label_label} >
                 Телефон / Логин
               </label>
             </div>
 
-            <div>
-              <input id="desc_login" type='radio' value="login" />
+            <div className={style.loginWrapp__input}>
+              <input className={style.loginWrapp__input_input} id="desc_login" type='text'/>
             </div>
 
             <div>
-              <span className='comment'>
+              <span className={style.comment}>
                 Данные, которые вы указывали при регистрации
               </span>
             </div>
 
           </div>
 
-          <div className='controlName'>
+          <div className={style.controlName__selection_login}>
 
-            <div>
-              <label for="desc_login" >
+            <div className={style.loginWrapp__label}>
+              <label for="desc_login" className={style.loginWrapp__label_label}  >
                 Пароль
               </label>
             </div>
 
-            <div>
-              <input id="desc_login" type='radio' value="login" />
+            <div className={style.loginWrapp__input}>
+              <input id="desc_login" type='password' value="" className={style.loginWrapp__input_input}/>
             </div>
     
           </div>
 
-          <div className='submitBlock'>
-            <Button name={'Войти с Паролем'}/>
-            <Link to={'#'}>
-              <span className='BrendVK'>
-                <FontAwesomeIcon icon={'fa-brands fa-vk'} />
+          <div className={style.submitBlock}>
+            <Button name={'Войти с Паролем'} type={'submit'} name_class={'button__form_sign'}/>
+            <Link className={style.link_vk} to={'#'}>
+              <span className={style.brendVK__wrapp}>
+                <FontAwesomeIcon className={style.brendVK__wrapp_icon} icon={faVk}/>
               </span>
               Войти через "Вконтакте"
             </Link>
           </div>
 
-          <div className='passwordRecoveryView'>
-            <div className='sign-form__link'>
-              <Link to={'#'}>
-                
+          <div className={style.passwordRecoveryView}>
+              <Link className={style.sign_form__link} to={'#'}>
+                напомнить пароль
               </Link>
-            </div>  
           </div>
 
         </form>
+
+        <div className={style.privacyPolice}>
+        При входе вы принимаете 
+        <Link className={style.privacyPolice_link} to="#"> условия использования </Link> 
+        сайта и соглашаетесь на обработку 
+        персональных данных согласно 
+        <Link className={style.privacyPolice_link} to="#"> политике конфиденциальности</Link>.
+        </div>
     </div>
   )
 };
