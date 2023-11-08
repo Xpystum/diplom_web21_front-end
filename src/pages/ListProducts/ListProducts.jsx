@@ -29,7 +29,13 @@ export default function ListProducts(props){
     
       let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
 
-      let [filters, setFilters] = useState({mark: '', truePhoto: false});
+        let selectFilter = {}//объявление объекта
+        const keys = []
+        const values = []
+        let [filters, setFilters] = useState(
+        // {mark: '', truePhoto: false}
+        {selectFilter}
+        );
       
 
       let [listFilterCars, setListFilterCars] = useState(cars);
@@ -56,9 +62,12 @@ export default function ListProducts(props){
 
           if(filters.truePhoto){
             cars.forEach((car, index)=>{
-              console.log(car);
+              
               if(car.img_src != "null"){
                 data.push(car);
+                fillingSelectFilter()
+                keys.push('1'+1)
+                values.push(1)
               }
             })
           }
@@ -70,15 +79,12 @@ export default function ListProducts(props){
             cars.forEach((car, index)=>{
               if(car.mark.toLowerCase().indexOf(filters.mark) != -1){
 
+
                 data.push(car);
+                
               }
             })
           }
-
-     
-
-          
-
           setListFilterCars(data);
 
         }
@@ -91,18 +97,42 @@ export default function ListProducts(props){
       }, [filters])
 
 
-
+//создать одну функцию выводящюю в оъект набор фильтров сохранить переменую  в объект
+        
+        
       function onModel(evt){
         let copy = Object.assign({}, filters);
         copy.mark = evt.target.value
         setFilters(copy);
+        console.log(copy.mark)
+                
+
       }
 
       function onPhoto(evt){
         let copy = Object.assign({}, filters);
-        copy.truePhoto = !copy.truePhoto;
+        copy.truePhoto = !copy.truePhoto;        
+        console.log(copy.truePhoto)
         setFilters(copy);
+        values.push(copy.truePhoto)
       }
+
+        // keys.push('1')
+        // values.push(1)  
+      
+      function fillingSelectFilter(){for (let i = 0; i <= keys.length - 1; i++) {//преобразование двух массивов в объект
+        
+        let key = keys[i];
+        let value = values[i];
+        
+        selectFilter[key] = value;
+      }
+      console.log(selectFilter);}
+
+      console.log(fillingSelectFilter())
+
+
+
 
 
   return (
@@ -119,18 +149,18 @@ export default function ListProducts(props){
               placeholder='Марка' 
               value={(filters.mark)} 
               onChange={(evt)=>{onModel(evt)}} 
+            
             />
             
             <input 
               type="checkbox"
               id="true_photo"
+
               onChange={(evt)=>{onPhoto(evt)}} 
               checked={filters.truePhoto}
             />
             <label htmlFor="true_photo">С фото</label>
-
-
-
+            
             {/* <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt) => { editPrice(evt, "minPrice") }} />
             <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена' onChange={(evt) => { editPrice(evt, "maxPrice") }} /> */}
             <button type="button" onClick={onFilterCars}>Показать</button>
