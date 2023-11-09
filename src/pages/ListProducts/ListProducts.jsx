@@ -77,10 +77,6 @@ export default function ListProducts(props){
             })
           }
 
-     
-
-          
-
           setListFilterCars(data);
 
         }
