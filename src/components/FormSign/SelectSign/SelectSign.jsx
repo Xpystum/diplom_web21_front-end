@@ -49,7 +49,7 @@ export default function SelectSign(props) {
                     </div>
 
                     <div className={style.loginWrapp__input}>
-                        <input id="desc_pass" type='password' value="" className={style.loginWrapp__input_input}/>
+                        <input id="desc_pass" type='password' className={style.loginWrapp__input_input}/>
                     </div>
 
                     </div>
