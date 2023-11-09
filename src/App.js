@@ -16,6 +16,9 @@ import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
 import Catalog from './pages/Catalog/Catalog';
 import Card from './pages/Card/Card';
 import Curtain from './components/Curtain/Curtain';
+import Sign from './pages/Sign/Sign';
+
+
 
 
 
@@ -38,7 +41,6 @@ function App() {
 
     return (
         <div className="App">
-
             {
                 (loading) ?
                     <PreloaderStartPage />
@@ -51,12 +53,10 @@ function App() {
                             <Route path="/category" element={<Catalog />} />
                             <Route path="/catalog/advanced-search/" element={<AdvancedSearch />} />
                             <Route path="/card" element={<Card />} />
+                            <Route path="/sign" element={<Sign/>}/>
                         </Routes>
                     </div>
             }
-
-
-
 
         </div>
     );

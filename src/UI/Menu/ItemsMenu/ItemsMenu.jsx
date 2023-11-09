@@ -10,7 +10,6 @@ export default function ItemsMenu(props){
   let variationNav = props.variationNav;
   let urlImg = URL_IMG;
 
-
   return (
     <li className={styles[variationLi]}>
       <NavLink  style={({ isActive, isPending, isTransitioning }) => {
@@ -24,3 +23,4 @@ export default function ItemsMenu(props){
   )
 };
 
+g
