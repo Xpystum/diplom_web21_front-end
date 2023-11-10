@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import style from './FormSign.module.sass';
 import { useEffect, useState } from 'react';
-import SelectSign from './SelectSign/SelectSign'
+import Register from './Register/Register'
+import Sign from './Sign/Sign'
+
+
 
 
 export default function FormSign(props) {
@@ -11,11 +14,9 @@ export default function FormSign(props) {
   function changeStatus(param){
 
     stateStatusState(Object.assign({}, {params: param}) );
+    console.log(stateStatus);
   }
 
-  // useEffect(()=>{
-  //   // console.log(stateStatus)
-  // }, [stateStatus])
 
   return (
     <div id={style.signWrapp}>
@@ -39,7 +40,18 @@ export default function FormSign(props) {
 
           </div>
 
-          <SelectSign status={stateStatus}/>
+          {
+            (stateStatus.params == 'sign') ?
+              <Sign/>
+            : 
+              <Register />
+          }
+
+          {/* {
+            (stateStatus.params == 'reg') ?
+            <Register />
+            : <></>
+          } */}
           
         </form>
 
