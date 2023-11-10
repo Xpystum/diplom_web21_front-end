@@ -65,11 +65,13 @@ export default function ListProducts(props){
               
               if(car.img_src != "null"){
                 data.push(car);
-                fillingSelectFilter()
-                keys.push('1'+1)
-                values.push(1)
+                
               }
+            keys.push('truePhoto')
+            values.push(1)
+            fillingSelectFilter()  
             })
+  
           }
 
 
@@ -86,7 +88,7 @@ export default function ListProducts(props){
             })
           }
           setListFilterCars(data);
-
+           
         }
 
 
@@ -105,7 +107,7 @@ export default function ListProducts(props){
         copy.mark = evt.target.value
         setFilters(copy);
         console.log(copy.mark)
-                
+               
 
       }
 
@@ -114,7 +116,6 @@ export default function ListProducts(props){
         copy.truePhoto = !copy.truePhoto;        
         console.log(copy.truePhoto)
         setFilters(copy);
-        values.push(copy.truePhoto)
       }
 
         // keys.push('1')
