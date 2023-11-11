@@ -62,13 +62,8 @@ export default function ListProducts(props){
 
           if(filters.truePhoto){
             cars.forEach((car, index)=>{
-<<<<<<< HEAD
-              
-              if(car.img_src != "null"){
-=======
               console.log(car);
               if(car.img_src != null){
->>>>>>> dev
                 data.push(car);
                 
               }
@@ -92,10 +87,6 @@ export default function ListProducts(props){
               }
             })
           }
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
           setListFilterCars(data);
            
         }
