@@ -29,13 +29,7 @@ export default function ListProducts(props){
     
       let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
 
-        let selectFilter = {}//объявление объекта
-        const keys = []
-        const values = []
-        let [filters, setFilters] = useState(
-        // {mark: '', truePhoto: false}
-        {selectFilter}
-        );
+        let [filters, setFilters] = useState({mark: '', truePhoto: false});
       
 
       let [listFilterCars, setListFilterCars] = useState(cars);
@@ -56,23 +50,16 @@ export default function ListProducts(props){
     
       function onFilterCars(){
         let data = [];
-
-
         if(nullFilters() == false){
-
           if(filters.truePhoto){
             cars.forEach((car, index)=>{
-              console.log(car);
+
               if(car.img_src != null){
                 data.push(car);
                 
               }
-            keys.push('truePhoto')
-            values.push(1)
-            fillingSelectFilter()  
             })
-  
-          }
+           }
 
 
           if(filters.mark){
@@ -80,10 +67,7 @@ export default function ListProducts(props){
 
             cars.forEach((car, index)=>{
               if(car.mark.toLowerCase().indexOf(filters.mark) != -1){
-
-
                 data.push(car);
-                
               }
             })
           }
@@ -98,43 +82,22 @@ export default function ListProducts(props){
         onFilterCars();
       }, [filters])
 
-
-//создать одну функцию выводящюю в оъект набор фильтров сохранить переменую  в объект
-        
-        
-      function onModel(evt){
+      function onCheck(evt){
         let copy = Object.assign({}, filters);
-        copy.mark = evt.target.value
-        setFilters(copy);
-        console.log(copy.mark)
-               
-
+        let idFilter = evt.target.id;
+        switch (idFilter) {
+          case "mark": 
+              console.log(1);
+              copy.mark = evt.target.value;
+              setFilters(copy);
+              break;
+          case "true_photo": 
+              console.log(2);
+              copy.truePhoto = !copy.truePhoto;        
+              setFilters(copy);
+              break;
+        }
       }
-
-      function onPhoto(evt){
-        let copy = Object.assign({}, filters);
-        copy.truePhoto = !copy.truePhoto;        
-        console.log(copy.truePhoto)
-        setFilters(copy);
-      }
-
-        // keys.push('1')
-        // values.push(1)  
-      
-      function fillingSelectFilter(){for (let i = 0; i <= keys.length - 1; i++) {//преобразование двух массивов в объект
-        
-        let key = keys[i];
-        let value = values[i];
-        
-        selectFilter[key] = value;
-      }
-      console.log(selectFilter);}
-
-      console.log(fillingSelectFilter())
-
-
-
-
 
   return (
     <div>
@@ -145,19 +108,18 @@ export default function ListProducts(props){
 
         <form>
             <input 
+              id="mark"
               autoFocus={true}
               type="text"  
               placeholder='Марка' 
               value={(filters.mark)} 
-              onChange={(evt)=>{onModel(evt)}} 
-            
+              onChange={(evt)=>{onCheck(evt)}}  
             />
             
             <input 
               type="checkbox"
               id="true_photo"
-
-              onChange={(evt)=>{onPhoto(evt)}} 
+              onChange={(evt)=>{onCheck(evt)}} 
               checked={filters.truePhoto}
             />
             <label htmlFor="true_photo">С фото</label>
