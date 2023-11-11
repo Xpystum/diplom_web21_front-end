@@ -336,6 +336,7 @@ export default function ProductCard(props) {
 
                     <div className={style.CreditCalculator}>
                         <Button
+                            name_class={'BtnCreditCalculator'}
                             name={'В кредит от ' + 46000 + ' ₽ в месяц'}
                             method={onCreditCalculator}
                         />

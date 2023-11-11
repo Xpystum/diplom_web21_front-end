@@ -92,33 +92,20 @@ export default function Slider(props) {
                 />
             </div>
 
-            <button className="btnShowPreviewImg"
-                onClick={() => { onShow() }}
-            >
-                <span>{
-                    stateShow ?
-                        "Свернуть фото"
-                        :
-                        "Развернуть фото"
-                }</span>
-                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.429.253a.819.819 0 0 0-1.184 0 .883.883 0 0 0 0 1.22l4.142 4.274A.821.821 0 0 0 5 6a.821.821 0 0 0 .612-.253l4.143-4.273a.883.883 0 0 0 0-1.221.819.819 0 0 0-1.184 0L5 3.937 1.429.253Z" fill="currentColor"></path></svg>
-
-            </button>
-
-            {/* <div className={style.BtnShowPreviewImg2}>
+            <div className={style.BtnShowPreviewImg}>
                 <Button
-                    name_class={'Btn'}
+                    name_class={'BtnSlider'}
                     name={
                         stateShow ?
                             "Свернуть фото"
                             :
-                            "Развернуть фото"
+                            "Развернуть все фото"
                     }
                     method={onShow}
                 >
                 </Button>
                 <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.429.253a.819.819 0 0 0-1.184 0 .883.883 0 0 0 0 1.22l4.142 4.274A.821.821 0 0 0 5 6a.821.821 0 0 0 .612-.253l4.143-4.273a.883.883 0 0 0 0-1.221.819.819 0 0 0-1.184 0L5 3.937 1.429.253Z" fill="currentColor"></path></svg>
-            </div> */}
+            </div>
 
         </div>
     )
