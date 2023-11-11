@@ -4,7 +4,7 @@ import styles from './LoginRegister.module.sass';
 export default function LoginRegister(){
     return(
         <div className={styles.register_wrap}>
-            <Link className={styles.register}>Вход и регистация</Link>
+            <Link to={'/sign'} className={styles.register}>Вход и регистация</Link>
         </div>
     )
 }
