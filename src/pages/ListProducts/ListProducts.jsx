@@ -87,12 +87,10 @@ export default function ListProducts(props){
         let idFilter = evt.target.id;
         switch (idFilter) {
           case "mark": 
-              console.log(1);
               copy.mark = evt.target.value;
               setFilters(copy);
               break;
           case "true_photo": 
-              console.log(2);
               copy.truePhoto = !copy.truePhoto;        
               setFilters(copy);
               break;
