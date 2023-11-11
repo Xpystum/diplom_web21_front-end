@@ -15,18 +15,20 @@ export default function ListProducts(props){
 
     useEffect(()=>{
       dispatch(loaderSwitchProducts(true));
-      request('post', 'category-products', (response) => {
+      // category-products
+      request('post', 'all-items', (response) => {
         if (response.status === 200) {
           dispatch(loaderSwitchProducts(false));
           dispatch(reloadProducts(response.data));
         }
       }, {alias: (alias != undefined)? alias: null});
+
+
     },[window.location.pathname]);
 
-
-    let cars = useSelector(state => state.dataState.value.products.data);
-      
     
+    let cars = useSelector(state => state.dataState.value.products.data);
+
       let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
 
       let [filters, setFilters] = useState({mark: '', truePhoto: false});
