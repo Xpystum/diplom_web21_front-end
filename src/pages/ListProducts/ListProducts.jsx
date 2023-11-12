@@ -28,7 +28,6 @@ export default function ListProducts(props){
 
     
     let cars = useSelector(state => state.dataState.value.products.data);
-    console.log(cars)
       let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
 
       let [filters, setFilters] = useState({brand: '', model: '', truePhoto: false});
@@ -57,7 +56,6 @@ export default function ListProducts(props){
 
           if(filters.truePhoto){
             cars.forEach((car, index)=>{
-              console.log(car);
               if(car.img_src != null){
                 data.push(car);
               }

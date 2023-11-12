@@ -15,7 +15,6 @@ export default function RelevanceProductWidget(props){
   let [end, endState] = useState(3);
   let [allProduct, allProductState] = useState([]);
   let [products, productState] = useState([]);
-
     useEffect(()=>{
     request('post', 'relevance-product', (response) => {
       if (response.status === 200) {

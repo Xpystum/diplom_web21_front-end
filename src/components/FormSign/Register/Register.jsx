@@ -87,7 +87,7 @@ export default function SelectSign(props) {
         <div className={style.controlName__selection_login}>
 
             <div className={style.loginWrapp__label}>
-                <label for="desc_login" className={style.loginWrapp__label_label} >
+                <label htmlFor="desc_login" className={style.loginWrapp__label_label} >
                     Почта
                 </label>
             </div>
@@ -101,7 +101,7 @@ export default function SelectSign(props) {
         <div className={style.controlName__selection_login}>
 
             <div className={style.loginWrapp__label}>
-                <label for="desc_pass" className={style.loginWrapp__label_label}  >
+                <label htmlFor="desc_pass" className={style.loginWrapp__label_label}  >
                     Пароль
                 </label>
             </div>
@@ -115,7 +115,7 @@ export default function SelectSign(props) {
         <div className={style.controlName__selection_login}>
 
             <div className={style.loginWrapp__label}>
-                <label for="desc_pass_repeat" className={style.loginWrapp__label_label}  >
+                <label htmlFor="desc_pass_repeat" className={style.loginWrapp__label_label}  >
                     Повторите пароль
                 </label>
             </div>

@@ -27,14 +27,14 @@ export default function FormSign(props) {
 
             <div className={style.wrapp_input}>
               <input onChange ={ (evt)=>{  changeStatus(evt.target.value) } } className={style.input} id="ragio_sing" type='radio' value="sign" name="sign" defaultChecked/>
-              <label className={style.label} for="ragio_sing">
+              <label className={style.label} htmlFor="ragio_sing">
                 Вход с паролем
               </label>
             </div>
 
             <div className={style.wrapp_input}>
               <input onChange ={ (evt)=>{ changeStatus(evt.target.value) } } className={style.input} id="ragio_reg" type='radio' value="reg" name="sign"/>
-              <label className={style.label} for="ragio_reg">
+              <label className={style.label} htmlFor="ragio_reg">
                 Регистрация 
               </label>
             </div>
