@@ -28,11 +28,10 @@ export default function ListProducts(props){
 
     
     let cars = useSelector(state => state.dataState.value.products.data);
-
+    console.log(cars)
       let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
 
-      let [filters, setFilters] = useState({mark: '', truePhoto: false});
-      
+      let [filters, setFilters] = useState({brand: '', model: '', truePhoto: false});
 
       let [listFilterCars, setListFilterCars] = useState(cars);
 
@@ -64,13 +63,22 @@ export default function ListProducts(props){
               }
             })
           }
-
-
-          if(filters.mark){
-            filters.mark = filters.mark.toLowerCase().trim();
+          if(filters.model){
+            filters.model = filters.model.toLowerCase().trim();
 
             cars.forEach((car, index)=>{
-              if(car.mark.toLowerCase().indexOf(filters.mark) != -1){
+              if(car.model.name.toLowerCase().indexOf(filters.model) != -1){
+
+                data.push(car);
+              }
+            })
+          }
+
+          if(filters.brand){
+            filters.brand = filters.brand.toLowerCase().trim();
+
+            cars.forEach((car, index)=>{
+              if(car.brand.name.toLowerCase().indexOf(filters.brand) != -1){
 
                 data.push(car);
               }
@@ -90,18 +98,21 @@ export default function ListProducts(props){
 
 
 
-      function onModel(evt){
+      function onBrand(evt){
         let copy = Object.assign({}, filters);
-        copy.mark = evt.target.value
+        copy.brand = evt.target.value
         setFilters(copy);
       }
-
+      function onModel(evt){
+        let copy = Object.assign({}, filters);
+        copy.model = evt.target.value
+        setFilters(copy);
+      }
       function onPhoto(evt){
         let copy = Object.assign({}, filters);
         copy.truePhoto = !copy.truePhoto;
         setFilters(copy);
       }
-
 
   return (
     <div>
@@ -115,10 +126,16 @@ export default function ListProducts(props){
               autoFocus={true}
               type="text"  
               placeholder='Марка' 
-              value={(filters.mark)} 
+              value={(filters.brand)} 
+              onChange={(evt)=>{onBrand(evt)}} 
+            />
+            <input 
+              autoFocus={true}
+              type="text"  
+              placeholder='Модель'
+              value={(filters.model)} 
               onChange={(evt)=>{onModel(evt)}} 
             />
-            
             <input 
               type="checkbox"
               id="true_photo"
