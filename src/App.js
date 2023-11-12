@@ -19,6 +19,9 @@ import Curtain from './components/Curtain/Curtain';
 import Sign from './pages/Sign/Sign';
 import CabinetClient from './pages/CabinetClient/CabinetClient';
 
+// стили
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 

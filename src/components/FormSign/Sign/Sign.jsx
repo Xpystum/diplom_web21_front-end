@@ -3,13 +3,25 @@ import Button from '../../../UI/Button/Button';
 import style from './Sign.module.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVk } from '@fortawesome/free-brands-svg-icons';
+import { request } from '../../../Action/request';
+import { useEffect, useState } from 'react';
 
 
 
 export default function Sign(props) {
 
+    let [mail, mailState] = useState(null);
+    let [pass, passState] = useState(null);
+    function clickButton(){
+        request('post', 'auth', ($response)=>{
+            console.log($response.data)
+        }, 
+        {
+        'email': mail ,
+        'password' : pass ,})
 
-  let methodButton = props.buttonMethod;
+    }
+
 
   return (
     <>
@@ -18,12 +30,12 @@ export default function Sign(props) {
 
             <div className={style.loginWrapp__label}>
                 <label for="desc_login" className={style.loginWrapp__label_label} >
-                    Телефон / Логин
+                    Почта
                 </label>
             </div>
 
             <div className={style.loginWrapp__input}>
-                <input className={style.loginWrapp__input_input} id="desc_login" type='text' name="login"/>
+                <input onChange={(event) => {mailState(event.target.value)}} className={style.loginWrapp__input_input} id="desc_login" type='text' name="login"/>
             </div>
 
             <div>
@@ -37,19 +49,19 @@ export default function Sign(props) {
         <div className={style.controlName__selection_login}>
 
         <div className={style.loginWrapp__label}>
-            <label for="desc_pass" className={style.loginWrapp__label_label}  >
+            <label for="desc_pass"  className={style.loginWrapp__label_label}  >
                 Пароль
             </label>
         </div>
 
         <div className={style.loginWrapp__input}>
-            <input id="desc_pass" type='password' className={style.loginWrapp__input_input} name="pass"/>
+            <input onChange={(event) => {passState(event.target.value)}} id="desc_pass" type='password' className={style.loginWrapp__input_input} name="pass"/>
         </div>
 
         </div>
 
         <div className={style.submitBlock}>
-        <Button method={methodButton} name={'Войти с паролем'} type={'submit'} name_class={'button__form_sign'}/>
+        <Button method={clickButton} name={'Войти с паролем'} type={'button'} name_class={'button__form_sign'}/>
         <Link className={style.link_vk} to={'#'}>
         <span className={style.brendVK__wrapp}>
             <FontAwesomeIcon className={style.brendVK__wrapp_icon} icon={faVk}/>
@@ -65,4 +77,5 @@ export default function Sign(props) {
         </div>  
     </>
   )
+
 };

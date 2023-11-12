@@ -12,10 +12,10 @@ export default function FormSign(props) {
   let [stateStatus, stateStatusState] = useState({params: 'sign'});
 
   function changeStatus(param){
-
     stateStatusState(Object.assign({}, {params: param}) );
-    console.log(stateStatus);
   }
+
+
 
 
   return (
