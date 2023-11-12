@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import style from './FormSign.module.sass';
 import { useEffect, useState } from 'react';
-import SelectSign from './SelectSign/SelectSign'
+import Register from './Register/Register'
+import Sign from './Sign/Sign'
+import { URL_BACK } from '../../config';
+
 
 
 export default function FormSign(props) {
@@ -9,17 +12,16 @@ export default function FormSign(props) {
   let [stateStatus, stateStatusState] = useState({params: 'sign'});
 
   function changeStatus(param){
-
     stateStatusState(Object.assign({}, {params: param}) );
   }
 
-  // useEffect(()=>{
-  //   // console.log(stateStatus)
-  // }, [stateStatus])
+
+
 
   return (
+    
     <div id={style.signWrapp}>
-        <form className={style.signWrapp__form}>
+        <form className={style.signWrapp__form} method='POST' action={(stateStatus.params == 'sign') ? URL_BACK + 'auth' : URL_BACK + 'register'}>
           
           <div className={style.controlName__selection}>
 
@@ -39,8 +41,13 @@ export default function FormSign(props) {
 
           </div>
 
-          <SelectSign status={stateStatus}/>
-          
+          {
+            (stateStatus.params == 'sign') ?
+              <Sign/>
+            : 
+              <Register />
+          }
+
         </form>
 
         <div className={style.privacyPolice}>
