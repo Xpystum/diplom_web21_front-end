@@ -3,7 +3,7 @@ import style from './FormSign.module.sass';
 import { useEffect, useState } from 'react';
 import Register from './Register/Register'
 import Sign from './Sign/Sign'
-
+import { URL_BACK } from '../../config';
 
 
 
@@ -19,8 +19,9 @@ export default function FormSign(props) {
 
 
   return (
+    
     <div id={style.signWrapp}>
-        <form className={style.signWrapp__form}>
+        <form className={style.signWrapp__form} method='POST' action={(stateStatus.params == 'sign') ? URL_BACK + 'auth' : URL_BACK + 'register'}>
           
           <div className={style.controlName__selection}>
 
@@ -47,12 +48,6 @@ export default function FormSign(props) {
               <Register />
           }
 
-          {/* {
-            (stateStatus.params == 'reg') ?
-            <Register />
-            : <></>
-          } */}
-          
         </form>
 
         <div className={style.privacyPolice}>
