@@ -4,6 +4,7 @@ import Spinner from 'react-bootstrap/Spinner';
 export default function Button(props) {
 
     //спинер загрузки от бутстрапа передать spin = true
+    //можно стилизовать спиннер загрузки под себя в Button.module
     let spin = props.spin ?? ""
   
 
