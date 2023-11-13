@@ -94,22 +94,23 @@ export default function ListProducts(props){
         onFilterCars();
       }, [filters])
 
-
-
-      function onBrand(evt){
+      function onFilterCheck(evt){
         let copy = Object.assign({}, filters);
-        copy.brand = evt.target.value
-        setFilters(copy);
-      }
-      function onModel(evt){
-        let copy = Object.assign({}, filters);
-        copy.model = evt.target.value
-        setFilters(copy);
-      }
-      function onPhoto(evt){
-        let copy = Object.assign({}, filters);
-        copy.truePhoto = !copy.truePhoto;
-        setFilters(copy);
+        let idFilter = evt.target.id;
+        switch (idFilter) {
+          case "brand": 
+              copy.brand = evt.target.value
+              setFilters(copy);
+              break;
+          case "model": 
+              copy.model = evt.target.value
+              setFilters(copy);
+              break;
+          case "true_photo": 
+              copy.truePhoto = !copy.truePhoto;        
+              setFilters(copy);
+              break;
+        }
       }
 
   return (
@@ -119,29 +120,31 @@ export default function ListProducts(props){
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         {/* <Filter/> */}
 
-        <form>
-            <input 
+         <form>
+           <input 
+              id="brand"
               autoFocus={true}
               type="text"  
               placeholder='Марка' 
               value={(filters.brand)} 
-              onChange={(evt)=>{onBrand(evt)}} 
+              onChange={(evt)=>{onFilterCheck(evt)}} 
             />
             <input 
+              id="model"
               autoFocus={true}
               type="text"  
               placeholder='Модель'
               value={(filters.model)} 
-              onChange={(evt)=>{onModel(evt)}} 
+              onChange={(evt)=>{onFilterCheck(evt)}} 
             />
             <input 
-              type="checkbox"
               id="true_photo"
-              onChange={(evt)=>{onPhoto(evt)}} 
+              type="checkbox"              
+              onChange={(evt)=>{onFilterCheck(evt)}} 
               checked={filters.truePhoto}
             />
             <label htmlFor="true_photo">С фото</label>
-
+            
 
 
             {/* <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt) => { editPrice(evt, "minPrice") }} />
