@@ -3,6 +3,10 @@ import './ResetStyle.css';
 
 import { request } from './Action/request';
 
+
+
+
+
 // Компоненты
 
 import PreloaderStartPage from './components/PreloaderStartPage/PreloaderStartPage';
@@ -21,6 +25,11 @@ import CabinetClient from './pages/CabinetClient/CabinetClient';
 
 // стили
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// значки
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 
 
 
