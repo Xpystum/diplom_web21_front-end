@@ -24,7 +24,6 @@ export default function Sign(props) {
     function authResponse($response){
         if($response.data.code == 201 && $response.data.token.trim() != ""){
             localStorage.setItem($response.data.token_name, $response.data.token);
-            // return redirect("/my");
             navigate("/my");
         }
         if($response.data.code == 403){

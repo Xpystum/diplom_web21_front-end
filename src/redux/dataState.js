@@ -6,6 +6,9 @@ export const dataSlice = createSlice({
     value: {
       app: {
         loader: true,
+        auth:{
+          token: ''
+        },
       },
       mainMenu: [],
       products: {
@@ -28,6 +31,10 @@ export const dataSlice = createSlice({
     // incrementByAmount: (state, action) => {
     //   state.value = action.payload
     // },
+
+    authToken: (state, action) => {
+      state.value.app.auth.token = action.payload
+    },
     
     loaderSwitch: (state, action) => {
       state.value.app.loader = action.payload
@@ -61,7 +68,8 @@ export const { increment,
                 reloadProducts, 
                 loaderSwitchProducts,
                 reloadBrands,
-                loaderSwitchBrands
+                loaderSwitchBrands,
+                authToken
               } = dataSlice.actions
 
 export default dataSlice.reducer

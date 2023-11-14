@@ -21,7 +21,7 @@ import CabinetClient from './pages/CabinetClient/CabinetClient';
 
 // стили
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Cars from './pages/CabinetClient/Cars';
 
 
 
@@ -58,7 +58,11 @@ function App() {
                             <Route path="/catalog/advanced-search/" element={<AdvancedSearch />} />
                             <Route path="/card" element={<Card />} />
                             <Route path="/sign" element={<Sign/>}/>
+
+
                             <Route path="/my" element={<CabinetClient/>}/>
+                            <Route path="/my/ads" element={<Cars/>}/>
+
                         </Routes>
                     </div>
             }
