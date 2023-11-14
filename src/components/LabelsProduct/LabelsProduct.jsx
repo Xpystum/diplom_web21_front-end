@@ -14,8 +14,8 @@ export default function LabelsProduct(props) {
         </div>
         :
         ""}
-      {/* Времяночка нет данных о собственике зацепился за положение руля */}
-      {(car.steering_wheel == "правый")?
+      
+      {(car.organisation_id == 1)?
       <div className={style.Owner}>
         <img src="https://c.rdrom.ru/js/bundles/media/owner.b106d5d924e94d3fe555.svg" alt="" width="17" height="16" />
         <span>

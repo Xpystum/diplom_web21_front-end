@@ -9,7 +9,7 @@ export default function Home(props) {
         <div>
 
             <Header />
-
+            <h1>Продажа авто в России</h1>
             <CaruselWidget />
 
             <ReviewsOwnersWidget />
