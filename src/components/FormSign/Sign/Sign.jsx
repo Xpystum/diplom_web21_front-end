@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import Button from '../../../UI/Button/Button';
 import style from './Sign.module.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,16 +9,27 @@ import { useEffect, useState } from 'react';
 
 
 export default function Sign(props) {
+    const navigate = useNavigate();
 
     let [mail, mailState] = useState(null);
     let [pass, passState] = useState(null);
     function clickButton(){
-        request('post', 'auth', ($response)=>{
-            console.log($response.data)
-        }, 
+        request('post', 'auth', authResponse, 
         {
-        'email': mail ,
-        'password' : pass ,})
+            'email': mail,
+            'password' : pass
+        })
+    }
+
+    function authResponse($response){
+        if($response.data.code == 201 && $response.data.token.trim() != ""){
+            localStorage.setItem($response.data.token_name, $response.data.token);
+            // return redirect("/my");
+            navigate("/my");
+        }
+        if($response.data.code == 403){
+            
+        }
 
     }
 
