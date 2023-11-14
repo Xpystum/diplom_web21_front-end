@@ -13,14 +13,13 @@ import { loaderSwitchBrands, reloadBrands } from "../../redux/dataState";
 export default function Catalog(){
     let dispatch = useDispatch();
 
-    request('post', 'brands', (response) => {
-        if (response.status === 200) {
-          dispatch(loaderSwitchBrands(false));
-          dispatch(reloadBrands(response.data));
-        }
-      }, {});
+    // request('post', 'brands', (response) => {
+    //     if (response.status === 200) {
+    //       dispatch(loaderSwitchBrands(false));
+    //       dispatch(reloadBrands(response.data));
+    //     }
+    //   }, {});
     let brands = useSelector(state => state.dataState.value.brands);
-    console.log(1)
     return (
     <div>
         <Header/>

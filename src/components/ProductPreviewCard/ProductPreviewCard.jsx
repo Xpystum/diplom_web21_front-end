@@ -9,7 +9,6 @@ import 'moment/locale/ru';
 export default function ProductPreviewCard(props) {
   const car = props.car;
   let time = car.created_at
-  console.log(car);
   time = time.split('T')
   let YMD = time[0].split('-').join('')
   let HMS = time[1].substring(0, 8).split(':').join('')
