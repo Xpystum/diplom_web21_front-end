@@ -21,7 +21,7 @@ export default function RelevanceProductWidget(props){
         allProductState(response.data);
         productState(response.data.slice(0, end));
       }
-    }, {id:1});
+    }, {id:4});
   }, []);
 
   
