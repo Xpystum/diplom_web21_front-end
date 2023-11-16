@@ -1,0 +1,49 @@
+.container
+    font-size: 1.6rem
+    & .tabs
+        &__menu
+            height: 45px
+            user-select: none
+            display: flex
+            gap: 1rem
+            box-sizing: border-box
+            border-bottom: 2px solid rgba(0, 0, 0, .1)
+            margin-right: 10px 
+            &__item
+                height: 100%
+                display: flex
+                align-items: center
+                position: relative
+                box-sizing: border-box
+                cursor: pointer
+                font-weight: bold
+                color: rgba(0, 0, 0, .3)
+                transition: 0.15s ease
+                &[aria-selected="true"]
+                    color: rgba(0, 0, 0, 1)
+                    &::after
+                        content: ""
+                        position: absolute
+                        bottom: -2px
+                        left: 0
+                        width: 100%
+                        height: 2px 
+                        background: #000
+                    &:hover
+                        color: rgba(0, 0, 0, .9)
+                &:hover
+                    color: rgba(0, 0, 0, .5)
+                    transition: 0.15s ease
+                &:focus-visible
+                    outline: none
+        // &__content
+        //     display: flex
+        //     width: 100%
+            
+        //     &__column
+        //         padding-top: 10px
+        //         width: 25%
+        //         border: 1px solid #a00 
+        //         text-align: start
+
+            

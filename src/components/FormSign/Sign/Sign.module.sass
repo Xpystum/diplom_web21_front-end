@@ -1,0 +1,71 @@
+%btn
+    width: 100%
+    box-sizing: border-box
+    display: block
+    font-size: 16px
+    font-weight: 400
+    margin-top: 20px
+    padding: 12px 0
+    width: 100%
+    border-radius: 4px
+    
+
+.controlName__selection_login
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    .loginWrapp__label
+        padding: 20px 0 8px
+        .loginWrapp__label_label
+            display: flex
+            color: #4a4a4a
+            font-size: 1.8rem
+            justify-content: left
+
+    .loginWrapp__input
+        
+        .loginWrapp__input_input
+            background-color: #fff
+            border-radius: 4px
+            padding: 10px
+            box-sizing: border-box
+            font-size: 16px
+            line-height: 20px
+            width: 100%
+            border: 1px solid #b9b3aa
+            &:focus
+                outline: none
+                border: 1px solid #09f
+    
+    .comment
+        margin-top: 8px
+        display: flex
+        justify-content: left
+        color: #999
+        font-size: 1.35rem
+
+.submitBlock
+
+    .link_vk
+        @extend %btn
+        color: rgb(74, 74, 74)
+        background-image: linear-gradient(rgb(254, 254, 254), rgb(234, 234, 234))
+        border: 1px solid #d2d2d2
+        font-size: 1.8rem
+
+        .brendVK__wrapp
+            margin-right: 5px
+            margin: 10px
+            .brendVK__wrapp_icon
+            color: #1b75cc
+
+.passwordRecoveryView
+    margin-top: 16px
+    .sign_form__link
+        color: #0052c2
+        font-size: 1.8rem
+
+        &:hover
+            color: #f36d00
+            text-decoration: underline
