@@ -1,10 +1,6 @@
 import style from './ButtonIcon.module.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faBasketShopping } from '@fortawesome/free-solid-svg-icons';
-
-
 
 // иконки
 // fa-solid fa-basket-shopping - корзина

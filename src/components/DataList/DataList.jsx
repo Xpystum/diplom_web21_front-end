@@ -1,15 +1,21 @@
 import style from './DataList.module.sass';
 
 export default function ButtonPlus(props) {
+    let placeholder = props.placeholder;
+    let styleName = props.styleName ?? null;
+
+    let ListInput = props.ListInputName;
+    let IdDataList = props.IdDataList;
+
     return (
         <>
-            <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." />
-            <datalist className={style.datalist} id="datalistOptions" >
-                <option className={style.option} value="San Francisco" />
-                <option className={style.option} value="New York" />
-                <option className={style.option} value="Seattle" />
-                <option className={style.option} value="Los Angeles" />
-                <option className={style.option} value="Chicago" />
+            <input className={style.inputDataList + ' ' + "form-control" + ' ' + style[styleName]} list={ListInput} id="exampleDataList" placeholder={placeholder} />
+            <datalist id={IdDataList} >
+                <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
+                <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
+                <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
+                <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
+                <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
             </datalist>
         </>
     )

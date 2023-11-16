@@ -3,10 +3,6 @@ import './ResetStyle.css';
 
 import { request } from './Action/request';
 
-
-
-
-
 // Компоненты
 
 import PreloaderStartPage from './components/PreloaderStartPage/PreloaderStartPage';
@@ -25,7 +21,6 @@ import CabinetClient from './pages/CabinetClient/CabinetClient';
 
 // стили
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Cars from './pages/CabinetClient/Cars';
 
 
