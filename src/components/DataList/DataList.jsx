@@ -2,14 +2,15 @@ import style from './DataList.module.sass';
 
 export default function ButtonPlus(props) {
     let placeholder = props.placeholder;
-    let styleName = props.styleName ?? null;
+    let styleNameInput = props.styleNameInput ?? null;
+    let styleNameWrapp = props.styleNameWrapp ?? null;
 
-    let ListInput = props.ListInputName;
-    let IdDataList = props.IdDataList;
+    let ListInput = props.ListInputName ?? "";
+    let IdDataList = props.IdDataList ?? "";
 
     return (
-        <>
-            <input className={style.inputDataList + ' ' + "form-control" + ' ' + style[styleName]} list={ListInput} id="exampleDataList" placeholder={placeholder} />
+        <div className={style.wrapp_dataList + ((styleNameWrapp)? ' ' + style[styleNameWrapp] : "") }>
+            <input className={style.inputDataList + ' ' + "form-control" +((styleNameInput)? (' ' + style[styleNameInput]) : "")} list={ListInput} id="exampleDataList" placeholder={placeholder} />
             <datalist id={IdDataList} >
                 <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
                 <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
@@ -17,6 +18,6 @@ export default function ButtonPlus(props) {
                 <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
                 <option  value={"МАКСМ РАБОТАЙ" + " " + IdDataList} />
             </datalist>
-        </>
+        </div>
     )
 }

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // fa-solid fa-basket-shopping - корзина
 // fa-solid fa-plus - плюс
 // fa-solid fa-trash-can - мусорный бак
+//
 
 export default function ButtonPlus(props) {
 

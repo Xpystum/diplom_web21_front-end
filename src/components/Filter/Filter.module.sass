@@ -13,13 +13,39 @@
         background-color: #F5F5F5
         padding: 20px
         margin-bottom: 20px
-        .block_info
+        .block_info_wrapp
             width: 100%
             display: flex
             justify-content: space-between
             .block_info
+                display: flex
+                justify-content: space-between
                 width: 32.5%
                 margin-bottom: 10px
+            .block_info_check_box
+                display: flex   
+                flex-direction: row
+                align-items: center
+                justify-content: flex-start
+                .check_box  
+                    display: flex   
+                    flex-direction: row
+                    align-items: center
+                    
+                .check_box_input
+                    width: 30px
+                    height: 30px
+                    border-radius: 6px
+                    cursor: pointer
+                    &:focus
+                        box-shadow: none
+                    &:active
+                        background: rgb(233,236,239 )
+
+                .check_box_label
+                    font-size: 1.5rem
+                    margin: 0 14px 0 12px
+                
                 .selectBootstrap
                     font-size: 1.35rem
                     border-radius: 6px
@@ -37,6 +63,17 @@
             width: 33%
             display: flex
             justify-content: space-around
+            position: relative
+            &::after
+                content: ""
+                background-color: rgba(	26, 26, 26, 0.5 )
+                width: 1px
+                height: 20px
+                top: 50%
+                left: 50%
+                transform: translate(-50%,-50%)
+                position: absolute
+                
 
             .selectBootstrap
                 font-size: 1.35rem
