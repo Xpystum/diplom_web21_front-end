@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { request } from "../../Action/request";
 import Header from "../../UI/Header/Header";
-
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { authToken } from "../../redux/dataState";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
-import { VerificationUser } from "../../Action/VerificationUser";
+import requestDataInToken from "../../Action/requestDataInToken";
 
 
 export default function CabinetClient(props){
@@ -25,7 +23,7 @@ export default function CabinetClient(props){
 */
 
   useEffect(function(){
-    VerificationUser(navigate, dispatch, request, authToken);
+    requestDataInToken(navigate, dispatch, {url: 'token'});
     // if(!localStorage.getItem("my_token")){
     //     navigate('/sign');
     // }

@@ -7,7 +7,7 @@ export const dataSlice = createSlice({
       app: {
         loader: true,
         auth:{
-          token: ''
+          token: '',
         },
       },
       mainMenu: [],
@@ -34,6 +34,11 @@ export const dataSlice = createSlice({
 
     authToken: (state, action) => {
       state.value.app.auth.token = action.payload
+    },
+
+    removeToken: (state, action) => {
+      localStorage.removeItem('my_token');
+      state.value.app.auth.token = ''
     },
     
     loaderSwitch: (state, action) => {
@@ -69,7 +74,8 @@ export const { increment,
                 loaderSwitchProducts,
                 reloadBrands,
                 loaderSwitchBrands,
-                authToken
+                authToken,
+                removeToken
               } = dataSlice.actions
 
 export default dataSlice.reducer
