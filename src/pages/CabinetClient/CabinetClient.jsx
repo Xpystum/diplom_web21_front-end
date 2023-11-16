@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authToken } from "../../redux/dataState";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
-//import { VerificationUser } from "../../Action/VerificationUser";
+import { VerificationUser } from "../../Action/VerificationUser";
 
 
 export default function CabinetClient(props){
@@ -23,27 +23,26 @@ export default function CabinetClient(props){
     }, {'token': 'CSt0UmtoyRjkxrf6vkhEPMaMyQjh1kK8LnHbhrAP4685ee75'})
   }, []);
 */
+
   useEffect(function(){
-    //VerificationUser();
-    if(!localStorage.getItem("my_token")){
-        navigate('/sign');
-    }
+    VerificationUser(navigate, dispatch, request, authToken);
+    // if(!localStorage.getItem("my_token")){
+    //     navigate('/sign');
+    // }
 
+    // request('post', 'token', ($response)=>{
+    //   if(!$response.data){
+    //     navigate('/sign');
+    //   }
 
-
-    request('post', 'token', ($response)=>{
-      if(!$response.data){
-        navigate('/sign');
-      }
-
-      if($response.data){
-        dispatch(authToken(localStorage.getItem("my_token")));
-      }
-    }, 
-        {
-            'token': localStorage.getItem("my_token"),
-        }
-    );
+    //   if($response.data){
+    //     dispatch(authToken(localStorage.getItem("my_token")));
+    //   }
+    // }, 
+    //     {
+    //         'token': localStorage.getItem("my_token"),
+    //     }
+    // );
  
 
   }, []);
