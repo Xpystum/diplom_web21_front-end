@@ -5,8 +5,6 @@ import Location from '../Location/Location';
 import LoginRegisterWidget from '../../widgets/LoginRegisterWidget/LoginRegisterWidget';
 import PostAdd from '../PostAdd/PostAdd';
 import UserPanelWidget from '../../widgets/UserPanelWidget/UserPanelWidget';
-import requestDataInToken from '../../Action/requestDataInToken';
-import requestToken from '../../Action/requestToken';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Header(props) {
@@ -15,7 +13,7 @@ export default function Header(props) {
   let dispath = useDispatch();
   let auth = useSelector(state => state.dataState.value.app.auth);
 
-  requestToken(dispath);
+  // requestToken(dispath);
 
   return (
 
