@@ -1,188 +1,193 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap')
-
 .ProductPreviewCard
-  display: flex
-  justify-content: space-between
-  align-items: stretch
-
-  padding: 20px
-
-  font-family: 'Roboto', sans-serif
-  color: #000
-
-  text-decoration: none
-
-  border-top: 1px solid rgba(0, 0, 0, 0.1)
-
-  position: relative
-
-  transition: background-color 150ms ease-out
-  &:hover
-    // position: relative
-    background-color: hsl(0, 0%, 96%)
-    border-top: 1px solid rgba(0, 0, 0, 0)
-    border-radius: 16px
-    transition: background-color 150ms ease-out
-    &::after
-      content: ''
-      width: 100%
-      height: 1px
-      position: absolute
-      z-index: 9999
-      background: #fff
-      left: 0
-      bottom: 0
-      margin-bottom: -1px
-      transition: background-color 150ms ease-out
-
-  &:hover .Model
-    color: hsl(353, 100%, 43%)
-
-  & .Image
-    flex-basis: 272px
-    width: 272px
-    height: 205px
-
     position: relative
-    overflow: hidden
-
-    border-radius: 6px
-
-    margin-right: 40px
-    @media(max-width: 1600px)
-      flex-basis: 240px
-      width: 240px
-      height: 180px
-    @media(max-width: 1280px)
-      margin-right: 20px
-    &::after
-      content: ""
-      display: block
-      position: absolute
-      overflow: hidden
-      top: 0
-      bottom: 0
-      left: 0
-      right: 0
-      border-radius: 6px
-      background: rgba(0, 0, 0, 0.08)
-    & img
-      
-      object-fit: cover 
-      width: 100%
-      height: 100%
-      display: block
-      object-fit: cover
-
-      overflow: hidden
-
-  & .PreviewText
-    flex-basis: 406px
-    min-width: 264px
-
-    margin-right: 40px
-    @media(max-width: 1280px)
-      margin-right: 20px
-
-    & .Title
-      & .Model
-        display: flex
-        justify-content: flex-start
-        align-items: center
-        & .MarkPromotion
-          display: inline-block
-          width: 16px
-          height: 16px
-          margin-right: 5px
-          mask-image: url("https://c.rdrom.ru/js/bundles/media/promote-up.e619d85bf6df2f38900a.svg")
-          background-color: rgb(132, 182, 62)
-
-          font-size: 18px
-          font-weight: normal
-          line-height: 25px
-        & span
-          font-size: 18px
-          font-weight: normal
-          line-height: 25px
-      & .Equipment
-        display: flex
-        justify-content: flex-start
-        font-size: 13px
-        line-height: 20px
-        color: rgba(0, 0, 0, 0.4)
-
-        margin-top: 5px
-
-    & .Components
+    & .ProductPreviewCardLink
       display: flex
-      justify-content: flex-start
+      justify-content: space-between
+      align-items: stretch
 
-      font-size: 15px
-      line-height: 1.5
+      padding: 20px
 
-      margin-top: 5px
-      & span
-        white-space: nowrap
+      font-family: 'Roboto', sans-serif
+      color: #000
 
-        margin-right: 5px
+      text-decoration: none
 
-    & .Labels
-      margin-top: 10px
+      border-top: 1px solid rgba(0, 0, 0, 0.1)
 
-  & .PricesLocation
-    display: flex
-    flex-direction: column
-    justify-content: space-between
+      position: relative
 
-    width: 168px
-    @media(max-width: 1280px)
-      width: 140px
+      transition: background-color 150ms ease-out
+      &:hover
+        // position: relative
+        background-color: hsl(0, 0%, 96%)
+        border-top: 1px solid rgba(0, 0, 0, 0)
+        border-radius: 16px
+        transition: background-color 150ms ease-out
+        &::after
+          content: ''
+          width: 100%
+          height: 1px
+          position: absolute
+          z-index: 9999
+          background: #fff
+          left: 0
+          bottom: 0
+          margin-bottom: -1px
+          transition: background-color 150ms ease-out
 
-    & .Prices
-      display: flex
-      flex-wrap: wrap
-      justify-content: flex-start
-      align-items: center
+      &:hover .Model
+        color: hsl(353, 100%, 43%)
 
-      margin-right: 20px
+      & .Image
+        flex-basis: 272px
+        width: 272px
+        height: 205px
 
-      & .Price
-        flex-basis: 100%
+        position: relative
+        overflow: hidden
 
-        color: #000
-        text-align: left
-        & > span
-          font-weight: bold
-          font-size: 18px
-          line-height: 1.39
-          white-space: nowrap
-          & > span
+        border-radius: 6px
+
+        margin-right: 40px
+        @media(max-width: 1600px)
+          flex-basis: 240px
+          width: 240px
+          height: 180px
+        @media(max-width: 1280px)
+          margin-right: 20px
+        &::after
+          content: ""
+          display: block
+          position: absolute
+          overflow: hidden
+          top: 0
+          bottom: 0
+          left: 0
+          right: 0
+          border-radius: 6px
+          background: rgba(0, 0, 0, 0.08)
+        & img
+
+          object-fit: cover
+          width: 100%
+          height: 100%
+          display: block
+          object-fit: cover
+
+          overflow: hidden
+
+      & .PreviewText
+        flex-basis: 406px
+        min-width: 264px
+
+        margin-right: 40px
+        @media(max-width: 1280px)
+          margin-right: 20px
+
+        & .Title
+          & .Model
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            & .MarkPromotion
+              display: inline-block
+              width: 16px
+              height: 16px
+              margin-right: 5px
+              mask-image: url("https://c.rdrom.ru/js/bundles/media/promote-up.e619d85bf6df2f38900a.svg")
+              background-color: rgb(132, 182, 62)
+
+              font-size: 18px
+              font-weight: normal
+              line-height: 25px
+            & span
+              font-size: 18px
+              font-weight: normal
+              line-height: 25px
+          & .Equipment
+            display: flex
+            justify-content: flex-start
+            font-size: 13px
+            line-height: 20px
+            color: rgba(0, 0, 0, 0.4)
+
+            margin-top: 5px
+
+        & .Components
+          display: flex
+          justify-content: flex-start
+
+          font-size: 15px
+          line-height: 1.5
+
+          margin-top: 5px
+          & span
+            white-space: nowrap
+
             margin-right: 5px
 
-      & .OldPrice
-        color: rgb(219, 0, 26)
-        text-align: left
-        & .OldPrice__Label
-          font-size: 12px
+        & .Labels
+          margin-top: 10px
+
+      & .PricesLocation
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+
+        width: 168px
+        @media(max-width: 1280px)
+          width: 140px
+
+        & .Prices
+          display: flex
+          flex-wrap: wrap
+          justify-content: flex-start
+          align-items: center
+
+          margin-right: 20px
+
+          & .Price
+            flex-basis: 100%
+
+            color: #000
+            text-align: left
+            & > span
+              font-weight: bold
+              font-size: 18px
+              line-height: 1.39
+              white-space: nowrap
+              & > span
+                margin-right: 5px
+
+          & .OldPrice
+            color: rgb(219, 0, 26)
+            text-align: left
+            & .OldPrice__Label
+              font-size: 12px
+              line-height: 1.5
+              white-space: nowrap
+            & .OldPrice__Value
+              font-size: 16px
+              line-height: 1
+              white-space: nowrap
+
+        & .Location
+          font-size: 13px
           line-height: 1.5
-          white-space: nowrap
-        & .OldPrice__Value
-          font-size: 16px
-          line-height: 1
-          white-space: nowrap
+          color: rgba(0, 0, 0, 0.4)
 
-    & .Location
-      font-size: 13px
-      line-height: 1.5
-      color: rgba(0, 0, 0, 0.4)
-
-      text-align: left
-      & > div:first-child
-        margin-bottom: 5px
-
+          text-align: left
+          & > div:first-child
+            margin-bottom: 5px
     & .Favourites
       position: absolute
+      z-index: 5
       top: 20px
       right: 20px
 
       color: rgb(189, 194, 199)
+      // margin: -10px
+
+      & svg
+          margin-right: 0

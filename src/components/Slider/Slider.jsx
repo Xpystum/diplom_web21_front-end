@@ -11,52 +11,52 @@ import Button from "../../UI/Button/Button";
 
 const images = [
     {
-        original: "img/1_big.jpeg",
-        thumbnail: "img/1_small.jpeg",
+        original: "/img/1_big.jpeg",
+        thumbnail: "/img/1_small.jpeg",
     },
     {
-        original: "img/2_big.jpeg",
-        thumbnail: "img/2_small.jpeg",
+        original: "/img/2_big.jpeg",
+        thumbnail: "/img/2_small.jpeg",
     },
     {
-        original: "img/3_big.jpeg",
-        thumbnail: "img/3_small.jpeg",
+        original: "/img/3_big.jpeg",
+        thumbnail: "/img/3_small.jpeg",
     },
     {
-        original: "img/4_big.jpeg",
-        thumbnail: "img/4_small.jpeg",
+        original: "/img/4_big.jpeg",
+        thumbnail: "/img/4_small.jpeg",
     },
     {
-        original: "img/5_big.jpeg",
-        thumbnail: "img/5_small.jpeg",
+        original: "/img/5_big.jpeg",
+        thumbnail: "/img/5_small.jpeg",
     },
     {
-        original: "img/6_big.jpeg",
-        thumbnail: "img/6_small.jpeg",
+        original: "/img/6_big.jpeg",
+        thumbnail: "/img/6_small.jpeg",
     },
     {
-        original: "img/7_big.jpeg",
-        thumbnail: "img/7_small.jpeg",
+        original: "/img/7_big.jpeg",
+        thumbnail: "/img/7_small.jpeg",
     },
     {
-        original: "img/8_big.jpeg",
-        thumbnail: "img/8_small.jpeg",
+        original: "/img/8_big.jpeg",
+        thumbnail: "/img/8_small.jpeg",
     },
     {
-        original: "img/9_big.jpeg",
-        thumbnail: "img/9_small.jpeg",
+        original: "/img/9_big.jpeg",
+        thumbnail: "/img/9_small.jpeg",
     },
     {
-        original: "img/10_big.jpeg",
-        thumbnail: "img/10_small.jpeg",
+        original: "/img/10_big.jpeg",
+        thumbnail: "/img/10_small.jpeg",
     },
     {
-        original: "img/11_big.jpeg",
-        thumbnail: "img/11_small.jpeg",
+        original: "/img/11_big.jpeg",
+        thumbnail: "/img/11_small.jpeg",
     },
     {
-        original: "img/12_big.jpeg",
-        thumbnail: "img/12_small.jpeg",
+        original: "/img/12_big.jpeg",
+        thumbnail: "/img/12_small.jpeg",
     },
 ];
 
