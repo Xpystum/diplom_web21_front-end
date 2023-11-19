@@ -473,6 +473,16 @@ $ig-shadow: 0 2px 2px lighten($ig-black, 10%);
             border: 3px solid $ig-blue;
         }
     }
+    &.active::after{
+        content: ''!important;
+        position: relative !important;
+        border-radius: 0 !important;
+        inset: 0 !important;
+        opacity: 0 !important;
+        transition: none !important;
+        background: none !important;
+        z-index: 1 !important;
+    }
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {

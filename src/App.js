@@ -64,7 +64,7 @@ function App() {
                             <Route path="/category/:alias" element={<ListProducts />} />
                             <Route path="/category" element={<Catalog />} />
                             <Route path="/catalog/advanced-search/" element={<AdvancedSearch />} />
-                            <Route path="/card" element={<Card />} />
+                            <Route path="/category/:alias/card/:id" element={<Card />} />
                             <Route path="/sign" element={<Sign/>}/>
 
 
