@@ -4,6 +4,7 @@ import style from './BrandColumn.module.sass';
 
 export default function BrandColumn(props){
     let mass = props.brands
+
     let itemColumn = props.itemColumn
     let brands = mass.data
     let popular = props.noPopular
