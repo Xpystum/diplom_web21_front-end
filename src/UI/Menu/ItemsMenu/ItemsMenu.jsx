@@ -14,7 +14,6 @@ export default function ItemsMenu(props){
     <li className={styles[variationLi]}>
       <NavLink  style={({ isActive, isPending, isTransitioning }) => {
         return {
-          fontWeight: isActive ? "bold" : "",
           opacity: isActive ? "1" : "",
         }; }}
         

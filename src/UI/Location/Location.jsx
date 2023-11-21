@@ -5,6 +5,8 @@ import icon from './location.svg'
 export default function Location(props){
 
     return(
-        <Link className={styles.location} to='/'><img src={icon} alt="location" /> Нижегородская область</Link>
+        <div className={styles.__wrap}>
+            <Link className={styles.__text} to='/'><img src={icon} alt="location" /> Нижегородская область</Link>
+        </div>
     )
 }

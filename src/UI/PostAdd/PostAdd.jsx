@@ -4,7 +4,10 @@ import icon from './plus.svg'
 export default function PostAdd(props){
     return(
         <div className={style.postadd}>
-            <Link className={style.postadd__link}><img src={icon} alt="pluse" /><p>Подать объявление</p></Link>
+            <Link className={style.postadd__link}><img src={icon} alt="pluse" />
+                <p className={style.lg}>Продать</p>
+                <p className={style.xxl}>Подать объявление</p>
+            </Link>
         </div>
         
     )

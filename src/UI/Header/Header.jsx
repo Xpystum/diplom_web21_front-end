@@ -19,18 +19,25 @@ export default function Header(props) {
 
     <header className={style.header}>
       
-      <div className={style.headerWrap}>
-        <Logo/>
-        <Location />
-        <Menu mainMenu={mainMenu}/>
-        <PostAdd />
+      <div className={style.header__wrap}>
+        <div className={style.header__info}>
+          <Logo/>
+          <Location />
+          <Menu mainMenu={mainMenu}/>  
+        </div>
+        
+        
+        <div className={style.header__reg}>
+          <PostAdd />
 
-        {
-          (!auth.token)?
-            <LoginRegisterWidget />
-          :
-            <UserPanelWidget/>
-        }
+          {
+            (!auth.token)?
+              <LoginRegisterWidget />
+            :
+              <UserPanelWidget/>
+          }  
+        </div>
+        
         
       </div>
     </header>

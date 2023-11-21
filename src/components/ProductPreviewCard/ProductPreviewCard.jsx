@@ -34,7 +34,6 @@ export default function ProductPreviewCard(props) {
         :
         setStateFavourites(true)
 }
-  console.log(car)
   return (
     <div className={style.ProductPreviewCard}>
         <Link

@@ -1,17 +1,19 @@
 .register_wrap
-    display: flex
-    background-color: #000000
-    margin:0px
-    align-items: center
+    text-align: center
+    display: table
     .register
-        font-size: 15px
-        padding: 0px
+        display: table-cell
+        vertical-align: middle
+        font-size: 1.5rem
+        font-weight: 500
+        padding: 0px 20px
         margin: 0px
-        display: flex
-        justify-content: center
         text-decoration: none
-        color: rgba(255, 255, 255, 0.7)
-        align-items: center
+        color: rgba(255, 255, 255, 0.8)
+        & p
+            margin: 0
+            & span
+                display: inline
         &:hover
             opacity: 1
             color: #FFF
@@ -19,5 +21,13 @@
             &::after
                 opacity: 0.3
                 transition: 0.1s ease
+
+@media all and (max-width:1386px) 
+    .register_wrap
+        .register
+            margin: 0 5px
+            & p
+                & span
+                    display: none
 
 
