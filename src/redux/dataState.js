@@ -18,20 +18,13 @@ export const dataSlice = createSlice({
       brands: {
         loader: true,
         data: []
-      }
+      },
+      user: {
+        data: []
+      },
     }
   },
   reducers: {
-    // increment: state => {
-    //   state.value += 1
-    // },
-    // decrement: state => {
-    //   state.value -= 1
-    // },
-    // incrementByAmount: (state, action) => {
-    //   state.value = action.payload
-    // },
-
     authToken: (state, action) => {
       state.value.app.auth.token = action.payload
     },
@@ -44,7 +37,9 @@ export const dataSlice = createSlice({
     loaderSwitch: (state, action) => {
       state.value.app.loader = action.payload
     },
-
+    reloadUser: (state, action) => {
+      state.value.user.data = action.payload
+    },
     reloadMenu: (state, action) => {
       state.value.mainMenu = action.payload
     },
@@ -75,7 +70,8 @@ export const { increment,
                 reloadBrands,
                 loaderSwitchBrands,
                 authToken,
-                removeToken
+                removeToken,
+                reloadUser
               } = dataSlice.actions
 
 export default dataSlice.reducer
