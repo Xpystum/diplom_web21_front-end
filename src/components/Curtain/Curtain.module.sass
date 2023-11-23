@@ -1,0 +1,52 @@
+$transition: all 0.3s ease 0s
+$body-background-color: #fff
+$body-text-color: #000000
+$bg-light-dark-color: #1a1818
+$border-color: #E5E5E5
+
+.Curtain
+    width: 100vw
+    height: 100vh
+
+    display: flex
+    justify-content: center
+    align-items: center
+
+    position: fixed
+    z-index: 9999
+
+    animation: curtain_none 1s forwards
+
+    & .SectionLeft
+        width: 50%
+        height: 100%
+        background: $body-background-color
+
+        position: fixed
+        top: 0
+        left: 0
+
+        animation: 1s curtain_left linear forwards
+
+    & .SectionRight
+        width: 50%
+        height: 100%
+        background: $body-background-color
+
+        position: fixed
+        top: 0
+        right: 0
+
+        animation: 1s curtain_right linear forwards
+
+@keyframes curtain_left
+    100%
+        transform: translateX(-101%)
+
+@keyframes curtain_right
+    100%
+        transform: translateX(101%)
+
+@keyframes curtain_none
+    100%
+        display: none

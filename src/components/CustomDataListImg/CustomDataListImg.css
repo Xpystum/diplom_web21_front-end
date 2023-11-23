@@ -1,0 +1,55 @@
+.css-1n6sfyn-MenuList{
+    max-width: 460px;
+    width: 460px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.react_select__value-container{
+    overflow: hidden;
+    justify-content: start;
+    font-size: 1.35rem;
+    text-overflow: ellipsis;
+    max-height: 22px;
+    opacity: 0.75;
+   
+}
+
+.css-1nmdiq5-menu{
+    width: 460px !important;
+}
+
+.react-select__menu{    
+    width: 460px !important;
+}
+
+.react_select_container{
+    width: 100% !important; 
+
+}
+
+.react_select__option{
+    width: 220px !important;
+    background-color: initial !important;
+}
+
+.react_select__option:active{
+    background-color: initial !important;
+}
+
+.react_select__option--is-focused{
+    background-color: initial !important;
+}
+
+.react_select__control{
+    height: 40px;
+    border: none !important;
+    border-radius: 6px !important;
+}
+
+.react_select__control--menu-is-open{
+    background-color: red;
+}
+

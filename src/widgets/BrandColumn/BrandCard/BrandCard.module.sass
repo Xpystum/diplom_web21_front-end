@@ -1,0 +1,32 @@
+.item
+    color: #000
+    display: flex
+    align-items: center
+    min-height: 30px
+    line-height: 1
+    margin-bottom: 30px 
+    text-decoration: none
+    &:hover
+        .item
+            &__img
+                opacity: 0.7
+                transition: 0.1s ease
+            &__text,
+            &__bold
+                transition: 0.1s ease
+                color: #a00  
+    &__img
+        width: 30px
+        transition: 0.1s ease
+        & img
+            height: auto
+            width: 100%
+    &__text,
+    &__bold
+        
+        transition: 0.1s ease
+        margin-left: 10px
+        font-size: 1.4rem
+    &__bold
+        font-size: 1.9rem
+        font-weight: bold
