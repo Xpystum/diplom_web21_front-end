@@ -156,7 +156,7 @@ export default function ProductCard(props) {
     }
 
     
-
+    console.log(select_product.data);
 
 
     return (
@@ -190,9 +190,9 @@ export default function ProductCard(props) {
                             <h1>
                                 <span>Продажа</span>
                                 <span className={style.Brand}>{select_product.data.brand.name}</span>
-                                <span className={style.Model}>Tiggo 4 Pro,</span>
-                                <span className={style.YearMaking}>2023 год</span>
-                                <span className={style.Location}>в Москве</span>
+                                <span className={style.Model}>{select_product.data.model.name},</span>
+                                <span className={style.YearMaking}>{select_product.data.year} год</span>
+                                <span className={style.Location}>в {select_product.data.city}</span>
                             </h1>
 
                         </div>
@@ -323,16 +323,16 @@ export default function ProductCard(props) {
                                 <div className={style.Prices}>
                                     <div className={style.Price}>
                                         <span>
-                                            {new Intl.NumberFormat("ru-RU").format(2620000)} ₽
+                                            {new Intl.NumberFormat("ru-RU").format(select_product.data.price)} ₽
                                         </span>
                                     </div>
 
                                     {
-                                        (true) ? //Условие-заглушка, надо будет проставить если в предложении есть min. цена
+                                        (select_product.data.old_price) ? //Условие-заглушка, надо будет проставить если в предложении есть min. цена
                                             <div className={style.MinPrice}>
                                                 <div className={style.MinPriceLabel}>минимальная цена</div>
                                                 <button className={style.MinPriceValue} onClick={() => { onShowCalculationMinPrice() }}>
-                                                    <span>{new Intl.NumberFormat("ru-RU").format(2380000)} ₽</span>
+                                                    <span>{new Intl.NumberFormat("ru-RU").format(select_product.data.old_price)} ₽</span>
                                                 </button>
                                             </div>
                                             :
@@ -350,7 +350,7 @@ export default function ProductCard(props) {
                                         <div className={style.PricesCalculation}>
                                             <div className={style.Price}>
                                                 <span>
-                                                    {new Intl.NumberFormat("ru-RU").format(2620000)} ₽
+                                                    {new Intl.NumberFormat("ru-RU").format(select_product.data.price)} ₽
                                                 </span>
                                             </div>
 
@@ -359,7 +359,7 @@ export default function ProductCard(props) {
                                                     <div className={style.MinPrice}>
                                                         <div className={style.MinPriceLabel}>минимальная цена</div>
                                                         <button className={style.MinPriceValue}>
-                                                            <span>{new Intl.NumberFormat("ru-RU").format(2380000)} ₽</span>
+                                                            <span>{new Intl.NumberFormat("ru-RU").format(select_product.data.old_price)} ₽</span>
                                                         </button>
                                                     </div>
                                                     :
@@ -374,7 +374,7 @@ export default function ProductCard(props) {
                                                     <span>дополнительная скидка</span>
                                                     <div>
                                                         <span>-</span>
-                                                        <span>{new Intl.NumberFormat("ru-RU").format(240000)}</span>
+                                                        <span>{new Intl.NumberFormat("ru-RU").format(select_product.data.price - select_product.data.old_price)}</span>
                                                         <span>₽</span>
                                                     </div>
                                                 </div>
@@ -391,7 +391,7 @@ export default function ProductCard(props) {
                                                     <span>Максимальная скидка</span>
                                                     <div>
                                                         <span>-</span>
-                                                        <span>{new Intl.NumberFormat("ru-RU").format(240000)}</span>
+                                                        <span>{new Intl.NumberFormat("ru-RU").format(select_product.data.price - select_product.data.old_price)}</span>
                                                         <span>₽</span>
                                                     </div>
                                                 </div>
@@ -430,31 +430,31 @@ export default function ProductCard(props) {
                                             <tr>
                                                 <th>Двигатель</th>
                                                 <td>
-                                                    <span>бензин, 1.5 л</span>
+                                                    <span>{select_product.data.fuel.name}, {select_product.data.engine_capacity} л</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Мощность</th>
                                                 <td>
-                                                    <span>147 л.с.</span>
+                                                    <span>{select_product.data.power} л.с.</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Коробка передач</th>
                                                 <td>
-                                                    <span>вариатор</span>
+                                                    <span>{select_product.data.transmission.name}</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Привод</th>
                                                 <td>
-                                                    <span>передний</span>
+                                                    <span>{select_product.data.drive_unit.name}</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Цвет</th>
                                                 <td>
-                                                    <span>черный</span>
+                                                    <span>{select_product.data.color.name}</span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -466,25 +466,25 @@ export default function ProductCard(props) {
                                             <tr>
                                                 <th>Руль</th>
                                                 <td>
-                                                    <span>левый</span>
+                                                    <span>{select_product.data.steering_wheel}</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Поколение</th>
                                                 <td>
-                                                    <span><a href='#'>1 поколение</a></span>
+                                                    <span><a href='#'>{select_product.data.generation}</a></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Комплектация</th>
                                                 <td>
-                                                    <span><a href='#'>1.5PT CVT Ultimate</a></span>
+                                                    <span><a href='#'>{select_product.data.equipment}</a></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>VIN</th>
                                                 <td>
-                                                    <span>LVV**************</span>
+                                                    <span>{select_product.data.vin}</span>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -494,7 +494,8 @@ export default function ProductCard(props) {
                                 <div className={style.DescriptionProduct}>
                                     <div className={style.DescriptionText}>
                                         <span>Дополнительно:</span>
-                                        <span>
+                                        {select_product.data.desription}
+                                        {/* <span>
                                             <span>Месяц продаж CHERY в «У Сервис+»! Увеличиваем выгоды на все автомобили в наличии + дополнительное оборудование в ПОДАРОК! Успейте купить на специальных условиях!</span>
                                             <span>Комплектация: Chery Tiggo 4 PRO Ultimate</span>
                                             <span>Основные опции: 2023, климат-контроль, аудио, кожа, airbags, ABS, ESP, светодиодные фары, центральный замок, электропривод стекол, электропривод сидений, электропривод зеркал, круиз-контроль, датчик дождя, обогрев сидений, парктроник, видеокамера, люк, литые диски, R18.</span>
@@ -509,11 +510,11 @@ export default function ProductCard(props) {
                                             <span>Цвет передней панели: черный</span>
                                             <span>Цвет коврового покрытия: черный</span>
                                             <span>Цвет потолка: серый</span>
-                                        </span>
+                                        </span> */}
                                     </div>
                                     <div className={style.DescriptionLocation}>
                                         <span>Город:</span>
-                                        <span>Москва</span>
+                                        <span>{select_product.data.city}</span>
                                     </div>
                                 </div>
 
