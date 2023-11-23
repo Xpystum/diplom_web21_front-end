@@ -23,7 +23,11 @@ export const dataSlice = createSlice({
         loader: true,
         data: []
       },
-      user: {
+      users: {
+        data: []
+      },
+      select_user: {
+        loader: true,
         data: []
       },
     }
@@ -42,8 +46,14 @@ export const dataSlice = createSlice({
     loaderSwitch: (state, action) => {
       state.value.app.loader = action.payload
     },
-    reloadUser: (state, action) => {
-      state.value.user.data = action.payload
+    reloadUsers: (state, action) => {
+      state.value.users.data = action.payload
+    },
+    reloadSelectUser: (state, action) => {
+      state.value.select_user.data = action.payload
+    },
+    loaderSelectUser: (state, action) => {
+      state.value.select_user.loader = action.payload
     },
     reloadMenu: (state, action) => {
       state.value.mainMenu = action.payload
@@ -71,9 +81,7 @@ export const dataSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, 
-                decrement, 
-                incrementByAmount, 
+export const { 
                 reloadMenu, 
                 loaderSwitch, 
                 reloadProducts, 
@@ -84,7 +92,9 @@ export const { increment,
                 removeToken,
                 loadSelectProduct,
                 reloadSelectProduct,
-                reloadUser
+                reloadSelectUser,
+                reloadUsers,
+                loaderSelectUser,
               } = dataSlice.actions
 
 export default dataSlice.reducer
