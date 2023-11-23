@@ -16,7 +16,7 @@ export default function ListProducts(props){
     useEffect(()=>{
       dispatch(loaderSwitchProducts(true));
       // category-products
-      request('post', 'all-items', (response) => {
+      request('post', 'all-info-products', (response) => {
         if (response.status === 200) {
           dispatch(loaderSwitchProducts(false));
           dispatch(reloadProducts(response.data));
