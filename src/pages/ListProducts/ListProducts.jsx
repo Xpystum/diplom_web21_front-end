@@ -46,42 +46,68 @@ export default function ListProducts(props){
         }
         return true;
       }
+
+      function modelFileter(cars){
+        let data = [];
+        
+        filters.model = filters.model.toLowerCase().trim();
+
+        cars.forEach((car, index)=>{
+          if(car.model.name.toLowerCase().indexOf(filters.model) != -1){
+
+            data.push(car);
+          }
+        })
+
+        return data;
+        
+      }
+
+      function brandFilter(cars){
+        let data = [];
+        
+        filters.brand = filters.brand.toLowerCase().trim();
+
+        cars.forEach((car, index)=>{
+          if(car.brand.name.toLowerCase().indexOf(filters.brand) != -1){
+
+            data.push(car);
+          }
+        })
+
+        return data;
+      }
+
+      function truePhotoFilter(cars){
+        let data = [];
+        
+        
+        cars.forEach((car, index)=>{
+          if(car.main_img != null){
+            data.push(car);
+          }
+        })
+        
+
+        return data;
+      }
     
     
       function onFilterCars(){
-        let data = [];
-
+        let data = cars;
 
         if(nullFilters() == false){
 
-          if(filters.truePhoto){
-            cars.forEach((car, index)=>{
-              if(car.img_src != null){
-                data.push(car);
-              }
-            })
-          }
-          if(filters.model){
-            filters.model = filters.model.toLowerCase().trim();
+          if(filters.brand != '')
+            data = brandFilter(data)
 
-            cars.forEach((car, index)=>{
-              if(car.model.name.toLowerCase().indexOf(filters.model) != -1){
+          if(filters.model != '') 
+            data = modelFileter(data);
 
-                data.push(car);
-              }
-            })
-          }
+          if(filters.truePhoto)
+            data = truePhotoFilter(data)
 
-          if(filters.brand){
-            filters.brand = filters.brand.toLowerCase().trim();
-
-            cars.forEach((car, index)=>{
-              if(car.brand.name.toLowerCase().indexOf(filters.brand) != -1){
-
-                data.push(car);
-              }
-            })
-          }
+            
 
           setListFilterCars(data);
 

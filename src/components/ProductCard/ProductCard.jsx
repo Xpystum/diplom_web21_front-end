@@ -12,6 +12,7 @@ import { request } from '../../Action/request';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSelectProduct, reloadProducts, reloadSelectProduct } from '../../redux/dataState';
 import PreloaderSmall from '../PreloaderSmall/PreloaderSmall';
+import { URL_IMG } from '../../config';
 
 
 export default function ProductCard(props) {
@@ -22,9 +23,11 @@ export default function ProductCard(props) {
     
 
     let responseSelectproduct = (response)=>{
-        if(response.status == 200)
+        if(response.status == 200){
             dispatch(reloadSelectProduct(response.data))
             dispatch(loadSelectProduct(false))
+        }
+            
     }
 
     useEffect(()=>{
@@ -32,7 +35,6 @@ export default function ProductCard(props) {
             request("post", 'product', responseSelectproduct, {"id": links.id})
         } 
         else{
-            
             products.forEach(product => {
                 if(product.id == links.id){
                     dispatch(reloadSelectProduct(product))
@@ -40,20 +42,38 @@ export default function ProductCard(props) {
                     return 0;
                 }
             });
-            console.log(123);
         }
+        
     }, [])
     
     let select_product = useSelector(state => state.dataState.value.select_product);
 
 
 
-    
+    function imgListProduct(){
+
+        if(select_product){
+            let listImg = [{
+                original: URL_IMG + select_product.data.main_img,
+                thumbnail: URL_IMG + select_product.data.main_img,
+            }];
+        
+            select_product.data.img_collection.forEach((img)=>{
+                listImg.push(
+                    {
+                        original: URL_IMG + img.resource,
+                        thumbnail: URL_IMG + img.resource,
+                    }
+                );
+            }) 
+            return listImg;
+        }
+        return [];
+       
+
+    }
 
 
-    console.log(products);
-    console.log(links)
-    
 
     let [stateFavourites, setStateFavourites] = useState(false);
 
@@ -135,6 +155,8 @@ export default function ProductCard(props) {
         console.log('Проверка выполения функции =>', onCreditCalculator.name);
     }
 
+    
+
 
 
     return (
@@ -181,7 +203,14 @@ export default function ProductCard(props) {
 
 
                                 <div className={style.PhotoGallery}>
-                                    <Slider/>
+                                    {
+             
+                                        (imgListProduct().length > 0)?
+                                            <Slider imgList={imgListProduct()}/>
+                                        :
+                                            <img src="asdsd"/>
+                                    }
+                                    
                                 </div>
 
                                 <div className={style.QuickLabelleds}>

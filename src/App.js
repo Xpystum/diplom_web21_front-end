@@ -27,6 +27,7 @@ import Cars from './pages/CabinetClient/Cars';
 // значки
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from 'react';
 library.add(fas)
 
 
@@ -41,14 +42,35 @@ function App() {
 
     let dispatch = useDispatch();
 
-    request('post', 'items-menu', (response) => {
-        dispatch(loaderSwitch(false));
+    useEffect(()=>{
 
-        if (response.status == 200 && response.data.length > 0) {
-            dispatch(reloadMenu(response.data))
+        request('post', 'items-menu', (response) => {
+                dispatch(loaderSwitch(false));
+
+                if (response.status == 200 && response.data.length > 0) {
+                    dispatch(reloadMenu(response.data))
+                }
+        }, { name_menu: 'main_menu' });
+
+        if(localStorage.getItem('my_token')){
+
+            request('post', 'favorites-user', (response) => {
+                console.log(response.data);
+                // dispatch(loaderSwitch(false));
+
+                // if (response.status == 200 && response.data.length > 0) {
+                //     dispatch(reloadMenu(response.data))
+                // }
+        }, { token: localStorage.getItem('my_token') });
+
         }
+    },[])
 
-    }, { name_menu: 'main_menu' });
+    
+
+
+
+    
 
 
     return (
