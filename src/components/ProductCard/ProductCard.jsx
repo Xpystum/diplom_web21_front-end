@@ -20,7 +20,14 @@ export default function ProductCard(props) {
     let dispatch = useDispatch();
 
     let products = useSelector(state => state.dataState.value.products.data);
+
+    let [stateFavourites, setStateFavourites] = useState(false);
+
+    let [stateShowCalculationMinPrice, setStateShowCalculationMinPrice] = useState(false);
     
+    let select_product = useSelector(state => state.dataState.value.select_product);
+
+    let favorites = useSelector(state => state.dataState.value.users.favorites);
 
     let responseSelectproduct = (response)=>{
         if(response.status == 200){
@@ -43,10 +50,23 @@ export default function ProductCard(props) {
                 }
             });
         }
+
+        let flag = false;
+
+        favorites.forEach((favorite)=>{
+            if(favorite.product_id == select_product.data.id){
+                flag = true;
+            }
+        })
+
+        if(flag){
+            setStateFavourites(true);
+        }
+      
         
     }, [])
     
-    let select_product = useSelector(state => state.dataState.value.select_product);
+    
 
 
 
@@ -73,11 +93,6 @@ export default function ProductCard(props) {
 
     }
 
-
-
-    let [stateFavourites, setStateFavourites] = useState(false);
-
-    let [stateShowCalculationMinPrice, setStateShowCalculationMinPrice] = useState(false);
 
     const textIconStar = {
         initial: 'Добавить в избранное',
@@ -156,7 +171,6 @@ export default function ProductCard(props) {
     }
 
     
-    console.log(select_product.data);
 
 
     return (

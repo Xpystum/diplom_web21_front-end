@@ -8,7 +8,7 @@ import { request } from './Action/request';
 import PreloaderStartPage from './components/PreloaderStartPage/PreloaderStartPage';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { reloadMenu, loaderSwitch } from './redux/dataState';
+import { reloadMenu, loaderSwitch, addFavorite } from './redux/dataState';
 import { Route, Routes } from 'react-router';
 import Home from './pages/Home/Home';
 import ListProducts from './pages/ListProducts/ListProducts';
@@ -28,9 +28,8 @@ import Cars from './pages/CabinetClient/Cars';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from 'react';
+
 library.add(fas)
-
-
 
 
 
@@ -53,14 +52,43 @@ function App() {
         }, { name_menu: 'main_menu' });
 
         if(localStorage.getItem('my_token')){
-
             request('post', 'favorites-user', (response) => {
-                console.log(response.data);
-                // dispatch(loaderSwitch(false));
+                localStorage.setItem('favorites', JSON.stringify([{"product_id":5,"user_id":3},{"product_id":2,"user_id":3}]));
+                
+                let favoritesLocalstorage = []
+                if(localStorage.getItem('favorites')){
+                    favoritesLocalstorage = JSON.parse(localStorage.getItem('favorites'))
+                }
 
+                // backend
+                let favoritesBackend = response.data;
+
+                //localStorage.setItem('favorites', JSON.stringify(response.data));
                 // if (response.status == 200 && response.data.length > 0) {
                 //     dispatch(reloadMenu(response.data))
                 // }
+
+                let favorites = favoritesLocalstorage.concat(favoritesBackend);
+
+                let data = [];
+                for(let favorite of favorites){
+                    data.push(JSON.stringify(favorite));
+                }
+                
+                const favoritesSet = new Set();
+                data.forEach((el)=>{
+                    favoritesSet.add(el);
+                })
+                
+                favorites = [];
+
+                for(let favorite of favoritesSet){
+                    favorites.push(JSON.parse(favorite));
+                }
+
+                dispatch(addFavorite(favorites));
+     
+
         }, { token: localStorage.getItem('my_token') });
 
         }

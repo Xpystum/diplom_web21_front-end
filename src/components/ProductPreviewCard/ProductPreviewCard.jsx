@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import style from './ProductPreviewCard.module.sass';
 
@@ -9,16 +9,45 @@ import QuickLabelled from "../../UI/QuickLabelled/QuickLabelled";
 import { URL_IMG } from '../../config';
 import moment from 'moment/moment';
 import 'moment/locale/ru';
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite } from "../../redux/dataState";
+import { request } from "../../Action/request";
 
 export default function ProductPreviewCard(props) {
   let [stateFavourites, setStateFavourites] = useState(false);
 
+  let dispatch = useDispatch();
+  
+  let favorites = useSelector(state => state.dataState.value.users.favorites);
+  let auth = useSelector(state => state.dataState.value.app.auth);
+
+  
   const textIconStar = {
     initial: 'Добавить в избранное',
     reverse: 'Удалить из избранного',
   };
 
+
+
   const car = props.car;
+
+  useEffect(()=>{
+
+    let flag = false;
+
+    favorites.forEach((favorite)=>{
+      if(favorite.product_id == car.id){
+        flag = true;
+      }
+    })
+
+    if(flag){
+      setStateFavourites(true);
+    }
+      
+
+  },[])
+
   let time = car.created_at
   time = time.split('T')
   let YMD = time[0].split('-').join('')
@@ -29,11 +58,38 @@ export default function ProductPreviewCard(props) {
   function onAddFavorite() {
     console.log('Проверка выполения функции =>', onAddFavorite.name);
 
-    stateFavourites ?
-        setStateFavourites(false)
-        :
-        setStateFavourites(true)
-}
+    // удаление
+    if(stateFavourites){
+      favorites = favorites.filter((favorite)=>
+        favorite.product_id != car.id
+      )
+
+      dispatch(addFavorite(favorites));
+
+      
+
+      setStateFavourites(false);
+    }
+
+    // добавление
+    if(!stateFavourites){
+      let data = [];
+      data = [...favorites];
+      data.push({"product_id": car.id,"user_id": 3});
+
+      dispatch(addFavorite(data));
+
+      request("post", 'add-favorite', (response)=>{
+        if(response.status == 200){
+          setStateFavourites(true);
+        }
+      }, {"product_id": car.id, "user_id": 3, "token": auth.token})
+
+      
+    }
+
+        
+  }
   return (
     <div className={style.ProductPreviewCard}>
         <Link
