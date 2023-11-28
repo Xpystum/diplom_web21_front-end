@@ -25,18 +25,18 @@ export default function CaruselWidget(props){
   return (
     <div>
       <Carousel 
-        // slidesToShow={
-        //   (screen >= 3300)? "12":
-        //   (screen >= 3025)? "11":
-        //   (screen >= 2750)? "10":
-        //   (screen >= 2475)? "9":
-        //   (screen >= 2200)? "8":
-        //   (screen >= 1925)? "7":
-        //   (screen >= 1650)? "6":
-        //   (screen >= 1375)?"5":
-        //   (screen >= 1100)?"4":
-        //   (screen >= 825)?"3":
-        //   (screen >= 550)?"2":"1"}
+        slidesToShow={
+          (screen >= 3300)? "12":
+          (screen >= 3025)? "11":
+          (screen >= 2750)? "10":
+          (screen >= 2475)? "9":
+          (screen >= 2200)? "8":
+          (screen >= 1925)? "7":
+          (screen >= 1650)? "6":
+          (screen >= 1375)?"5":
+          (screen >= 1100)?"4":
+          (screen >= 825)?"3":
+          (screen >= 550)?"2":"1"}
         // cellSpacing='272'
         wrapAround="true"
         renderCenterLeftControls={({ previousSlide }) => (
@@ -56,7 +56,7 @@ export default function CaruselWidget(props){
               <PreloaderSmall />
             </div>
             :
-            <CardCarusel item={item}/>
+            <CardCarusel item={item} key={item.id}/>
         )}
           
             

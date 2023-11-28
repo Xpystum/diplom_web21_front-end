@@ -6,7 +6,6 @@ import { request } from "../../Action/request";
     import { useSelector, useDispatch } from 'react-redux';
 
 import { reloadProducts, loaderSwitchProducts } from "../../redux/dataState";
-import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
 
 
 export default function ListProducts(props){
@@ -143,8 +142,6 @@ export default function ListProducts(props){
     <div>
 
       <Header/>
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* <Filter/> */}
 
          <form>
            <input 
@@ -170,26 +167,13 @@ export default function ListProducts(props){
               checked={filters.truePhoto}
             />
             <label htmlFor="true_photo">С фото</label>
-            
 
-
-            {/* <input type="text" value={filterPrice.minPrice} placeholder='Мин цена' onChange={(evt) => { editPrice(evt, "minPrice") }} />
-            <input type="text" value={filterPrice.maxPrice} placeholder='Макс цена' onChange={(evt) => { editPrice(evt, "maxPrice") }} /> */}
             <button type="button" onClick={onFilterCars}>Показать</button>
         </form>
-        {/* {
-            filterCars.map((car) =>
-                <div key={car.id}>
-                    <span>{car.brand} </span>
-                    <span>{car.model} </span>
-                    <span>{car.price} руб.</span>
-                </div>
-            )
-        } */}
+        
 
 
         <ListProductsPreviewCard cars={(nullFilters())? cars :listFilterCars} />
-        <RelevanceProductWidget />
 
     </div>
   )

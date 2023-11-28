@@ -9,13 +9,11 @@ import PreloaderSmall from '../PreloaderSmall/PreloaderSmall';
 export default function ListProductsPreviewCard(props) {
 
   const cars = props.cars;
-
   let loaderProducts = useSelector(state => state.dataState.value.products.loader);
 
 
   return (
     <div className={style.ListProductsPreviewCard}>
-
       {
         (loaderProducts)?
           <div className={style.loaderSmall}>
@@ -33,14 +31,7 @@ export default function ListProductsPreviewCard(props) {
           <div className={style.NoProduct}>
             <p>Товаров в данной категории нет</p>
           </div>
-            
-          
-
       }
-
-      
-
-
     </div>
   )
 };
