@@ -1,0 +1,78 @@
+@mixin wrapp_button_circle
+    display: flex
+    align-items: center
+    justify-content: center
+    background-color: inherit !important
+    border: none
+    padding: 0
+    width: 30px
+    // width: 90%
+    height: 40px
+    border-radius: 50%
+    margin: 0px 8px
+    &:hover
+        background-color: inherit
+    
+.wrappToggleButtonGroup
+    align-items: center
+
+    .resetButtonsStyle
+        display: flex
+        color: #000
+        background-color: rgba(0, 0, 0 , 0.1)
+        border: none
+        border-radius: 16px !important
+        margin: 0px 10px 0px 0px
+        width: 100px
+        padding-left: 16px
+        padding-right: 16px
+        flex-direction: row
+        flex-wrap: nowrap
+        align-content: center
+        justify-content: center
+        align-items: center
+        height: 34px
+        font-size: 1.4rem
+        .icon
+            margin-left: 6px
+            width: 15px
+            height: 20px
+        &:hover
+            color: #d35422
+            background-color: rgba(0, 0, 0 , 0.1)
+
+
+    .oneButtonCircleColor
+        @include wrapp_button_circle
+    .twoButtonCircleColor
+        position: relative
+        @include wrapp_button_circle
+        width: 62px
+        // width: 90%
+        height: 33px
+        background-color: #fff !important
+        border-radius: 10px !important
+    .threeButtonCircleColor
+        position: relative
+        @include wrapp_button_circle
+        width: 92px
+        // width: 90%
+        height: 33px
+        background-color: #fff !important
+        border-radius: 10px !important
+    .fourButtonCircleColor
+        position: relative
+        @include wrapp_button_circle
+        width: 122px
+        // width: 90%
+        height: 33px
+        background-color: #fff !important
+        border-radius: 10px !important
+            
+   
+       
+       
+    
+        
+
+

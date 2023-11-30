@@ -37,9 +37,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export default function CircleColor(props) {
+    let statusCheck = props.statusCheck ?? false;
+    let color = props.color ?? 'color_blue';
+    let wrapp = props.wrapp ?? 'wrapp_circle_color';
+    
+
     return (
-        <div id={style.wrapp_circle_color} className={style.color_blue }>
-            <FontAwesomeIcon className={style.icon} icon="fa-solid fa-check" />
+        <div id={style[wrapp]} className={style[color]}>
+            {
+                (statusCheck) ? 
+                <FontAwesomeIcon className={ style.icon + ' ' + ((color == 'color_white') ? style.iconBlack : '')  } icon="fa-solid fa-check"  />
+                : ""
+            }
         </div>
     )
 };
