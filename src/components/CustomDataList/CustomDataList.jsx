@@ -18,9 +18,10 @@ export default function CustomDataList(props) {
     let IdDataList = props.IdDataList ?? '';
     let IdInput = props.IdInput ?? 'browser';
     let declination = props.declination ?? "Любая" // склонение (Любая марка), (Любое Топливо)
+    let CustomDataListStyle = props.CustomDataListStyle ?? ""
 
     return (
-        <div className={style.CustomDataList}>
+        <div className={style.CustomDataList + ' ' + style[CustomDataListStyle]}>
             <input type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autocomplete="off" />
             {/* <div className={style.wrapp_datalist}> */}
                 <datalist id={IdDataList} className={style.datalist} size="50" >

@@ -5,12 +5,19 @@ import Form from 'react-bootstrap/Form';
 import CircleColor from '../../UI/CircleColor/CircleColor';
 import CustomDataList from '../CustomDataList/CustomDataList';
 import CustomDataListImg from '../CustomDataListImg/CustomDataListImg';
+import CustomDataListNumber from '../CustomDataListNumber/CustomDataListNumber';
 
+import { fillArrYear } from './FilterJavaScript';
+
+
+let year = fillArrYear();
+let arrYear = year.map((index)=>{
+  return { value: index, label: index }
+});
 
 
 export default function Filter(props){
   return (
-    
     <div className={style.wrappFilterProcent}>
       
       <div className={style.wrappFilterPx}>
@@ -35,33 +42,32 @@ export default function Filter(props){
               </div>
             </div>
           </div>
-          _ВСЁ ЧТО НИЖЕ НЕ ДОДЕЛАНО_
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <DataList styleNameInput={'inputDataListDoubleLeft'} placeholder='Цена от, ₽' ListInputName="filter__afterprice_list"  IdDataList="filter__afterprice_list"/>
-              <DataList styleNameInput={'inputDataListDoubleRight'} placeholder='До' ListInputName="filter__before_list"  IdDataList="filter__before_list"/>
+              <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
+              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Цена от, ₽' />
             </div>
 
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <DataList styleNameInput={'inputDataListDoubleLeft'} placeholder='Год от' ListInputName="filter__afteryear_list"  IdDataList="filter__afteryear_list"/>
-              <DataList styleNameInput={'inputDataListDoubleRight'} placeholder='До' ListInputName="filter__beforeyear_list"  IdDataList="filter__beforeyear_list"/>
+              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
+              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='До' />
             </div>
 
             <div className={style.block_info_one}>
-              <DataList styleNameWrapp={"wrapp_dataList_one"} styleNameInput={'inputDataListOneLeft'} placeholder='КПП' ListInputName="filter__kpp_list"  IdDataList="filter__kpp_list"/>
-              <DataList styleNameWrapp={"wrapp_dataList_one_right"} styleNameInput={'inputDataListOneRight'} placeholder='Топливо' ListInputName="filter__fuel_list"  IdDataList="filter__fuel_list"/>
+              <CustomDataList CustomDataListStyle='DataListOneLeft' placeholder='КПП' IdInput="filter__kpp_input"  IdDataList="filter__kpp_dataList" />
+              <CustomDataList CustomDataListStyle='DataListOneRight' placeholder='Топливо' declination='Любое' IdInput="filter__fuel_input"  IdDataList="filter__fuel_dataList" />
             </div>
 
           </div>
 
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <DataList styleNameInput={'inputDataListDoubleLeft'} placeholder='Объем от, л' ListInputName="filter__afterprice_list"  IdDataList="filter__afterprice_list"/>
-              <DataList styleNameInput={'inputDataListDoubleRight'} placeholder='До' ListInputName="filter__before_list"  IdDataList="filter__before_list"/>
+              <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Объем от, л' />
+              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
             </div>
 
             <div className={style.block_info}>
-              <DataList placeholder='Привод' ListInputNameName="filter__mark_list"  IdDataList="filter__mark_list"/>
+              <CustomDataList placeholder='Привод' IdInput="filter__driveUnit_input" IdDataList="filter__driveUnit_dataList" declination='Любой'/>
             </div>
 
             <div className={style.block_info_check_box + " " + style.block_info}>
@@ -79,19 +85,19 @@ export default function Filter(props){
           </div>
 
           <div className={style.block_info_wrapp}>
-           <div className={style.block_info}>
-              <DataList placeholder='Тип Кузова' ListInputNameName="filter__mark_list"  IdDataList="filter__mark_list"/>
+            <div className={style.block_info}>
+              {/* <CustomDataListSvg placeholder='Тип Кузова'/> */}
             </div>
           </div>
 
           <div className={style.block_info_wrapp}>
            <div className={style.block_info}>
-              <CircleColor />
+            
+            <CustomDataListImg placeholder={"Тип кузова"} type={"body"}/>
+            <CircleColor />
             </div>
           </div>
-
-         
-
+          
          
           <input type="text" />
 
