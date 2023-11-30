@@ -5,11 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVk } from '@fortawesome/free-brands-svg-icons';
 import { request } from '../../../Action/request';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite } from '../../../redux/dataState';
 
 
 
 export default function Sign(props) {
     const navigate = useNavigate();
+    let dispatch = useDispatch();
+    let favorites = useSelector(state => state.dataState.value.users.favorites);
 
     let [mail, mailState] = useState(null);
     let [pass, passState] = useState(null);
@@ -24,7 +28,15 @@ export default function Sign(props) {
     function authResponse($response){
         if($response.data.code == 201 && $response.data.token.trim() != ""){
             localStorage.setItem($response.data.token_name, $response.data.token);
-            navigate("/my");
+
+            request("post", 'favorites-sinc', (response)=>{
+
+                dispatch(addFavorite(response.data));
+
+                navigate("/my");
+            }, {"favorites":favorites, "token": $response.data.token})
+
+            
         }
         if($response.data.code == 403){
             

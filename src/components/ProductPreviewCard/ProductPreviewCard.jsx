@@ -12,6 +12,7 @@ import 'moment/locale/ru';
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite } from "../../redux/dataState";
 import { request } from "../../Action/request";
+import { noDubleFavorites } from "../../Action/favoritesLib";
 
 export default function ProductPreviewCard(props) {
   let [stateFavourites, setStateFavourites] = useState(false);
@@ -55,20 +56,29 @@ export default function ProductPreviewCard(props) {
   let allTime =  YMD + HMS
   let urlImg = URL_IMG
 
-  function onAddFavorite() {
-    console.log('Проверка выполения функции =>', onAddFavorite.name);
+  function onFavorite() {
+    console.log('Проверка выполения функции =>', onFavorite.name);
 
     // удаление
     if(stateFavourites){
-      favorites = favorites.filter((favorite)=>
-        favorite.product_id != car.id
-      )
 
-      dispatch(addFavorite(favorites));
+      if(auth.token){
 
+      }
+      else{
+        favorites = JSON.parse(localStorage.getItem('favorites'));
+
+        favorites = favorites.filter((favorite)=>
+          favorite.product_id != car.id
+        )
+
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+
+        dispatch(addFavorite(favorites));
+
+        setStateFavourites(false);
+      }
       
-
-      setStateFavourites(false);
     }
 
     // добавление
@@ -79,11 +89,28 @@ export default function ProductPreviewCard(props) {
 
       dispatch(addFavorite(data));
 
-      request("post", 'add-favorite', (response)=>{
-        if(response.status == 200){
-          setStateFavourites(true);
+      if(auth.token){
+        request("post", 'add-favorite', (response)=>{
+          if(response.status == 200){
+            setStateFavourites(true);
+          }
+        }, {"product_id": car.id, "user_id": 3, "token": auth.token})
+      }
+      else{
+
+        let favorites = JSON.parse(localStorage.getItem('favorites'));
+        if(!Array.isArray(favorites)){
+          favorites = [];
         }
-      }, {"product_id": car.id, "user_id": 3, "token": auth.token})
+        favorites.push({"product_id": car.id, "user_id": null});
+
+        localStorage.setItem('favorites', JSON.stringify(noDubleFavorites(favorites)));
+
+        dispatch(addFavorite(noDubleFavorites(favorites)));
+        setStateFavourites(true);
+
+      }
+      
 
       
     }
@@ -175,7 +202,7 @@ export default function ProductPreviewCard(props) {
             }
             textSize={'16px'}
             state={stateFavourites}
-            actionFunction={onAddFavorite}
+            actionFunction={onFavorite}
         />
 
         </div>

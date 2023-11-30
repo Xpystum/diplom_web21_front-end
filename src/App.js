@@ -51,9 +51,9 @@ function App() {
                 }
         }, { name_menu: 'main_menu' });
 
-        if(localStorage.getItem('my_token')){
+        //if(localStorage.getItem('my_token')){
             request('post', 'favorites-user', (response) => {
-                localStorage.setItem('favorites', JSON.stringify([{"product_id":5,"user_id":3},{"product_id":2,"user_id":3}]));
+                //localStorage.setItem('favorites', JSON.stringify([{"product_id":5,"user_id":3},{"product_id":2,"user_id":3}]));
                 
                 let favoritesLocalstorage = []
                 if(localStorage.getItem('favorites')){
@@ -89,9 +89,9 @@ function App() {
                 dispatch(addFavorite(favorites));
      
 
-        }, { token: localStorage.getItem('my_token') });
+            }, { token: localStorage.getItem('my_token') });
 
-        }
+        //}
     },[])
 
     
