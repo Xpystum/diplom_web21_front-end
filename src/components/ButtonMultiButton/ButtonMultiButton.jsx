@@ -17,16 +17,11 @@ export default function ButtonMultiButton(){
     // }
     
     const handleChange = (val) => { 
-        console.log(val)
-
         if(val.length >= 0 && !val.includes('none')){
             setValue(val);
         }else{
             setValue([]);
         }
-
-
-
     };
     return (
         <>

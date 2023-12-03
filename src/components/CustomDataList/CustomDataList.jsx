@@ -12,6 +12,7 @@ import { OnClick_Option, OnClick_SearchReset, listHide } from './CustomDataListJ
 // </div>
 
 export default function CustomDataList(props) {
+    // test
     const massArr = ['Brave', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
     // const testImage = [images];
     let placeholder = props.placeholder ?? '';
@@ -22,7 +23,7 @@ export default function CustomDataList(props) {
 
     return (
         <div className={style.CustomDataList + ' ' + style[CustomDataListStyle]}>
-            <input type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autocomplete="off" />
+            <input type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
             {/* <div className={style.wrapp_datalist}> */}
                 <datalist id={IdDataList} className={style.datalist} size="50" >
                     <div onClick={()=>{ OnClick_SearchReset(IdInput, IdDataList) }} className={style.reset_search}>
@@ -35,16 +36,16 @@ export default function CustomDataList(props) {
                     {
                         massArr.map((valueElement, index)=>
                             (index == 5)?
-                            <>
+                            <div key={index}>
                                 <div className={style.brLine_wrapp}>
                                     <div className={style.brLine}></div>
                                 </div>
                                 <option onClick={(evt)=>{ OnClick_Option(evt, IdInput) }} value={valueElement}>{valueElement}</option>
-                            </>
+                            </div>
                             :
-                            <>
-                                <option onClick={(evt)=>{ OnClick_Option(evt, IdInput) }} value={valueElement}>{valueElement}</option>
-                            </>
+                            <div>
+                                <option  onClick={(evt)=>{ OnClick_Option(evt, IdInput) }} value={valueElement}>{valueElement}</option>
+                            </div>
                         ) 
                     }
                 </datalist>

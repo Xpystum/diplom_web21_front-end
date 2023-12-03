@@ -1,11 +1,11 @@
 import style from "./Filter.module.sass"
 import ButtonPlus from '../../UI/ButtonIcon/ButtonIcon';
 import Form from 'react-bootstrap/Form';
-import CircleColor from '../../UI/CircleColor/CircleColor';
 import CustomDataList from '../CustomDataList/CustomDataList';
 import CustomDataListImg from '../CustomDataListImg/CustomDataListImg';
 import CustomDataListNumber from '../CustomDataListNumber/CustomDataListNumber';
 import ButtonMultiButton from '../ButtonMultiButton/ButtonMultiButton';
+import RadioButtonBootstrap from '../RadioButtonBootstrap/RadioButtonBootstrap';
 
 import { fillArrYear } from './FilterJavaScript';
 
@@ -100,16 +100,32 @@ export default function Filter(props){
 
           <div className={style.block_info_wrapp}>
               <div className={style.block_info}>
-                {/* заглушка */}
+                <div className={style.wrapp_labelInput}>
+                  <label className={style.documentLabel}>
+                    Документы
+                  </label>
+                  <CustomDataList declination="" placeholder={'Неважно'} IdInput="filter__doc_input"  IdDataList="filter__doc_dataList" />
+                </div>
               </div>
 
-            <div className={style.block_info}>
-              {/* заглушка */}
-            </div>
+              <div className={style.block_info}>
+                <div className={style.wrapp_labelInput}>
+                  <label className={style.documentLabel}>
+                    Повреждение
+                  </label>
+                  <CustomDataList declination="" placeholder={'Повреждение'} IdInput="filter__doc_input"  IdDataList="filter__doc_dataList" />
+                </div>
+              </div>
 
-            <div className={style.block_info}>
-              {/* заглушка */}
-            </div>
+              <div className={style.block_info}>
+                <div className={style.wrapp_labelInput}>
+                  <label className={style.documentLabel}>
+                    Руль
+                  </label>
+                  <RadioButtonBootstrap />
+                  {/* <CustomDataList declination="" placeholder={'Повреждение'} IdInput="filter__doc_input"  IdDataList="filter__doc_dataList" /> */}
+                </div>
+              </div>
           </div>
 
           
