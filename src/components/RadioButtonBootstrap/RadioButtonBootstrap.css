@@ -1,0 +1,16 @@
+.btn-check:checked + .btn{
+    color: rgb(0,0,0) !important;
+    background-color: rgb(255,255,255)  !important;
+}
+
+.btn-check:first-child:checked + .btn::after{
+    background-color: rgb(255,255,255)  !important;
+}
+
+.btn-check:checked + .btn::after{
+    background-color: rgb(255,255,255)  !important;
+}
+
+
+
+
