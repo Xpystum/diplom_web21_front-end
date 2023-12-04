@@ -12,8 +12,8 @@ import { OnClick_Option, OnClick_SearchReset, listHide } from './CustomDataListJ
 // </div>
 
 export default function CustomDataList(props) {
-    // test
-    const massArr = ['Brave', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
+    // вывод в input
+    const massArr = props.content ?? ['Brave', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
     // const testImage = [images];
     let placeholder = props.placeholder ?? '';
     let IdDataList = props.IdDataList ?? '';

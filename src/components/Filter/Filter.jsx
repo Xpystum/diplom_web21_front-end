@@ -1,22 +1,60 @@
 import style from "./Filter.module.sass"
 import ButtonPlus from '../../UI/ButtonIcon/ButtonIcon';
-import Form from 'react-bootstrap/Form';
+
+
 import CustomDataList from '../CustomDataList/CustomDataList';
 import CustomDataListImg from '../CustomDataListImg/CustomDataListImg';
 import CustomDataListNumber from '../CustomDataListNumber/CustomDataListNumber';
 import ButtonMultiButton from '../ButtonMultiButton/ButtonMultiButton';
 import RadioButtonBootstrap from '../RadioButtonBootstrap/RadioButtonBootstrap';
-
+import CheckButtonBootsrap from '../CheckButtonBootsrap/CheckButtonBootsrap';
 import { fillArrYear } from './FilterJavaScript';
 
 
-let year = fillArrYear();
-let arrYear = year.map((index)=>{
-  return { value: index, label: index }
-});
 
 
 export default function Filter(props){
+  //START статический контент
+    const arrDocument = ['В порядке', 'Нет или проблемные'];
+    const arrDamage = ['Не требуется ремонт', 'требуется ремонт или не на ходу'];
+
+    //START checkbox
+    const arrButtonCheckTwo = [
+      {name: "notSell", content: 'Непроданные'},
+      {name: "Photo", content: 'C фото'},
+    ];
+
+    const arrButtonCheckFour = [
+      {name: "Inomark", content: 'Иномарки'},
+      {name: "Sertificat", content: 'Сертификация'},
+      {name: "DromAssist", content: 'Дром Ассист'},
+      {name: "Barter", content: 'Возможен Обмен'},
+    ];
+
+    const arrButtonCheckOne = [
+      {name: "mileage", content: 'Без пробега по РФ'},
+    ];
+    //END checkbox
+
+    // START SELECT
+    //есть баг с "любой" all (передавать нужно что то другое что бы не повторялись в компоненте, а иначе будет работать и тот и другой одновременно)
+    const radios = [
+      { name: 'Любой', value: 'alls' },
+      { name: 'Собственник', value: 'owner' },
+      { name: 'Частник', value: 'privateOwner' },
+      { name: 'Компания', value: 'company' },
+    ];
+    // END SELECT
+
+  //END статический контент
+
+
+  let year = fillArrYear();
+  let arrYear = year.map((index)=>{
+    return { value: index, label: index }
+  });
+
+
   return (
     <div className={style.wrappFilterProcent}>
       
@@ -71,15 +109,7 @@ export default function Filter(props){
             </div>
 
             <div className={style.block_info_check_box + " " + style.block_info}>
-              <Form.Check className={style.check_box}>
-                <Form.Check.Input className={style.check_box_input} />
-                <Form.Check.Label className={style.check_box_label}>{"Непроданные"}</Form.Check.Label>
-              </Form.Check>
-
-              <Form.Check className={style.check_box}>
-                <Form.Check.Input className={style.check_box_input} />
-                <Form.Check.Label className={style.check_box_label}>{"С Фото"}</Form.Check.Label>
-              </Form.Check>
+              <CheckButtonBootsrap content={arrButtonCheckTwo}/>
             </div>
 
           </div>
@@ -104,7 +134,13 @@ export default function Filter(props){
                   <label className={style.documentLabel}>
                     Документы
                   </label>
-                  <CustomDataList declination="" placeholder={'Неважно'} IdInput="filter__doc_input"  IdDataList="filter__doc_dataList" />
+                  <CustomDataList 
+                    declination="" 
+                    placeholder={'Неважно'}
+                    IdInput="filter__doc_input"  
+                    IdDataList="filter__doc_dataList" 
+                    content={arrDocument}
+                   />
                 </div>
               </div>
 
@@ -113,7 +149,13 @@ export default function Filter(props){
                   <label className={style.documentLabel}>
                     Повреждение
                   </label>
-                  <CustomDataList declination="" placeholder={'Повреждение'} IdInput="filter__doc_input"  IdDataList="filter__doc_dataList" />
+                  <CustomDataList
+                    declination="" 
+                    placeholder={'Повреждение'} 
+                    IdInput="filter__damage_input"  
+                    IdDataList="filter__damage_dataList" 
+                    content={arrDamage}
+                  />
                 </div>
               </div>
 
@@ -126,9 +168,55 @@ export default function Filter(props){
                   {/* <CustomDataList declination="" placeholder={'Повреждение'} IdInput="filter__doc_input"  IdDataList="filter__doc_dataList" /> */}
                 </div>
               </div>
+
+
           </div>
 
-          
+          <div className={style.block_info_wrapp + ' ' + style.margin_top_10px}>
+
+
+            <div className={style.block_info}>
+              <div className={style.wrapp_fourCheckBox}>
+                  <label className={style.arrButtonCheckFourLabel}>
+                      Дополнительно
+                  </label>
+                  <CheckButtonBootsrap styleWrappDiv='styleWrappDiv' content={arrButtonCheckFour}/>
+              </div>
+            </div>
+
+            <div className={style.wrappFloatBottom}>
+                <div className={style.wrapp_labelInput + ' ' + style.width48}>
+
+                  <label className={style.documentLabel}>
+                      Мощность по ПТС
+                  </label>
+
+                  <div className={style.block_info_double  + ' ' + style.block_info_double_middle}>
+                    <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='От, л.с' />
+                    <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
+                  </div>
+                  
+                </div>
+
+                <div className={style.wrapp_labelInput + ' ' + style.width48}>
+
+                  <label className={style.documentLabel}>
+                      Мощность по ПТС
+                  </label>
+
+                  <div className={style.block_info_double + ' ' + style.block_info_double_middle} >
+                    <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='От, км' />
+                    <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
+                  </div>
+
+                  <CheckButtonBootsrap styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
+                </div>
+              
+                <RadioButtonBootstrap radios={radios}/>
+            </div>
+           
+          </div>
+            
          
           <input type="text" />
 

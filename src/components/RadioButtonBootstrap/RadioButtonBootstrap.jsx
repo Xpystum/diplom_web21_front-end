@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import style from './RadioButtonBootstrap.module.sass';
-import './RadioButtonBootstrap.css';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
@@ -8,12 +7,14 @@ export default function RadioButtonBootstrap(props){
     const [checked, setChecked] = useState(true);
     let defaultStatus = props.defaultStatus ?? 'all'
     const [radioValue, setRadioValue] = useState(defaultStatus);
-  
-    const radios = [
+
+    let radios = props.radios ?? [
       { name: 'Любой', value: 'all' },
       { name: 'Левый', value: 'left' },
       { name: 'Правый', value: 'right' },
     ];
+
+
 
     return (
         <>
@@ -21,12 +22,13 @@ export default function RadioButtonBootstrap(props){
                 {radios.map((radio, idx) => (
                     <ToggleButton
                         key={idx}
-                        id={`radio-${idx}`}
+                        id={`radio-${radio.value}`}
                         type="radio"
-                        name="radio"
+                        name={radio.name}
                         value={radio.value}
                         checked={radioValue === radio.value}
                         onChange={(e) => setRadioValue(e.currentTarget.value)}
+                        bsPrefix={'btn-check' + ' ' + style.check_active}
                     >
                         {radio.name}
                     </ToggleButton>
