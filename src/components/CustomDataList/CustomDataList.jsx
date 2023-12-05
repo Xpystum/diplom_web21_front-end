@@ -4,12 +4,9 @@ import style from './CustomDataList.module.sass';
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OnClick_Option, OnClick_SearchReset, listHide } from './CustomDataListJavaScript.js';
-// import images from './patrik.png';
 
-// использовать для отделение по горизонтальной лии
-// <div className={style.brLine_wrapp}>
-//     <div className={style.brLine}></div>
-// </div>
+
+
 
 export default function CustomDataList(props) {
     // вывод в input
@@ -43,7 +40,7 @@ export default function CustomDataList(props) {
                                 <option onClick={(evt)=>{ OnClick_Option(evt, IdInput) }} value={valueElement}>{valueElement}</option>
                             </div>
                             :
-                            <div>
+                            <div key={index}>
                                 <option  onClick={(evt)=>{ OnClick_Option(evt, IdInput) }} value={valueElement}>{valueElement}</option>
                             </div>
                         ) 

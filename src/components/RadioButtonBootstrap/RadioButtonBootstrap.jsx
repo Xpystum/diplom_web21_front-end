@@ -4,9 +4,10 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
 export default function RadioButtonBootstrap(props){
-    const [checked, setChecked] = useState(true);
+    // const [checked, setChecked] = useState(true);
     let defaultStatus = props.defaultStatus ?? 'all'
     const [radioValue, setRadioValue] = useState(defaultStatus);
+    
 
     let radios = props.radios ?? [
       { name: 'Любой', value: 'all' },

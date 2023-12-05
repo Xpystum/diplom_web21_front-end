@@ -8,17 +8,24 @@ import CustomDataListNumber from '../CustomDataListNumber/CustomDataListNumber';
 import ButtonMultiButton from '../ButtonMultiButton/ButtonMultiButton';
 import RadioButtonBootstrap from '../RadioButtonBootstrap/RadioButtonBootstrap';
 import CheckButtonBootsrap from '../CheckButtonBootsrap/CheckButtonBootsrap';
+import InputFormBootstrap from "../InputFormBootstrap/InputFormBootstrap";
+import ButtonCollapseFilter from "../ButtonCollapseFilter/ButtonCollapseFilter";
+import BlockLineFilter from "../BlockLineFilter/BlockLineFilter";
+
 import { fillArrYear } from './FilterJavaScript';
+import { createContext, useEffect, useState } from "react";
 
 
 
+const CountLineBlock = createContext(null);
 
 export default function Filter(props){
+
   //START статический контент
     const arrDocument = ['В порядке', 'Нет или проблемные'];
     const arrDamage = ['Не требуется ремонт', 'требуется ремонт или не на ходу'];
 
-    //START checkbox
+//START checkbox
     const arrButtonCheckTwo = [
       {name: "notSell", content: 'Непроданные'},
       {name: "Photo", content: 'C фото'},
@@ -37,22 +44,43 @@ export default function Filter(props){
     //END checkbox
 
     // START SELECT
-    //есть баг с "любой" all (передавать нужно что то другое что бы не повторялись в компоненте, а иначе будет работать и тот и другой одновременно)
-    const radios = [
-      { name: 'Любой', value: 'alls' },
-      { name: 'Собственник', value: 'owner' },
-      { name: 'Частник', value: 'privateOwner' },
-      { name: 'Компания', value: 'company' },
-    ];
+      //есть баг с "любой" all (передавать нужно что то другое что бы не повторялись в компоненте, а иначе будет работать и тот и другой одновременно)
+      const radios = [
+        { name: 'Любой', value: 'alls' },
+        { name: 'Собственник', value: 'owner' },
+        { name: 'Частник', value: 'privateOwner' },
+        { name: 'Компания', value: 'company' },
+      ];
     // END SELECT
 
-  //END статический контент
-
+//END статический контент
 
   let year = fillArrYear();
   let arrYear = year.map((index)=>{
     return { value: index, label: index }
   });
+
+  //Работа логики с добавляющийся строкой
+  let [countLineBlock, setCountLineBlock] = useState(1);   //количество блоков при нажатии на "+"
+  let array = new Array(1);
+
+  useEffect(()=>{
+    console.log('вызов effect')
+    array = new Array(countLineBlock);
+  }, [countLineBlock])
+  
+  function handlerAddLineBlock() {
+
+    let a = countLineBlock++;
+    setCountLineBlock(a);
+    console.log(countLineBlock , ' :countLineBlock');
+  }
+
+  function handlerDeletedLineBlock() {
+    let a = countLineBlock--;
+    setCountLineBlock(a);
+    console.log(countLineBlock);
+  } 
 
 
   return (
@@ -60,26 +88,20 @@ export default function Filter(props){
       
       <div className={style.wrappFilterPx}>
         <form className={style.wrappFilter__filterForm}>
-          <div className={style.block_info_wrapp}>
-            <div className={style.block_info}>
-              <CustomDataList placeholder={'Марка'} IdInput="filter__mark_input"  IdDataList="filter__mark_dataList" />
-            </div>
+          
+          { 
+            array.fill(1).map((index, keyReact) => 
+              <CountLineBlock.Provider value={{countLineBlock, setCountLineBlock}}>
+                <BlockLineFilter 
+                  key={keyReact} 
+                  countLineBlock={countLineBlock} 
+                  deletedLineBlock={handlerDeletedLineBlock}  
+                  addLineBlock={handlerAddLineBlock}
+                />
+              </CountLineBlock.Provider>
+            )
+          }
 
-            <div className={style.block_info}>
-              <CustomDataList placeholder={'Модель'} IdInput="filter__model_input" IdDataList="filter__model_dataList"/>
-              {/* <DataList placeholder='Модель' ListInputName="filter__model_list"  IdDataList="filter__model_list"/> */}
-            </div>
-
-            <div className={style.block_info}>
-              
-              <CustomDataListImg placeholder={"Поколение"}/>
-              {/* <DataList placeholder='Поколение' ListInputName="filter__pocoleny_list"  IdDataList="filter__pocoleny_list"/> */}
-              <div className={style.block_info_icon}>
-                {/* <ButtonPlus IconContent="fa-solid fa-trash-can" size='2x'/> */}
-                <ButtonPlus IconContent="fa-solid fa-plus" size='2x'/>
-              </div>
-            </div>
-          </div>
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
               <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
@@ -216,11 +238,27 @@ export default function Filter(props){
             </div>
            
           </div>
-            
-         
-          <input type="text" />
 
-          <button>Показать</button>
+
+          <div className={style.block_info_wrapp}>
+            <InputFormBootstrap />
+          </div>
+
+          <div className={style.block_info_wrapp}>
+
+            <div className={style.block_info}></div>
+
+            <div className={style.block_info + ' ' + style.flexCenter}>
+              <ButtonCollapseFilter/>
+            </div>
+
+            <div className={style.WrappbuttonSearch}>
+              <button className={style.buttonSearch}>Показать</button>
+            </div>
+          </div>
+
+          
+          
         </form>
       </div>
     </div>

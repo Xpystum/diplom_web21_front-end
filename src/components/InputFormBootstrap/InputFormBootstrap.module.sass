@@ -1,0 +1,22 @@
+@mixin nameGrayTitle
+    color: rgba(0,0,0,0.4)
+    font-size: 1.35rem
+    margin-bottom: 6px
+
+.labelTitle
+    @include nameGrayTitle
+
+.wrappInput
+    display: flex
+    .inputControl
+        border: none !important
+        height: 40px
+        font-size: 1.4rem !important
+        opacity: 0.6
+        &:focus
+            box-shadow: 0px 6px 20px hsla(224, 52%, 22%, 0.3) !important
+        &:active
+            transform: scale(0.99) !important
+            transition: all 0.2s
+        &:hover
+            outline: 1px solid rgba(0,0,0,0.2) !important

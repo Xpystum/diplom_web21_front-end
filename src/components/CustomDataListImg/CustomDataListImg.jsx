@@ -353,7 +353,6 @@ export default function CustomDataListImg(props) {
 
     function changeDefaultStateArrSvg(){
         let arr = selArrSvg;
-        console.log(selArrSvg, 'до');
         arr.forEach((value, key, array)=>{
             // console.log(`${key}: ${value}`)
             array.set(key, false);
@@ -361,7 +360,6 @@ export default function CustomDataListImg(props) {
         })
         
         setArrSvg(arr);
-        console.log(selArrSvg, 'после');
     }
 
     
