@@ -2,7 +2,7 @@ import Header from "../../UI/Header/Header";
 import CaruselWidget from "../../widgets/CaruselWidget/CaruselWidget";
 import ReviewsOwnersWidget from "../../widgets/ReviewsOwnersWidget/ReviewsOwnersWidget";
 import style from './Home.module.sass'
-import Filter from "../../components/Filter/Filter";
+import {Filter} from "../../components/Filter/Filter";
 import { Link } from "react-router-dom";
 
 export default function Home(props) {

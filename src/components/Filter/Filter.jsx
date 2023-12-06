@@ -17,9 +17,7 @@ import { createContext, useEffect, useState } from "react";
 
 
 
-const CountLineBlock = createContext(null);
-
-export default function Filter(props){
+export function Filter(props){
 
   //START статический контент
     const arrDocument = ['В порядке', 'Нет или проблемные'];
@@ -62,23 +60,14 @@ export default function Filter(props){
 
   //Работа логики с добавляющийся строкой
   let [countLineBlock, setCountLineBlock] = useState(1);   //количество блоков при нажатии на "+"
-  let array = new Array(1);
 
-  useEffect(()=>{
-    console.log('вызов effect')
-    array = new Array(countLineBlock);
-  }, [countLineBlock])
-  
   function handlerAddLineBlock() {
-
-    let a = countLineBlock++;
-    setCountLineBlock(a);
+    setCountLineBlock(++countLineBlock);
     console.log(countLineBlock , ' :countLineBlock');
   }
 
   function handlerDeletedLineBlock() {
-    let a = countLineBlock--;
-    setCountLineBlock(a);
+    setCountLineBlock(--countLineBlock);
     console.log(countLineBlock);
   } 
 
@@ -90,15 +79,16 @@ export default function Filter(props){
         <form className={style.wrappFilter__filterForm}>
           
           { 
-            array.fill(1).map((index, keyReact) => 
-              <CountLineBlock.Provider value={{countLineBlock, setCountLineBlock}}>
+            Array(countLineBlock).fill(1).map((index, keyReact) => 
                 <BlockLineFilter 
                   key={keyReact} 
                   countLineBlock={countLineBlock} 
-                  deletedLineBlock={handlerDeletedLineBlock}  
+                  deletedLineBlock={handlerDeletedLineBlock}    
                   addLineBlock={handlerAddLineBlock}
+                  title={'проверка'}
+                  isAdd={ (keyReact == 0)? ( (countLineBlock > 1)? true : false) :  false}
+                  isFirst={ (keyReact == 0)? true : false }
                 />
-              </CountLineBlock.Provider>
             )
           }
 
@@ -187,7 +177,6 @@ export default function Filter(props){
                     Руль
                   </label>
                   <RadioButtonBootstrap />
-                  {/* <CustomDataList declination="" placeholder={'Повреждение'} IdInput="filter__doc_input"  IdDataList="filter__doc_dataList" /> */}
                 </div>
               </div>
 

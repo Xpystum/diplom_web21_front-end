@@ -4,16 +4,13 @@ import CustomDataList from '../CustomDataList/CustomDataList';
 import CustomDataListImg from '../CustomDataListImg/CustomDataListImg';
 import style from './BlockLineFilter.module.sass';
 
-
-
 export default function BlockLineFilter(props){
+    let countLineBlock = props.countLineBlock;
+
+    const isAdd = props.isAdd;
+    const isFirst = props.isFirst;
+
     
-    // const {
-    //     countLineBlock,
-    //     setCountLineBlock
-    // } = useContext(CountLineBlock);
-
-
     return(
         <>
             <div className={style.block_info_wrapp}>
@@ -29,8 +26,25 @@ export default function BlockLineFilter(props){
                   
                   <CustomDataListImg placeholder={"Поколение"}/>
                   <div className={style.block_info_icon}>
-                        <ButtonPlus method={ props.deletedLineBlock } IconContent="fa-solid fa-trash-can" size='2x'/>
-                        <ButtonPlus method={ props.addLineBlock } IconContent="fa-solid fa-plus" size='2x'/>
+                      {
+                        (isFirst) ?
+                          (isAdd) ? 
+                          <>
+                            <ButtonPlus method={ props.deletedLineBlock } IconContent="fa-solid fa-trash-can" size='2x'/>
+                            {/* <ButtonPlus method={ props.addLineBlock } IconContent="fa-solid fa-plus" size='2x'/> */}
+                          </> 
+                          :
+                          <>
+                            {/* <ButtonPlus method={ props.deletedLineBlock } IconContent="fa-solid fa-trash-can" size='2x'/> */}
+                            <ButtonPlus method={ props.addLineBlock } IconContent="fa-solid fa-plus" size='2x'/>
+                          </> 
+                        :
+                          <>
+                            <ButtonPlus method={ props.deletedLineBlock } IconContent="fa-solid fa-trash-can" size='2x'/>
+                            <ButtonPlus method={ props.addLineBlock } IconContent="fa-solid fa-plus" size='2x'/>
+                          </>
+                      }
+                        
                   </div>
                 </div>
             </div>

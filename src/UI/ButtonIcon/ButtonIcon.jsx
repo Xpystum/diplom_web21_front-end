@@ -2,18 +2,12 @@ import { useContext } from 'react';
 import style from './ButtonIcon.module.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
 // иконки
 // fa-solid fa-basket-shopping - корзина
 // fa-solid fa-plus - плюс
 // fa-solid fa-trash-can - мусорный бак
 
 export default function ButtonPlus(props) {
-    // const {
-    //     countLineBlock,
-    //     setCountLineBlock
-    // } = useContext(CountLineBlock);
-    // const theme = useContext(CountLineBlock);
 
 
     let size =  props.size ?? '1x';
