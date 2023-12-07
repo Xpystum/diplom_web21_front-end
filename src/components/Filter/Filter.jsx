@@ -13,12 +13,13 @@ import ButtonCollapseFilter from "../ButtonCollapseFilter/ButtonCollapseFilter";
 import BlockLineFilter from "../BlockLineFilter/BlockLineFilter";
 
 import { fillArrYear } from './FilterJavaScript';
-import { createContext, useEffect, useState } from "react";
+import { useState } from "react";
+import useLogicFilter from './useLogicFilter'
 
 
 
 export function Filter(props){
-
+  // const { arrDocument, arrDamage } = useLogicFilter();
   //START статический контент
     const arrDocument = ['В порядке', 'Нет или проблемные'];
     const arrDamage = ['Не требуется ремонт', 'требуется ремонт или не на ходу'];
@@ -58,7 +59,7 @@ export function Filter(props){
     return { value: index, label: index }
   });
 
-  //Работа логики с добавляющийся строкой
+  //START Работа логики с добавляющийся строкой
   let [countLineBlock, setCountLineBlock] = useState(1);   //количество блоков при нажатии на "+"
 
   function handlerAddLineBlock() {
@@ -70,7 +71,9 @@ export function Filter(props){
     setCountLineBlock(--countLineBlock);
     console.log(countLineBlock);
   } 
+  //END Работа логики с добавляющийся строкой
 
+  const [statusOpen, setStatusOpen] = useState(false);
 
   return (
     <div className={style.wrappFilterProcent}>
@@ -126,128 +129,131 @@ export function Filter(props){
 
           </div>
 
-          <div className={style.block_info_wrapp}>
-            <div className={style.block_info}>
-              <CustomDataListImg placeholder={"Тип кузова"} type={"body"}/>
-            </div>
-
-            <div className={style.block_info}>
-            <ButtonMultiButton />
-            </div>
-
-            <div className={style.block_info}>
-              {/* заглушка */}
-            </div>
-          </div>
-
-          <div className={style.block_info_wrapp}>
-              <div className={style.block_info}>
-                <div className={style.wrapp_labelInput}>
-                  <label className={style.documentLabel}>
-                    Документы
-                  </label>
-                  <CustomDataList 
-                    declination="" 
-                    placeholder={'Неважно'}
-                    IdInput="filter__doc_input"  
-                    IdDataList="filter__doc_dataList" 
-                    content={arrDocument}
-                   />
-                </div>
-              </div>
-
-              <div className={style.block_info}>
-                <div className={style.wrapp_labelInput}>
-                  <label className={style.documentLabel}>
-                    Повреждение
-                  </label>
-                  <CustomDataList
-                    declination="" 
-                    placeholder={'Повреждение'} 
-                    IdInput="filter__damage_input"  
-                    IdDataList="filter__damage_dataList" 
-                    content={arrDamage}
-                  />
-                </div>
-              </div>
-
-              <div className={style.block_info}>
-                <div className={style.wrapp_labelInput}>
-                  <label className={style.documentLabel}>
-                    Руль
-                  </label>
-                  <RadioButtonBootstrap />
-                </div>
-              </div>
-
-
-          </div>
-
-          <div className={style.block_info_wrapp + ' ' + style.margin_top_10px}>
-
-
-            <div className={style.block_info}>
-              <div className={style.wrapp_fourCheckBox}>
-                  <label className={style.arrButtonCheckFourLabel}>
-                      Дополнительно
-                  </label>
-                  <CheckButtonBootsrap styleWrappDiv='styleWrappDiv' content={arrButtonCheckFour}/>
-              </div>
-            </div>
-
-            <div className={style.wrappFloatBottom}>
-                <div className={style.wrapp_labelInput + ' ' + style.width48}>
-
-                  <label className={style.documentLabel}>
-                      Мощность по ПТС
-                  </label>
-
-                  <div className={style.block_info_double  + ' ' + style.block_info_double_middle}>
-                    <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='От, л.с' />
-                    <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
+          {
+            (statusOpen) ? 
+              <>
+                  <div className={style.block_info_wrapp}>
+                  <div className={style.block_info}>
+                    <CustomDataListImg placeholder={"Тип кузова"} type={"body"}/>
                   </div>
+
+                  <div className={style.block_info}>
+                  <ButtonMultiButton />
+                  </div>
+
+                  <div className={style.block_info}>
+                    {/* заглушка */}
+                  </div>
+                  </div>
+
+                  <div className={style.block_info_wrapp}>
+                      <div className={style.block_info}>
+                        <div className={style.wrapp_labelInput}>
+                          <label className={style.documentLabel}>
+                            Документы
+                          </label>
+                          <CustomDataList 
+                            declination="" 
+                            placeholder={'Неважно'}
+                            IdInput="filter__doc_input"  
+                            IdDataList="filter__doc_dataList" 
+                            content={arrDocument}
+                          />
+                        </div>
+                      </div>
+
+                      <div className={style.block_info}>
+                        <div className={style.wrapp_labelInput}>
+                          <label className={style.documentLabel}>
+                            Повреждение
+                          </label>
+                          <CustomDataList
+                            declination="" 
+                            placeholder={'Повреждение'} 
+                            IdInput="filter__damage_input"  
+                            IdDataList="filter__damage_dataList" 
+                            content={arrDamage}
+                          />
+                        </div>
+                      </div>
+
+                      <div className={style.block_info}>
+                        <div className={style.wrapp_labelInput}>
+                          <label className={style.documentLabel}>
+                            Руль
+                          </label>
+                          <RadioButtonBootstrap />
+                        </div>
+                      </div>
+
+
+                  </div>
+
+                  <div className={style.block_info_wrapp + ' ' + style.margin_top_10px}>
+
+
+                    <div className={style.block_info}>
+                      <div className={style.wrapp_fourCheckBox}>
+                          <label className={style.arrButtonCheckFourLabel}>
+                              Дополнительно
+                          </label>
+                          <CheckButtonBootsrap styleWrappDiv='styleWrappDiv' content={arrButtonCheckFour}/>
+                      </div>
+                    </div>
+
+                    <div className={style.wrappFloatBottom}>
+                        <div className={style.wrapp_labelInput + ' ' + style.width48}>
+
+                          <label className={style.documentLabel}>
+                              Мощность по ПТС
+                          </label>
+
+                          <div className={style.block_info_double  + ' ' + style.block_info_double_middle}>
+                            <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='От, л.с' />
+                            <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
+                          </div>
+                          
+                        </div>
+
+                        <div className={style.wrapp_labelInput + ' ' + style.width48}>
+
+                          <label className={style.documentLabel}>
+                              Мощность по ПТС
+                          </label>
+
+                          <div className={style.block_info_double + ' ' + style.block_info_double_middle} >
+                            <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='От, км' />
+                            <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
+                          </div>
+
+                          <CheckButtonBootsrap styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
+                        </div>
+                      
+                        <RadioButtonBootstrap radios={radios}/>
+                    </div>
                   
-                </div>
-
-                <div className={style.wrapp_labelInput + ' ' + style.width48}>
-
-                  <label className={style.documentLabel}>
-                      Мощность по ПТС
-                  </label>
-
-                  <div className={style.block_info_double + ' ' + style.block_info_double_middle} >
-                    <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='От, км' />
-                    <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
                   </div>
 
-                  <CheckButtonBootsrap styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
-                </div>
-              
-                <RadioButtonBootstrap radios={radios}/>
-            </div>
-           
-          </div>
-
-
-          <div className={style.block_info_wrapp}>
-            <InputFormBootstrap />
-          </div>
+                  <div className={style.block_info_wrapp}>
+                    <InputFormBootstrap />
+                  </div>
+              </>
+              :
+              ""
+          }
 
           <div className={style.block_info_wrapp}>
 
             <div className={style.block_info}></div>
 
             <div className={style.block_info + ' ' + style.flexCenter}>
-              <ButtonCollapseFilter/>
+              <ButtonCollapseFilter status={statusOpen} setStatus={setStatusOpen} />
             </div>
 
             <div className={style.WrappbuttonSearch}>
               <button className={style.buttonSearch}>Показать</button>
             </div>
           </div>
-
-          
-          
         </form>
       </div>
     </div>

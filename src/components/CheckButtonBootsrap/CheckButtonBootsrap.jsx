@@ -19,8 +19,8 @@ export default function CheckButtonBootsrap(props){
                 content.map( (element, index) => 
                     <div className={ (styleWrappDiv != '')? style[styleWrappDiv] : '123'} key={index}>
                         <Form.Check className={style[styleWrapp]}>
-                            <Form.Check.Input name={element.name} type={'checkbox'} className={style[styleInput]} />
-                            <Form.Check.Label className={style[styleLabel]}>{element.content}</Form.Check.Label>
+                            <Form.Check.Input id={element.name} name={element.name} type={'checkbox'} className={style[styleInput]} />
+                            <Form.Check.Label for={element.name} className={style[styleLabel]}>{element.content}</Form.Check.Label>
                         </Form.Check>
                     </div>
                 )
