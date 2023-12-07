@@ -5,7 +5,7 @@ import CustomDataListImg from '../CustomDataListImg/CustomDataListImg';
 import style from './BlockLineFilter.module.sass';
 
 export default function BlockLineFilter(props){
-    let countLineBlock = props.countLineBlock;
+    const index = props.index ?? '';
 
     const isAdd = props.isAdd;
     const isFirst = props.isFirst;
@@ -15,11 +15,11 @@ export default function BlockLineFilter(props){
         <>
             <div className={style.block_info_wrapp}>
                 <div className={style.block_info}>
-                  <CustomDataList placeholder={'Марка'} IdInput="filter__mark_input"  IdDataList="filter__mark_dataList" />
+                  <CustomDataList placeholder={'Марка'} IdInput={"filter__mark_input" + index}  IdDataList={"filter__mark_dataList" + index }/>
                 </div>
     
                 <div className={style.block_info}>
-                  <CustomDataList placeholder={'Модель'} IdInput="filter__model_input" IdDataList="filter__model_dataList"/>
+                  <CustomDataList placeholder={'Модель'} IdInput={"filter__model_input" + index} IdDataList={"filter__model_dataList" + index}/>
                 </div>
     
                 <div className={style.block_info}>
@@ -31,11 +31,9 @@ export default function BlockLineFilter(props){
                           (isAdd) ? 
                           <>
                             <ButtonPlus method={ props.deletedLineBlock } IconContent="fa-solid fa-trash-can" size='2x'/>
-                            {/* <ButtonPlus method={ props.addLineBlock } IconContent="fa-solid fa-plus" size='2x'/> */}
                           </> 
                           :
                           <>
-                            {/* <ButtonPlus method={ props.deletedLineBlock } IconContent="fa-solid fa-trash-can" size='2x'/> */}
                             <ButtonPlus method={ props.addLineBlock } IconContent="fa-solid fa-plus" size='2x'/>
                           </> 
                         :

@@ -15,7 +15,6 @@ import BlockLineFilter from "../BlockLineFilter/BlockLineFilter";
 import {useLogicFilterHook} from './useLogicFilterHook'
 
 
-
 export function Filter(props){
   const { arrDocument, 
     arrDamage, 
@@ -35,11 +34,11 @@ export function Filter(props){
       
       <div className={style.wrappFilterPx}>
         <form className={style.wrappFilter__filterForm}>
-          
           { 
             Array(AddlineHook.value.countLineBlock).fill(1).map((index, keyReact) => 
                 <BlockLineFilter 
-                  key={keyReact} 
+                  key={keyReact}
+                  index={keyReact}
                   countLineBlock={AddlineHook.value.countLineBlock} 
                   deletedLineBlock={AddlineHook.value.handlerDeletedLineBlock}    
                   addLineBlock={AddlineHook.value.handlerAddLineBlock}

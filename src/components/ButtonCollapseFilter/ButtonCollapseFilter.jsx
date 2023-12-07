@@ -6,7 +6,7 @@ export default function ButtonCollapseFilter(props){
     
     // const [checkStatus, setcheckStatus] = useState(false);
     let status = props.status;
-    const setStatus = props.setStatus;
+    const setStatus = props.setStatus;  
 
     function clickButtonCollapse(){
         if(status == true){
@@ -15,7 +15,6 @@ export default function ButtonCollapseFilter(props){
             status = true;
         }
         setStatus(status)
-        console.log(status)
     }
 
     return(

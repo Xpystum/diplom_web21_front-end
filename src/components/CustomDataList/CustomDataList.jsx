@@ -15,13 +15,30 @@ export default function CustomDataList(props) {
     let placeholder = props.placeholder ?? '';
     let IdDataList = props.IdDataList ?? '';
     let IdInput = props.IdInput ?? 'browser';
-    let declination = props.declination ?? "Любая" // склонение (Любая марка), (Любое Топливо)
-    let CustomDataListStyle = props.CustomDataListStyle ?? ""
+    let declination = props.declination ?? "Любая"; // склонение (Любая марка), (Любое Топливо)
+    let CustomDataListStyle = props.CustomDataListStyle ?? "";
+    
+    useEffect(()=>{
+        const div = document.querySelector('.' + style.CustomDataList);
+
+        document.addEventListener( 'click', (e) => {
+            const withinBoundaries = e.composedPath().includes(div);
+            console.log(withinBoundaries);
+    
+            if ( ! withinBoundaries ) {
+                const datalist = document.querySelector('#' + IdDataList);
+                datalist.remove();
+            }
+    
+        })
+
+    }, [])
+
+   
 
     return (
-        <div className={style.CustomDataList + ' ' + style[CustomDataListStyle]}>
+        <div className={style.CustomDataList + ' ' + ((CustomDataListStyle != "")? style[CustomDataListStyle] : '') }>
             <input type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
-            {/* <div className={style.wrapp_datalist}> */}
                 <datalist id={IdDataList} className={style.datalist} size="50" >
                     <div onClick={()=>{ OnClick_SearchReset(IdInput, IdDataList) }} className={style.reset_search}>
                         <FontAwesomeIcon icon="fa-solid fa-x" />
@@ -37,16 +54,15 @@ export default function CustomDataList(props) {
                                 <div className={style.brLine_wrapp}>
                                     <div className={style.brLine}></div>
                                 </div>
-                                <option onClick={(evt)=>{ OnClick_Option(evt, IdInput) }} value={valueElement}>{valueElement}</option>
+                                <option onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement}>{valueElement}</option>
                             </div>
                             :
                             <div key={index}>
-                                <option  onClick={(evt)=>{ OnClick_Option(evt, IdInput) }} value={valueElement}>{valueElement}</option>
+                                <option  onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement}>{valueElement}</option>
                             </div>
                         ) 
                     }
                 </datalist>
-            {/* </div> */}
         </div>
     )
 }

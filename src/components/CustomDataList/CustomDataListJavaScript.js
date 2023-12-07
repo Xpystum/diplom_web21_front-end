@@ -20,9 +20,10 @@ function OnClick_SearchReset(IdInput, IdDataList){
 }
 
 // Получаем Значения option
-function OnClick_Option(evt,IdInput ){
+function OnClick_Option(evt, IdInput, IdDataList){
     let elemInput = document.getElementById(`${IdInput}`);
     elemInput.value = evt.target.value;
+    listHide(IdDataList)
 }
 
 
