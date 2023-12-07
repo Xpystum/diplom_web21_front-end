@@ -1,7 +1,6 @@
 import style from "./Filter.module.sass"
 import ButtonPlus from '../../UI/ButtonIcon/ButtonIcon';
 
-
 import CustomDataList from '../CustomDataList/CustomDataList';
 import CustomDataListImg from '../CustomDataListImg/CustomDataListImg';
 import CustomDataListNumber from '../CustomDataListNumber/CustomDataListNumber';
@@ -12,68 +11,24 @@ import InputFormBootstrap from "../InputFormBootstrap/InputFormBootstrap";
 import ButtonCollapseFilter from "../ButtonCollapseFilter/ButtonCollapseFilter";
 import BlockLineFilter from "../BlockLineFilter/BlockLineFilter";
 
-import { fillArrYear } from './FilterJavaScript';
-import { useState } from "react";
-import useLogicFilterHook from './useLogicFilterHook'
+
+import {useLogicFilterHook} from './useLogicFilterHook'
 
 
 
 export function Filter(props){
-  // const { arrDocument, arrDamage } = useLogicFilter();
-  //START статический контент
-    const arrDocument = ['В порядке', 'Нет или проблемные'];
-    const arrDamage = ['Не требуется ремонт', 'требуется ремонт или не на ходу'];
+  const { arrDocument, 
+    arrDamage, 
+    arrButtonCheckOne, 
+    arrButtonCheckTwo, 
+    arrButtonCheckFour, 
+    arrYear, 
+    radios,
+    AddlineHook,
+    statusOpen,
+    setStatusOpen,
+   } = useLogicFilterHook();
 
-//START checkbox
-    const arrButtonCheckTwo = [
-      {name: "notSell", content: 'Непроданные'},
-      {name: "Photo", content: 'C фото'},
-    ];
-
-    const arrButtonCheckFour = [
-      {name: "Inomark", content: 'Иномарки'},
-      {name: "Sertificat", content: 'Сертификация'},
-      {name: "DromAssist", content: 'Дром Ассист'},
-      {name: "Barter", content: 'Возможен Обмен'},
-    ];
-
-    const arrButtonCheckOne = [
-      {name: "mileage", content: 'Без пробега по РФ'},
-    ];
-    //END checkbox
-
-    // START SELECT
-      //есть баг с "любой" all (передавать нужно что то другое что бы не повторялись в компоненте, а иначе будет работать и тот и другой одновременно)
-      const radios = [
-        { name: 'Любой', value: 'alls' },
-        { name: 'Собственник', value: 'owner' },
-        { name: 'Частник', value: 'privateOwner' },
-        { name: 'Компания', value: 'company' },
-      ];
-    // END SELECT
-
-//END статический контент
-
-  let year = fillArrYear();
-  let arrYear = year.map((index)=>{
-    return { value: index, label: index }
-  });
-
-  //START Работа логики с добавляющийся строкой
-  let [countLineBlock, setCountLineBlock] = useState(1);   //количество блоков при нажатии на "+"
-
-  function handlerAddLineBlock() {
-    setCountLineBlock(++countLineBlock);
-    console.log(countLineBlock , ' :countLineBlock');
-  }
-
-  function handlerDeletedLineBlock() {
-    setCountLineBlock(--countLineBlock);
-    console.log(countLineBlock);
-  } 
-  //END Работа логики с добавляющийся строкой
-
-  const [statusOpen, setStatusOpen] = useState(false);
 
   return (
     <div className={style.wrappFilterProcent}>
@@ -82,14 +37,14 @@ export function Filter(props){
         <form className={style.wrappFilter__filterForm}>
           
           { 
-            Array(countLineBlock).fill(1).map((index, keyReact) => 
+            Array(AddlineHook.value.countLineBlock).fill(1).map((index, keyReact) => 
                 <BlockLineFilter 
                   key={keyReact} 
-                  countLineBlock={countLineBlock} 
-                  deletedLineBlock={handlerDeletedLineBlock}    
-                  addLineBlock={handlerAddLineBlock}
+                  countLineBlock={AddlineHook.value.countLineBlock} 
+                  deletedLineBlock={AddlineHook.value.handlerDeletedLineBlock}    
+                  addLineBlock={AddlineHook.value.handlerAddLineBlock}
                   title={'проверка'}
-                  isAdd={ (keyReact == 0)? ( (countLineBlock > 1)? true : false) :  false}
+                  isAdd={ (keyReact == 0)? ( (AddlineHook.value.countLineBlock > 1)? true : false) :  false}
                   isFirst={ (keyReact == 0)? true : false }
                 />
             )
@@ -229,7 +184,7 @@ export function Filter(props){
                           <CheckButtonBootsrap styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
                         </div>
                       
-                        <RadioButtonBootstrap radios={radios}/>
+                        <RadioButtonBootstrap defaultStatus={'all2'} radios={radios}/>
                     </div>
                   
                   </div>
@@ -246,7 +201,7 @@ export function Filter(props){
 
             <div className={style.block_info}></div>
 
-            <div className={style.block_info + ' ' + style.flexCenter}>
+            <div className={style.flexCenter + ' ' + style.block_info }>
               <ButtonCollapseFilter status={statusOpen} setStatus={setStatusOpen} />
             </div>
 

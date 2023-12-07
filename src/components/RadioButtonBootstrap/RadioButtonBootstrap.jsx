@@ -7,15 +7,12 @@ export default function RadioButtonBootstrap(props){
     // const [checked, setChecked] = useState(true);
     let defaultStatus = props.defaultStatus ?? 'all'
     const [radioValue, setRadioValue] = useState(defaultStatus);
-    
 
     let radios = props.radios ?? [
       { name: 'Любой', value: 'all' },
       { name: 'Левый', value: 'left' },
       { name: 'Правый', value: 'right' },
     ];
-
-
 
     return (
         <>
@@ -25,7 +22,7 @@ export default function RadioButtonBootstrap(props){
                         key={idx}
                         id={`radio-${radio.value}`}
                         type="radio"
-                        name={radio.name}
+                        name={radio.value}
                         value={radio.value}
                         checked={radioValue === radio.value}
                         onChange={(e) => setRadioValue(e.currentTarget.value)}
