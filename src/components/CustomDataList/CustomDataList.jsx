@@ -3,7 +3,7 @@ import "datalist-css"
 import style from './CustomDataList.module.sass';
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { OnClick_Option, OnClick_SearchReset, listHide } from './CustomDataListJavaScript.js';
+import { OnClick_Option, OnClick_SearchReset, closeMissClick } from './CustomDataListJavaScript.js';
 
 
 
@@ -19,19 +19,7 @@ export default function CustomDataList(props) {
     let CustomDataListStyle = props.CustomDataListStyle ?? "";
     
     useEffect(()=>{
-        const div = document.querySelector('.' + style.CustomDataList);
-
-        document.addEventListener( 'click', (e) => {
-            const withinBoundaries = e.composedPath().includes(div);
-            console.log(withinBoundaries);
-    
-            if ( ! withinBoundaries ) {
-                const datalist = document.querySelector('#' + IdDataList);
-                datalist.remove();
-            }
-    
-        })
-
+        closeMissClick(IdDataList, style.CustomDataList);
     }, [])
 
    
