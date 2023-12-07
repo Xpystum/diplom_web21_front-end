@@ -13,7 +13,7 @@ import { addFavorite } from '../../../redux/dataState';
 export default function Sign(props) {
     const navigate = useNavigate();
     let dispatch = useDispatch();
-    let favorites = useSelector(state => state.dataState.value.users.favorites);
+    let favorites = useSelector(state => state.dataState.value.user.favorites);
 
     let [mail, mailState] = useState(null);
     let [pass, passState] = useState(null);
@@ -24,7 +24,7 @@ export default function Sign(props) {
             'password' : pass
         })
     }
-
+    // console.log(mail);
     function authResponse($response){
         if($response.data.code == 201 && $response.data.token.trim() != ""){
             localStorage.setItem($response.data.token_name, $response.data.token);
@@ -35,13 +35,10 @@ export default function Sign(props) {
 
                 navigate("/my");
             }, {"favorites":favorites, "token": $response.data.token})
-
-            
         }
         if($response.data.code == 403){
             
         }
-
     }
 
 

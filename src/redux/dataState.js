@@ -23,13 +23,10 @@ export const dataSlice = createSlice({
         loader: true,
         data: []
       },
-      users: {
+      user: {
+        loader: true,
         data: [],
         favorites: []
-      },
-      select_user: {
-        loader: true,
-        data: []
       },
     }
   },
@@ -47,14 +44,11 @@ export const dataSlice = createSlice({
     loaderSwitch: (state, action) => {
       state.value.app.loader = action.payload
     },
-    reloadUsers: (state, action) => {
-      state.value.users.data = action.payload
+    reloadUser: (state, action) => {
+      state.value.user.data = action.payload
     },
-    reloadSelectUser: (state, action) => {
-      state.value.select_user.data = action.payload
-    },
-    loaderSelectUser: (state, action) => {
-      state.value.select_user.loader = action.payload
+    loaderUser: (state, action) => {
+      state.value.user.loader = action.payload
     },
     reloadMenu: (state, action) => {
       state.value.mainMenu = action.payload
@@ -78,7 +72,7 @@ export const dataSlice = createSlice({
       state.value.products.loader = action.payload
     },
     addFavorite: (state, action) => {
-      state.value.users.favorites = action.payload
+      state.value.user.favorites = action.payload
     },
   }
 })
@@ -95,9 +89,8 @@ export const {
                 removeToken,
                 loadSelectProduct,
                 reloadSelectProduct,
-                reloadSelectUser,
-                reloadUsers,
-                loaderSelectUser,
+                reloadUser,
+                loaderUser,
                 addFavorite,
               } = dataSlice.actions
 

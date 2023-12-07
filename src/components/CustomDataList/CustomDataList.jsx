@@ -22,7 +22,7 @@ export default function CustomDataList(props) {
 
     return (
         <div className={style.CustomDataList + ' ' + style[CustomDataListStyle]}>
-            <input type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autocomplete="off" />
+            <input type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
             {/* <div className={style.wrapp_datalist}> */}
                 <datalist id={IdDataList} className={style.datalist} size="50" >
                     <div onClick={()=>{ OnClick_SearchReset(IdInput, IdDataList) }} className={style.reset_search}>
