@@ -14,7 +14,7 @@ import BlockLineFilter from "../BlockLineFilter/BlockLineFilter";
 
 import { fillArrYear } from './FilterJavaScript';
 import { useState } from "react";
-import useLogicFilter from './useLogicFilter'
+import useLogicFilterHook from './useLogicFilterHook'
 
 
 

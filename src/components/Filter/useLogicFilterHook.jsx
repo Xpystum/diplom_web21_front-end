@@ -1,4 +1,4 @@
-function useLogicFilter() {
+function useLogicFilterHook() {
     //START статический контент
     const arrDocument = ['В порядке', 'Нет или проблемные'];
     const arrDamage = ['Не требуется ремонт', 'требуется ремонт или не на ходу'];
