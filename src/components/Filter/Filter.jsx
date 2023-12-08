@@ -16,6 +16,7 @@ import {useLogicFilterHook} from './useLogicFilterHook'
 
 
 export function Filter(props){
+  
   const { arrDocument, 
     arrDamage, 
     arrButtonCheckOne, 

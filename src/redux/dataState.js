@@ -31,6 +31,9 @@ export const dataSlice = createSlice({
         loader: true,
         data: []
       },
+      filter:{
+        data: []
+      }
     }
   },
   reducers: {
@@ -80,6 +83,9 @@ export const dataSlice = createSlice({
     addFavorite: (state, action) => {
       state.value.users.favorites = action.payload
     },
+    addFilterData: (state, action) => {
+      state.value.filter.data = action.payload
+    },
   }
 })
 
@@ -99,6 +105,7 @@ export const {
                 reloadUsers,
                 loaderSelectUser,
                 addFavorite,
+                addFilterData,
               } = dataSlice.actions
 
 export default dataSlice.reducer

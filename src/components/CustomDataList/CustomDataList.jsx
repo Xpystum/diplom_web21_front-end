@@ -1,7 +1,7 @@
 // Удачи разобраться
 import "datalist-css"
 import style from './CustomDataList.module.sass';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OnClick_Option, OnClick_SearchReset, closeMissClick } from './CustomDataListJavaScript.js';
 
@@ -9,6 +9,9 @@ import { OnClick_Option, OnClick_SearchReset, closeMissClick } from './CustomDat
 
 
 export default function CustomDataList(props) {
+    //состояние для кнопки сброса
+    let [resetState, setResetState] = useState(null);
+
     // вывод в input
     const massArr = props.content ?? ['Brave', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
     // const testImage = [images];
@@ -19,14 +22,18 @@ export default function CustomDataList(props) {
     let CustomDataListStyle = props.CustomDataListStyle ?? "";
     
     useEffect(()=>{
-        closeMissClick(IdDataList, style.CustomDataList);
+        closeMissClick(IdDataList, IdInput + 'div');
     }, [])
+
+    useEffect(()=>{
+        console.log(resetState);
+    }, [resetState] )
 
    
 
     return (
-        <div className={style.CustomDataList + ' ' + ((CustomDataListStyle != "")? style[CustomDataListStyle] : '') }>
-            <input type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
+        <div className={style.CustomDataList + ' ' + IdInput + 'div' + ' ' + ((CustomDataListStyle != "")? style[CustomDataListStyle] : '') }>
+            <input value={(event) => setResetState(event.target.value)} type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
                 <datalist id={IdDataList} className={style.datalist} size="50" >
                     <div onClick={()=>{ OnClick_SearchReset(IdInput, IdDataList) }} className={style.reset_search}>
                         <FontAwesomeIcon icon="fa-solid fa-x" />

@@ -28,36 +28,19 @@ function OnClick_Option(evt, IdInput, IdDataList){
 
 function closeMissClick(IdDataList, CustomDataList){
 
-    const div = document.querySelectorAll('.' + CustomDataList);
-    div.forEach((element)=>{
+    const div = document.querySelector('.' + CustomDataList);
 
-        // console.log(element.dataset.eventclick)
-        // data-eventClick="eventOn"
+    document.addEventListener( 'click', (e) => {
+        
+        const withinBoundaries = e.composedPath().includes(div);
 
-        if (element.dataset.eventclick != 'eventOn') {  
-
-            console.log('Событие установлено');
-            element.dataset.eventclick = 'eventOn';
-
-            element.addEventListener( 'click', (e) => {
-
-                const withinBoundaries = e.composedPath().includes(div);
-                console.log(withinBoundaries);
-
-                console.log('вызвалось');
-                if ( ! withinBoundaries ) {
-                    const datalist = document.querySelector('#' + IdDataList);
-                    // console.log(datalist, 'datalist');
-                    listHide(IdDataList)
-                }
-            }) 
-    
-        }else{
-            console.log('Событие не установлено');
+        console.log('вызвалось');
+        if ( ! withinBoundaries ) {
+            const datalist = document.querySelector('#' + IdDataList);
+            listHide(IdDataList)
         }
-
-    });
-
+        
+    }) 
 }
 
 
