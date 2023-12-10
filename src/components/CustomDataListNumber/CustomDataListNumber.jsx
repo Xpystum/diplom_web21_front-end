@@ -7,6 +7,10 @@ export default function CustomDataListNumber(props) {
 
     let wrappSelect = props.wrappSelect ?? "wrappSelectDefault";
 
+    function handlerOnChangeSelect(evt){
+        console.log(placeholder, evt);
+    }
+g
     let arrItem = props.arrItem ?? [
         { value: "Максим работай", label: "Максим работай" },
         { value: "Максим работай", label: "Максим работай" },
@@ -20,7 +24,7 @@ export default function CustomDataListNumber(props) {
     // 
     return (
         <div className={style[wrappSelect]}>
-            <Form.Select className={style.wrapp_dataList + ( (styleSelect)? ' ' + style[styleSelect] : "")} aria-label="Default select example" >
+            <Form.Select onChange={ (evt)=>{ handlerOnChangeSelect(evt.currentTarget.value)} } className={style.wrapp_dataList + ( (styleSelect)? ' ' + style[styleSelect] : "")} aria-label="Default select example" >
                 <option>{placeholder}</option>  
                 {
                     arrItem.map((index, eter)=>{

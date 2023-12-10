@@ -2,10 +2,10 @@ import Select, { components } from 'react-select'
 import style from './CustomDataListImg.module.sass';
 import './CustomDataListImg.css';
 import images from './patrik.png';
-import { forwardRef, useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch, useSelector } from 'react-redux';
-import { addFilterDataImg } from '../../redux/dataState';
+import { useDispatch } from 'react-redux';
+import { addFilterDataImg, addFilterDataImgSvg } from '../../redux/dataState';
 
 export default function CustomDataListImg(props) {
     let placeholder = props.placeholder;
@@ -15,7 +15,6 @@ export default function CustomDataListImg(props) {
 
     const dispatch = useDispatch()  
 
-    const myRef = useRef(null);
 
     // test images
     const testImage = images;
@@ -36,23 +35,26 @@ export default function CustomDataListImg(props) {
     ]));
 
     //машины которые выбрали (состояние выбранных машин)
+    //для бека указывать самим name - value (redux получает массив на ру)
     const [arrSvgVichle, setArrSvgVichle] = useState([]);
 
     // фотографии которые выбрали (value - будет значением)
     const [arrImgSelect, setArrImgSelect] = useState(null);
 
     useEffect(()=>{
-        dispatch(addFilterDataImg(arrImgSelect));
+        console.log(arrImgSelect);
+        if(arrImgSelect != 'null'){
+            let arr = [{name: 'ImgSelectPokolenu', value: arrImgSelect}];
+            dispatch(addFilterDataImg(arr));
+        }else{
+            dispatch(addFilterDataImg([]));
+        }
+        
     },[arrImgSelect])
 
     useEffect(()=>{
-        // dispatch(addFilterDataImg(arrImgSelect));
-        console.log(arrSvgVichle, arrSvgVichle);
+        dispatch(addFilterDataImgSvg(arrSvgVichle));
     },[arrSvgVichle])
-
-    // useEffect(()=>{
-    //     console.log(arrImgSelect);
-    // },[arrImgSelect])
 
     //логика в зависимости от react-select (надо вынести в отдельный файл)
     switch(type){
@@ -163,7 +165,7 @@ export default function CustomDataListImg(props) {
                     //не удалять первый объект (он должен быть в option - завязано на библиотеке)
                     {
                         value: 'null', label:
-                            <div ref={myRef} className={style.wrapp_reset_search + ' ' + "wrapp_reset_search"}>
+                            <div className={style.wrapp_reset_search + ' ' + "wrapp_reset_search"}>
                                 <div className={style.reset_search}>
                                     <FontAwesomeIcon icon="fa-solid fa-x" />
                                     <span className={style.reset_search_name}>{declination + ' ' + placeholder}</span>
@@ -479,10 +481,9 @@ export default function CustomDataListImg(props) {
                             evt.currentTarget.children[0].style.color = '#000000';
                             setArrSvg(selArrSvg.set(evt.currentTarget.textContent, true));
 
-                            let arr = arrSvgVichle;
+                            let arr = JSON.parse(JSON.stringify(arrSvgVichle));
                             arr.push(evt.currentTarget.textContent);
-
-                            setArrSvgVichle(arr);
+                                setArrSvgVichle(arr);
 
                         }else{
                                 
@@ -490,7 +491,7 @@ export default function CustomDataListImg(props) {
                             evt.currentTarget.children[0].style.color = 'inherit';
                             setArrSvg(selArrSvg.set(evt.currentTarget.textContent, false));
                             
-                            let arr = arrSvgVichle;
+                            let arr= JSON.parse(JSON.stringify(arrSvgVichle));
                             let index = null;
 
                             //удаление из массива состояние arrSvgVichle
@@ -498,7 +499,7 @@ export default function CustomDataListImg(props) {
                                 if(elem == evt.currentTarget.textContent){
                                     index = ind;
                                 }
-                            });
+                            }); 
 
                             if(index != null){
                                 arr.splice(index,1);

@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import CircleColor from '../../UI/CircleColor/CircleColor';
 import style from './ButtonMultiButton.module.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch } from 'react-redux';
+import { addFilterDataColor } from '../../redux/dataState';
 
 
 export default function ButtonMultiButton(){
     const [value, setValue] = useState([]);
-    // const [valueNone, setValueNone] = useState([]);
+    const dispatch = useDispatch(); //redux
 
-    // function check(){
-    //     setValue([])
-    //     let arr = ['none'];
-    //     setValueNone(arr);
-    // }
+    useEffect(()=>{
+        dispatch(addFilterDataColor(value));
+    }, [value])
     
     const handleChange = (val) => { 
         if(val.length >= 0 && !val.includes('none')){

@@ -36,6 +36,9 @@ export const dataSlice = createSlice({
         data: {
           dataList: [],
           dataListImg: [],
+          dataListImgSvg: [],
+          dataListColor: [],
+          dataListNumber: [],
         }
       }
     }
@@ -89,11 +92,28 @@ export const dataSlice = createSlice({
     },
 
     // filtr component
+
+    //CustomDataList
     addFilterData: (state, action) => {
       state.value.filter.data.dataList = action.payload;
     },
+    // CustomDataListImg
     addFilterDataImg: (state, action) => {
       state.value.filter.data.dataListImg = action.payload;
+    },
+    // CustomDataListImg
+    addFilterDataImgSvg: (state, action) => {
+      state.value.filter.data.dataListImgSvg = action.payload;
+    },
+
+    // ButtonMultiButton
+    addFilterDataColor: (state, action) => {
+      state.value.filter.data.dataListColor = action.payload;
+    },
+
+    // CustomDataListNumber
+    addFilterNumber: (state, action) => {
+      state.value.filter.data.dataListNumber = action.payload;
     },
   }
 })
@@ -116,6 +136,9 @@ export const {
                 addFavorite,
                 addFilterData,
                 addFilterDataImg,
+                addFilterDataImgSvg,
+                addFilterDataColor,
+                addFilterNumber,
               } = dataSlice.actions
 
 export default dataSlice.reducer
