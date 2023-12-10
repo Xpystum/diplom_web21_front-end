@@ -24,87 +24,74 @@ export default function CustomDataList(props) {
     let declination = props.declination ?? "Любая"; // склонение (Любая марка), (Любое Топливо)
     let CustomDataListStyle = props.CustomDataListStyle ?? "";
 
-    const count = useSelector(state => state.dataState.value.filter.data.dataList)
-    const dispatch = useDispatch()  
-    const inputRef = useRef(null);
-
-    function addReduxDataArr(nameValue, evtValue){
-        const arr = [
-            {name: 'Mark', value: '1'},
-            {name: 'Model', value: '12'},
-            {name: 'Fuel', value: '6'},
-            {name: 'Fuel', value: '6'},
-            {name: 'Fuel', value: '9'},
-            {name: 'Mark', value: 'new'},
-            {name: 'Mark', value: 'new'},
-            {name: 'Mark', value: 'new'},
-            {name: 'Model', value: 'nEwModel'},
-            {name: 'Model', value: 'nEwModel'},
-        ]
-        
-        if(count.length == 0){
-            // let arr = [];
-            // arr.push({name: nameValue, value: evtValue});
-            // arr.push({name: nameValue, value: evtValue});
-            // arr.push({name: nameValue, value: evtValue});
-            // arr.push({name: nameValue, value: evtValue});
-            
-            console.log(parseArrRedux(arr));
-            // dispatch(arr);
-        }else{
-
-            // let copy =  JSON.parse(JSON.stringify(count));
-            // console.log(copy, 'arr');
-            // copy.push({name: nameValue, value: evtValue});
-
-            // const result = parseArrRedux(copy);
-            // dispatch(addFilterData(result));
-           
-            // console.log(count, 'result')
-        }   
-
-    //    console.log(parseArrRedux(arr));
-
+    const COMPONENT_MAP_SERVER = {
+        model: 'Model',
+        marka: 'Marka',
+        kpp: 'Kpp',
+        fuel: 'Fuel',
+        privod: 'Privod',
     }
 
-    function onClickDataList(evt){
-        
+    function selectSwitchInput(placeholder, evt){
+
         switch(placeholder)
         {
             case 'Модель':{
-                addReduxDataArr('Model' , evt);
+                addReduxDataArr(COMPONENT_MAP_SERVER.model , evt);
                 break;
             }
 
             case 'Марка':{
-                addReduxDataArr('Marka' ,evt);
+                addReduxDataArr(COMPONENT_MAP_SERVER.marka ,evt);
                 break;
             }
 
             case 'КПП':{
-                addReduxDataArr('KPP' , evt);
+                addReduxDataArr(COMPONENT_MAP_SERVER.kpp , evt);
                 break;
             }
 
             case 'Топливо':{
-                addReduxDataArr('Fuel' , evt);
+                addReduxDataArr(COMPONENT_MAP_SERVER.fuel , evt);
                 break;
             }
             
             case 'Привод':{
-                addReduxDataArr('Privod' , evt);
+                addReduxDataArr(COMPONENT_MAP_SERVER.privod , evt);
                 break;
             }
 
         }
-
        
     }
 
-    function onChangeInput(evt){
-        // let object = {placeholder: evt};
+    const countRedux = useSelector(state => state.dataState.value.filter.data.dataList)
+    const dispatch = useDispatch()  
+    const inputRef = useRef(null);
 
-        // dispatch(addFilterData.push(object))
+    function addReduxDataArr(nameValue, evtValue = 'null'){
+        
+        if(countRedux.length == 0){
+                let arr = [];
+                arr.push({name: nameValue, value: evtValue});
+                dispatch(addFilterData(arr));
+        }else{
+
+            let copy =  JSON.parse(JSON.stringify(countRedux));
+            copy.push({name: nameValue, value: evtValue});
+            const result = parseArrRedux(copy);
+            dispatch(addFilterData(result));
+           
+        }   
+
+    }
+
+    function onClickDataList(evt){
+        selectSwitchInput(placeholder, evt);
+    }
+
+    function onChangeInput(evt){
+        selectSwitchInput(placeholder, evt);
     }
     
     useEffect(()=>{
@@ -113,14 +100,9 @@ export default function CustomDataList(props) {
     }, [])
 
 
-
-   
-
-    // onChange={e => onChangeInput(e.target.value, setResetState)}
-
     return (
         <div className={style.CustomDataList + ' ' + IdInput + 'div' + ' ' + ((CustomDataListStyle != "")? style[CustomDataListStyle] : '') }>
-            <input ref={inputRef} onChange={(evt) => { onChangeInput(evt.target.value)}    }  defaultValue={''} type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
+            <input ref={inputRef} onBlur ={(evt) => { onChangeInput(evt.target.value)}    }  defaultValue={''} type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
                 <datalist onClick={ (evt)=>{ onClickDataList(evt.target.value) } } id={IdDataList} className={style.datalist} size="50" >
                     <div onClick={()=>{ OnClick_SearchReset(inputRef, IdDataList) }} className={style.reset_search}>
                         <FontAwesomeIcon icon="fa-solid fa-x" />

@@ -35,7 +35,7 @@ export const dataSlice = createSlice({
       filter:{
         data: {
           dataList: [],
-
+          dataListImg: [],
         }
       }
     }
@@ -87,15 +87,13 @@ export const dataSlice = createSlice({
     addFavorite: (state, action) => {
       state.value.users.favorites = action.payload
     },
+
+    // filtr component
     addFilterData: (state, action) => {
       state.value.filter.data.dataList = action.payload;
-      // dataList.push(action.payload);
-      
-      // const arrayUniqueByKey = dataList.map(item =>
-      //   console.log(Object.keys(item), 'key')
-      // );
-    
-      // dataList = arrayUniqueByKey;
+    },
+    addFilterDataImg: (state, action) => {
+      state.value.filter.data.dataListImg = action.payload;
     },
   }
 })
@@ -117,6 +115,7 @@ export const {
                 loaderSelectUser,
                 addFavorite,
                 addFilterData,
+                addFilterDataImg,
               } = dataSlice.actions
 
 export default dataSlice.reducer

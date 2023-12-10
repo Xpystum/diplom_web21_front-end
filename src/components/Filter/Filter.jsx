@@ -18,12 +18,12 @@ import { useEffect } from "react";
 
 
 export function Filter(props){
-  const count = useSelector(state => state.dataState.value.filter.data);
+  const countRedux = useSelector(state => state.dataState.value.filter.data);
   const dispatch = useDispatch();
 
   useEffect(()=>{ 
-    console.log(count);
-  }, [count] )
+    console.log(countRedux);
+  }, [countRedux] )
 
 
   const { arrDocument, 

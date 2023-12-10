@@ -4,12 +4,16 @@ import './CustomDataListImg.css';
 import images from './patrik.png';
 import { forwardRef, useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFilterDataImg } from '../../redux/dataState';
 
 export default function CustomDataListImg(props) {
     let placeholder = props.placeholder;
     let declination = props.declination ?? "Любое";
     let type = props.type ?? 'default';
     let options = [];
+
+    const dispatch = useDispatch()  
 
     const myRef = useRef(null);
 
@@ -36,6 +40,19 @@ export default function CustomDataListImg(props) {
 
     // фотографии которые выбрали (value - будет значением)
     const [arrImgSelect, setArrImgSelect] = useState(null);
+
+    useEffect(()=>{
+        dispatch(addFilterDataImg(arrImgSelect));
+    },[arrImgSelect])
+
+    useEffect(()=>{
+        // dispatch(addFilterDataImg(arrImgSelect));
+        console.log(arrSvgVichle, arrSvgVichle);
+    },[arrSvgVichle])
+
+    // useEffect(()=>{
+    //     console.log(arrImgSelect);
+    // },[arrImgSelect])
 
     //логика в зависимости от react-select (надо вынести в отдельный файл)
     switch(type){
@@ -363,7 +380,6 @@ export default function CustomDataListImg(props) {
             break;
         }
     }
-    
 
     function changeDefaultStateArrSvg(){
         let arr = selArrSvg;
@@ -433,7 +449,6 @@ export default function CustomDataListImg(props) {
             if (values.length != 0){
                 
                 if(values[0].value != 'null'){
-                    // setArrImgSelect(values[0].value);
                     let elementTextImg = values[0].label.props.children[1].props.children;
 
                     if(elementTextImg){
@@ -447,7 +462,6 @@ export default function CustomDataListImg(props) {
 
                 }else{
                     divGeneral = '';
-                    // setArrImgSelect('null'); 
                 }
             }
         }
