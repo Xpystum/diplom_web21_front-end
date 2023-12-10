@@ -11,10 +11,9 @@ function listHide(IdDataList) {
 // idInput - уникальный индефикатор инпута
 //IdDataList - уникальный индефикатор Datalist
 //для кнопка обнолвение поиска
-function OnClick_SearchReset(IdInput, IdDataList){
-    let elemInput = document.getElementById(`${IdInput}`);
-    if(elemInput.value){
-        elemInput.value = '';
+function OnClick_SearchReset(inputRef, IdDataList){
+    if(inputRef.current.value){
+        inputRef.current.value = '';
     }
     listHide(IdDataList)
 }
@@ -34,7 +33,6 @@ function closeMissClick(IdDataList, CustomDataList){
         
         const withinBoundaries = e.composedPath().includes(div);
 
-        console.log('вызвалось');
         if ( ! withinBoundaries ) {
             const datalist = document.querySelector('#' + IdDataList);
             listHide(IdDataList)
@@ -42,6 +40,8 @@ function closeMissClick(IdDataList, CustomDataList){
         
     }) 
 }
+
+
 
 
 export {OnClick_Option, OnClick_SearchReset, closeMissClick}

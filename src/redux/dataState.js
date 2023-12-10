@@ -31,8 +31,12 @@ export const dataSlice = createSlice({
         loader: true,
         data: []
       },
+
       filter:{
-        data: []
+        data: {
+          dataList: [],
+
+        }
       }
     }
   },
@@ -84,7 +88,14 @@ export const dataSlice = createSlice({
       state.value.users.favorites = action.payload
     },
     addFilterData: (state, action) => {
-      state.value.filter.data = action.payload
+      state.value.filter.data.dataList = action.payload;
+      // dataList.push(action.payload);
+      
+      // const arrayUniqueByKey = dataList.map(item =>
+      //   console.log(Object.keys(item), 'key')
+      // );
+    
+      // dataList = arrayUniqueByKey;
     },
   }
 })
