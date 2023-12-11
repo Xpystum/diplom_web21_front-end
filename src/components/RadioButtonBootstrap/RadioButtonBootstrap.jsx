@@ -27,7 +27,7 @@ export default function RadioButtonBootstrap(props){
                     copy.forEach(()=>{
                         if(elementIterable.name == nameSelectBack){
 
-                        }else{
+                        }else{  
                             if(flag <= 0) {
                                 console.log(elementIterable, 'elementIterable');
                                 arr.push(elementIterable);
