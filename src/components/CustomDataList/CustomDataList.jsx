@@ -21,6 +21,7 @@ export default function CustomDataList(props) {
     let IdDataList = props.IdDataList ?? '';
     let IdInput = props.IdInput ?? 'browser';
     let declination = props.declination ?? "Любая"; // склонение (Любая марка), (Любое Топливо)
+    let labelRemoveDataButton = declination + ' ' + placeholder;
     let CustomDataListStyle = props.CustomDataListStyle ?? "";
 
     const COMPONENT_MAP_SERVER = {
@@ -81,22 +82,21 @@ export default function CustomDataList(props) {
     const dispatch = useDispatch()  
     const inputRef = useRef(null);
 
+
     function addReduxDataArr(nameValue, evtValue = []){
         
         if(countRedux.length == 0){
                 let arr = [];
                 arr.push({name: nameValue, value: evtValue});
                 dispatch(addFilterData(arr));
-        }else{
+        }else{  
 
 
             let copy =  JSON.parse(JSON.stringify(countRedux));
-            
-            if(placeholder != nameValue){
-                copy.push({name: nameValue, value: evtValue});
-                const result = parseArrRedux(copy);
-                dispatch(addFilterData(result));
-            }
+            copy.push({name: nameValue, value: evtValue});
+            const result = parseArrRedux(copy);
+            dispatch(addFilterData(result));
+        
          
         }
     }
@@ -121,7 +121,7 @@ export default function CustomDataList(props) {
                 <datalist onClick={ (evt)=>{ onClickDataList(evt.target.value) } } id={IdDataList} className={style.datalist} size="50" >
                     <div onClick={()=>{ OnClick_SearchReset(inputRef, IdDataList) }} className={style.reset_search}>
                         <FontAwesomeIcon icon="fa-solid fa-x" />
-                        <span className={style.reset_search_name}>{declination + ' ' + placeholder}</span>
+                        <span className={style.reset_search_name}>{labelRemoveDataButton}</span>
                     </div>
                     <div className={style.brLine_wrapp}>
                         <div className={style.brLine}></div>

@@ -1,3 +1,4 @@
+
 // скрыть DataList
 //IdDataList - уникальный индефикатор Datalist
 function listHide(IdDataList) {
@@ -16,6 +17,7 @@ function OnClick_SearchReset(inputRef, IdDataList){
         inputRef.current.value = '';
     }
     listHide(IdDataList)
+
 }
 
 // Получаем Значения option
