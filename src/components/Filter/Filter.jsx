@@ -19,7 +19,7 @@ import { useEffect } from "react";
 
 export function Filter(props){
   const countRedux = useSelector(state => state.dataState.value.filter.data);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // p.s нужно было локальное состояние (с rexud могут быть проблемы)
 
   useEffect(()=>{ 
     console.log(countRedux);
@@ -63,12 +63,12 @@ export function Filter(props){
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
               <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
-              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Цена от, ₽' />
+              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Цена До' />
             </div>
 
             <div className={style.block_info_double + ' ' + style.block_info}>
               <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
-              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='До' />
+              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='Год До' />
             </div>
 
             <div className={style.block_info_one}>
@@ -81,7 +81,7 @@ export function Filter(props){
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
               <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Объем от, л' />
-              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
+              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Объем До' />
             </div>
 
             <div className={style.block_info}>
@@ -118,6 +118,7 @@ export function Filter(props){
                             Документы
                           </label>
                           <CustomDataList 
+                            nameBack='document'
                             declination="" 
                             placeholder={'Неважно'}
                             IdInput="filter__doc_input"  
@@ -133,6 +134,7 @@ export function Filter(props){
                             Повреждение
                           </label>
                           <CustomDataList
+                            nameBack='damage'
                             declination="" 
                             placeholder={'Повреждение'} 
                             IdInput="filter__damage_input"  

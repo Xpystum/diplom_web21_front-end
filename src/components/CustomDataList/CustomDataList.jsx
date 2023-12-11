@@ -12,8 +12,7 @@ import { parseArrRedux } from "../../Action/logic/parseArrRedux";
 
 // лучше использовать react-select (datalist не удачное решение)
 export default function CustomDataList(props) {
-    //состояние для кнопки сброса
-    // let [resetState, setResetState] = useState('');
+   const nameBack = props.nameBack; 
 
     // вывод в input
     const massArr = props.content ?? ['Brave', 'Brave2', 'Brave3', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
@@ -30,6 +29,9 @@ export default function CustomDataList(props) {
         kpp: 'Kpp',
         fuel: 'Fuel',
         privod: 'Privod',
+        document: 'Document',
+        damage: 'Damage'
+
     }
 
     function selectSwitchInput(placeholder, evt){
@@ -61,6 +63,16 @@ export default function CustomDataList(props) {
                 break;
             }
 
+            case 'Неважно':{
+                addReduxDataArr(COMPONENT_MAP_SERVER.document , evt);
+                break;
+            }
+
+            case 'Повреждение':{
+                addReduxDataArr(COMPONENT_MAP_SERVER.damage , evt);
+                break;
+            }
+
         }
        
     }
@@ -69,7 +81,7 @@ export default function CustomDataList(props) {
     const dispatch = useDispatch()  
     const inputRef = useRef(null);
 
-    function addReduxDataArr(nameValue, evtValue = 'null'){
+    function addReduxDataArr(nameValue, evtValue = []){
         
         if(countRedux.length == 0){
                 let arr = [];
@@ -77,13 +89,16 @@ export default function CustomDataList(props) {
                 dispatch(addFilterData(arr));
         }else{
 
-            let copy =  JSON.parse(JSON.stringify(countRedux));
-            copy.push({name: nameValue, value: evtValue});
-            const result = parseArrRedux(copy);
-            dispatch(addFilterData(result));
-           
-        }   
 
+            let copy =  JSON.parse(JSON.stringify(countRedux));
+            
+            if(placeholder != nameValue){
+                copy.push({name: nameValue, value: evtValue});
+                const result = parseArrRedux(copy);
+                dispatch(addFilterData(result));
+            }
+         
+        }
     }
 
     function onClickDataList(evt){

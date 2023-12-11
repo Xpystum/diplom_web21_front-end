@@ -35,15 +35,14 @@ export default function CustomDataListImg(props) {
     ]));
 
     //машины которые выбрали (состояние выбранных машин)
-    //для бека указывать самим name - value (redux получает массив на ру)
+    //для бека указывать сами name - value (redux получает массив на ру)
     const [arrSvgVichle, setArrSvgVichle] = useState([]);
 
     // фотографии которые выбрали (value - будет значением)
     const [arrImgSelect, setArrImgSelect] = useState(null);
 
     useEffect(()=>{
-        console.log(arrImgSelect);
-        if(arrImgSelect != 'null'){
+        if(arrImgSelect != 'null' && arrImgSelect != null){
             let arr = [{name: 'ImgSelectPokolenu', value: arrImgSelect}];
             dispatch(addFilterDataImg(arr));
         }else{
