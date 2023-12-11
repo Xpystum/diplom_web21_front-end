@@ -13,8 +13,12 @@ export default function ButtonMultiButton(){
     const dispatch = useDispatch(); //redux
 
     useEffect(()=>{
-        
-        dispatch(addFilterDataColor([{name: 'color', value: value}]));
+        if(Array.isArray(value) && value.length == 0){
+            dispatch(addFilterDataColor([]));
+        }else{
+            
+            dispatch(addFilterDataColor([{name: 'color', value: value}]));
+        }
     }, [value])
     
     const handleChange = (val) => { 

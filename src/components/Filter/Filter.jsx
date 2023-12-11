@@ -63,12 +63,12 @@ export function Filter(props){
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
               <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
-              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Цена До' />
+              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Цена до' />
             </div>
 
             <div className={style.block_info_double + ' ' + style.block_info}>
               <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
-              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='Год До' />
+              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='Год до' />
             </div>
 
             <div className={style.block_info_one}>
@@ -81,7 +81,7 @@ export function Filter(props){
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
               <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Объем от, л' />
-              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Объем До' />
+              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Объем до' />
             </div>
 
             <div className={style.block_info}>
@@ -149,7 +149,7 @@ export function Filter(props){
                           <label className={style.documentLabel}>
                             Руль
                           </label>
-                          <RadioButtonBootstrap />
+                          <RadioButtonBootstrap nameSelectBack={'rudder'}/>
                         </div>
                       </div>
 
@@ -195,8 +195,7 @@ export function Filter(props){
 
                           <CheckButtonBootsrap styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
                         </div>
-                      
-                        <RadioButtonBootstrap defaultStatus={'all2'} radios={radios}/>
+                        <RadioButtonBootstrap nameSelectBack={'salesman'} defaultStatus={'all2'} radios={radios}/>
                     </div>
                   
                   </div>

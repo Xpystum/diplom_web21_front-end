@@ -1,4 +1,4 @@
-export function parseArrRedux(array , RemoveButton = ''){
+export function parseArrRedux(array){
 // array - массив для добавление (уникальных и последних значений из input)
 //возможен "БАГ" если в рендеринге будут два компонента с одинаковым значением.
     const func = (arr, object) => {

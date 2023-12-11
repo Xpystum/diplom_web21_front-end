@@ -39,6 +39,7 @@ export const dataSlice = createSlice({
           dataListImgSvg: [],
           dataListColor: [],
           dataListNumber: [],
+          dataListRadioButton: [],
         }
       }
     }
@@ -115,6 +116,11 @@ export const dataSlice = createSlice({
     addFilterNumber: (state, action) => {
       state.value.filter.data.dataListNumber = action.payload;
     },
+    
+     // RadioButtonBootstrap
+     addFilterRadioButton: (state, action) => {
+      state.value.filter.data.dataListRadioButton = action.payload;
+    },
   }
 })
 
@@ -139,6 +145,7 @@ export const {
                 addFilterDataImgSvg,
                 addFilterDataColor,
                 addFilterNumber,
+                addFilterRadioButton,
               } = dataSlice.actions
 
 export default dataSlice.reducer
