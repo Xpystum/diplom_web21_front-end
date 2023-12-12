@@ -89,7 +89,7 @@ export function Filter(props){
             </div>
 
             <div className={style.block_info_check_box + " " + style.block_info}>
-              <CheckButtonBootsrap content={arrButtonCheckTwo}/>
+              <CheckButtonBootsrap type={'infoPhotoSell'} content={arrButtonCheckTwo}/>
             </div>
 
           </div>
@@ -164,7 +164,7 @@ export function Filter(props){
                           <label className={style.arrButtonCheckFourLabel}>
                               Дополнительно
                           </label>
-                          <CheckButtonBootsrap styleWrappDiv='styleWrappDiv' content={arrButtonCheckFour}/>
+                          <CheckButtonBootsrap type={'extra'} styleWrappDiv='styleWrappDiv' content={arrButtonCheckFour}/>
                       </div>
                     </div>
 
@@ -193,7 +193,7 @@ export function Filter(props){
                             <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
                           </div>
 
-                          <CheckButtonBootsrap styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
+                          <CheckButtonBootsrap type={'mileage'} styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
                         </div>
                         <RadioButtonBootstrap nameSelectBack={'salesman'} defaultStatus={'all2'} radios={radios}/>
                     </div>

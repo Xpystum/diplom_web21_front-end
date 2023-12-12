@@ -9,13 +9,10 @@ export function parseArrRedux(array){
         let flag = 0;
         arr.forEach((element, index)=>{
             
-            
-
             if (element.name == object.name && element.value != object.value) {
                 arr.splice(index, 1);
             }  
           
-
 
             if (element.value == object.value) {
                 flag++;
