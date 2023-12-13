@@ -210,7 +210,9 @@ export function Filter(props){
 
           <div className={style.block_info_wrapp}>
 
-            <div className={style.block_info}></div>
+            <div className={style.block_info}>
+              <ButtonCollapseFilter type={'buttonReset'} />
+            </div>
 
             <div className={style.flexCenter + ' ' + style.block_info }>
               <ButtonCollapseFilter status={statusOpen} setStatus={setStatusOpen} />
