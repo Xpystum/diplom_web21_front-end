@@ -3,6 +3,7 @@ import style from './CheckButtonBootsrap.module.sass'
 import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFilterCheckButton } from '../../redux/dataState';
+import { parseArrRedux } from '../../Action/logic/parseArrRedux';
 
 export default function CheckButtonBootsrap(props){
 
@@ -19,76 +20,6 @@ export default function CheckButtonBootsrap(props){
     const styleLabel = props.styleLabel ?? 'check_box_label_two';
     const styleWrappDiv = props.styleWrappDiv ?? '';
 
-    const selectType = {
-
-        _inputValue: null,
-
-        _parseRedux(arrCopy) {
-
-            //защищеный мето для парсинга и подготовки отправление в redux
-            
-                arrCopy.push({name: type, value: this._inputValue})
-
-                let flag = 0;
-                let resultParse = arrCopy.reduce((arr, elementIterable)=>{
-                    
-                    arr.push({name: type, value: this._inputValue});
-                    arr.forEach((element, index)=>{
-                        if(element.name == elementIterable.name){
-                            flag++;
-                        }
-
-                        if(flag == 2){
-                            arr.splice(index, 1);
-                            flag = 0;
-                        }
-
-                    });
-
-                    return arr;
-
-                }, [])
-
-            
-            return resultParse;
-        },
-
-        _setInputValue(value){
-            this._inputValue = JSON.parse(JSON.stringify(value))
-        },
-
-
-        twoCheckbox(value) { 
-            
-            this._setInputValue(value);
-            let copy = JSON.parse(JSON.stringify(arrRedux));
-            console.log(copy , 'copy');
-            copy = this._parseRedux(copy);  
-            dispatch(addFilterCheckButton(copy));
-        },
-
-    }
-
-    // START логика для redux
-    function swtichType(updatedCheckedState){
-
-        // switch(type){
-        //     case 'extra':{
-        //         selectType.fourCheckbox(updatedCheckedState);
-        //         break;
-        //     }
-
-        //     case 'infoPhotoSell':{
-        //         selectType.twoCheckbox(updatedCheckedState);
-        //         break;
-        //     }
-        // }
-
-        selectType.twoCheckbox(updatedCheckedState);
-
-    }
-
-
     // END логика для redux
 
     const cbRef = useRef(null);
@@ -103,27 +34,32 @@ export default function CheckButtonBootsrap(props){
 
     })
 
-    useEffect(()=>{ 
+    function parseRedux(updatedCheckedState){
+        let redux = JSON.parse(JSON.stringify(arrRedux));
 
-        // if(cbRef.current){
-        //     let copy =  JSON.parse(JSON.stringify(arrRedux));
-
-        //     copy.push({name: type, value: inputValue})
-        //     dispatch(addFilterCheckButton(copy));
-        //     cbRef.current = false;
-        // }
-        
-
-    }, [])
-
+        for(let element of updatedCheckedState){
+            if(element.value == true){
+                if(redux.indexOf(element.name) == -1){
+                    redux.push(element.name)
+                }
+            }else{
+                if(redux.indexOf(element.name) != -1){
+                    redux.splice(redux.indexOf(element.name), 1)
+                }
+            }
+        }
+        dispatch(addFilterCheckButton(redux));
+    }
 
     const handleOnChange = (position) => {
         const updatedCheckedState = inputValue.map((item, index) =>
         index === position ? {name: item.name, value: !item.value} : item)
         setInputValue(updatedCheckedState);
-        swtichType(updatedCheckedState);
-       
     };
+
+    useEffect(()=>{
+        parseRedux(inputValue);
+    }, [inputValue])
 
     return (    
         <>

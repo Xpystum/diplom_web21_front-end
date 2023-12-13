@@ -30,6 +30,5 @@ export function parseArrRedux(array){
   
     const result = array.reduce(func, []);
     return result;
-    // console.log(result);
-    // return result;
+   
 }
