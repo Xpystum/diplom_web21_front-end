@@ -14,16 +14,25 @@ import BlockLineFilter from "../BlockLineFilter/BlockLineFilter";
 
 import {useLogicFilterHook} from './useLogicFilterHook'
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 export function Filter(props){
   const countRedux = useSelector(state => state.dataState.value.filter.data);
   const dispatch = useDispatch(); // p.s нужно было локальное состояние (с rexud могут быть проблемы)
 
+  const [resetState, setResetState] = useState(false); // состояние для кнопки сброса
+
+  
+
   useEffect(()=>{ 
     console.log(countRedux);
+    setResetState(false);
   }, [countRedux] )
+
+  useEffect(()=>{ 
+
+  }, [resetState] )
 
 
   const { arrDocument, 
@@ -48,6 +57,7 @@ export function Filter(props){
           { 
             Array(AddlineHook.value.countLineBlock).fill(1).map((index, keyReact) => 
                 <BlockLineFilter 
+                  resetState={resetState}
                   key={keyReact}
                   index={keyReact}
                   countLineBlock={AddlineHook.value.countLineBlock} 
@@ -62,34 +72,34 @@ export function Filter(props){
 
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
-              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Цена до' />
+              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
+              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='Цена до' />
             </div>
 
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
-              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='Год до' />
+              <CustomDataListNumber resetState={resetState} arrItem={arrYear} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
+              <CustomDataListNumber resetState={resetState} arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='Год до' />
             </div>
 
             <div className={style.block_info_one}>
-              <CustomDataList CustomDataListStyle='DataListOneLeft' placeholder='КПП' IdInput="filter__kpp_input"  IdDataList="filter__kpp_dataList" />
-              <CustomDataList CustomDataListStyle='DataListOneRight' placeholder='Топливо' declination='Любое' IdInput="filter__fuel_input"  IdDataList="filter__fuel_dataList" />
+              <CustomDataList resetState={resetState} CustomDataListStyle='DataListOneLeft' placeholder='КПП' IdInput="filter__kpp_input"  IdDataList="filter__kpp_dataList" />
+              <CustomDataList resetState={resetState} CustomDataListStyle='DataListOneRight' placeholder='Топливо' declination='Любое' IdInput="filter__fuel_input"  IdDataList="filter__fuel_dataList" />
             </div>
 
           </div>
 
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Объем от, л' />
-              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Объем до' />
+              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='Объем от, л' />
+              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='Объем до' />
             </div>
 
             <div className={style.block_info}>
-              <CustomDataList placeholder='Привод' IdInput="filter__driveUnit_input" IdDataList="filter__driveUnit_dataList" declination='Любой'/>
+              <CustomDataList resetState={resetState} placeholder='Привод' IdInput="filter__driveUnit_input" IdDataList="filter__driveUnit_dataList" declination='Любой'/>
             </div>
 
             <div className={style.block_info_check_box + " " + style.block_info}>
-              <CheckButtonBootsrap type={'infoPhotoSell'} content={arrButtonCheckTwo}/>
+              <CheckButtonBootsrap resetState={resetState} type={'infoPhotoSell'} content={arrButtonCheckTwo}/>
             </div>
 
           </div>
@@ -99,7 +109,7 @@ export function Filter(props){
               <>
                   <div className={style.block_info_wrapp}>
                   <div className={style.block_info}>
-                    <CustomDataListImg placeholder={"Тип кузова"} type={"body"}/>
+                    <CustomDataListImg resetState={resetState} placeholder={"Тип кузова"} type={"body"}/>
                   </div>
 
                   <div className={style.block_info}>
@@ -118,6 +128,7 @@ export function Filter(props){
                             Документы
                           </label>
                           <CustomDataList 
+                            resetState={resetState}
                             nameBack='document'
                             declination="" 
                             placeholder={'Неважно'}
@@ -134,6 +145,7 @@ export function Filter(props){
                             Повреждение
                           </label>
                           <CustomDataList
+                            resetState={resetState}
                             nameBack='damage'
                             declination="" 
                             placeholder={'Повреждение'} 
@@ -149,7 +161,7 @@ export function Filter(props){
                           <label className={style.documentLabel}>
                             Руль
                           </label>
-                          <RadioButtonBootstrap nameSelectBack={'rudder'}/>
+                          <RadioButtonBootstrap resetState={resetState} nameSelectBack={'rudder'}/>
                         </div>
                       </div>
 
@@ -164,7 +176,7 @@ export function Filter(props){
                           <label className={style.arrButtonCheckFourLabel}>
                               Дополнительно
                           </label>
-                          <CheckButtonBootsrap type={'extra'} styleWrappDiv='styleWrappDiv' content={arrButtonCheckFour}/>
+                          <CheckButtonBootsrap resetState={resetState} type={'extra'} styleWrappDiv='styleWrappDiv' content={arrButtonCheckFour}/>
                       </div>
                     </div>
 
@@ -176,8 +188,8 @@ export function Filter(props){
                           </label>
 
                           <div className={style.block_info_double  + ' ' + style.block_info_double_middle}>
-                            <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='От, л.с' />
-                            <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
+                            <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='От, л.с' />
+                            <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='До' />
                           </div>
                           
                         </div>
@@ -189,11 +201,11 @@ export function Filter(props){
                           </label>
 
                           <div className={style.block_info_double + ' ' + style.block_info_double_middle} >
-                            <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='От, км' />
-                            <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
+                            <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='От, км' />
+                            <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='До' />
                           </div>
 
-                          <CheckButtonBootsrap type={'mileage'} styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
+                          <CheckButtonBootsrap resetState={resetState} type={'mileage'} styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
                         </div>
                         <RadioButtonBootstrap nameSelectBack={'salesman'} defaultStatus={'all2'} radios={radios}/>
                     </div>
@@ -211,7 +223,7 @@ export function Filter(props){
           <div className={style.block_info_wrapp}>
 
             <div className={style.block_info}>
-              <ButtonCollapseFilter type={'buttonReset'} />
+              <ButtonCollapseFilter stateReset={setResetState} type={'buttonReset'} />
             </div>
 
             <div className={style.flexCenter + ' ' + style.block_info }>

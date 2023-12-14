@@ -4,28 +4,35 @@ import style from './ButtonCollapseFilter.module.sass'
 export default function ButtonCollapseFilter(props){
     const arrContent = {moreSearch: 'Расширеный Поиск', defaultSearch: 'Обычный Поиск'};
 
-    let type = props.type ?? 'buttonCollapse'
-    
-    let status = props.status;
-    const setStatus = props.setStatus;  
+    let type = props.type ?? 'buttonCollapse'; // тип кнопки => какой компонент будет
+
+    let status = props.status; // для buttonCollapse
+    const setStatus = props.setStatus; // для buttonCollapse
+
+    let stateReset = props.stateReset; // для buttonReset 
 
     function clickButtonCollapse(){
 
-        if(type == 'buttonCollapse'){
-
-            if(status == true){
-                status = false;
-            }else{
-                status = true;
+        switch(type){
+            case 'buttonReset':
+            {
+                stateReset(true);
+                break;
             }
-            setStatus(status)
 
+            case 'buttonCollapse':{
+
+                if(status == true){
+                    status = false;
+                }else{
+                    status = true;
+                }
+                setStatus(status)
+                break;
+            }
         }
     }
 
-    function handlerClickReset(){
-        
-    }
 
     return(
         <>
@@ -48,7 +55,7 @@ export default function ButtonCollapseFilter(props){
                         </svg>
                     </div>
                 :
-                <div onClick={() => handlerClickReset() }  className={style.wrappButtonCollapse}>
+                <div onClick={ () => clickButtonCollapse()  }  className={style.wrappButtonCollapse}>
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M1.707.293A1 1 0 0 0 .293 1.707L6.586 8 .293 14.293a1 1 0 1 0 1.414 1.414L8 9.414l6.293 6.293a1 1 0 0 0 1.414-1.414L9.414 8l6.293-6.293A1 1 0 0 0 14.293.293L8 6.586 1.707.293Z" fill="currentColor">
                         </path>

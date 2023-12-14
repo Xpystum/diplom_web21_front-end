@@ -2,7 +2,7 @@ import Select, { components } from 'react-select'
 import style from './CustomDataListImg.module.sass';
 import './CustomDataListImg.css';
 import images from './patrik.png';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { addFilterDataImg, addFilterDataImgSvg } from '../../redux/dataState';
@@ -41,18 +41,35 @@ export default function CustomDataListImg(props) {
     // фотографии которые выбрали (value - будет значением)
     const [arrImgSelect, setArrImgSelect] = useState(null);
 
+    let resetState = props.resetState ?? false;
+
+    // const [triggerResetState, setTriggerResetState] = useState(props.resetState);
+    // const [resetState, setResetState] = useState(false);
+
     useEffect(()=>{
+        setArrImgSelect(null);
+        setArrSvgVichle([]);
+    }, [resetState])
+
+    useEffect(()=>{
+
         if(arrImgSelect != 'null' && arrImgSelect != null){
+
             let arr = [{name: 'ImgSelectPokolenu', value: arrImgSelect}];
             dispatch(addFilterDataImg(arr));
+
         }else{
+
             dispatch(addFilterDataImg([]));
+
         }
+
         
     },[arrImgSelect])
 
     useEffect(()=>{
         dispatch(addFilterDataImgSvg(arrSvgVichle));
+
     },[arrSvgVichle])
 
     //логика в зависимости от react-select (надо вынести в отдельный файл)
@@ -426,14 +443,13 @@ export default function CustomDataListImg(props) {
         }
 
     }
-
+    
 
     //изменение логики input (для библиотеки)
     const ValueContainer = ({ getValue, ...props }) => {
 
         const newOnChange = (e) => {
             props.onChange(e) //Вызываем стандартное событие
-            console.log('vyaa')
             // MyOnChange(e.target.value) //Вызываем нужное нам
         }
 
@@ -444,122 +460,130 @@ export default function CustomDataListImg(props) {
         let divGeneral = '';
         let values = getValue();
 
-    
-        if(type == 'default'){
-            
-            if (values.length != 0){
-                
-                if(values[0].value != 'null'){
-                    let elementTextImg = values[0].label.props.children[1].props.children;
-
-                    if(elementTextImg){
-                        let divPocolenue = '';
-                        let divName = '';
-
-                        divName = elementTextImg[0].props.children;
-                        divPocolenue = elementTextImg[1].props.children
-                        divGeneral = divPocolenue + ' , ' + divName;
-                    }
-
-                }else{
-                    divGeneral = '';
-                }
-            }
-        }
-        
-        
-        if(type == 'body'){
-            buttonMenuSelectRemove();
-            const elementSvg = document.querySelectorAll('.react_selectSVG__option_block');
-            if (elementSvg) {
-                elementSvg.forEach(function (elem) {
-                    elem.onclick = function (evt) {
-
-                        if (selArrSvg.get(evt.currentTarget.textContent) != undefined && selArrSvg.get(evt.currentTarget.textContent) == false) {
-                            evt.currentTarget.children[2].style.opacity = 1;
-                            evt.currentTarget.children[0].style.color = '#000000';
-                            setArrSvg(selArrSvg.set(evt.currentTarget.textContent, true));
-
-                            let arr = JSON.parse(JSON.stringify(arrSvgVichle));
-                            arr.push(evt.currentTarget.textContent);
-                                setArrSvgVichle(arr);
-
-                        }else{
-                                
-                            evt.currentTarget.children[2].style.opacity = 0;
-                            evt.currentTarget.children[0].style.color = 'inherit';
-                            setArrSvg(selArrSvg.set(evt.currentTarget.textContent, false));
-                            
-                            let arr= JSON.parse(JSON.stringify(arrSvgVichle));
-                            let index = null;
-
-                            //удаление из массива состояние arrSvgVichle
-                            arr.forEach((elem, ind)=>{
-                                if(elem == evt.currentTarget.textContent){
-                                    index = ind;
-                                }
-                            }); 
-
-                            if(index != null){
-                                arr.splice(index,1);
-                                setArrSvgVichle(arr);
-                            }
-                        }
-
+        if(!resetState){
+            switch(type){
+                case 'default':{
+                    if (values.length != 0 && resetState != true){
                         
-                    }
-                })
-            }
-
-            if (values.length != 0) {
-
-                if (values[0].value != 'null') {
-    
-                    if (type == 'default') {
-                        let values = getValue();
-                        let divPocolenue = '';
-    
-                        if (values && values.length != 0) {
-                            let divValue = values[0].label.props.children[1].props.children; //получаем массив 2 div (где информация на картинке)
-                            if (typeof divValue.length === "undefined") {
-                                divGeneral = '';
+                        if(values[0].value != 'null'){
+                            let elementTextImg = values[0].label.props.children[1].props.children;
+        
+                            if(elementTextImg){
+                                let divPocolenue = '';
+                                let divName = '';
+        
+                                divName = elementTextImg[0].props.children;
+                                divPocolenue = elementTextImg[1].props.children
+                                divGeneral = divPocolenue + ' , ' + divName;
                             }
-                            else {
-                                divValue.forEach((element, index) => {
-                                    if (index == 0) {
-                                        divInfo += element.props.children;
+        
+                        }else{
+                            divGeneral = '';
+                        }
+                    }
+                    break;
+                }
+
+                case 'body':{
+                    buttonMenuSelectRemove();
+                    const elementSvg = document.querySelectorAll('.react_selectSVG__option_block');
+                    if (elementSvg) {
+                        elementSvg.forEach(function (elem) {
+                            elem.onclick = function (evt) {
+        
+                                if (selArrSvg.get(evt.currentTarget.textContent) != undefined && selArrSvg.get(evt.currentTarget.textContent) == false) {
+                                    evt.currentTarget.children[2].style.opacity = 1;
+                                    evt.currentTarget.children[0].style.color = '#000000';
+                                    setArrSvg(selArrSvg.set(evt.currentTarget.textContent, true));
+        
+                                    let arr = JSON.parse(JSON.stringify(arrSvgVichle));
+                                    arr.push(evt.currentTarget.textContent);
+                                        setArrSvgVichle(arr);
+        
+                                }else{
+                                        
+                                    evt.currentTarget.children[2].style.opacity = 0;
+                                    evt.currentTarget.children[0].style.color = 'inherit';
+                                    setArrSvg(selArrSvg.set(evt.currentTarget.textContent, false));
+                                    
+                                    let arr= JSON.parse(JSON.stringify(arrSvgVichle));
+                                    let index = null;
+        
+                                    //удаление из массива состояние arrSvgVichle
+                                    arr.forEach((elem, ind)=>{
+                                        if(elem == evt.currentTarget.textContent){
+                                            index = ind;
+                                        }
+                                    }); 
+        
+                                    if(index != null){
+                                        arr.splice(index,1);
+                                        setArrSvgVichle(arr);
+                                    }
+                                }
+        
+                                
+                            }
+                        })
+                    }
+        
+                    if (values.length != 0) {
+        
+                        if (values[0].value != 'null') {
+            
+                            if (type == 'default') {
+                                let values = getValue();
+                                let divPocolenue = '';
+            
+                                if (values && values.length != 0) {
+                                    let divValue = values[0].label.props.children[1].props.children; //получаем массив 2 div (где информация на картинке)
+                                    if (typeof divValue.length === "undefined") {
+                                        divGeneral = '';
                                     }
                                     else {
-                                        divPocolenue += element.props.children;
+                                        divValue.forEach((element, index) => {
+                                            if (index == 0) {
+                                                divInfo += element.props.children;
+                                            }
+                                            else {
+                                                divPocolenue += element.props.children;
+                                            }
+                                        });
+                                        divGeneral = divPocolenue + ", " + divInfo;
                                     }
-                                });
-                                divGeneral = divPocolenue + ", " + divInfo;
+                                }
                             }
+            
+                            if(type == 'body') {
+                                if(arrSvgVichle.length > 1){
+                                    divGeneral = arrSvgVichle[0] + ' ' + `и ещё ${arrSvgVichle.length - 1}...`
+                                }
+            
+                                if(arrSvgVichle.length == 1){
+                                    placeholder = arrSvgVichle[0];
+                                }
+                            }
+            
+                        } else {
+                            placeholder = props.selectProps.placeholder;
+                            divGeneral = '';
                         }
                     }
-    
-                    if(type == 'body') {
-                        if(arrSvgVichle.length > 1){
-                            divGeneral = arrSvgVichle[0] + ' ' + `и ещё ${arrSvgVichle.length - 1}...`
-                        }
-    
-                        if(arrSvgVichle.length == 1){
-                            placeholder = arrSvgVichle[0];
-                        }
-                    }
-    
-                } else {
-                    placeholder = props.selectProps.placeholder;
-                    divGeneral = '';
+                    break;
                 }
-            }
+            } 
+        }else{
+            divGeneral = '1';
 
+            // const [arrSvgVichle, setArrSvgVichle] = useState([]);
+            // const [arrImgSelect, setArrImgSelect] = useState(null);
+            
         }
-
+       
         return (
             <components.ValueContainer  {...newProps}>
-                {
-                    (divGeneral == '') ?
+                {   
+                    (divGeneral == '' || divGeneral == '1') ?
                         <div className={style.componentValueContainer}>{placeholder}</div>
                         :
                         <div className={style.componentValueContainer}>{divGeneral}</div>
@@ -573,6 +597,8 @@ export default function CustomDataListImg(props) {
         if(type == 'default'){
             setArrImgSelect(evt.value)
         }
+
+
     }
 
     return (
@@ -584,9 +610,9 @@ export default function CustomDataListImg(props) {
                 className='react_select_container'
                 components={{ ValueContainer: ValueContainer }}
                 classNamePrefix={(type == 'default') ? 'react_select' : 'react_selectSVG'}
-                multiple={true}
+                // multiple={true}
                 onChange={ (evt) => valueInput(evt) }
-            />
+                />
         </>
     )
 }

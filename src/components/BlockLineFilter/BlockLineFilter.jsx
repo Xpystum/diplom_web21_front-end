@@ -10,21 +10,24 @@ export default function BlockLineFilter(props){
     const isAdd = props.isAdd;
     const isFirst = props.isFirst;
 
+    let resetState = props.resetState;
+    
+
     
     return(
         <>
             <div className={style.block_info_wrapp}>
                 <div className={style.block_info}>
-                  <CustomDataList placeholder={'Марка'} IdInput={"filter__mark_input" + index}  IdDataList={"filter__mark_dataList" + index }/>
+                  <CustomDataList resetState={resetState} placeholder={'Марка'} IdInput={"filter__mark_input" + index}  IdDataList={"filter__mark_dataList" + index }/>
                 </div>
     
                 <div className={style.block_info}>
-                  <CustomDataList placeholder={'Модель'} IdInput={"filter__model_input" + index} IdDataList={"filter__model_dataList" + index}/>
+                  <CustomDataList resetState={resetState} placeholder={'Модель'} IdInput={"filter__model_input" + index} IdDataList={"filter__model_dataList" + index}/>
                 </div>
     
                 <div className={style.block_info}>
                   
-                  <CustomDataListImg placeholder={"Поколение"}/>
+                  <CustomDataListImg resetState={resetState} placeholder={"Поколение"}/>
                   <div className={style.block_info_icon}>
                       {
                         (isFirst) ?

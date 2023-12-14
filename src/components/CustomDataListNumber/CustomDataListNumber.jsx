@@ -7,14 +7,27 @@ import { addFilterNumber } from '../../redux/dataState';
 export default function CustomDataListNumber(props) {
     let placeholder = props.placeholder;
     let styleSelect = props.styleSelect ?? null;
-
     let wrappSelect = props.wrappSelect ?? "wrappSelectDefault";
 
+
     const [stateNumber, setStateNumber] = useState('');
+
+   
+
     const dispatch = useDispatch(); 
     const arrayStateComponent = useSelector(state => state.dataState.value.filter.data.dataListNumber)
 
-    function parseRedux(param){
+    let resetState = props.resetState ?? false;
+    useEffect(()=>{
+
+        if(resetState){
+            setStateNumber('');
+            dispatch(addFilterNumber([]));
+        }
+
+    }, [resetState])
+
+    function parseRedux(){
         let arr = JSON.parse(JSON.stringify(arrayStateComponent));
 
         arr = arr.reduce((akkum, elementIterable )=>{
@@ -36,12 +49,15 @@ export default function CustomDataListNumber(props) {
             arr.push({name: placeholder, value: stateNumber})
             dispatch(addFilterNumber(arr));
         }
+
     }, [stateNumber])   
+    
 
 
     function handlerOnChangeSelect(evt){
+
         if(evt === placeholder){
-            parseRedux(evt);
+            parseRedux();
             setStateNumber('');
         }
         

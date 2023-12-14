@@ -10,13 +10,27 @@ export default function RadioButtonBootstrap(props){
     let defaultStatus = props.defaultStatus ?? 'all'
     let nameSelectBack = props.nameSelectBack ?? '';
     const [radioValue, setRadioValue] = useState(defaultStatus);
-    const countRedux = useSelector(state => state.dataState.value.filter.data.dataListRadioButton)
-    const dispatch = useDispatch()  
-   
+    const countRedux = useSelector(state => state.dataState.value.filter.data.dataListRadioButton);
+    const dispatch = useDispatch();
+    let resetState = props.resetState ?? false;
+
+    let radios = props.radios ?? [
+      { name: 'Любой', value: 'all' },
+      { name: 'Левый', value: 'left' },
+      { name: 'Правый', value: 'right' },
+    ];
+
+       
+    useEffect(()=>{
+        if(resetState){
+            // dispatch(addFilterRadioButton([]));
+            setRadioValue(defaultStatus);
+        }
+    }, [resetState])
 
     useEffect(()=>{
 
-        if(radioValue == defaultStatus){
+        if(radioValue == defaultStatus ){
             if(countRedux.lenght != 0){
                 let copy =  JSON.parse(JSON.stringify(countRedux));
 
@@ -52,13 +66,11 @@ export default function RadioButtonBootstrap(props){
 
         }
 
-    }, [radioValue])
+        if(resetState){
+            dispatch(addFilterRadioButton([]))
+        }
 
-    let radios = props.radios ?? [
-      { name: 'Любой', value: 'all' },
-      { name: 'Левый', value: 'left' },
-      { name: 'Правый', value: 'right' },
-    ];
+    }, [radioValue])
 
     return (
         <>

@@ -3,7 +3,6 @@ import style from './CheckButtonBootsrap.module.sass'
 import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFilterCheckButton } from '../../redux/dataState';
-import { parseArrRedux } from '../../Action/logic/parseArrRedux';
 
 export default function CheckButtonBootsrap(props){
 
@@ -19,19 +18,18 @@ export default function CheckButtonBootsrap(props){
     const styleInput = props.styleInput ?? 'check_box_input_two';
     const styleLabel = props.styleLabel ?? 'check_box_label_two';
     const styleWrappDiv = props.styleWrappDiv ?? '';
+    let resetState = props.resetState ?? false;
 
     // END логика для redux
 
     const cbRef = useRef(null);
     const [inputValue, setInputValue] = useState(()=>{  
-        
         let arr = [];
         content.forEach(element => {
             arr.push({name: element.name, value: false})
         });
 
         return arr;
-
     })
 
     function parseRedux(updatedCheckedState){
@@ -58,8 +56,25 @@ export default function CheckButtonBootsrap(props){
     };
 
     useEffect(()=>{
-        parseRedux(inputValue);
+        if(!resetState){
+            parseRedux(inputValue);
+        }
     }, [inputValue])
+
+    useEffect(()=>{
+        if(resetState){
+            // dispatch(addFilterCheckButton([]));
+            setInputValue(()=>{  
+                let arr = [];
+                content.forEach(element => {
+                    arr.push({name: element.name, value: false})
+                });
+        
+                return arr;
+            })
+            console.log('вошёл')
+        }
+    }, [resetState])
 
     return (    
         <>

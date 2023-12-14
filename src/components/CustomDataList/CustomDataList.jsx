@@ -78,9 +78,19 @@ export default function CustomDataList(props) {
        
     }
 
+
     const countRedux = useSelector(state => state.dataState.value.filter.data.dataList)
     const dispatch = useDispatch()  
     const inputRef = useRef(null);
+
+    let resetState = props.resetState ?? false;
+
+    useEffect(()=>{
+        if(resetState){
+            OnClick_SearchReset(inputRef, IdDataList);
+            dispatch(addFilterData([]));
+        }
+    }, [resetState])
 
 
     function addReduxDataArr(nameValue, evtValue = []){
@@ -91,13 +101,10 @@ export default function CustomDataList(props) {
                 dispatch(addFilterData(arr));
         }else{  
 
-
             let copy =  JSON.parse(JSON.stringify(countRedux));
             copy.push({name: nameValue, value: evtValue});
             const result = parseArrRedux(copy);
             dispatch(addFilterData(result));
-        
-         
         }
     }
 
@@ -117,7 +124,7 @@ export default function CustomDataList(props) {
 
     return (
         <div className={style.CustomDataList + ' ' + IdInput + 'div' + ' ' + ((CustomDataListStyle != "")? style[CustomDataListStyle] : '') }>
-            <input ref={inputRef} onBlur ={(evt) => { onChangeInput(evt.target.value)}    }  defaultValue={''} type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
+            <input ref={inputRef} onBlur ={(evt) => { onChangeInput(evt.target.value)}  }  defaultValue={''} type='text' list={IdDataList} placeholder={placeholder} id={IdInput} name="input_datalist" size="50" autoComplete="off" />
                 <datalist onClick={ (evt)=>{ onClickDataList(evt.target.value) } } id={IdDataList} className={style.datalist} size="50" >
                     <div onClick={()=>{ OnClick_SearchReset(inputRef, IdDataList) }} className={style.reset_search}>
                         <FontAwesomeIcon icon="fa-solid fa-x" />
