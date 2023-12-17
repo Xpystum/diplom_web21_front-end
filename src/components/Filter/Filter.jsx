@@ -1,5 +1,4 @@
 import style from "./Filter.module.sass"
-import ButtonPlus from '../../UI/ButtonIcon/ButtonIcon';
 
 import CustomDataList from '../CustomDataList/CustomDataList';
 import CustomDataListImg from '../CustomDataListImg/CustomDataListImg';
@@ -18,21 +17,40 @@ import { useEffect, useState } from "react";
 
 
 export function Filter(props){
+  //баги
+  //1. CustomDataListImg - при нажатии вне поля не закрывает окно (надо копать в ValueContainer)
+  //2. parseArrRedux - баг с алгоритмом, при повторяющих данных он может не изменять состояние (всплывает при добавлении нового блока линий в фильтре + "")
+
+
   const countRedux = useSelector(state => state.dataState.value.filter.data);
-  const dispatch = useDispatch(); // p.s нужно было локальное состояние (с rexud могут быть проблемы)
+  const dispatch = useDispatch(); // p.s нужно было использовать локальное состояние для кнопки сброса (с redux могут быть проблемы)
+
+  function setStateReduxData(){
+
+    for(let key in countRedux){
+      if(countRedux[key].length){
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   const [resetState, setResetState] = useState(false); // состояние для кнопки сброса
-
+  const [dataReduxInput, setDataReduxInput] = useState(()=>{
+   return setStateReduxData();
+  });
   
 
   useEffect(()=>{ 
-    console.log(countRedux);
     setResetState(false);
+    setDataReduxInput(setStateReduxData());
+    console.log(countRedux);
   }, [countRedux] )
 
   useEffect(()=>{ 
-
-  }, [resetState] )
+    console.log(dataReduxInput, '___dataReduxInput');
+  }, [dataReduxInput] )
 
 
   const { arrDocument, 
@@ -207,7 +225,7 @@ export function Filter(props){
 
                           <CheckButtonBootsrap resetState={resetState} type={'mileage'} styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
                         </div>
-                        <RadioButtonBootstrap nameSelectBack={'salesman'} defaultStatus={'all2'} radios={radios}/>
+                        <RadioButtonBootstrap resetState={resetState} nameSelectBack={'salesman'} defaultStatus={'all2'} radios={radios}/>
                     </div>
                   
                   </div>
@@ -223,7 +241,7 @@ export function Filter(props){
           <div className={style.block_info_wrapp}>
 
             <div className={style.block_info}>
-              <ButtonCollapseFilter stateReset={setResetState} type={'buttonReset'} />
+              {(dataReduxInput) ?  <ButtonCollapseFilter stateReset={setResetState} type={'buttonReset'} /> : '' }
             </div>
 
             <div className={style.flexCenter + ' ' + style.block_info }>

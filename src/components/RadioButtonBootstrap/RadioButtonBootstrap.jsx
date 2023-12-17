@@ -23,27 +23,27 @@ export default function RadioButtonBootstrap(props){
        
     useEffect(()=>{
         if(resetState){
-            // dispatch(addFilterRadioButton([]));
             setRadioValue(defaultStatus);
+            dispatch(addFilterRadioButton([]));
+
         }
     }, [resetState])
 
     useEffect(()=>{
 
-        if(radioValue == defaultStatus ){
-            if(countRedux.lenght != 0){
+        if( radioValue == defaultStatus ){
+
+            if(countRedux.length != 0){
                 let copy =  JSON.parse(JSON.stringify(countRedux));
 
                 copy = copy.reduce((arr, elementIterable)=>{
 
-                    console.log(elementIterable, 'elementIterable');
                     let flag = 0;
                     copy.forEach(()=>{
                         if(elementIterable.name == nameSelectBack){
 
                         }else{  
                             if(flag <= 0) {
-                                console.log(elementIterable, 'elementIterable');
                                 arr.push(elementIterable);
                                 flag++
                             }
@@ -56,13 +56,20 @@ export default function RadioButtonBootstrap(props){
 
                 dispatch(addFilterRadioButton(copy))
                 
+            }else{
+                console.log('зашёл в диспатч');
+                dispatch(addFilterRadioButton([]))
             }
+
         }else{
 
-            let copy =  JSON.parse(JSON.stringify(countRedux));
-            copy.push({name: nameSelectBack, value: radioValue});
-            const result = parseArrRedux(copy);
-            dispatch(addFilterRadioButton(result))
+            if(!resetState){
+                let copy =  JSON.parse(JSON.stringify(countRedux));
+                copy.push({name: nameSelectBack, value: radioValue});   
+                const result = parseArrRedux(copy);
+                dispatch(addFilterRadioButton(result))
+            }
+           
 
         }
 
