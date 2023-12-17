@@ -3,7 +3,7 @@ import Header from "../../UI/Header/Header"
 import ListProductsPreviewCard from "../../components/ListProductsPreviewCard/ListProductsPreviewCard";
 import { useParams } from "react-router";
 import { request } from "../../Action/request";
-    import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { reloadProducts, loaderSwitchProducts } from "../../redux/dataState";
 
@@ -122,6 +122,7 @@ export default function ListProducts(props){
       function onFilterCheck(evt){
         let copy = Object.assign({}, filters);
         let idFilter = evt.target.id;
+        console.log(filters)
         switch (idFilter) {
           case "brand": 
               copy.brand = evt.target.value
