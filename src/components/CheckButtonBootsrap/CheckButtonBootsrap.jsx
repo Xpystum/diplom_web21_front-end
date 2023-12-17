@@ -63,7 +63,7 @@ export default function CheckButtonBootsrap(props){
 
     useEffect(()=>{
         if(resetState){
-            // dispatch(addFilterCheckButton([]));
+            
             setInputValue(()=>{  
                 let arr = [];
                 content.forEach(element => {
@@ -72,7 +72,7 @@ export default function CheckButtonBootsrap(props){
         
                 return arr;
             })
-            console.log('вошёл')
+            dispatch(addFilterCheckButton([]));
         }
     }, [resetState])
 
