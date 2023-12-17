@@ -8,9 +8,16 @@ import { useDispatch } from 'react-redux';
 import { addFilterDataColor } from '../../redux/dataState';
 
 
-export default function ButtonMultiButton(){
+export default function ButtonMultiButton(props){
     const [value, setValue] = useState([]);
     const dispatch = useDispatch(); //redux
+    let resetState = props.resetState;
+
+    useEffect(()=>{
+        if(resetState){
+            setValue([]);
+        }
+    }, [resetState])
 
     useEffect(()=>{
         if(Array.isArray(value) && value.length == 0){

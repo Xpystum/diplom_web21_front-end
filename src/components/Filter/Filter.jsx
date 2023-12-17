@@ -113,7 +113,7 @@ export function Filter(props){
                   </div>
 
                   <div className={style.block_info}>
-                  <ButtonMultiButton />
+                  <ButtonMultiButton resetState={resetState}/>
                   </div>
 
                   <div className={style.block_info}>
