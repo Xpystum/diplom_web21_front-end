@@ -28,6 +28,24 @@ export const dataSlice = createSlice({
         data: [],
         favorites: []
       },
+
+      select_user: {
+        loader: true,
+        data: []
+      },
+
+      filter:{
+        data: {
+          dataList: [],
+          dataListImg: [],
+          dataListImgSvg: [],
+          dataListColor: [],
+          dataListNumber: [],
+          dataListRadioButton: [],
+          dataListCheckButton: [],
+          dataListFilterInput: [],
+        }
+      }
     }
   },
   reducers: {
@@ -74,6 +92,46 @@ export const dataSlice = createSlice({
     addFavorite: (state, action) => {
       state.value.user.favorites = action.payload
     },
+
+    // filtr component
+
+    //CustomDataList
+    addFilterData: (state, action) => {
+      state.value.filter.data.dataList = action.payload;
+    },
+    // CustomDataListImg
+    addFilterDataImg: (state, action) => {
+      state.value.filter.data.dataListImg = action.payload;
+    },
+    // CustomDataListImg
+    addFilterDataImgSvg: (state, action) => {
+      state.value.filter.data.dataListImgSvg = action.payload;
+    },
+
+    // ButtonMultiButton
+    addFilterDataColor: (state, action) => {
+      state.value.filter.data.dataListColor = action.payload;
+    },
+
+    // CustomDataListNumber
+    addFilterNumber: (state, action) => {
+      state.value.filter.data.dataListNumber = action.payload;
+    },
+    
+    // RadioButtonBootstrap
+     addFilterRadioButton: (state, action) => {
+      state.value.filter.data.dataListRadioButton = action.payload;
+    },
+
+    // CheckButtonBootsrap
+     addFilterCheckButton: (state, action) => {
+      state.value.filter.data.dataListCheckButton = action.payload;
+    },
+    
+    // InputFormBootstrap
+     addFilterFilterInput: (state, action) => {
+      state.value.filter.data.dataListFilterInput = action.payload;
+    },
   }
 })
 
@@ -92,6 +150,14 @@ export const {
                 reloadUser,
                 loaderUser,
                 addFavorite,
+                addFilterData,
+                addFilterDataImg,
+                addFilterDataImgSvg,
+                addFilterDataColor,
+                addFilterNumber,
+                addFilterRadioButton,
+                addFilterCheckButton,
+                addFilterFilterInput,
               } = dataSlice.actions
 
 export default dataSlice.reducer

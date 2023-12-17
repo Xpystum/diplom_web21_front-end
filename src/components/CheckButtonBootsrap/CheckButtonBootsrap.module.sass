@@ -1,0 +1,31 @@
+.margin_top10px
+    margin-top: 10px
+
+.styleWrappDiv
+    margin-bottom: 6px
+    
+.wrapp_check_box
+    display: flex !important
+    flex-direction: row
+    align-items: center
+    .check_box_input_two
+        width: 30px
+        height: 30px
+        border-radius: 8px !important
+        cursor: pointer
+        &:focus
+            box-shadow: none
+        &:active
+            background: rgb(233,236,239)
+        &:hover
+            border: 1px solid rgba(0,0,0, 0.2)
+        &:focus
+            border: 1px solid rgba(0,0,0, 0.2) 
+        &:checked
+            border: none
+            background-color: rgba(0,0,0,1)
+
+    .check_box_label_two
+        font-size: 1.5rem
+        margin: 0 14px 0 12px
+        cursor: pointer
