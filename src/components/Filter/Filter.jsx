@@ -213,7 +213,7 @@ export function Filter(props){
                   </div>
 
                   <div className={style.block_info_wrapp}>
-                    <InputFormBootstrap />
+                    <InputFormBootstrap resetState={resetState}/>
                   </div>
               </>
               :

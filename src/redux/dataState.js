@@ -40,7 +40,8 @@ export const dataSlice = createSlice({
           dataListColor: [],
           dataListNumber: [],
           dataListRadioButton: [],
-          dataListCheckButton: []
+          dataListCheckButton: [],
+          dataListFilterInput: [],
         }
       }
     }
@@ -123,9 +124,14 @@ export const dataSlice = createSlice({
       state.value.filter.data.dataListRadioButton = action.payload;
     },
 
-     // CheckButtonBootsrap
+    // CheckButtonBootsrap
      addFilterCheckButton: (state, action) => {
       state.value.filter.data.dataListCheckButton = action.payload;
+    },
+    
+    // InputFormBootstrap
+     addFilterFilterInput: (state, action) => {
+      state.value.filter.data.dataListFilterInput = action.payload;
     },
   }
 })
@@ -153,6 +159,7 @@ export const {
                 addFilterNumber,
                 addFilterRadioButton,
                 addFilterCheckButton,
+                addFilterFilterInput,
               } = dataSlice.actions
 
 export default dataSlice.reducer
