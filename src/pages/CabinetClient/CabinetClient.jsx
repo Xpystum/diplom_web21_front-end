@@ -3,59 +3,76 @@ import { request } from "../../Action/request";
 import Header from "../../UI/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, loaderUser, reloadUser } from "../../redux/dataState";
+import { authToken, loaderSelectUser, reloadSelectUser, reloadUsers } from "../../redux/dataState";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 import requestDataInToken from "../../Action/requestDataInToken";
 import style from "./CabinetClient.module.sass";
 
 export default function CabinetClient(props){
   let dispatch = useDispatch();
-  let navigate = useNavigate();
 
+  // времянка
+  let links = 1;
+  
+  
+  const navigate = useNavigate();
+  
+  let users = useSelector(state => state.dataState.value.users.data);
   let auth = useSelector(state => state.dataState.value.app.auth);
-  let select_user = useSelector(state => state.dataState.value.user);
-  let user = select_user.data;
-  console.log((auth.token)? 'токен: '+ auth.token : 'токен: null' );
-  console.log(user.length);
-    // useEffect(function(){
-    //   if(user.length == 0){
-    //     requestDataInToken(navigate, dispatch, {url: 'user', parametrs: {token: localStorage.getItem("my_token")}});
-        
-    //     request('post', 'user', (response)=>{
-    //       if(response.status == 200)
-    //         dispatch(loaderUser(false));
-    //         dispatch(reloadUser(response.data));
-    //         console.log(response);
-    //     }, {token: localStorage.getItem("my_token")})
-        
-    //   }
-    // }, []);
-    useEffect(() => {
-      if (user.length === 0) {
+  let select_user = useSelector(state => state.dataState.value.select_user);
+  let user = select_user.data
+
+  let responseSelectUser = (response)=>{
+    if(response.status == 200)
+        dispatch(reloadSelectUser(response.data))
+  }
+  
+    useEffect(function(){
+      if(user.length == 0){
         requestDataInToken(navigate, dispatch, {url: 'token'});
-        
+        request('post', 'users', (response) => {
+          if(response.status == 200)
+              dispatch(reloadUsers(response.data))
+        },{});
         request('post', 'user', (response) => {
           if (response.status === 200) {
-            dispatch(loaderUser(false));
-            dispatch(reloadUser(response.data));
-            console.log(response);
+            dispatch(loaderSelectUser(false));
+            dispatch(reloadSelectUser(response.data));
           }
-        }, {'id': 3});
+        }, {});
+        if(users.length == 0){
+          request("post", 'user', responseSelectUser, {"id": links})
+        } 
+        else{
+          users.forEach(user => {
+              // 
+              if(user.id == links){
+                  dispatch(reloadSelectUser(user))
+                  return 0;
+              }
+          });
+        }
       }
-    }, []); 
+    }, []);  
+  
+  function requestData($response){
+    console.log($response);
+  }
+
   return (
     <div>
       <Header/>
-      <h1>Кабинет Клиента</h1>
       {
-        (select_user.loader)? 
+        (!auth.token )? 
         <PreloaderSmall/>
         :
         <div className={style.wrap}>
-          <p>Имя: {user.name}</p>
-          <p>Почта: {user.email}</p>
-          <p>Статус: {user.status}</p>
-          <p>Регистрация: {user.updated_at}</p>
+          <h1>Кабинет Клиента</h1>
+          <p>{user.name}</p>
+          <p>{user.email}</p>
+          <p>{user.status}</p>
+          <p>{user.updated_at}</p>
+
         </div>
       }
     </div>

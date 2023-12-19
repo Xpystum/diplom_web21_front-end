@@ -19,7 +19,7 @@ export default function ProductPreviewCard(props) {
 
   let dispatch = useDispatch();
   
-  let favorites = useSelector(state => state.dataState.value.user.favorites);
+  let favorites = useSelector(state => state.dataState.value.users.favorites);
   let auth = useSelector(state => state.dataState.value.app.auth);
 
   

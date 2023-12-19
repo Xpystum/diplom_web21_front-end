@@ -23,29 +23,14 @@ export const dataSlice = createSlice({
         loader: true,
         data: []
       },
-      user: {
-        loader: true,
+      users: {
         data: [],
         favorites: []
       },
-
       select_user: {
         loader: true,
         data: []
       },
-
-      filter:{
-        data: {
-          dataList: [],
-          dataListImg: [],
-          dataListImgSvg: [],
-          dataListColor: [],
-          dataListNumber: [],
-          dataListRadioButton: [],
-          dataListCheckButton: [],
-          dataListFilterInput: [],
-        }
-      }
     }
   },
   reducers: {
@@ -62,11 +47,14 @@ export const dataSlice = createSlice({
     loaderSwitch: (state, action) => {
       state.value.app.loader = action.payload
     },
-    reloadUser: (state, action) => {
-      state.value.user.data = action.payload
+    reloadUsers: (state, action) => {
+      state.value.users.data = action.payload
     },
-    loaderUser: (state, action) => {
-      state.value.user.loader = action.payload
+    reloadSelectUser: (state, action) => {
+      state.value.select_user.data = action.payload
+    },
+    loaderSelectUser: (state, action) => {
+      state.value.select_user.loader = action.payload
     },
     reloadMenu: (state, action) => {
       state.value.mainMenu = action.payload
@@ -90,47 +78,7 @@ export const dataSlice = createSlice({
       state.value.products.loader = action.payload
     },
     addFavorite: (state, action) => {
-      state.value.user.favorites = action.payload
-    },
-
-    // filtr component
-
-    //CustomDataList
-    addFilterData: (state, action) => {
-      state.value.filter.data.dataList = action.payload;
-    },
-    // CustomDataListImg
-    addFilterDataImg: (state, action) => {
-      state.value.filter.data.dataListImg = action.payload;
-    },
-    // CustomDataListImg
-    addFilterDataImgSvg: (state, action) => {
-      state.value.filter.data.dataListImgSvg = action.payload;
-    },
-
-    // ButtonMultiButton
-    addFilterDataColor: (state, action) => {
-      state.value.filter.data.dataListColor = action.payload;
-    },
-
-    // CustomDataListNumber
-    addFilterNumber: (state, action) => {
-      state.value.filter.data.dataListNumber = action.payload;
-    },
-    
-    // RadioButtonBootstrap
-     addFilterRadioButton: (state, action) => {
-      state.value.filter.data.dataListRadioButton = action.payload;
-    },
-
-    // CheckButtonBootsrap
-     addFilterCheckButton: (state, action) => {
-      state.value.filter.data.dataListCheckButton = action.payload;
-    },
-    
-    // InputFormBootstrap
-     addFilterFilterInput: (state, action) => {
-      state.value.filter.data.dataListFilterInput = action.payload;
+      state.value.users.favorites = action.payload
     },
   }
 })
@@ -147,17 +95,10 @@ export const {
                 removeToken,
                 loadSelectProduct,
                 reloadSelectProduct,
-                reloadUser,
-                loaderUser,
+                reloadSelectUser,
+                reloadUsers,
+                loaderSelectUser,
                 addFavorite,
-                addFilterData,
-                addFilterDataImg,
-                addFilterDataImgSvg,
-                addFilterDataColor,
-                addFilterNumber,
-                addFilterRadioButton,
-                addFilterCheckButton,
-                addFilterFilterInput,
               } = dataSlice.actions
 
 export default dataSlice.reducer
