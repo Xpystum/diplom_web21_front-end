@@ -13,11 +13,13 @@ export default function requestDataInToken(navigate, dispatch, requestData = {})
 
     
     request('post', requestData.url, ($response)=>{
+      $response.console.log('??')
       if(!$response.data){
         navigate('/sign');
       }
 
       if($response.data){
+        console.log(localStorage.getItem("my_token"), 'requestDataInToken');
         dispatch(authToken(localStorage.getItem("my_token")));
       }
     }, parametrs);

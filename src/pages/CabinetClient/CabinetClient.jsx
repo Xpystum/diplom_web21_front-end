@@ -38,11 +38,14 @@ export default function CabinetClient(props){
           if (response.status === 200) {
             dispatch(loaderUser(false));
             dispatch(reloadUser(response.data));
-            console.log(response);
           }
         }, {'id': 3});
+      }else{
+        dispatch(authToken(localStorage.getItem("my_token")));
+        console.log(auth);
       }
     }, []); 
+
   return (
     <div>
       <Header/>

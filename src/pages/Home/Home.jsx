@@ -2,12 +2,11 @@ import Header from "../../UI/Header/Header";
 import CaruselWidget from "../../widgets/CaruselWidget/CaruselWidget";
 import ReviewsOwnersWidget from "../../widgets/ReviewsOwnersWidget/ReviewsOwnersWidget";
 import style from './Home.module.sass'
-import {Filter} from "../../components/Filter/Filter";
 import { Link } from "react-router-dom";
-import requestToken from "../../Action/requestToken";
+
 
 export default function Home(props) {
-    requestToken();
+    // requestToken();
     return (
         <div className={style.wrap}>
 

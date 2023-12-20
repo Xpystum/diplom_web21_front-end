@@ -7,16 +7,17 @@ import { request } from '../../../Action/request';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite } from '../../../redux/dataState';
-
-
+import { authToken } from "../../../redux/dataState";
 
 export default function Sign(props) {
     const navigate = useNavigate();
     let dispatch = useDispatch();
     let favorites = useSelector(state => state.dataState.value.user.favorites);
+    let authToken = useSelector(state => state.dataState.value.app.auth.token);
 
     let [mail, mailState] = useState(null);
     let [pass, passState] = useState(null);
+
     function clickButton(){
         request('post', 'auth', authResponse, 
         {
@@ -25,17 +26,23 @@ export default function Sign(props) {
         })
     }
 
-    // console.log(mail);
     function authResponse($response){
+        
+        console.log(authToken);
         if($response.data.code == 201 && $response.data.token.trim() != ""){
-            localStorage.setItem($response.data.token_name, $response.data.token);
+            console.log(authToken);
 
-            request("post", 'favorites-sinc', (response)=>{
-                console.log(response.data, "______значение токена")
-                dispatch(addFavorite(response.data));
-                navigate("/my");
+            localStorage.setItem($response.data.token_name, $response.data.token);
+            navigate("/my");
+
+            // request("post", 'favorites-sinc', (response)=>{
+                
+            //     dispatch(authToken(localStorage.getItem("my_token")))
+            //     console.log(localStorage.getItem("my_token"), '___sdf');
+            //     // dispatch(addFavorite(response.data));
+            //     
                     
-            }, {"favorites":favorites} )
+            // }, {"favorites":favorites} )
         }
 
         if($response.data.code == 403){
