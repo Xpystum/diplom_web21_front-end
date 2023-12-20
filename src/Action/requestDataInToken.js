@@ -3,9 +3,6 @@ import { request } from "./request";
 import { authToken } from "../redux/dataState";
 
 
-/*
-  requestData = {url:"", parametrs = {parametrs}}
-*/
 export default function requestDataInToken(navigate, dispatch, requestData = {}){
 
     if(!localStorage.getItem("my_token")){

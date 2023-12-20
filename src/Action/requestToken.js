@@ -13,10 +13,13 @@ export default function requestToken(dispatch){
     request('post', 'token', ($response)=>{
       if(!$response.data){
         dispatch(authToken(''));
+        return false;
       }
 
       if($response.data){
-        dispatch(authToken(localStorage.getItem("my_token")));
+        // dispatch(authToken(localStorage.getItem("my_token")));
+        console.log($response.data);
+        return true;
       }
     }, {'token': localStorage.getItem("my_token")});
 

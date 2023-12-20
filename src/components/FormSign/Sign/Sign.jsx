@@ -24,20 +24,22 @@ export default function Sign(props) {
             'password' : pass
         })
     }
+
     // console.log(mail);
     function authResponse($response){
         if($response.data.code == 201 && $response.data.token.trim() != ""){
             localStorage.setItem($response.data.token_name, $response.data.token);
 
             request("post", 'favorites-sinc', (response)=>{
-
+                console.log(response.data, "______значение токена")
                 dispatch(addFavorite(response.data));
-
                 navigate("/my");
-            }, {"favorites":favorites, "token": $response.data.token})
+                    
+            }, {"favorites":favorites} )
         }
+
         if($response.data.code == 403){
-            
+            console.log(403, '______ошибка');
         }
     }
 

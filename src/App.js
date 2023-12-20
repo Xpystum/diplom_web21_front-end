@@ -106,7 +106,7 @@ function App() {
             {
                 (loading) ?
                     <PreloaderStartPage />
-                    :
+                    :   
                     <div>
                         <Curtain />
                         <Routes>

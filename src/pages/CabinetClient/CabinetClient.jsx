@@ -15,8 +15,8 @@ export default function CabinetClient(props){
   let auth = useSelector(state => state.dataState.value.app.auth);
   let select_user = useSelector(state => state.dataState.value.user);
   let user = select_user.data;
-  console.log((auth.token)? 'токен: '+ auth.token : 'токен: null' );
-  console.log(user.length);
+  // console.log((auth.token)? 'токен: '+ auth.token : 'токен: null' );
+  // console.log(user.length);
     // useEffect(function(){
     //   if(user.length == 0){
     //     requestDataInToken(navigate, dispatch, {url: 'user', parametrs: {token: localStorage.getItem("my_token")}});
