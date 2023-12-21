@@ -56,7 +56,7 @@ export const dataSlice = createSlice({
 
     removeToken: (state, action) => {
       localStorage.removeItem('my_token');
-      state.value.app.auth.token = ''
+      state.value.app.auth.token = '';
     },
     
     loaderSwitch: (state, action) => {

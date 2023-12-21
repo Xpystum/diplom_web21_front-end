@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../UI/Header/Header"
 import ListProductsPreviewCard from "../../components/ListProductsPreviewCard/ListProductsPreviewCard";
 import { useParams } from "react-router";
 import { request } from "../../Action/request";
-    import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Filter } from '../../components/Filter/Filter';
+import style from "./ListProducts.module.sass";
 
 import { reloadProducts, loaderSwitchProducts } from "../../redux/dataState";
 
@@ -140,8 +142,7 @@ export default function ListProducts(props){
     <div>
 
       <Header/>
-
-         <form>
+        {/* <form>
            <input 
               id="brand"
               autoFocus={true}
@@ -167,9 +168,9 @@ export default function ListProducts(props){
             <label htmlFor="true_photo">С фото</label>
 
             <button type="button" onClick={onFilterCars}>Показать</button>
-        </form>
-        
-
+        </form> */}
+        <h1 className={style.title}>Дром Авто - Продажа автомобилей</h1>
+        <Filter />
 
         <ListProductsPreviewCard cars={(nullFilters())? cars :listFilterCars} />
 

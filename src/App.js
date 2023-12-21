@@ -18,6 +18,8 @@ import Card from './pages/Card/Card';
 import Curtain from './components/Curtain/Curtain';
 import Sign from './pages/Sign/Sign';
 import CabinetClient from './pages/CabinetClient/CabinetClient';
+import requestToken from "./Action/requestToken";
+
 
 // стили
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -38,7 +40,6 @@ function App() {
 
 
     let loading = useSelector(state => state.dataState.value.app.loader);
-
     let dispatch = useDispatch();
 
     useEffect(()=>{
@@ -51,47 +52,48 @@ function App() {
                 }
         }, { name_menu: 'main_menu' });
 
-        //if(localStorage.getItem('my_token')){
-            request('post', 'favorites-user', (response) => {
-                //localStorage.setItem('favorites', JSON.stringify([{"product_id":5,"user_id":3},{"product_id":2,"user_id":3}]));
-                
-                let favoritesLocalstorage = []
-                if(localStorage.getItem('favorites')){
-                    favoritesLocalstorage = JSON.parse(localStorage.getItem('favorites'))
-                }
+        request('post', 'favorites-user', (response) => {
+            //localStorage.setItem('favorites', JSON.stringify([{"product_id":5,"user_id":3},{"product_id":2,"user_id":3}]));
+            
+            let favoritesLocalstorage = []
+            if(localStorage.getItem('favorites')){
+                favoritesLocalstorage = JSON.parse(localStorage.getItem('favorites'))
+            }
 
-                // backend
-                let favoritesBackend = response.data;
+            // backend
+            let favoritesBackend = response.data;
 
-                //localStorage.setItem('favorites', JSON.stringify(response.data));
-                // if (response.status == 200 && response.data.length > 0) {
-                //     dispatch(reloadMenu(response.data))
-                // }
+            //localStorage.setItem('favorites', JSON.stringify(response.data));
+            // if (response.status == 200 && response.data.length > 0) {
+            //     dispatch(reloadMenu(response.data))
+            // }
 
-                let favorites = favoritesLocalstorage.concat(favoritesBackend);
+            let favorites = favoritesLocalstorage.concat(favoritesBackend);
 
-                let data = [];
-                for(let favorite of favorites){
-                    data.push(JSON.stringify(favorite));
-                }
-                
-                const favoritesSet = new Set();
-                data.forEach((el)=>{
-                    favoritesSet.add(el);
-                })
-                
-                favorites = [];
+            let data = [];
+            for(let favorite of favorites){
+                data.push(JSON.stringify(favorite));
+            }
+            
+            const favoritesSet = new Set();
+            data.forEach((el)=>{
+                favoritesSet.add(el);
+            })
+            
+            favorites = [];
 
-                for(let favorite of favoritesSet){
-                    favorites.push(JSON.parse(favorite));
-                }
+            for(let favorite of favoritesSet){
+                favorites.push(JSON.parse(favorite));
+            }
 
-                dispatch(addFavorite(favorites));
-     
+            dispatch(addFavorite(favorites));
+    
 
-            }, { token: localStorage.getItem('my_token') });
+        }, { token: localStorage.getItem('my_token') });
 
-        //}
+        
+        requestToken(dispatch);
+
     },[])
 
     
@@ -106,7 +108,7 @@ function App() {
             {
                 (loading) ?
                     <PreloaderStartPage />
-                    :
+                    :   
                     <div>
                         <Curtain />
                         <Routes>
@@ -116,7 +118,6 @@ function App() {
                             <Route path="/catalog/advanced-search/" element={<AdvancedSearch />} />
                             <Route path="/category/:alias/card/:id" element={<Card />} />
                             <Route path="/sign" element={<Sign/>}/>
-
 
                             <Route path="/my" element={<CabinetClient/>}/>
                             <Route path="/my/ads" element={<Cars/>}/>

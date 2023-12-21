@@ -57,7 +57,6 @@ export default function RadioButtonBootstrap(props){
                 dispatch(addFilterRadioButton(copy))
                 
             }else{
-                console.log('зашёл в диспатч');
                 dispatch(addFilterRadioButton([]))
             }
 

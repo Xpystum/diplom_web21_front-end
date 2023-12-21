@@ -1,0 +1,96 @@
+.register_wrap
+    display: flex
+    flex-wrap: nowrap
+    flex-direction: row
+    align-items: center
+    width: 185px
+    height: 50px
+    position: relative
+    .wrappInfoIcon
+        display: flex
+        flex-wrap: nowrap
+        flex-direction: row
+        align-items: center
+        .LinkInfoIcon
+            display: block
+            height: 20px
+            width: 20px
+            margin: 0 8px
+        .InfoIcon
+            color: #fff
+            height: 20px
+            width: 20px
+            opacity: 0.8
+            margin: 0 8px
+            cursor: pointer
+            &:hover
+                opacity: 1
+    .profileBlock
+        visibility: hidden
+        opacity: 0
+        color: #fff
+        width: 100%
+        display: block
+        background: black
+        position: absolute
+        top: 100%
+        lef: 1%
+        &:hover
+            opacity: 1
+            visibility: visible
+        .profileBlock_item
+            .profileBlock_itemBlock_link
+                position: relative
+                text-decoration: none
+                display: flex
+                align-items: center
+                justify-content: flex-start
+                padding: 10px 5px
+                border-radius: 6px
+                margin: 5px 5px
+                font-size: 1.3rem
+                &:hover::after
+                    position: absolute
+                    content: ''
+                    top: 0
+                    left: 0
+                    width: 100%
+                    height: 100%
+                    border-radius: 6px
+                    background-color: #bec2c6
+                    opacity: 0.2
+                &:hover .profileBlock_itemBlock
+                    opacity: 1
+
+                .profileBlock_itemBlock
+                    opacity: 0.8
+                    .profileBlock_itemBlock_Icon
+                       
+                        color: rgb(255,255,255)
+                        margin-left: 8px
+                    span
+                        margin-left: 6px
+                        color: rgb(255,255,255)
+
+    .wrappProfile
+        cursor: pointer
+        padding: 10px 10px
+        &:hover ~ .profileBlock
+            opacity: 1
+            visibility: visible
+
+        .wrapp_avatar
+            background-color: #ffb8c6
+            padding: 4px 6px
+            margin: 0 8px
+            border-radius: 50% 
+            opacity: 0.9 
+            
+               
+            .avatar
+                .avatar_icon
+                    color: #fff
+                    height: 22px
+                    width: 22px
+               
+

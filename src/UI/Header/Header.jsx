@@ -6,14 +6,17 @@ import LoginRegisterWidget from '../../widgets/LoginRegisterWidget/LoginRegister
 import PostAdd from '../PostAdd/PostAdd';
 import UserPanelWidget from '../../widgets/UserPanelWidget/UserPanelWidget';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 export default function Header(props) {
+  const dispath = useDispatch();
+  let auth = useSelector(state => state.dataState.value.app.auth.token);
+  const [authToken, setAuthToken] = useState('');
   let mainMenu = 'mainMenu';
 
-  let dispath = useDispatch();
-  let auth = useSelector(state => state.dataState.value.app.auth);
-
-  // requestToken(dispath);
+  useEffect(()=>{
+    setAuthToken(auth);
+  },[auth])
 
   return (
 
@@ -31,11 +34,13 @@ export default function Header(props) {
           <PostAdd />
 
           {
-            (!auth.token)?
-              <LoginRegisterWidget />
+            (!authToken)?
+            <LoginRegisterWidget />
             :
-              <UserPanelWidget/>
+            <UserPanelWidget/>
+              
           }  
+
         </div>
         
         

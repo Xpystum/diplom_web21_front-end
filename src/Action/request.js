@@ -3,10 +3,17 @@ import axios from 'axios';
 
 
 export function request(method, url, callback, data = {}){
-    let promise = axios({
+
+    const token = localStorage.getItem("my_token");
+    //при каждем запросе будет отправлять токен (middlware на сервере уже будет проверять доступ
+
+    const promise = axios({
         "method": method,
         "url": `${URL_BACK}${url}`,
-        "data": data
+        "data": data,
+        headers: {
+            'Authorization': `Bearer ${(token)? token : ''}`
+        },
     })
     .then(function (response) {
         callback(response);
@@ -15,6 +22,7 @@ export function request(method, url, callback, data = {}){
     .catch(function (error) {
         return false;
     });
-    
+
+   
     return promise;
 }
