@@ -1,7 +1,7 @@
-import "./ReviewsBrandsList.css"
+// import "./ReviewsBrandsList.css"
 import Carousel from "nuka-carousel"
 import Header from "../../UI/Header/Header"
-// import style from "./ReviewsBrandsList.module.sass"
+import style from "./ReviewsBrandsList.module.sass"
 import { Link, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { request } from "../../Action/request"
@@ -54,7 +54,7 @@ export default function ReviewsBrandsList(props){
                 }
             }
             setBrandsList(popularBrandsList);
-            console.log(brandsList)
+            
         }
         if(brandsList.length != brands.data.length){
             popularBrandsList = []
@@ -63,42 +63,42 @@ export default function ReviewsBrandsList(props){
                 popularBrandsList.push(brand.name)
             }
             setBrandsList(popularBrandsList);
-            console.log(brandsList)
+            
         }
     }
       
     return(
-            <div className="ReviewBrandWrap"/*{style.ReviewBrandWrap}*/>
+            <div className={style.ReviewBrandWrap}>
                 <h2>Отзывы об автомобилях</h2>
                 {
                 (brandsList.length != brands.data.length)?
-                <div className="ReviewFilterBrand">
+                <div className={style.ReviewFilterBrand}>
                     {
                     popularBrandsList.map(popularBrandsList => 
                         <div>
                             <Link 
                                 to={`/category/reviews/`} 
-                                className="BrandLink"
+                                className={style.BrandLink}
                             >
                                 {popularBrandsList}
                             </Link>
                         </div>)
                         }
                         <span 
-                            className="BrandExpand" 
+                            className={style.BrandExpand} 
                             onClick={(evt)=>{onFilterCheck(evt)}}
                         >
-                            Все модели <ChevronDown className="Chevron"/>
+                            Все модели <ChevronDown className={style.Chevron}/>
                         </span>
                 </div>
                 :
-                <div className="ReviewFilterBrand">
+                <div className={style.ReviewFilterBrand}>
                 {
                     brandsListAll.map(brandsListAll => 
                     <div>
                         <Link                                     
                             to={`/category/reviews/`} 
-                            className="BrandLink"
+                            className={style.BrandLink}
                             onChange={(evt)=>{onFilterCheck(evt)}} 
                         >
                             {brandsListAll}
@@ -106,10 +106,10 @@ export default function ReviewsBrandsList(props){
                     </div>)
                         }
                         <span 
-                            className="BrandExpand" 
+                            className={style.BrandExpand} 
                             onClick={(evt)=>{onFilterCheck(evt)}}
                         >
-                            Свернуть < ChevronUp className="Chevron"/>
+                            Свернуть < ChevronUp className={style.Chevron}/>
                         </span>
                     </div>
                 }

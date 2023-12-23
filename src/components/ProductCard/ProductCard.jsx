@@ -38,8 +38,9 @@ export default function ProductCard(props) {
     }
 
     useEffect(()=>{
+
         if(products.length == 0){
-            request("post", 'product', responseSelectproduct, {"id": links.id})
+           request("post", 'product', responseSelectproduct, {"id": links.id})
         } 
         else{
             products.forEach(product => {
@@ -93,6 +94,7 @@ export default function ProductCard(props) {
 
     }
 
+   
 
     const textIconStar = {
         initial: 'Добавить в избранное',
@@ -170,7 +172,6 @@ export default function ProductCard(props) {
         console.log('Проверка выполения функции =>', onCreditCalculator.name);
     }
 
-    
 
 
     return (

@@ -29,6 +29,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from 'react';
 import Reviews from './pages/Reviews/Reviews';
+import ReviewCard from './pages/ReviewCard/ReviewCard';
 
 library.add(fas)
 
@@ -122,7 +123,7 @@ function App() {
                             <Route path="/my" element={<CabinetClient/>}/>
                             <Route path="/my/ads" element={<Cars/>}/>
                             <Route path="/category/reviews" element={<Reviews/>}/>
-                            
+                            <Route path="/category/reviews/1" element={<ReviewCard/>}/>
                         </Routes>
                     </div>
             }

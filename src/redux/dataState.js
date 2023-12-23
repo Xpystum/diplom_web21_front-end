@@ -31,6 +31,16 @@ export const dataSlice = createSlice({
         loader: true,
         data: []
       },
+      reviews: {
+        loader: true,
+        data: []
+      },
+      select_review:{
+        loader: true,
+        data: []
+      },
+      user_review:[]
+      ,
     }
   },
   reducers: {
@@ -80,6 +90,21 @@ export const dataSlice = createSlice({
     addFavorite: (state, action) => {
       state.value.users.favorites = action.payload
     },
+    reloadReview: (state, action) => {
+      state.value.reviews.data = action.payload
+    },
+    reloadSelectReview: (state, action) => {
+      state.value.select_review.data = action.payload
+    },
+    loadSelectReview: (state, action) => {
+      state.value.select_review.loader = false
+    },
+    loaderSwitchReview: (state, action) => {
+      state.value.reviews.loader = action.payload
+    },
+    reloadUserReview: (state, action) => {
+      state.value.user_review = action.payload
+    },
   }
 })
 
@@ -99,6 +124,11 @@ export const {
                 reloadUsers,
                 loaderSelectUser,
                 addFavorite,
+                reloadReview,
+                reloadSelectReview,
+                loadSelectReview,
+                loaderSwitchReview,
+                reloadUserReview,
               } = dataSlice.actions
 
 export default dataSlice.reducer
