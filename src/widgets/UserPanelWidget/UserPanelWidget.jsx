@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import style from './UserPanelWidget.module.sass';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authToken, removeToken } from "../../redux/dataState";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
 
-export default function UserPanelWidget(){
+export default function UserPanelWidget(props){
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    let user = useSelector(state => state.dataState.value.user.data);
     function onLogout(){
         dispatch(removeToken());
         navigate("/sign");
@@ -20,16 +20,24 @@ export default function UserPanelWidget(){
             <div className={style.wrappProfile}>
                 <div className={style.wrapp_avatar}>
                     <div className={style.avatar}>
-                        <FontAwesomeIcon className={style.avatar_icon} icon="fa-solid fa-user-tie"/>
+                    <Link className={style.profileBlock_itemBlock_link} to="/my" onClick={()=>{}}>
+                        {
+                            (user.name)? 
+                                <span className={style.avatar__name}>{user.name[0]}</span>
+                                :
+                                <FontAwesomeIcon className={style.avatar__icon} icon="fa-solid fa-user-tie"/>
+                            
+                        }
+                    </Link> 
                     </div >
                 </div>
             </div>
 
             <div className={style.profileBlock}>
                 <div className={style.profileBlock_item}>
-                    <Link className={style.profileBlock_itemBlock_link} to="#" onClick={()=>{}}>
+                    <Link className={style.profileBlock_itemBlock_link} to="/my" onClick={()=>{}}>
                         <div className={style.profileBlock_itemBlock}>
-                            <span>3657465398</span>
+                            <span>{ user.email }</span>
                         </div>
                     </Link>
                 </div>
@@ -103,7 +111,6 @@ export default function UserPanelWidget(){
                 </div>
             </div>
 
-            {/* <Link to ="/sign" onClick={()=>{onLogout()}}>Выход</Link> */}
         </div>
     )
 }

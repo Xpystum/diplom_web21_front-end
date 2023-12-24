@@ -10,7 +10,7 @@ import { addFavorite } from '../../../redux/dataState';
 import { authToken } from "../../../redux/dataState";
 
 export default function Sign(props) {
-    const navigate = useNavigate();
+    let navigate = useNavigate();
     let dispatch = useDispatch();
     let favorites = useSelector(state => state.dataState.value.user.favorites);
     let authToken = useSelector(state => state.dataState.value.app.auth.token);
@@ -28,21 +28,19 @@ export default function Sign(props) {
 
     function authResponse($response){
         
-        console.log(authToken);
         if($response.data.code == 201 && $response.data.token.trim() != ""){
-            console.log(authToken);
-
             localStorage.setItem($response.data.token_name, $response.data.token);
+            localStorage.setItem("uid", $response.data.uid);
+            
             navigate("/my");
 
-            // request("post", 'favorites-sinc', (response)=>{
+            request("post", 'favorites-sinc', (response)=>{
                 
-            //     dispatch(authToken(localStorage.getItem("my_token")))
-            //     console.log(localStorage.getItem("my_token"), '___sdf');
-            //     // dispatch(addFavorite(response.data));
-            //     
+                dispatch(authToken(localStorage.getItem("my_token")))
+                // dispatch(addFavorite(response.data));
+                
                     
-            // }, {"favorites":favorites} )
+            }, {"favorites":favorites} )
         }
 
         if($response.data.code == 403){

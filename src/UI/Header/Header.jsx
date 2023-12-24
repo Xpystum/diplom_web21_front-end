@@ -9,14 +9,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 export default function Header(props) {
+  
   const dispath = useDispatch();
-  let auth = useSelector(state => state.dataState.value.app.auth.token);
   const [authToken, setAuthToken] = useState('');
   let mainMenu = 'mainMenu';
-
-  useEffect(()=>{
-    setAuthToken(auth);
-  },[auth])
+  useEffect(() => {
+    const token = localStorage.getItem("my_token");
+    setAuthToken(token);
+  }, []);
 
   return (
 
@@ -37,7 +37,7 @@ export default function Header(props) {
             (!authToken)?
             <LoginRegisterWidget />
             :
-            <UserPanelWidget/>
+            <UserPanelWidget user={props.user}/>
               
           }  
 

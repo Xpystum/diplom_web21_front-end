@@ -142,7 +142,7 @@ export default function ListProducts(props){
     <div>
 
       <Header/>
-        {/* <form>
+        <form>
            <input 
               id="brand"
               autoFocus={true}
@@ -168,7 +168,7 @@ export default function ListProducts(props){
             <label htmlFor="true_photo">С фото</label>
 
             <button type="button" onClick={onFilterCars}>Показать</button>
-        </form> */}
+        </form>
         <h1 className={style.title}>Дром Авто - Продажа автомобилей</h1>
         <Filter />
 

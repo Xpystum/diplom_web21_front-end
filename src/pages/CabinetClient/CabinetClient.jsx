@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { request } from "../../Action/request";
 import Header from "../../UI/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,60 +6,54 @@ import { useDispatch, useSelector } from "react-redux";
 import { authToken, loaderUser, reloadUser } from "../../redux/dataState";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 import requestDataInToken from "../../Action/requestDataInToken";
-import style from "./CabinetClient.module.sass";
+import Main from "./Main/Main";
 
 export default function CabinetClient(props){
   let dispatch = useDispatch();
   let navigate = useNavigate();
 
-  let auth = useSelector(state => state.dataState.value.app.auth);
   let select_user = useSelector(state => state.dataState.value.user);
   let user = select_user.data;
-  // console.log((auth.token)? 'токен: '+ auth.token : 'токен: null' );
-  // console.log(user.length);
-    // useEffect(function(){
-    //   if(user.length == 0){
-    //     requestDataInToken(navigate, dispatch, {url: 'user', parametrs: {token: localStorage.getItem("my_token")}});
-        
-    //     request('post', 'user', (response)=>{
-    //       if(response.status == 200)
-    //         dispatch(loaderUser(false));
-    //         dispatch(reloadUser(response.data));
-    //         console.log(response);
-    //     }, {token: localStorage.getItem("my_token")})
-        
-    //   }
-    // }, []);
-    useEffect(() => {
-      if (user.length === 0) {
-        requestDataInToken(navigate, dispatch, {url: 'token'});
-        
-        request('post', 'user', (response) => {
-          if (response.status === 200) {
-            dispatch(loaderUser(false));
-            dispatch(reloadUser(response.data));
-          }
-        }, {'id': 3});
-      }else{
-        dispatch(authToken(localStorage.getItem("my_token")));
-        console.log(auth);
-      }
-    }, []); 
+  let time;
+
+  let [id, setId] = useState(localStorage.getItem("uid"));
+
+  if(user.created_at){
+    let userTime = user.created_at;
+    time = userTime.split('T');
+    time = time[0].split('-').join('')
+  }  
+  
+  
+  
+  useEffect(() => {
+
+    
+    if (user.length === 0 || localStorage.getItem("uid") != user.id) {
+      dispatch(loaderUser(true));
+      requestDataInToken(navigate, dispatch, {url: 'token'});
+       
+      request('post', 'user', (response) => {
+        if (response.status === 200) {
+          dispatch(loaderUser(false));
+          dispatch(reloadUser(response.data));
+        }
+      }, {'id': id});
+    }
+    else{
+      dispatch(authToken(localStorage.getItem("my_token")));
+      
+    }
+  }, [id]);  
 
   return (
     <div>
-      <Header/>
-      <h1>Кабинет Клиента</h1>
+      <Header user={user}/>
       {
         (select_user.loader)? 
         <PreloaderSmall/>
         :
-        <div className={style.wrap}>
-          <p>Имя: {user.name}</p>
-          <p>Почта: {user.email}</p>
-          <p>Статус: {user.status}</p>
-          <p>Регистрация: {user.updated_at}</p>
-        </div>
+        <Main user={user} time={time}/>
       }
     </div>
   )

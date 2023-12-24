@@ -1,5 +1,6 @@
 .register_wrap
     display: flex
+    justify-content: end
     flex-wrap: nowrap
     flex-direction: row
     align-items: center
@@ -34,7 +35,8 @@
         background: black
         position: absolute
         top: 100%
-        lef: 1%
+        left: 1%
+        z-index: 99
         &:hover
             opacity: 1
             visibility: visible
@@ -74,23 +76,45 @@
 
     .wrappProfile
         cursor: pointer
-        padding: 10px 10px
+        
+        height: 100%
+        width: auto
+        
         &:hover ~ .profileBlock
             opacity: 1
             visibility: visible
 
         .wrapp_avatar
-            background-color: #ffb8c6
-            padding: 4px 6px
+            position: relative
+            height: 100%
+            width: 30px
             margin: 0 8px
-            border-radius: 50% 
-            opacity: 0.9 
-            
-               
+
             .avatar
-                .avatar_icon
+                position: absolute
+                top: 50%
+                left: 0      
+                height: 30px
+                width: 30px
+                margin-top: -15px 
+                border-radius: 50% 
+                background: linear-gradient(0deg, hsla(339, 46%, 72%, 1), hsla(339, 46%, 80%, 1))
+                opacity: 0.9
+
+                &__icon
                     color: #fff
-                    height: 22px
-                    width: 22px
+                    height: 2rem
+                    width: 2rem
+                    margin: 0.5rem 0
+                &__name
+                    height: 100%
+                    width: 100%
+                    display: inline-block
+                    color: #fff
+                    font-size: 2rem
+                    // font-weight: bold
+                    text-align: center
+
+                    
                
 
