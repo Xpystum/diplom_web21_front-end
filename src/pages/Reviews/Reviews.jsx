@@ -1,15 +1,14 @@
-import Carousel from "nuka-carousel"
+
 import Header from "../../UI/Header/Header"
 import ReviewsBrandsList from "../../components/ReviewsBrandsList/ReviewsBrandsList"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loaderSwitchReview, reloadReview, reloadSelectReview, reloadUserReview } from "../../redux/dataState";
+import { loaderSwitchReviews, reloadReviews, reloadSelectReview, reloadUserReview } from "../../redux/dataState";
 import { request } from "../../Action/request";
-import { useParams } from "react-router-dom";
+
 
 export default function Reviews(props){
 
-    let links = useParams();
     let dispatch = useDispatch();
     let select_review = useSelector(state => state.dataState.value.select_review)
     let user_review = useSelector(state => state.dataState.value.user_review)
@@ -17,7 +16,7 @@ export default function Reviews(props){
     useEffect(()=>{
           request('post', 'all-info-reviews', (response) => {
           if (response.status === 200) {
-            dispatch(loaderSwitchReview(false));
+            dispatch(loaderSwitchReviews(false));
             dispatch(reloadSelectReview(response.data));
             
           }
@@ -32,7 +31,7 @@ export default function Reviews(props){
         <div className="ReviewWrap"/*{style.ReviewWrap}*/>
             <Header/>
             <ReviewsBrandsList/>
-            <Carousel></Carousel>
+            
             
         </div>
     )

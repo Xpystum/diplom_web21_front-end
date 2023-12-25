@@ -123,7 +123,7 @@ function App() {
                             <Route path="/my" element={<CabinetClient/>}/>
                             <Route path="/my/ads" element={<Cars/>}/>
                             <Route path="/category/reviews" element={<Reviews/>}/>
-                            <Route path="/category/reviews/1" element={<ReviewCard/>}/>
+                            <Route path="/category/reviews/:id" element={<ReviewCard/>}/>
                         </Routes>
                     </div>
             }

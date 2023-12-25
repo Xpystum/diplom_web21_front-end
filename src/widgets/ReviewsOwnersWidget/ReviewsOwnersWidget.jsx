@@ -1,21 +1,52 @@
 import { Link } from "react-router-dom";
-import ReviewOwner from "./ReviewOwner"
-import style from './ReviewsOwners.module.sass';
+import ReviewOwnerCard from "./ReviewOwnerCard"
+import style from './ReviewOwnerCard.module.sass';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { request } from "../../Action/request";
+import { reloadReviews } from "../../redux/dataState";
 
 export default function ReviewsOwnersWidget(props){
-    return (
-    <div className={style.Reviews_owners_widget_wrap}>
+
+    let dispatch = useDispatch();
+    let reviews = useSelector(state => state.dataState.value.reviews.data)
+
+    useEffect(()=>{
+          request('post', 'all-info-reviews', (response) => {
+          if (response.status === 200) {
+            dispatch(reloadReviews(response.data));            
+          }
+        }, []);
+
+      },[]);
     
-        <Link to='#'>
-            <h3 >Отзывы владельцев авто </h3>
-        </Link>
-        <div className={style.Reviews_owners_wrap}>{/*получить из BD и вывести через цикл 4 из всех*/}
-           <ReviewOwner/>
-           <ReviewOwner/>
-           <ReviewOwner/>
-           <ReviewOwner/>
-        </div>
-    </div>      
+      
+    let lastReviewsOwners = reviews.slice( - 4)
+
+    
+    
+    return (
+      <div className={style.Reviews_wrap}>
+        <div className={style.Reviews_owners_widget_wrap}>
+        
+            <Link to='category/reviews'>
+                <h2 >Отзывы владельцев авто</h2>
+            </Link>
+            <div className={style.Reviews_owners_wrap}>
+              
+            {
+              lastReviewsOwners.map((lastReviewsOwners)=>
+                
+                <ReviewOwnerCard 
+                  key={lastReviewsOwners.id} 
+                  lastReviewsOwners={lastReviewsOwners} 
+                />
+                
+              )
+            }
+            </div>
+        </div>      
+      </div>
     )
   };
   

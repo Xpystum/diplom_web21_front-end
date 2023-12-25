@@ -90,7 +90,8 @@ export const dataSlice = createSlice({
     addFavorite: (state, action) => {
       state.value.users.favorites = action.payload
     },
-    reloadReview: (state, action) => {
+    //reviews
+    reloadReviews: (state, action) => {
       state.value.reviews.data = action.payload
     },
     reloadSelectReview: (state, action) => {
@@ -99,7 +100,7 @@ export const dataSlice = createSlice({
     loadSelectReview: (state, action) => {
       state.value.select_review.loader = false
     },
-    loaderSwitchReview: (state, action) => {
+    loaderSwitchReviews: (state, action) => {
       state.value.reviews.loader = action.payload
     },
     reloadUserReview: (state, action) => {
@@ -124,10 +125,10 @@ export const {
                 reloadUsers,
                 loaderSelectUser,
                 addFavorite,
-                reloadReview,
+                reloadReviews,
                 reloadSelectReview,
                 loadSelectReview,
-                loaderSwitchReview,
+                loaderSwitchReviews,
                 reloadUserReview,
               } = dataSlice.actions
 
