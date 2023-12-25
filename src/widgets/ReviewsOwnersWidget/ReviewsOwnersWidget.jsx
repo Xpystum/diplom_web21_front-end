@@ -18,30 +18,23 @@ export default function ReviewsOwnersWidget(props){
           }
         }, []);
 
-      },[]);
-    
+      },[]);    
       
     let lastReviewsOwners = reviews.slice( - 4)
 
-    
-    
     return (
       <div className={style.Reviews_wrap}>
-        <div className={style.Reviews_owners_widget_wrap}>
-        
+        <div className={style.Reviews_owners_widget_wrap}>        
             <Link to='category/reviews'>
                 <h2 >Отзывы владельцев авто</h2>
             </Link>
-            <div className={style.Reviews_owners_wrap}>
-              
+            <div className={style.Reviews_owners_wrap}>              
             {
-              lastReviewsOwners.map((lastReviewsOwners)=>
-                
+              lastReviewsOwners.map((lastReviewsOwners)=>                
                 <ReviewOwnerCard 
                   key={lastReviewsOwners.id} 
                   lastReviewsOwners={lastReviewsOwners} 
-                />
-                
+                />                
               )
             }
             </div>
