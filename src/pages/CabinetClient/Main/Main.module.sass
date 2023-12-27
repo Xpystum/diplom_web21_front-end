@@ -1,7 +1,7 @@
 .wrap
     font-size: 1.6rem
     text-align: left
-
+    background: #fff
     & .top
         background: linear-gradient( 290deg, hsl(33, 100%, 94%), hsl(339, 46%, 93%) )
         margin-bottom: 60px
@@ -9,13 +9,11 @@
         &__wrap
             height: 100%
             display: flex
-            justify-content: space-around
+            justify-content: space-between
+            align-items: center
             max-width: 1226px
             margin: 0 auto
             padding: 0 20px
-        & .user_wrap
-            display: flex
-            align-items: center
     & .avatar      
         height: 60px
         width: 60px
@@ -36,3 +34,36 @@
             font-size: 4rem
             font-weight: bold
             text-align: center
+.main
+    display: flex
+    & article
+        flex-grow: 1
+        & section
+            background: hsl(0, 0%, 96%)
+            border-radius: 16px
+            padding: 10px
+            box-sizing: border-box
+            margin: 0 20px
+            margin-bottom: 10px
+            display: flex
+            justify-content: space-between
+    & nav
+        & ul
+            & li
+                padding-bottom: 20px
+                font-size: 2rem
+                & a
+                    color: hsl(209, 77%, 45%)
+                    text-decoration: none
+                    transition: 0.1s ease
+                    &.active
+                        color:#000
+                    &:hover
+                        color: hsl(353, 100%, 43%)
+                        transition: 0.1s ease
+                    & svg
+                        width: 22px
+                    & span
+                        font-size: 1.6rem
+                    
+        

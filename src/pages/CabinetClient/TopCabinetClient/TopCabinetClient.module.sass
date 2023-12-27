@@ -1,0 +1,93 @@
+
+$c-brand: hsl(353, 100%, 43%)
+
+.top
+    background: linear-gradient( 290deg, hsl(33, 100%, 94%), hsl(339, 46%, 93%) )
+    margin-bottom: 60px
+    height: 178px
+    &__wrap
+        height: 100%
+        display: flex
+        justify-content: space-between
+        align-items: center
+        max-width: 1226px
+        margin: 0 auto
+        padding: 0 20px
+
+    & .user
+        &__wrap
+            display: flex
+            align-items: center
+        &__content
+            margin-left: 10px
+        &__name
+            color: #000
+            font-size: 3rem
+            font-weight: bold
+            
+        &__city
+            font-size: 1.6rem
+            color: #000
+            margin-right: 10px 
+        &__setting
+            color: hsla(0, 0%, 0%, 0.40)
+            text-decoration: none
+            font-size: 1.6rem
+            font-weight: 100
+            transition: 0.1s ease
+            &:hover
+                color: $c-brand
+                transition: 0.1s ease
+            
+            &__wrap
+                padding: 0
+                text-align: center
+        &__cash
+            text-align: end
+            flex-grow: 1
+            padding: 0 7px 0 0
+        &__operation
+            display: flex
+            align-items: center
+            justify-content: start
+            font-size: 2.4rem
+            width: 240px
+            font-weight: bold
+            color: #000
+            
+            & .pluse
+                padding: 0
+                position: relative
+                border-radius: 50%
+                background: #fff
+                display: inline-block
+                height: 30px
+                width: 30px
+                overflow: hidden
+                & svg
+                    position: absolute
+                    top: 50%
+                    left: 50%
+                    transform: translate(-50%, -50%)
+                    height: 80%
+                    width: 80%
+    & .avatar      
+        height: 60px
+        width: 60px
+        margin-top: -15px 
+        border-radius: 50% 
+        background: linear-gradient(0deg, hsla(339, 46%, 72%, 1), hsla(339, 46%, 80%, 1))
+
+        &__icon
+            color: #fff
+            height: 2rem
+            width: 2rem
+            margin: 0.5rem 0
+        &__name
+            height: 100%
+            width: 100%
+            display: inline-block
+            color: #fff
+            font-size: 4rem
+            font-weight: bold
+            text-align: center

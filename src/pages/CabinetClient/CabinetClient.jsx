@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { request } from "../../Action/request";
 import Header from "../../UI/Header/Header";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authToken, loaderUser, reloadUser } from "../../redux/dataState";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 import requestDataInToken from "../../Action/requestDataInToken";
 import Main from "./Main/Main";
+import { URL_IMG } from "../../config";
+import style from "./CabinetClient.module.sass";
+import { Container } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from "moment";
+import TopCabinetClient from "./TopCabinetClient/TopCabinetClient";
 
 export default function CabinetClient(props){
   let dispatch = useDispatch();
@@ -53,7 +59,12 @@ export default function CabinetClient(props){
         (select_user.loader)? 
         <PreloaderSmall/>
         :
-        <Main user={user} time={time}/>
+        <div className={style.wrap}>
+          <TopCabinetClient user={user}/>
+          <Container>
+              <Main user={user} time={time}/>
+          </Container>
+        </div>
       }
     </div>
   )

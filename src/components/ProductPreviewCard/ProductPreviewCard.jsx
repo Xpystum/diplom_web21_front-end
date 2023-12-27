@@ -31,7 +31,7 @@ export default function ProductPreviewCard(props) {
 
 
   const car = props.car;
-
+  console.log(car);
   useEffect(()=>{
 
     let flag = false;

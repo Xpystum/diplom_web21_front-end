@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authToken } from "../../redux/dataState";
 import requestDataInToken from "../../Action/requestDataInToken";
+import PostAdd from "../../UI/PostAdd/PostAdd";
 
 export default function Cars(props){
   let dispatch = useDispatch();
@@ -24,7 +25,8 @@ export default function Cars(props){
         (!auth.token)? 
         <PreloaderSmall/>
         :
-        'cars'
+        // 'cars'
+        <PostAdd />
         }
     </div>
   )

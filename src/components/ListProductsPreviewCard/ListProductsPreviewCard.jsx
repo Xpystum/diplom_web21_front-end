@@ -22,10 +22,15 @@ export default function ListProductsPreviewCard(props) {
         :
           (cars.length != 0)?
             cars.map((car) =>
-              <ProductPreviewCard
-                key={car.id}
-                car={car}
-              />
+              
+
+              (car.moderation_status == "approved")?
+                <ProductPreviewCard
+                  key={car.id}
+                  car={car}
+                /> 
+                :
+                  ""
             )
           :
           <div className={style.NoProduct}>
