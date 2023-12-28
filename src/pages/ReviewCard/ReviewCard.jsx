@@ -6,7 +6,6 @@ import { loadSelectReview, loaderSwitchReviews, reloadReviews, reloadSelectRevie
 import { useParams, useSearchParams } from "react-router-dom";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 import style from "./ReviewCard.module.sass"
-import "./ReviewCard.css"
 import { URL_IMG } from "../../config";
 import Slider from "../../components/Slider/Slider";
 
@@ -86,28 +85,28 @@ export default function ReviewCard(props) {
                             <span>- отзыв владельца</span>
                         </h1>
                     </div>
-                    <div className="Review_raiting_wrap">
-                        <div className="Review_holder_info">
+                    <div className={style.Review_raiting_wrap}>
+                        <div className={style.Review_holder_info}>
                             
                         </div>
-                        <div className="Raiting_wrap">
-                            <form className="Rate_wrap">
+                        <div className={style.Raiting_wrap}>
+                            <form className={style.Rate_wrap}>
                                 <span>Оцените отзыв:</span>
-                                <input type="button" id="1" value='1' className="Rate_num" onClick={(evt)=>{Rate(evt)}}></input>
-                                <input type="button" id="2" value='2' className="Rate_num" onClick={(evt)=>{Rate(evt)}}></input>
-                                <input type="button" id="3" value='3' className="Rate_num" onClick={(evt)=>{Rate(evt)}}></input>
-                                <input type="button" id="4" value='4' className="Rate_num" onClick={(evt)=>{Rate(evt)}}></input>
-                                <input type="button" id="5" value='5' className="Rate_num" onClick={(evt)=>{Rate(evt)}}></input>
+                                <input type="button" id="1" value='1' className={style.Rate_num} onClick={(evt)=>{Rate(evt)}}></input>
+                                <input type="button" id="2" value='2' className={style.Rate_num} onClick={(evt)=>{Rate(evt)}}></input>
+                                <input type="button" id="3" value='3' className={style.Rate_num} onClick={(evt)=>{Rate(evt)}}></input>
+                                <input type="button" id="4" value='4' className={style.Rate_num} onClick={(evt)=>{Rate(evt)}}></input>
+                                <input type="button" id="5" value='5' className={style.Rate_num} onClick={(evt)=>{Rate(evt)}}></input>
                             </form>
-                            <div className="Raiting">
+                            <div className={style.Raiting}>
                                 <span></span>
                                 <span>{select_review.raiting}</span>
                             </div>
                         </div>
                     </div>
-                    <div className="Rating-description_wrap">
-                        <div className="Column_left">
-                                <div className='PhotoGallery'>
+                    <div className={style.Rating_description_wrap}>
+                        <div className={style.Column_left}>
+                                <div className={style.PhotoGallery}>
                                     {
              
                                         (imgListProduct().length > 0)?
@@ -118,8 +117,8 @@ export default function ReviewCard(props) {
                                     
                                 </div>
                         </div>
-                        <div className='Сolumn_right'>
-                            <div className='CharacteristicsProduct'>
+                        <div className={style.Сolumn_right}>
+                            <div className={style.CharacteristicsProduct}>
                                 <table>
                                     <tbody>
                                         <tr>
@@ -168,7 +167,7 @@ export default function ReviewCard(props) {
                                 </table>
                             </div>
                         </div>
-                        <div className="Review_text">
+                        <div className={style.Review_text}>
                             <span>{select_review.review}</span>
                         </div>
                     </div>
