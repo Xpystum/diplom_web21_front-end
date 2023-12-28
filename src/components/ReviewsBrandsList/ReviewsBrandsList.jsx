@@ -9,6 +9,7 @@ import { loaderSwitchBrands, loaderSwitchProducts, reloadBrands } from "../../re
 import { useEffect, useState } from "react"
 import { ChevronUp } from "../Icons/ChevronUp"
 import { ChevronDown } from "../Icons/ChevronDown"
+import PreloaderSmall from "../PreloaderSmall/PreloaderSmall"
 //перевести на  SASS
 // отображение непопулярных моделей
 
@@ -68,7 +69,12 @@ export default function ReviewsBrandsList(props){
     }
       
     return(
-            <div className={style.ReviewBrandWrap}>
+        <div>
+            {
+                (popularBrandsList.length ==0)?
+                    <PreloaderSmall/>
+                :
+                <div className={style.ReviewBrandWrap}>
                 <h2>Отзывы об автомобилях</h2>
                 {
                 (brandsList.length != brands.data.length)?
@@ -114,5 +120,6 @@ export default function ReviewsBrandsList(props){
                     </div>
                 }
             </div>
+        }</div>
     )
 } 

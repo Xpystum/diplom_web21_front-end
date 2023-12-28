@@ -10,7 +10,7 @@ export default function ReviewsOwnersWidget(props){
 
     let dispatch = useDispatch();
     let reviews = useSelector(state => state.dataState.value.reviews.data)
-
+    
     useEffect(()=>{
           request('post', 'all-info-reviews', (response) => {
           if (response.status === 200) {

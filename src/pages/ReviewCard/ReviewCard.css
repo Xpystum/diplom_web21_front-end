@@ -1,0 +1,85 @@
+.Review_raiting_wrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1200px;
+}
+.Review_holder_info{
+    width: 200px;
+    height: 100px;
+}
+.Raiting_wrap{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 290px;
+    height: 100px;
+}
+.Rate_wrap{
+    width: 220px;
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.Rate_wrap span{
+    width: 100%;
+}
+.Rate_num{
+    width: 40px;
+    height: 40px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(189 194 199);
+    justify-content: center;
+    line-height: 40px;
+    font-size: 20px;
+    border: none;
+}
+.Rate_num:nth-child(5){
+    background-color: rgb(44 39 38);
+}
+.Rate_num:last-child{
+    background-color: rgb(219 0 27);
+}
+
+.Rate_num:hover{
+    background-color: rgba(41, 42, 43, 0.7);
+}
+.Raiting{
+    display: flex;
+    flex-wrap: wrap;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(44 39 38);
+    justify-content: center;
+}
+.Raiting span{
+    width: 50px;
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+    font-weight: 600;
+}
+.Rating-description_wrap{
+    width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.Column_left,
+.Сolumn_right{
+    width: 550px;
+}
+.CharacteristicsProduct table{
+    width: 100%;
+    margin: 20px;
+}
+.CharacteristicsProduct tr{
+    height: 36px;
+    font-size: 2rem;
+    text-align: start;
+}
+.Review_text{
+    font-size: 1.5rem;
+    text-align: start;
+}

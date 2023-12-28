@@ -25,6 +25,7 @@ export default function ReviewOwnerCard(props){
         case "12": reviewDateMounth = 'декабря'; break;
       }
     let reviewDateDay = lastReviewsOwners.created_at.substr(8, [2])
+    let imgAlt = lastReviewsOwners.main_img.substr(8)
 
     return(
     <div>
@@ -33,7 +34,7 @@ export default function ReviewOwnerCard(props){
                 <img 
                     className={style.Review_foto} 
                     src={urlImg + lastReviewsOwners.main_img} 
-                    alt='get from DB'></img>
+                    alt={imgAlt}></img>
                 <div className={style.Review_deskription}>
                     <div>
                         <span>{lastReviewsOwners.brand.name} {lastReviewsOwners.model.name} {lastReviewsOwners.year}</span>
