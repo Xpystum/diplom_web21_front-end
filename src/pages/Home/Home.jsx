@@ -13,7 +13,6 @@ export default function Home(props) {
             <Header />
             <div className={style.container}>
                 <Link to="/category/auto" className={style.link}><h1 className={style.title}>Продажа авто в России</h1></Link>
-                <Link to="/category/auto" className={style.link}><h1 className={style.title}>Продажа авто в России</h1></Link>
                 <div className={style.location}>
                     <a href="#" title="~ЗАГЛУШКА~">Нижегородская область</a>
                     <a href="#" title="~ЗАГЛУШКА~">Нижний Новгород</a>
