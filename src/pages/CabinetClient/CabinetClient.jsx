@@ -3,7 +3,7 @@ import { request } from "../../Action/request";
 import Header from "../../UI/Header/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, loaderSelectUser, reloadSelectUser, reloadUsers } from "../../redux/dataState";
+import { authToken, loaderUser, reloadUser } from "../../redux/dataState";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 import requestDataInToken from "../../Action/requestDataInToken";
 import Main from "./Main/Main";
@@ -50,7 +50,7 @@ export default function CabinetClient(props){
     <div>
       <Header user={user}/>
       {
-        (!auth.token )? 
+        (select_user.loader)? 
         <PreloaderSmall/>
         :
         <Main user={user} time={time}/>
