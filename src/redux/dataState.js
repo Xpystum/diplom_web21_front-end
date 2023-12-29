@@ -183,11 +183,11 @@ export const {
                 addFilterRadioButton,
                 addFilterCheckButton,
                 addFilterFilterInput,
-                reloadReviews,
-                reloadSelectReview,
-                loadSelectReview,
-                loaderSwitchReviews,
-                reloadUserReview,
+                reloadReviews,//reviews
+                reloadSelectReview,//reviews
+                loadSelectReview,//reviews
+                loaderSwitchReviews,//reviews
+                reloadUserReview,//reviews
               } = dataSlice.actions
 
 export default dataSlice.reducer
