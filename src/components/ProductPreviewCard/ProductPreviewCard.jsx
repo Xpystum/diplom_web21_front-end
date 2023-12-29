@@ -204,7 +204,6 @@ export default function ProductPreviewCard(props) {
             state={stateFavourites}
             actionFunction={onFavorite}
         />
-
         </div>
 
     </div>
