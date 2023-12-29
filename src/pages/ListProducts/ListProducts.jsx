@@ -29,6 +29,8 @@ export default function ListProducts(props){
 
     
     let cars = useSelector(state => state.dataState.value.products.data);
+      let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
+
       let [filters, setFilters] = useState({brand: '', model: '', truePhoto: false});
 
       let [listFilterCars, setListFilterCars] = useState(cars);
@@ -122,6 +124,7 @@ export default function ListProducts(props){
       function onFilterCheck(evt){
         let copy = Object.assign({}, filters);
         let idFilter = evt.target.id;
+        console.log(filters)
         switch (idFilter) {
           case "brand": 
               copy.brand = evt.target.value
