@@ -27,7 +27,7 @@ export default function ProductCard(props) {
     
     let select_product = useSelector(state => state.dataState.value.select_product);
 
-    let favorites = useSelector(state => state.dataState.value.users.favorites);
+    let favorites = useSelector(state => state.dataState.value.user.favorites);
 
     let responseSelectproduct = (response)=>{
         if(response.status == 200){
@@ -38,9 +38,8 @@ export default function ProductCard(props) {
     }
 
     useEffect(()=>{
-
         if(products.length == 0){
-           request("post", 'product', responseSelectproduct, {"id": links.id})
+            request("post", 'product', responseSelectproduct, {"id": links.id})
         } 
         else{
             products.forEach(product => {
@@ -94,7 +93,6 @@ export default function ProductCard(props) {
 
     }
 
-   
 
     const textIconStar = {
         initial: 'Добавить в избранное',
@@ -172,6 +170,7 @@ export default function ProductCard(props) {
         console.log('Проверка выполения функции =>', onCreditCalculator.name);
     }
 
+    
 
 
     return (
