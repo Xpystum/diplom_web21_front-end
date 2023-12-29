@@ -27,7 +27,7 @@ export default function ProductCard(props) {
     
     let select_product = useSelector(state => state.dataState.value.select_product);
 
-    let favorites = useSelector(state => state.dataState.value.users.favorites);
+    let favorites = useSelector(state => state.dataState.value.user.favorites);
 
     let responseSelectproduct = (response)=>{
         if(response.status == 200){

@@ -1,5 +1,7 @@
 import style from "./Filter.module.sass"
-
+import ButtonPlus from '../../UI/ButtonIcon/ButtonIcon';
+import Form from 'react-bootstrap/Form';
+import CircleColor from '../../UI/CircleColor/CircleColor';
 import CustomDataList from '../CustomDataList/CustomDataList';
 import CustomDataListImg from '../CustomDataListImg/CustomDataListImg';
 import CustomDataListNumber from '../CustomDataListNumber/CustomDataListNumber';
@@ -67,187 +69,101 @@ export function Filter(props){
       
       <div className={style.wrappFilterPx}>
         <form className={style.wrappFilter__filterForm}>
+          <div className={style.block_info_wrapp}>
+            <div className={style.block_info}>
+              <CustomDataList placeholder={'Марка'} IdInput="filter__mark_input"  IdDataList="filter__mark_dataList" />
+            </div>
 
-          { 
-            Array(AddlineHook.value.countLineBlock).fill(1).map((index, keyReact) => 
-                <BlockLineFilter 
-                  resetState={resetState}
-                  key={keyReact}
-                  index={keyReact}
-                  countLineBlock={AddlineHook.value.countLineBlock} 
-                  deletedLineBlock={AddlineHook.value.handlerDeletedLineBlock}    
-                  addLineBlock={AddlineHook.value.handlerAddLineBlock}
-                  title={'проверка'}
-                  isAdd={ (keyReact == 0)? ( (AddlineHook.value.countLineBlock > 1)? true : false) :  false}
-                  isFirst={ (keyReact == 0)? true : false }
-                />
-            )
-          }
+            <div className={style.block_info}>
+              <CustomDataList placeholder={'Модель'} IdInput="filter__model_input" IdDataList="filter__model_dataList"/>
+              {/* <DataList placeholder='Модель' ListInputName="filter__model_list"  IdDataList="filter__model_list"/> */}
+            </div>
 
+            <div className={style.block_info}>
+              
+              <CustomDataListImg placeholder={"Поколение"}/>
+              {/* <DataList placeholder='Поколение' ListInputName="filter__pocoleny_list"  IdDataList="filter__pocoleny_list"/> */}
+              <div className={style.block_info_icon}>
+                {/* <ButtonPlus IconContent="fa-solid fa-trash-can" size='2x'/> */}
+                <ButtonPlus IconContent="fa-solid fa-plus" size='2x'/>
+              </div>
+            </div>
+          </div>
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
-              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='Цена до' />
+              <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
+              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='Цена от, ₽' />
             </div>
 
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <CustomDataListNumber resetState={resetState} arrItem={arrYear} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
-              <CustomDataListNumber resetState={resetState} arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='Год до' />
+              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
+              <CustomDataListNumber arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='До' />
             </div>
 
             <div className={style.block_info_one}>
-              <CustomDataList resetState={resetState} CustomDataListStyle='DataListOneLeft' placeholder='КПП' IdInput="filter__kpp_input"  IdDataList="filter__kpp_dataList" />
-              <CustomDataList resetState={resetState} CustomDataListStyle='DataListOneRight' placeholder='Топливо' declination='Любое' IdInput="filter__fuel_input"  IdDataList="filter__fuel_dataList" />
+              <CustomDataList CustomDataListStyle='DataListOneLeft' placeholder='КПП' IdInput="filter__kpp_input"  IdDataList="filter__kpp_dataList" />
+              <CustomDataList CustomDataListStyle='DataListOneRight' placeholder='Топливо' declination='Любое' IdInput="filter__fuel_input"  IdDataList="filter__fuel_dataList" />
             </div>
 
           </div>
 
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='Объем от, л' />
-              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='Объем до' />
+              <CustomDataListNumber styleSelect={'DataListDoubleLeft'} placeholder='Объем от, л' />
+              <CustomDataListNumber styleSelect={'DataListDoubleRight'} placeholder='До' />
             </div>
 
             <div className={style.block_info}>
-              <CustomDataList resetState={resetState} placeholder='Привод' IdInput="filter__driveUnit_input" IdDataList="filter__driveUnit_dataList" declination='Любой'/>
+              <CustomDataList placeholder='Привод' IdInput="filter__driveUnit_input" IdDataList="filter__driveUnit_dataList" declination='Любой'/>
             </div>
 
             <div className={style.block_info_check_box + " " + style.block_info}>
-              <CheckButtonBootsrap resetState={resetState} type={'infoPhotoSell'} content={arrButtonCheckTwo}/>
+              <Form.Check className={style.check_box}>
+                <Form.Check.Input className={style.check_box_input} />
+                <Form.Check.Label className={style.check_box_label}>{"Непроданные"}</Form.Check.Label>
+              </Form.Check>
+
+              <Form.Check className={style.check_box}>
+                <Form.Check.Input className={style.check_box_input} />
+                <Form.Check.Label className={style.check_box_label}>{"С Фото"}</Form.Check.Label>
+              </Form.Check>
             </div>
 
           </div>
-
-          {
-            (statusOpen) ? 
-              <>
-                  <div className={style.block_info_wrapp}>
-                  <div className={style.block_info}>
-                    <CustomDataListImg resetState={resetState} placeholder={"Тип кузова"} type={"body"}/>
-                  </div>
-
-                  <div className={style.block_info}>
-                  <ButtonMultiButton resetState={resetState}/>
-                  </div>
-
-                  <div className={style.block_info}>
-                    {/* заглушка */}
-                  </div>
-                  </div>
-
-                  <div className={style.block_info_wrapp}>
-                      <div className={style.block_info}>
-                        <div className={style.wrapp_labelInput}>
-                          <label className={style.documentLabel}>
-                            Документы
-                          </label>
-                          <CustomDataList 
-                            resetState={resetState}
-                            nameBack='document'
-                            declination="" 
-                            placeholder={'Неважно'}
-                            IdInput="filter__doc_input"  
-                            IdDataList="filter__doc_dataList" 
-                            content={arrDocument}
-                          />
-                        </div>
-                      </div>
-
-                      <div className={style.block_info}>
-                        <div className={style.wrapp_labelInput}>
-                          <label className={style.documentLabel}>
-                            Повреждение
-                          </label>
-                          <CustomDataList
-                            resetState={resetState}
-                            nameBack='damage'
-                            declination="" 
-                            placeholder={'Повреждение'} 
-                            IdInput="filter__damage_input"  
-                            IdDataList="filter__damage_dataList" 
-                            content={arrDamage}
-                          />
-                        </div>
-                      </div>
-
-                      <div className={style.block_info}>
-                        <div className={style.wrapp_labelInput}>
-                          <label className={style.documentLabel}>
-                            Руль
-                          </label>
-                          <RadioButtonBootstrap resetState={resetState} nameSelectBack={'rudder'}/>
-                        </div>
-                      </div>
-
-
-                  </div>
-
-                  <div className={style.block_info_wrapp + ' ' + style.margin_top_10px}>
-
-
-                    <div className={style.block_info}>
-                      <div className={style.wrapp_fourCheckBox}>
-                          <label className={style.arrButtonCheckFourLabel}>
-                              Дополнительно
-                          </label>
-                          <CheckButtonBootsrap resetState={resetState} type={'extra'} styleWrappDiv='styleWrappDiv' content={arrButtonCheckFour}/>
-                      </div>
-                    </div>
-
-                    <div className={style.wrappFloatBottom}>
-                        <div className={style.wrapp_labelInput + ' ' + style.width48}>
-
-                          <label className={style.documentLabel}>
-                              Мощность по ПТС
-                          </label>
-
-                          <div className={style.block_info_double  + ' ' + style.block_info_double_middle}>
-                            <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='От, л.с' />
-                            <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='До' />
-                          </div>
-                          
-                        </div>
-
-                        <div className={style.wrapp_labelInput + ' ' + style.width48}>
-
-                          <label className={style.documentLabel}>
-                              Мощность по ПТС
-                          </label>
-
-                          <div className={style.block_info_double + ' ' + style.block_info_double_middle} >
-                            <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='От, км' />
-                            <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='До' />
-                          </div>
-
-                          <CheckButtonBootsrap resetState={resetState} type={'mileage'} styleWrappDiv='margin_top10px' content={arrButtonCheckOne}/>
-                        </div>
-                        <RadioButtonBootstrap resetState={resetState} nameSelectBack={'salesman'} defaultStatus={'all2'} radios={radios}/>
-                    </div>
-                  
-                  </div>
-
-                  <div className={style.block_info_wrapp}>
-                    <InputFormBootstrap resetState={resetState}/>
-                  </div>
-              </>
-              :
-              ""
-          }
 
           <div className={style.block_info_wrapp}>
+            <div className={style.block_info}>
+              <CustomDataListImg placeholder={"Тип кузова"} type={"body"}/>
+            </div>
 
             <div className={style.block_info}>
-              {(dataReduxInput) ?  <ButtonCollapseFilter stateReset={setResetState} type={'buttonReset'} /> : '' }
+            <ButtonMultiButton />
             </div>
 
-            <div className={style.flexCenter + ' ' + style.block_info }>
-              <ButtonCollapseFilter status={statusOpen} setStatus={setStatusOpen} />
-            </div>
-
-            <div className={style.WrappbuttonSearch}>
-              <button className={style.buttonSearch}>Показать</button>
+            <div className={style.block_info}>
+              {/* заглушка */}
             </div>
           </div>
+
+          <div className={style.block_info_wrapp}>
+              <div className={style.block_info}>
+                {/* заглушка */}
+              </div>
+
+            <div className={style.block_info}>
+              {/* заглушка */}
+            </div>
+
+            <div className={style.block_info}>
+              {/* заглушка */}
+            </div>
+          </div>
+
+          
+         
+          <input type="text" />
+
+          <button>Показать</button>
         </form>
       </div>
     </div>

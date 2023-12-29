@@ -11,7 +11,6 @@ export default function Home(props) {
         <div className={style.wrap}>
 
             <Header />
-            
             <div className={style.container}>
                 <Link to="/category/auto" className={style.link}><h1 className={style.title}>Продажа авто в России</h1></Link>
                 <div className={style.location}>
