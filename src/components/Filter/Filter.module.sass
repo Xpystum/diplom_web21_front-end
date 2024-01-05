@@ -1,54 +1,83 @@
+@mixin nameGrayTitle
+    color: rgba(0,0,0,0.4)
+    font-size: 1.35rem
+    margin-bottom: 6px
+
+
+.WrappbuttonSearch
+    display: flex
+    justify-content: flex-end 
+    .buttonSearch
+        // padding: 20px 10px
+        border-radius: 6px
+        font-weight: bold
+        height: 40px
+        width: 300px
+        text-align: center
+        font-size: 1.3rem
+        color: rgb(255,255,255)
+        background-color: #000
+        &:hover
+            opacity: 0.85
+            translate: all 0.5s 
+
+.width48
+    width: 48.75%
+    .documentLabel
+        @include nameGrayTitle
+.wrappFloatBottom
+    display: flex
+    width: 66.25%
+    justify-content: space-between
+    flex-wrap: wrap
+    align-items: stretch
+.margin_top_10px
+    margin-top: 10px
 .wrappFilterProcent
     width: 100%
 
     .wrappFilterPx
         width: 1440px
         margin: 0 auto
+        .wrapp_fourCheckBox 
+            display: flex
+            flex-direction: column
+            align-content: flex-start
+            align-items: flex-start
+            .arrButtonCheckFourLabel
+                @include nameGrayTitle
 
         .wrappFilter__filterForm
             border-radius: 16px
             width: 1024px
-            height: 600px
-            // background: #1e2021
+            // height: 600px
             background-color: #F5F5F5
             padding: 20px
             margin: 0 auto
             margin-bottom: 20px
+
         .block_info_wrapp
             width: 100%
             display: flex
             justify-content: space-between
-        
             .block_info
                 display: flex
                 justify-content: space-between
                 width: 32.5%
                 margin-bottom: 10px
-                box-sizing: border-bo
+                box-sizing: border-box
+                .wrapp_labelInput
+                    display: flex
+                    flex-direction: column
+                    width: 100%
+                    .documentLabel
+                        @include nameGrayTitle
             .block_info_check_box
                 display: flex   
                 flex-direction: row
                 align-items: center
                 justify-content: flex-start
-                .check_box  
-                    display: flex   
-                    flex-direction: row
-                    align-items: center
-                    
-                .check_box_input
-                    width: 30px
-                    height: 30px
-                    border-radius: 6px
-                    cursor: pointer
-                    &:focus
-                        box-shadow: none
-                    &:active
-                        background: rgb(233,236,239 )
 
-                .check_box_label
-                    font-size: 1.5rem
-                    margin: 0 14px 0 12px
-                
                 .selectBootstrap
                     font-size: 1.35rem
                     border-radius: 6px
@@ -61,6 +90,17 @@
                         box-shadow: none
                     &:hover
                         outline: 1px solid #D6D9DC
+            .flexCenter
+                display: flex
+                justify-content: center
+                height: 40px
+
+  
+
+        .block_info_double_middle
+            width: 100% !important
+
+      
 
         .block_info_double
             width: 33%
@@ -69,7 +109,7 @@
             position: relative
             &::after
                 content: ""
-                background-color: rgba(	26, 26, 26, 0.5 )
+                background-color: rgba(	26, 26, 26, 0.1 )
                 width: 1px
                 height: 20px
                 top: 50%
@@ -108,15 +148,13 @@
                     box-shadow: none
                 &:hover
                     outline: 1px solid #D6D9DC
-                        
-        .block_info_icon
-            display: flex
-            flex-direction: row
-            align-items: center
+
+    
+
+        
+
+
             
-
-
-                
 
 
 
