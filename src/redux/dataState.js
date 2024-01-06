@@ -54,7 +54,29 @@ export const dataSlice = createSlice({
         loader: true,
         data: []
       },
-      user_review:[],
+      user_review:{
+        data: [],
+      }
+      ,
+
+      models: {//модэли
+        data: []
+      },
+      body_type: {//кузов
+        data: []
+      },
+      fuel: {//топливо
+        data: []
+            },
+      transmission: {//трансмиссия
+        data: []
+            }, 
+      drive_unit: {//привод
+        data: []
+            },  
+      addReview: {//добавлениеотзыва
+        data: []
+            },        
     }
   },
   reducers: {
@@ -155,7 +177,26 @@ export const dataSlice = createSlice({
       state.value.reviews.loader = action.payload
     },
     reloadUserReview: (state, action) => {
-      state.value.user_review = action.payload
+      state.value.user_review.data = action.payload
+    },
+    reloadModels: (state, action) => {//модэли
+      state.value.models.data = action.payload
+    },
+
+    reloadBodyType: (state, action) => {//кузов
+      state.value.body_type.data = action.payload
+    },
+    reloadFuel: (state, action) => {//топливо
+      state.value.fuel.data = action.payload
+    },
+    reloadTransmission: (state, action) => {//трансмиссия
+      state.value.transmission.data = action.payload
+    },
+    reloadDriveUnit: (state, action) => {//привод
+      state.value.drive_unit.data = action.payload
+    },
+    addReview: (state, action) => {//добавление отзыва
+      state.value.add_reviews.data = action.payload
     },
   }
 })
@@ -188,6 +229,12 @@ export const {
                 loadSelectReview,//reviews
                 loaderSwitchReviews,//reviews
                 reloadUserReview,//reviews
+                reloadModels,//модэли
+                reloadBodyType,//кузова
+                reloadFuel,//топливо
+                reloadTransmission,//трансмиссия
+                reloadDriveUnit, //привод
+                addReview,
               } = dataSlice.actions
 
 export default dataSlice.reducer

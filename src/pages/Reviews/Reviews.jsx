@@ -1,9 +1,9 @@
-
+import style from "./Reviews.module.sass"
 import Header from "../../UI/Header/Header"
 import ReviewsBrandsList from "../../components/ReviewsBrandsList/ReviewsBrandsList"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loaderSwitchReviews, reloadReviews, reloadSelectReview, } from "../../redux/dataState";
+import { loaderSwitchProducts, reloadReviews, reloadSelectReview, } from "../../redux/dataState";
 import { request } from "../../Action/request";
 
 import ReviewCarousel from "../../widgets/ReviewsOwnersWidget/ReviewsCarousel/ReviewCarousel";
@@ -21,7 +21,7 @@ export default function Reviews(props){
     useEffect(()=>{
           request('post', 'all-info-reviews', (response) => {
           if (response.status === 200) {
-            dispatch(loaderSwitchReviews(false));
+            dispatch(loaderSwitchProducts(false));
             dispatch(reloadSelectReview(response.data));
 
             dispatch(reloadReviews(response.data));
@@ -39,10 +39,16 @@ export default function Reviews(props){
             (select_reviews.length == 0)?
               <PreloaderSmall/>
               :
-              <div>
+              <div className={style.Reviews_components_wrap}>
                 <ReviewsBrandsList/>
-                <ReviewCarousel/>
-                <ReviewTabs/>
+                <ReviewCarousel
+                  select_review={select_review}
+                  key={select_review.id}
+                />
+                <ReviewTabs
+                select_review={select_review}
+                key={select_review.id}
+                />
               </div>
             }
         </div>

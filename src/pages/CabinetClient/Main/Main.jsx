@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import style from "./Main.module.sass";
 import moment from 'moment/moment';
 
@@ -24,6 +25,10 @@ export default function Main(props){
             <p>Почта: {user.email}</p>
             <p>Статус: {user.status}</p>
             <p>Регистрация: {moment(time, "YYYYMMDD").format('LL')}</p>
+            <Link 
+                user={user}            
+                to='/category/reviews/add'
+            >Добавить отзыв</Link>
         </div>
     )
 };

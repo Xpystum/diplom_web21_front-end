@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function ReviewTabs(props){
-    let select_review = useSelector(state => state.dataState.value.select_review.data)
+    let select_review = props.select_review
 
     let tab_review = []
     

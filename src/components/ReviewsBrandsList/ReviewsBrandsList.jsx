@@ -1,4 +1,3 @@
-// import "./ReviewsBrandsList.css"
 import Carousel from "nuka-carousel"
 import Header from "../../UI/Header/Header"
 import style from "./ReviewsBrandsList.module.sass"
@@ -10,8 +9,7 @@ import { useEffect, useState } from "react"
 import { ChevronUp } from "../Icons/ChevronUp"
 import { ChevronDown } from "../Icons/ChevronDown"
 import PreloaderSmall from "../PreloaderSmall/PreloaderSmall"
-//перевести на  SASS
-// отображение непопулярных моделей
+
 
 export default function ReviewsBrandsList(props){
     let dispatch = useDispatch()
@@ -67,7 +65,7 @@ export default function ReviewsBrandsList(props){
             
         }
     }
-      
+    console.log(popularBrandsList)
     return(
         <div>
             {

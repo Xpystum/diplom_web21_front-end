@@ -79,13 +79,13 @@ export default function ReviewCard(props) {
                 <div className={style.ReviewCard}>
                     <div className={style.Headline}>
                         <h1>                            
-                            <span className={style.Brand}>{select_review.brand.name}</span>
-                            <span className={style.Model}>{select_review.model.name},</span> 
-                            <span className={style.YearMaking}>{select_review.year} год</span>
+                            <span className={style.Brand}>{select_review.brand.name} </span>
+                            <span className={style.Model}>{select_review.model.name}, </span> 
+                            <span className={style.YearMaking}>{select_review.year} год </span>
                             <span>- отзыв владельца</span>
                         </h1>
                     </div>
-                    <div className={style.Review_raiting_wrap}>
+                    {/* <div className={style.Review_raiting_wrap}>
                         <div className={style.Review_holder_info}>
                             
                         </div>
@@ -103,7 +103,7 @@ export default function ReviewCard(props) {
                                 <span>{select_review.raiting}</span>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className={style.Rating_description_wrap}>
                         <div className={style.Column_left}>
                                 <div className={style.PhotoGallery}>
