@@ -16,7 +16,7 @@ export default function UserPanelWidget(props){
 
     return(
         <div className={style.register_wrap}>
-
+            
             <div className={style.wrappProfile}>
                 <div className={style.wrapp_avatar}>
                     <div className={style.avatar}>

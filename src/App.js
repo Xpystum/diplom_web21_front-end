@@ -31,6 +31,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from 'react';
 import Reviews from './pages/Reviews/Reviews';
 import ReviewCard from './pages/ReviewCard/ReviewCard';
+import TestChatPage from './pages/TestChatPage/TestChatPage';
 
 library.add(fas)
 
@@ -101,7 +102,6 @@ function App() {
 
 
 
-    
 
 
     return (
@@ -124,6 +124,7 @@ function App() {
                             <Route path="/my/ads" element={<Cars/>}/>
                             <Route path="/category/reviews" element={<Reviews/>}/>
                             <Route path="/category/reviews/:id" element={<ReviewCard/>}/>
+                            <Route path="/chat" element={<TestChatPage/>}/>
                         </Routes>
                     </div>
             }
