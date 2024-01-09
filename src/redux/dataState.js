@@ -23,6 +23,10 @@ export const dataSlice = createSlice({
         loader: true,
         data: []
       },
+      widgets: {
+        loader: true,
+        data: []
+      },
       user: {
         loader: true,
         data: [],
@@ -85,6 +89,12 @@ export const dataSlice = createSlice({
     },
     loaderSwitchBrands: (state, action) => {
       state.value.brands.loader = action.payload
+    },
+    reloadWidgets: (state, action) => {
+      state.value.widgets.data = action.payload
+    },
+    loaderSwitchWidgets: (state, action) => {
+      state.value.widgets.loader = action.payload
     },
     reloadProducts: (state, action) => {
       state.value.products.data = action.payload
@@ -188,6 +198,8 @@ export const {
                 loadSelectReview,//reviews
                 loaderSwitchReviews,//reviews
                 reloadUserReview,//reviews
+                reloadWidgets,
+                loaderSwitchWidgets,
               } = dataSlice.actions
 
 export default dataSlice.reducer
