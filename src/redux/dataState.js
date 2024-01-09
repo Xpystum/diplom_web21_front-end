@@ -45,7 +45,16 @@ export const dataSlice = createSlice({
           dataListCheckButton: [],
           dataListFilterInput: [],
         }
-      }
+      },
+      reviews: {
+        loader: true,
+        data: []
+      },
+      select_review:{
+        loader: true,
+        data: []
+      },
+      user_review:[],
     }
   },
   reducers: {
@@ -132,6 +141,22 @@ export const dataSlice = createSlice({
      addFilterFilterInput: (state, action) => {
       state.value.filter.data.dataListFilterInput = action.payload;
     },
+    //reviews
+    reloadReviews: (state, action) => {
+      state.value.reviews.data = action.payload
+    },
+    reloadSelectReview: (state, action) => {
+      state.value.select_review.data = action.payload
+    },
+    loadSelectReview: (state, action) => {
+      state.value.select_review.loader = false
+    },
+    loaderSwitchReviews: (state, action) => {
+      state.value.reviews.loader = action.payload
+    },
+    reloadUserReview: (state, action) => {
+      state.value.user_review = action.payload
+    },
   }
 })
 
@@ -158,6 +183,11 @@ export const {
                 addFilterRadioButton,
                 addFilterCheckButton,
                 addFilterFilterInput,
+                reloadReviews,//reviews
+                reloadSelectReview,//reviews
+                loadSelectReview,//reviews
+                loaderSwitchReviews,//reviews
+                reloadUserReview,//reviews
               } = dataSlice.actions
 
 export default dataSlice.reducer

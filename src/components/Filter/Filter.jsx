@@ -45,8 +45,12 @@ export function Filter(props){
   useEffect(()=>{ 
     setResetState(false);
     setDataReduxInput(setStateReduxData());
+    console.log(countRedux);
   }, [countRedux] )
 
+  useEffect(()=>{ 
+    console.log(dataReduxInput, '___dataReduxInput');
+  }, [dataReduxInput] )
 
 
   const { arrDocument, 
