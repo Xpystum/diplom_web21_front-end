@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import style from './ReviewOwnerCard.module.sass';
 import { URL_IMG } from '../../config';
+import { Container } from 'react-bootstrap';
 
 
 
@@ -28,7 +29,8 @@ export default function ReviewOwnerCard(props){
     let imgAlt = lastReviewsOwners.main_img.substr(8)
 
     return(
-    <div>
+    <>
+        
         <Link className={style.Review_link} to={`/category/reviews/${lastReviewsOwners.id}`}> 
             <div  className={style.Review_wrap}>
                 <img 
@@ -45,5 +47,5 @@ export default function ReviewOwnerCard(props){
                 </div>
             </div>            
         </Link>
-    </div>
+    </>
 )}

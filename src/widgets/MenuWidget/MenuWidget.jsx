@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
-import styles from './Menu.module.sass';
+import styles from './MenuWidget.module.sass';
 
 import ItemsMenu from './ItemsMenu/ItemsMenu';
 
 import icon from './angel.svg'
 
 
-export default function Menu(props){
+export default function MenuWidget(props){
 
   let variation = 'defaultMenu';
   let menuItems = [];

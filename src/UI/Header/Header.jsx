@@ -1,12 +1,13 @@
 import style from './Header.module.sass';
-import Menu from '../Menu/Menu';
 import Logo from '../Logo/Logo';
-import Location from '../Location/Location';
+import Location from '../../widgets/LocationWidget/LocationWidget';
 import LoginRegisterWidget from '../../widgets/LoginRegisterWidget/LoginRegisterWidget';
 import PostAdd from '../PostAdd/PostAdd';
 import UserPanelWidget from '../../widgets/UserPanelWidget/UserPanelWidget';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import MenuWidget from '../../widgets/MenuWidget/MenuWidget';
+import LocationWidget from '../../widgets/LocationWidget/LocationWidget';
 
 export default function Header(props) {
   
@@ -24,9 +25,11 @@ export default function Header(props) {
       
       <div className={style.header__wrap}>
         <div className={style.header__info}>
-          <Logo/>
-          <Location />
-          <Menu mainMenu={mainMenu}/>  
+          <div className={style.header__logo}>
+            <Logo icon = "#DB001B" icon2 = "#000" text = "#fff"/>
+          </div>
+          <LocationWidget />
+          <MenuWidget mainMenu={mainMenu}/>  
         </div>
         
         

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { request } from "../../Action/request";
 import { reloadReviews } from "../../redux/dataState";
+import { Container, Row } from "react-bootstrap";
 
 export default function ReviewsOwnersWidget(props){
 
@@ -23,8 +24,8 @@ export default function ReviewsOwnersWidget(props){
     let lastReviewsOwners = reviews.slice( - 4)
 
     return (
-      <div className={style.Reviews_wrap}>
-        <div className={style.Reviews_owners_widget_wrap}>        
+      <Container className={style.Reviews_wrap}>
+        <Row className={style.Reviews_owners_widget_wrap}>        
             <Link to='category/reviews'>
                 <h2 >Отзывы владельцев авто</h2>
             </Link>
@@ -38,8 +39,8 @@ export default function ReviewsOwnersWidget(props){
               )
             }
             </div>
-        </div>      
-      </div>
+        </Row>      
+      </Container>
     )
   };
   
