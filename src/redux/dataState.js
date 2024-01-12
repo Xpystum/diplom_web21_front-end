@@ -196,7 +196,7 @@ export const dataSlice = createSlice({
       state.value.drive_unit.data = action.payload
     },
     addReview: (state, action) => {//добавление отзыва
-      state.value.add_reviews.data = action.payload
+      state.value.reviews.data = action.payload
     },
   }
 })

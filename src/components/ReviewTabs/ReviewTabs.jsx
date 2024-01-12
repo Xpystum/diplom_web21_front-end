@@ -91,7 +91,7 @@ export default function ReviewTabs(props){
                         <div className={style.Tab_panel_wrap}
                         >   
                             <div className={style.Add_review_wrap}>
-                                <Link className={style.Add_review} to='add'>
+                                <Link className={style.Add_review} to='add-review'>
                                     <button className={style.Add_review}>
                                             <span>Добавить отзыв </span>
                                     </button>
@@ -111,7 +111,7 @@ export default function ReviewTabs(props){
                             :
                             <div className={style.Tab_panel_wrap}>
                                 <div className={style.Add_review_wrap}>
-                                        <Link className={style.Add_review} to='add'>
+                                        <Link className={style.Add_review} to='add-review'>
                                             <button className={style.Add_review}>
                                                     <span>Добавить отзыв </span>
                                             </button>
@@ -127,7 +127,7 @@ export default function ReviewTabs(props){
                         <div className={style.Tab_panel_wrap}
                         >   
                             <div className={style.Add_review_wrap}>
-                                <Link className={style.Add_review} to='add'>
+                                <Link className={style.Add_review} to='add-review'>
                                     <button className={style.Add_review}>
                                             <span>Добавить отзыв </span>
                                     </button>
@@ -147,7 +147,7 @@ export default function ReviewTabs(props){
                             :
                             <div className={style.Tab_panel_wrap}>
                                 <div className={style.Add_review_wrap}>
-                                        <Link className={style.Add_review} to='add'>
+                                        <Link className={style.Add_review} to='add-review'>
                                             <button className={style.Add_review}>
                                                     <span>Добавить отзыв </span>
                                             </button>
@@ -162,7 +162,7 @@ export default function ReviewTabs(props){
                         <div className={style.Tab_panel_wrap}
                         >   
                             <div className={style.Add_review_wrap}>
-                                <Link className={style.Add_review} to='add'>
+                                <Link className={style.Add_review} to='add-review'>
                                     <button className={style.Add_review}>
                                             <span>Добавить отзыв </span>
                                     </button>
@@ -182,7 +182,7 @@ export default function ReviewTabs(props){
                             :
                             <div className={style.Tab_panel_wrap}>
                                 <div className={style.Add_review_wrap}>
-                                        <Link className={style.Add_review} to='add'>
+                                        <Link className={style.Add_review} to='add-review'>
                                             <button className={style.Add_review}>
                                                     <span>Добавить отзыв </span>
                                             </button>

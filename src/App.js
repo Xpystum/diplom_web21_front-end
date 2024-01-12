@@ -8,7 +8,7 @@ import { request } from './Action/request';
 import PreloaderStartPage from './components/PreloaderStartPage/PreloaderStartPage';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { reloadMenu, loaderSwitch, addFavorite } from './redux/dataState';
+import { reloadMenu, loaderSwitch, addFavorite, addReview } from './redux/dataState';
 import { Route, Routes } from 'react-router';
 import Home from './pages/Home/Home';
 import ListProducts from './pages/ListProducts/ListProducts';
@@ -96,6 +96,30 @@ function App() {
 
         
         requestToken(dispatch);
+        request('post', 'add-review', 
+        (response) => {
+            let addReviewsLocalstorage = []
+            if(localStorage.getItem('add_review')){
+                addReviewsLocalstorage = JSON.parse(localStorage.getItem('add_review'))
+            }
+            let addReviewBackend = response.data
+
+            let addReviews = addReviewsLocalstorage.concat(addReviewBackend)
+            let data = []
+            for(let addReview of addReviews){
+                data.push(JSON.stringify(addReview))
+            }
+            const addReviewsSet = new Set()
+            data.forEach((el)=>{
+                addReviewsSet.add(el);
+            })
+            addReviews = []
+            for(let addReview of addReviewsSet){
+                addReviews.push(JSON.parse(addReview));
+            }
+            dispatch(addReview(addReview))
+
+        }, [  ])
 
     },[])
 
@@ -125,7 +149,7 @@ function App() {
                             <Route path="/my" element={<CabinetClient/>}/>
                             <Route path="/my/ads" element={<Cars/>}/>
                             <Route path="/category/reviews" element={<Reviews/>}/>
-                            <Route path="/category/reviews/add" element={<AddReview/>}/>
+                            <Route path="/category/reviews/add-review" element={<AddReview/>}/>
                             <Route path="/category/reviews/:id" element={<ReviewCard/>}/>
                         </Routes>
                     </div>

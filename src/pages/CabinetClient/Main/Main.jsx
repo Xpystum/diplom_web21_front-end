@@ -27,7 +27,7 @@ export default function Main(props){
             <p>Регистрация: {moment(time, "YYYYMMDD").format('LL')}</p>
             <Link 
                 user={user}            
-                to='/category/reviews/add'
+                to='/category/reviews/add-review'
             >Добавить отзыв</Link>
         </div>
     )
