@@ -16,7 +16,6 @@ export default function ListProducts(props){
 
     useEffect(()=>{
       dispatch(loaderSwitchProducts(true));
-      // category-products
       request('post', 'all-info-products', (response) => {
         if (response.status === 200) {
           dispatch(loaderSwitchProducts(false));
@@ -29,7 +28,7 @@ export default function ListProducts(props){
 
     
     let cars = useSelector(state => state.dataState.value.products.data);
-      let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
+      // let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
 
       let [filters, setFilters] = useState({brand: '', model: '', truePhoto: false});
 
@@ -124,7 +123,6 @@ export default function ListProducts(props){
       function onFilterCheck(evt){
         let copy = Object.assign({}, filters);
         let idFilter = evt.target.id;
-        console.log(filters)
         switch (idFilter) {
           case "brand": 
               copy.brand = evt.target.value

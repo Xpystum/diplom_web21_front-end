@@ -17,9 +17,10 @@ export default function ButtonPlus(props) {
 
     return (
         <>
-            <button method={method} type={type} className={style.button}>
+            {/* <button method={method} type={type} className={style.button}>
                 <FontAwesomeIcon className={style.iconButton} icon={IconContent} size={size} aria-hidden='true'/>
-            </button>
+            </button> */}
         </>
+        // TODO исправляй ошибку method={method}, Вань
     )
 }

@@ -45,11 +45,11 @@ export function Filter(props){
   useEffect(()=>{ 
     setResetState(false);
     setDataReduxInput(setStateReduxData());
-    console.log(countRedux);
+    // console.log(countRedux);
   }, [countRedux] )
 
   useEffect(()=>{ 
-    console.log(dataReduxInput, '___dataReduxInput');
+    // console.log(dataReduxInput, '___dataReduxInput');
   }, [dataReduxInput] )
 
 
