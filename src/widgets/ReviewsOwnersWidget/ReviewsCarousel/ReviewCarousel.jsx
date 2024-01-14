@@ -23,8 +23,10 @@ export default function ReviewCarousel(props){
 
     // },[]);
 
-    let select_review = useSelector(state => state.dataState.value.select_review.data)
+    let select_reviews = useSelector(state => state.dataState.value.select_review)
+    let select_review = select_reviews.data
     // console.log(select_review)
+
     let carouselReviews = select_review.slice(-6) //отфильтровать за поледнюю неделю
     let loading = carouselReviews.length
     let screen = window.outerWidth
@@ -33,6 +35,7 @@ export default function ReviewCarousel(props){
     <div className={style.Carousel_main_Wrap}>
         <h2 className={style.Carousel_name}>Лучшие отзывы недели</h2>
         <div className={style.Carousel_Wrap}>
+            {(select_reviews.loader)?
             <Carousel 
                 slidesToShow={               
                     (screen >= 1375)?"5":
@@ -64,6 +67,9 @@ export default function ReviewCarousel(props){
                     />
                 )}
             </Carousel>
+            :
+            <PreloaderSmall />
+            }
         </div>  
     </div>
     
