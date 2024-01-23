@@ -11,6 +11,7 @@ export default function UserPanelWidget(props){
     let user = useSelector(state => state.dataState.value.user.data);
     function onLogout(){
         dispatch(removeToken());
+        localStorage.removeItem('uid');
         navigate("/sign");
     }
 
