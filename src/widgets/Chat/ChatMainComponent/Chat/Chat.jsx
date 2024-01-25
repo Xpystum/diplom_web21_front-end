@@ -3,6 +3,7 @@ import AddMessageForm from '../AddMessageForm/AddMessageForm';
 import style from './Chat.module.sass';
 import Pusher from 'pusher-js';
 import { useEffect, useState } from 'react';
+import { request } from '../../../../Action/request';
 
 export default function Chat(){
 
@@ -10,25 +11,24 @@ export default function Chat(){
   
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState([]);
-  let allMessage = [];
+  // let allMessage = [];
 
   async function requestMessage(){
 
-    await fetch('http://localhost:8000/api/chat/messages', {
+    await request('GET', 'chat', (response)=>{
+      console.log(1);
+      if (response.status == 200 && response.data.length > 0) {
+        setMessages(response.data);
+        console.log(response.data);
+      }
+    }, {})
 
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${'1|CFwAEz99ZEPf7Buoy0ni9u5NLdOIn7cd2KAYoW3cf3b23a7f'}`,
-      },
-    })
-
-    setMessage([]);
+    // setMessage([]);
   }
 
   useEffect(()=>{
 
-    Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
 
       const pusher = new Pusher('78ea49788a2c81fd0c1a', {
         cluster: 'eu'
@@ -38,8 +38,8 @@ export default function Chat(){
 
       channel.bind('message', function(data) {
         
-        console.log('зашёл в пушер')
-        console.log(data, '__data');
+        // console.log('зашёл в пушер')
+        // console.log(data, '__data');
         // allMessage.push(data);
         // setMessages(allMessage);
       });
@@ -49,7 +49,7 @@ export default function Chat(){
   }, [])
 
   useEffect(()=>{
-    console.log(messages, '____messages');
+    // console.log(messages, '____messages');
   }, [messages])
 
  
@@ -58,8 +58,8 @@ export default function Chat(){
     <div className={style.wrappChat}>
     
       <Messages messages={messages}/>
-      <AddMessageForm />
-        
+      <AddMessageForm requestMessage={requestMessage}/>
+      
     </div>
   )
 };

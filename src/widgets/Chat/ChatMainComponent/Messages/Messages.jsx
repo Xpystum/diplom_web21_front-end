@@ -1,15 +1,32 @@
+import { useEffect, useState } from "react";
 import Message from "../Message/Message";
 import style from "./Messages.module.sass";
 
 export default function Messages(props){
-  // const messages = [1,2,3,4];
-    const messages = props.messages;
-    return (
-      <div className={style.wrappMessages}>
-        {messages.map((message, index) => {
-          return <Message message={message} key={index} />
-        })}
-      </div>
-    )
-  };
+  const messagesProps = props.messages;
+  const [messages, setMessages] = useState(null);
+
+  useEffect(()=>{ 
+
+    if(messagesProps.length > 0){
+      setMessages(messagesProps);
+    }
+
+  }, [messagesProps] )
+  
+
+  return (
+    <div className={style.wrappMessages}>
+      {
+        messages ? 
+        messages.map((message, index) => {
+          return <Message test={console.log(message, 'number ' + index)} message={message} key={index} />
+        })
+        :
+        ""
+      }
+    </div>
+  )
+
+};
   
