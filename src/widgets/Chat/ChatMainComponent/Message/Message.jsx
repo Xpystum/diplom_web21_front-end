@@ -1,5 +1,6 @@
 import Avatar from 'react-avatar';
 import style from './Message.module.sass';
+import { URL_IMG } from '../../../../config';
 
 export default function Message(props){
 
@@ -8,24 +9,26 @@ export default function Message(props){
         author: 'Maksim',
         text: 'Hello Friend',
     }
+    const message = props.message ?? message1;
+    const user = message.user ?? null;
+    const avatarPath = user.pathAvatar.path.resource ?? '';
 
-    const message2 = props.message;
-    console.log(message2, 'message_Одно сообщение в Message');
 
-      return (
-        
+    return (
+
         <div className={style.wrappMessage}>
             <div>
-                <Avatar src={message1.url} size='40' round = {true}/> 
-                <b className={style.authorName}>{message1.author}</b>
+                <Avatar src={URL_IMG + avatarPath} size='40' round = {true}/> 
+                <b className={style.authorName}>{user.name}</b>
             </div>
 
             <div className={style.messageText}>
-                {message1.text}
+                {message.message}
             </div>
             
             <div className={style.lineSeparator}> </div>
         </div>
-      )
-    };
+
+    )
+};
     

@@ -6,7 +6,7 @@ import { faVk } from '@fortawesome/free-brands-svg-icons';
 import { request } from '../../../Action/request';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite } from '../../../redux/dataState';
+import { addFavorite, loaderUser, reloadUser } from '../../../redux/dataState';
 import { authToken } from "../../../redux/dataState";
 
 export default function Sign(props) {
@@ -30,7 +30,14 @@ export default function Sign(props) {
         
         if($response.data.code == 201 && $response.data.token.trim() != ""){
             localStorage.setItem($response.data.token_name, $response.data.token);
-            localStorage.setItem("uid", $response.data.uid);
+            const id = localStorage.setItem("uid", $response.data.uid);
+
+            request('post', 'user', (response) => {
+                if (response.status === 200) {
+                    console.log(response.data, 'зашли в синг в реквест')
+                    dispatch(reloadUser(response.data));
+                }
+            }, {'id': id});
             
             navigate("/my");
 

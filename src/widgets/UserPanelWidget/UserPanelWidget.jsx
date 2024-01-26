@@ -1,18 +1,42 @@
 import { Link } from "react-router-dom";
 import style from './UserPanelWidget.module.sass';
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, removeToken } from "../../redux/dataState";
+import { authToken, reloadUser, removeToken } from "../../redux/dataState";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { request } from "../../Action/request";
+
 
 export default function UserPanelWidget(props){
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    let user = useSelector(state => state.dataState.value.user.data);
+    // const [user, setUser] = useState(useSelector(state => state.dataState.value.user.data));
+    const user = useSelector(state => state.dataState.value.user.data);
+    console.log(user, 'UserPanelHeader');
+
+    function requestUser(){
+        request('post', 'user', (response) => {
+            if (response.status === 200 && response.data.length != 0) {
+                dispatch(reloadUser(response.data));
+            }
+        }, {'id': localStorage.getItem("uid")});
+    }
+
+
+    useEffect(()=>{
+
+        if(user.length == 0) {
+            console.log('вызов');
+            requestUser();
+        }
+
+    }, [])
+
     function onLogout(){
         dispatch(removeToken());
         navigate("/sign");
-    }
+    }   
 
     return(
         <div className={style.register_wrap}>
@@ -22,7 +46,7 @@ export default function UserPanelWidget(props){
                     <div className={style.avatar}>
                     <Link className={style.profileBlock_itemBlock_link} to="/my" onClick={()=>{}}>
                         {
-                            (user.name)? 
+                            (user.length != 0)? 
                                 <span className={style.avatar__name}>{user.name[0]}</span>
                                 :
                                 <FontAwesomeIcon className={style.avatar__icon} icon="fa-solid fa-user-tie"/>

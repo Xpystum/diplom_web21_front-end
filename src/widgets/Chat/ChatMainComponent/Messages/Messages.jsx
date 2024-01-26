@@ -4,7 +4,7 @@ import style from "./Messages.module.sass";
 
 export default function Messages(props){
   const messagesProps = props.messages;
-  const [messages, setMessages] = useState(null);
+  const [messages, setMessages] = useState([]);
 
   useEffect(()=>{ 
 
@@ -19,8 +19,8 @@ export default function Messages(props){
     <div className={style.wrappMessages}>
       {
         messages ? 
-        messages.map((message, index) => {
-          return <Message test={console.log(message, 'number ' + index)} message={message} key={index} />
+        messages.map( (message, index) => {
+          return <Message message={message} key={index} />
         })
         :
         ""
