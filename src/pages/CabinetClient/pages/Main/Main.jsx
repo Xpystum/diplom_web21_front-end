@@ -4,7 +4,6 @@ import moment from 'moment/moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Row, Col } from "react-bootstrap";
 import { URL_IMG } from "../../../../config";
-import TopCabinetClient from "../../components/MenuCabinet/TopCabinetClient/TopCabinetClient";
 
 export default function Main(props){
     let user = props.user;
