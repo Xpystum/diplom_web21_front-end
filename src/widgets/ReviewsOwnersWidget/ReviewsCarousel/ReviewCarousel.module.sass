@@ -2,14 +2,21 @@
     display: flex
     justify-content: center
     width: 1200px
-.slider-list
-    background: hsl(51, 100%, 92%)
-    cursor: pointer
-.slider-control-bottomcenter
-    display: none
-.slider-control-centerleft,
-.slider-control-centerright
-    height: 100%
+    &-list
+        background: hsl(51, 100%, 92%)
+        cursor: pointer
+    &-control-bottomcenter
+        display: none
+    &-centerleft,
+    &-centerright
+        height: 100%
+    & h2
+        font-weight: 500
+        font-size: 30px
+        text-align: left
+        width: 1200px
+        color: rgb(0,0,0)
+        margin: 30px 0px
 .angel
     background: linear-gradient(to left,  transparent 0% , #333 200%)
     height: 100%
@@ -55,10 +62,4 @@
 .Carousel_Wrap
     width: 1200px
 
-h2
-    font-weight: 500
-    font-size: 30px
-    text-align: left
-    width: 1200px
-    color: rgb(0,0,0)
-    margin: 30px 0px
+

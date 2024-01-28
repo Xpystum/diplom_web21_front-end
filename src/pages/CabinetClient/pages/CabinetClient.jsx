@@ -6,7 +6,7 @@ import requestDataInToken from "../../../Action/requestDataInToken";
 import PreloaderSmall from "../../../components/PreloaderSmall/PreloaderSmall";
 import Header from "../../../UI/Header/Header";
 import Main from "./Main/Main";
-import { Col, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { request } from "../../../Action/request";
 import style from "./CabinetClient.module.sass";
 import MenuCabinet from "../components/MenuCabinet/MenuCabinet";
@@ -59,15 +59,17 @@ export default function CabinetClient(props){
         :
         <div className={style.wrap}> 
           <TopCabinetClient user={user}/>
+          <Container>
+            <Row className={style.wrap_container}>
+                <Col  xs={9} className={style.content}>
+                    <Main user={user} time={time}/>
+                </Col>
+                <Col  xs={2} className={style.aside}>
+                    <MenuCabinet />
+                </Col>
+            </Row>  
+          </Container>
           
-          <Row>
-              <Col  xs={9}>
-                  <Main user={user} time={time}/>
-              </Col>
-              <Col  xs={3}>
-                  <MenuCabinet />
-              </Col>
-          </Row>
         </div>
       }
     </div>
