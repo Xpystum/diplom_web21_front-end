@@ -16,13 +16,11 @@ import Catalog from './pages/Catalog/Catalog';
 import Card from './pages/Card/Card';
 import Curtain from './components/Curtain/Curtain';
 import Sign from './pages/Sign/Sign';
-import CabinetClient from './pages/CabinetClient/CabinetClient';
 import requestToken from "./Action/requestToken";
-
+import Ads from './pages/CabinetClient/pages/Ads/Ads';
 
 // стили
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Cars from './pages/CabinetClient/Cars';
 
 
 // значки
@@ -31,6 +29,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from 'react';
 import Reviews from './pages/Reviews/Reviews';
 import ReviewCard from './pages/ReviewCard/ReviewCard';
+import CabinetClient from './pages/CabinetClient/pages/CabinetClient';
+
 
 library.add(fas)
 
@@ -120,8 +120,8 @@ function App() {
                             <Route path="/category/:alias/card/:id" element={<Card />} />
                             <Route path="/sign" element={<Sign/>}/>
 
-                            <Route path="/my" element={<CabinetClient/>}/>
-                            <Route path="/my/ads" element={<Cars/>}/>
+                            <Route path="/my" element={<CabinetClient />}/>
+                            <Route path="/my/ads" element={<Ads />}/>
                             <Route path="/category/reviews" element={<Reviews/>}/>
                             <Route path="/category/reviews/:id" element={<ReviewCard/>}/>
 

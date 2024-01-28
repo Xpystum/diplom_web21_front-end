@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { request } from "../../Action/request";
-import Header from "../../UI/Header/Header";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, loaderUser, reloadUser } from "../../redux/dataState";
-import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
-import requestDataInToken from "../../Action/requestDataInToken";
+import { useNavigate } from "react-router-dom";
+import { authToken, loaderUser, reloadUser } from "../../../redux/dataState";
+import requestDataInToken from "../../../Action/requestDataInToken";
+import PreloaderSmall from "../../../components/PreloaderSmall/PreloaderSmall";
+import Header from "../../../UI/Header/Header";
 import Main from "./Main/Main";
-import { URL_IMG } from "../../config";
+import { Col, Row } from "react-bootstrap";
+import { request } from "../../../Action/request";
 import style from "./CabinetClient.module.sass";
-import { Container } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import moment from "moment";
-import TopCabinetClient from "./TopCabinetClient/TopCabinetClient";
+import MenuCabinet from "../components/MenuCabinet/MenuCabinet";
+import TopCabinetClient from "../components/TopCabinetClient/TopCabinetClient";
 
 export default function CabinetClient(props){
   let dispatch = useDispatch();
@@ -59,9 +57,17 @@ export default function CabinetClient(props){
         (select_user.loader)? 
         <PreloaderSmall/>
         :
-        <div className={style.wrap}>
+        <div className={style.wrap}> 
           <TopCabinetClient user={user}/>
-          <Main user={user} time={time}/>
+          
+          <Row>
+              <Col  xs={9}>
+                  <Main user={user} time={time}/>
+              </Col>
+              <Col  xs={3}>
+                  <MenuCabinet />
+              </Col>
+          </Row>
         </div>
       }
     </div>
