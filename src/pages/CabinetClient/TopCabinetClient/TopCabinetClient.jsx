@@ -30,7 +30,7 @@ export default function TopCabinetClient(props){
                 </div>
                 <Row className={style.user__operation}>
                     <Col className={style.user__cash}>{new Intl.NumberFormat("ru-RU").format(user.cash)} &#8381;</Col>
-                    <Col xs={2}className={style.pluse}><FontAwesomeIcon icon="fa-solid fa-plus" /></Col>
+                    <Col xs={2} className={style.pluse}><FontAwesomeIcon icon="fa-solid fa-plus" /></Col>
                     <Col xs={12}  className={style.user__setting__wrap}><Link className={style.user__setting} to="#">Отчеты по операциям</Link></Col>
                 </Row>
                     
@@ -38,3 +38,7 @@ export default function TopCabinetClient(props){
         </div>
     );
 };
+
+// TODO сделать  
+//  настройки
+//  Отчеты по операциям

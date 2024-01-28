@@ -61,9 +61,7 @@ export default function CabinetClient(props){
         :
         <div className={style.wrap}>
           <TopCabinetClient user={user}/>
-          <Container>
-              <Main user={user} time={time}/>
-          </Container>
+          <Main user={user} time={time}/>
         </div>
       }
     </div>
