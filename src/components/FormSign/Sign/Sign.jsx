@@ -4,19 +4,56 @@ import style from './Sign.module.sass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVk } from '@fortawesome/free-brands-svg-icons';
 import { request } from '../../../Action/request';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite, loaderUser, reloadUser } from '../../../redux/dataState';
-import { authToken } from "../../../redux/dataState";
+import { reloadUser, authToken } from '../../../redux/dataState';
+import { loadUser } from '../../../redux/sliceUser';
+
 
 export default function Sign(props) {
     let navigate = useNavigate();
     let dispatch = useDispatch();
     let favorites = useSelector(state => state.dataState.value.user.favorites);
-    let authToken = useSelector(state => state.dataState.value.app.auth.token);
+    // let authToken = useSelector(state => state.dataState.value.app.auth.token);
 
     let [mail, mailState] = useState(null);
     let [pass, passState] = useState(null);
+
+    function authResponse(response){
+        
+        if(response.data.code == 201 && response.data.token.trim() != ""){
+            console.log(response.data.token_name, 'response.data.token_name');
+            localStorage.setItem(response.data.token_name, response.data.token);
+            localStorage.setItem("uid", response.data.uid);
+            const id = localStorage.getItem("uid");
+
+            request('post', 'user', (responseUser) => {     
+                // console.log(responseUser, '_________response');
+                if (responseUser.status === 200) {
+
+                    dispatch(reloadUser(responseUser.data));
+                    dispatch(loadUser(responseUser.data));
+
+                }
+            }, {'id': id} );
+            
+            request("post", 'favorites-sinc', (response)=>{
+                
+                dispatch(authToken(localStorage.getItem("my_token")))
+                // dispatch(addFavorite(response.data));
+                
+                    
+            }, {"favorites":favorites} )
+
+            navigate("/my");
+
+        }
+
+        if(response.data.code == 403){
+            console.log(403, '______ошибка');
+        }
+
+    }
 
     function clickButton(){
         request('post', 'auth', authResponse, 
@@ -26,35 +63,7 @@ export default function Sign(props) {
         })
     }
 
-    function authResponse($response){
-        
-        if($response.data.code == 201 && $response.data.token.trim() != ""){
-            localStorage.setItem($response.data.token_name, $response.data.token);
-            const id = localStorage.setItem("uid", $response.data.uid);
-
-            request('post', 'user', (response) => {
-                if (response.status === 200) {
-                    console.log(response.data, 'зашли в синг в реквест')
-                    dispatch(reloadUser(response.data));
-                }
-            }, {'id': id});
-            
-            navigate("/my");
-
-            request("post", 'favorites-sinc', (response)=>{
-                
-                dispatch(authToken(localStorage.getItem("my_token")))
-                // dispatch(addFavorite(response.data));
-                
-                    
-            }, {"favorites":favorites} )
-        }
-
-        if($response.data.code == 403){
-            console.log(403, '______ошибка');
-        }
-
-    }
+   
 
 
   return (

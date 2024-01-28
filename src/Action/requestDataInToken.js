@@ -12,14 +12,12 @@ export default function requestDataInToken(navigate, dispatch, requestData = {})
     let parametrs = Object.assign({}, {'token': localStorage.getItem("my_token")}, requestData.parametrs);
 
     
-    request('post', requestData.url, ($response)=>{
-      $response.console.log('??')
-      if(!$response.data){
+    request('post', requestData.url, (response)=>{
+      if(!response.data){
         navigate('/sign');
       }
 
-      if($response.data){
-        console.log(localStorage.getItem("my_token"), 'requestDataInToken');
+      if(response.data){
         dispatch(authToken(localStorage.getItem("my_token")));
       }
     }, parametrs);

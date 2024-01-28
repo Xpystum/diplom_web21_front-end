@@ -19,7 +19,7 @@ export default function Chat(){
       console.log(1);
       if (response.status == 200 && response.data.length > 0) {
         setMessages(response.data);
-        console.log(response.data);
+        // console.log(response.data, 'chat outside');
       }
     }, {})
 

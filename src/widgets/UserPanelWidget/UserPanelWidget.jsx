@@ -1,44 +1,22 @@
 import { Link } from "react-router-dom";
 import style from './UserPanelWidget.module.sass';
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, reloadUser, removeToken } from "../../redux/dataState";
+import { removeToken } from "../../redux/dataState";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { request } from "../../Action/request";
-
-//redux-persist
-import { createStore } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import Avatar from 'react-avatar';
+import { URL_IMG } from "../../config";
 
 
 export default function UserPanelWidget(props){
-    
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const [user, setUser] = useState(useSelector(state => state.dataState.value.user.data));
-    const user = useSelector(state => state.dataState.value.user.data);
-    // console.log(user, 'UserPanelHeader');
-    
-    //TODO фиксануть баг с аватаром и redux
-    function requestUser(){    
-        request('post', 'user', (response) => {     
-            if (response.status === 200 && response.data.length != 0) {   
-                dispatch(reloadUser(response.data));
-            }
-        }, {'id': localStorage.getItem("uid")});
-    }
-
+    const user = useSelector(state => state.sliceUser.value.user.data);
+    const userAvatar = user?.pathAvatar?.path?.resource;
 
     useEffect(()=>{
-
-        if(user.length == 0) {
-            console.log('вызов уже в эффекте');
-            requestUser();
-        }
-
+        console.log(user);
     }, [])
 
     function onLogout(){
@@ -55,10 +33,9 @@ export default function UserPanelWidget(props){
                     <Link className={style.profileBlock_itemBlock_link} to="/my" onClick={()=>{}}>
                         {
                             (user.length != 0)? 
-                                <span className={style.avatar__name}>{user.name[0]}</span>
-                                :
-                                <FontAwesomeIcon className={style.avatar__icon} icon="fa-solid fa-user-tie"/>
-                            
+                            <Avatar name={user.name} className={style.profileBlock_itemBlock_link} src={URL_IMG + userAvatar} size='35' round = {true}/> 
+                            :
+                            <FontAwesomeIcon className={style.avatar__icon} icon="fa-solid fa-user-tie" /> 
                         }
                     </Link> 
                     </div >
