@@ -7,17 +7,25 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { request } from "../../Action/request";
 
+//redux-persist
+import { createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 
 export default function UserPanelWidget(props){
+    
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const [user, setUser] = useState(useSelector(state => state.dataState.value.user.data));
     const user = useSelector(state => state.dataState.value.user.data);
-    console.log(user, 'UserPanelHeader');
-
-    function requestUser(){
-        request('post', 'user', (response) => {
-            if (response.status === 200 && response.data.length != 0) {
+    // console.log(user, 'UserPanelHeader');
+    
+    //TODO фиксануть баг с аватаром и redux
+    function requestUser(){    
+        request('post', 'user', (response) => {     
+            if (response.status === 200 && response.data.length != 0) {   
                 dispatch(reloadUser(response.data));
             }
         }, {'id': localStorage.getItem("uid")});
@@ -27,7 +35,7 @@ export default function UserPanelWidget(props){
     useEffect(()=>{
 
         if(user.length == 0) {
-            console.log('вызов');
+            console.log('вызов уже в эффекте');
             requestUser();
         }
 
