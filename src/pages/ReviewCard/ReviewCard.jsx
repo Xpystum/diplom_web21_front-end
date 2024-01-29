@@ -43,7 +43,13 @@ export default function ReviewCard(props) {
         let idRate = evt.target.id
         console.log(idRate)
     }
-
+    let steering_wheel = ''
+    if(select_review.steering_wheel == 'left'){
+        steering_wheel = "Левый"
+    }
+    if(select_review.steering_wheel == 'right'){
+        steering_wheel = "Правый"
+    }
 
         console.log(select_review)
         console.log(reviews)
@@ -73,7 +79,7 @@ export default function ReviewCard(props) {
     return (
         <div>
             <Header/>
-            {(select_review.length == 0)?
+            {(!select_review || select_review.length == 0)?
                     <PreloaderSmall/>
                 :
                 <div className={style.ReviewCard}>
@@ -160,7 +166,7 @@ export default function ReviewCard(props) {
                                         <tr>
                                             <th>Руль</th>
                                             <td>
-                                                <span>{select_review.steering_wheel}</span>
+                                                <span>{steering_wheel}</span>
                                             </td>
                                         </tr>
                                     </tbody>

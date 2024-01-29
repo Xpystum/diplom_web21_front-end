@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
 import { Form, Field } from 'react-final-form'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { request } from '../../Action/request'
-import { addReview, reloadReviews, reloadSelectReview } from '../../redux/dataState'
+import { batch, useSelector } from 'react-redux';
+import { useCallback, useEffect, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
 
 
 export default function AddReviewCard(props){
@@ -14,82 +14,146 @@ export default function AddReviewCard(props){
     let fuel = props.fuel
     let transmission = props.transmission
     let drive_unit = props.drive_unit
+    let [files, setFiles] = useState([]);
     let reviews = useSelector(state => state.dataState.value.reviews.data)
+    let reviewId = [user.id] + [reviews.length] 
 
-    let dispatch = useDispatch()
+    console.log(reviewId)
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    }
 
+    const onSubmit = async values => {//функция кнопки
+      await sleep(300)
+      console.log(values)
 
-    useEffect(()=>{
-      request('post', 'all-info-reviews', (response) => {
-      if (response.status === 200) {
-        dispatch(reloadSelectReview(response.data));
+      
+      
+      let review = {
+              'id': reviewId,
+              'user_id': user.id, 
+              'brand_id': values.brand_id, 
+              'model_id': values.model_id,
+              'steering_wheel': values.steering_wheel,
+              'body_type_id': values.body_type_id,
+              'year': values.year,
+              'engine_capacity': values.engine_capacity,
+              'power': values.power,
+              'fuel_id': values.fuel_id,
+              'transmission_id': values.transmission_id,
+              'drive_unit_id': values.drive_unit_id,
+              'mileage': values.mileage,
+              'sale_year': values.sale_year,
+              'main_img': 'reviews/audi1_1.jpg',//TODO имя файла
+              'review': values.review,
+              'raiting': 0,
       }
-    }, [{}]);})
-
-    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-    const onSubmit = async values => {
       
-      // await sleep(300)
-      // window.alert(JSON.stringify(values, 0, 2))
-
-      values.user_id = user.id
-      localStorage.setItem('add_review', JSON.stringify(values))
-
-      
-console.log(reloadSelectReview(reviews))
-
       request('post', 'add-review', 
       (response) => {
         if (response.status === 200) {
-            console.log(1)
-            dispatch(addReview(response.data))
+          console.log(review)
+
         }
-      }, 
-      [
-        JSON.stringify(values)
-              // {
-              // 'user-id': user.id, 
-              // 'brand-id': 1, 
-              // 'model_id': 2,
-              // 'steering_wheel': 'left',
-              // 'body_type': 1,
-              // 'year': 2000,
-              // 'engine_capacity': 2,
-              // 'power': 2,
-              // 'fuel_id': 2,
-              // 'transmission_id': 2,
-              // 'drive_unit_id': 2,
-              // 'mileage': 2,
-              // 'sale_year': 2001,
-              // 'main_img': 'reviews/audi1_1.jpg',
-              // 'raiting': 0,}
-      ])
-      console.log(values)
+      }, review)
+
+
+      //TODO зациклить на длинну массива
+      let imgId = [reviewId] + [files.length]
+
+      let foto = {
+        'id': imgId,
+        'review_id': reviewId,
+        'resource': 'reviews/audi1_2.jpg',
+      }
+/*
+      request('post', 'add-review-img', 
+      (response) => {
+        if (response.status === 200) {
+          console.log(files)
+          
+        }
+      }, foto)
+
+        // console.log(files.map(file =>(file.name)))
+
+      request('post', 'save-img', 
+          (response) => {
+            if (response.status === 200) {
+              console.log('save')
+        }
+      }, files)
+*/
+      files.forEach((file) => 
+      
+          request('post', 'add-review-img', 
+          (response) => {
+            if (response.status === 200) {
+              console.log(files)
+              console.log(file)
+              request('post', 'save-img', 
+              (response) => {
+                if (response.status === 200) {
+                  console.log('save')
+                }
+              }, file)
+            }
+      }, foto),
+      )
     }
 
     const required = value => (value && value !== null? undefined : '*')
     const checkOpton = value => (value != null ? undefined : 'Выберите опцию')
     const mustBeNumber = value => (isNaN(value) ? 'Введите число' : undefined)
-
     const minValue = min => value =>
       isNaN(value) || value >= min ? undefined : `*`
     const maxValue = max => value =>
       isNaN(value) || value <= max ? undefined : `*`
     const composeValidators = (...validators) => value =>
-      validators.reduce((error, validator) => error || validator(value), undefined)
-
-      
+      validators.reduce((error, validator) => error || validator(value), undefined)      
       const Error = ({ name }) => (
         <Field
-
-          name={name}
-          subscription={{ touched: true, error: true }}
-          render={({ meta: { touched, error } }) =>
+            name={name}
+            subscription={{ touched: true, error: true }}
+            render={({ meta: { touched, error } }) =>
             touched && error ? <span>{error}</span> : null
           }
         />
       )
+
+//добавление фоток
+      
+      const {getRootProps, getInputProps} = useDropzone({
+        accept: {
+          'image/*': []
+        },
+        onDrop: acceptedFiles => {
+          
+          setFiles(acceptedFiles.map(file => Object.assign(file, {
+            preview: URL.createObjectURL(file)
+          })));
+        },
+        value: files.name
+      });
+    
+    
+      const thumbs = files.map(file => (
+        <div key={file.name}>
+          <div>
+            <img
+              src={file.preview}
+              
+              onLoad={() => { URL.revokeObjectURL(file.preview) }}
+            />
+          </div>
+        </div>
+      ));
+    
+      useEffect(() => {
+
+        return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+      }, []);
+
 
     return(
         
@@ -106,51 +170,20 @@ console.log(reloadSelectReview(reviews))
           <div>
           <h1>Добавление отзыва об автомобиле</h1>
           <Form
-            action='/add-review'
             onSubmit={onSubmit}
-
-            initialValues={{ 
-              // id: idNum,
-              // user_id: user.id, 
-              // brand_id: null, 
-              // model_id: null,
-              // steering_wheel: null,
-              // body_type_id: null,
-              // year: null,
-              // engine_capacity: null,
-              // power: null,
-              // fuel_id: null,
-              // transmission_id: null,
-              // drive_unit_id: null,
-              // mileage: null,
-              // sale_year: null,
-              // main_img: null,
-              // raiting: 0,
-            }}
+            initialValues={{}}
             render={({ handleSubmit, form, submitting, pristine, values }) => 
             (
             <div className='Form_wrap' >
+              
               <form
-                method='post'
-                action='add-review'
-                onSubmit={handleSubmit}
-                
+                id='review'
+                onSubmit={handleSubmit}                
                 >
                   
                 <div className='User_info'>
                   <div>Информация о вас
                     <Link to='/my'><p>{user.name}</p></Link>
-{/* 
-                    <Field
-                      name="user_id"
-                      component="input"
-
-                      checked
-                      type="radio"
-                      value={user.id}
-                    /> */}
-
-
                   </div>
                 </div>
                 <div className='Brand_model_wrap'>
@@ -160,12 +193,10 @@ console.log(reloadSelectReview(reviews))
                       name="brand_id" 
                       component="select" 
                       validate={required || checkOpton}
-                      // placeholder="Выберете марку"
                       >
                       <option 
                         value="null" 
                         selected 
-                        // disabled
                         >Выберете марку</option>
                       {
                       brands.map(brands =>
@@ -186,7 +217,6 @@ console.log(reloadSelectReview(reviews))
                   >
                     <option 
                       value="null" 
-                      // disabled 
                       selected>Выберете модель</option>
                     {models.map(models =>
                     <option 
@@ -394,29 +424,41 @@ console.log(reloadSelectReview(reviews))
                           component="textarea"
                           rows="15" 
                           cols="220"/>
-                        </div>
+                      </div>
                     </div>
 
+                  <div className='Foto_wrap'>                    
+                    <section className="container">
+                      <div {...getRootProps({className: 'dropzone'})}>
+                        <input {...getInputProps()} 
+                        />
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                      </div>
+                      <aside className='Foto_preview'>
+                        {thumbs}                      
+                      </aside>
+                    </section>                    
+                  </div>
 
                 <div className="Button_submit">
                   <button 
-                    type="submit" disabled={submitting || pristine}
-                    // onClick={onSubmit}     
-                                 
+                    type="submit" 
+                    onClick={() => {
+                      document.getElementById('review')
+                      .dispatchEvent(new Event('submit', { cancelable: true, bubbles:true }))
+                    }}                                 
                   >
                     Создать отзыв
                   </button>
-
                 </div>
-                {/* //предпросмотр удолить */}
-                <pre>{JSON.stringify(values, 0, 2)}</pre>
               </form>
               </div>
             )}
+
           />
           </div>
           }
-
+            
         </div>
     )
 }

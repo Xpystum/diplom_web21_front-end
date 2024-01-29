@@ -4,16 +4,18 @@ import style from './ReviewOwnerCard.module.sass';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { request } from "../../Action/request";
-import { reloadReviews } from "../../redux/dataState";
+import { loaderSwitch, reloadReviews } from "../../redux/dataState";
+import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 
 export default function ReviewsOwnersWidget(props){
 
     let dispatch = useDispatch();
     let reviews = useSelector(state => state.dataState.value.reviews.data)
-    
+    console.log(reviews)
     useEffect(()=>{
           request('post', 'all-info-reviews', (response) => {
           if (response.status === 200) {
+            dispatch(loaderSwitch(false))
             dispatch(reloadReviews(response.data));            
           }
         }, []);
@@ -24,6 +26,13 @@ export default function ReviewsOwnersWidget(props){
 
     return (
       <div className={style.Reviews_wrap}>
+        {(!reviews 
+        || reviews.length == 0 
+        
+        )?
+
+        <PreloaderSmall/>
+        :
         <div className={style.Reviews_owners_widget_wrap}>        
             <Link to='category/reviews'>
                 <h2 >Отзывы владельцев авто</h2>
@@ -38,7 +47,7 @@ export default function ReviewsOwnersWidget(props){
               )
             }
             </div>
-        </div>      
+        </div>}      
       </div>
     )
   };

@@ -195,9 +195,7 @@ export const dataSlice = createSlice({
     reloadDriveUnit: (state, action) => {//привод
       state.value.drive_unit.data = action.payload
     },
-    addReview: (state, action) => {//добавление отзыва
-      state.value.reviews.data = action.payload
-    },
+
   }
 })
 

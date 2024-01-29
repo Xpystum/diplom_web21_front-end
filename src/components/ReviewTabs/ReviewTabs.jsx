@@ -41,7 +41,7 @@ export default function ReviewTabs(props){
                 setTabReview(tab_review)
                 break;
             case 'new':  
-                tab_review = select_review.slice(-3)
+                // tab_review = select_review.slice(-3)
                  
                 setTabReview(tab_review)
                 break;

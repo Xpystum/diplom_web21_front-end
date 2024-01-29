@@ -1,15 +1,20 @@
 import { Link } from 'react-router-dom';
 import style from './ReviewOwnerCard.module.sass';
 import { URL_IMG } from '../../config';
+import PreloaderSmall from '../../components/PreloaderSmall/PreloaderSmall';
 
 
 
 export default function ReviewOwnerCard(props){
     const lastReviewsOwners = props.lastReviewsOwners;
 
+    let img = lastReviewsOwners.main_img
     let urlImg = URL_IMG
+    if(lastReviewsOwners.main_img == null)(
+        img = 'reviews/nofoto/wagon.png'
+    )
 
-    let reviewDateMounth = lastReviewsOwners.created_at.substr(5, [2])
+    let reviewDateMounth = lastReviewsOwners.created_at.substr(5, [2]);
     switch (reviewDateMounth) {
         case "01": reviewDateMounth = 'января'; break;
         case "02": reviewDateMounth = 'февраля'; break;
@@ -23,17 +28,30 @@ export default function ReviewOwnerCard(props){
         case "10": reviewDateMounth = 'октября'; break;
         case "11": reviewDateMounth = 'ноября'; break;
         case "12": reviewDateMounth = 'декабря'; break;
-      }
-    let reviewDateDay = lastReviewsOwners.created_at.substr(8, [2])
-    let imgAlt = lastReviewsOwners.main_img.substr(8)
+      };
+    let reviewDateDay = lastReviewsOwners.created_at.substr(8, [2]);
+    
+    let imgAlt;
+    if(lastReviewsOwners.main_img != null){
+        imgAlt = lastReviewsOwners.main_img.substr(8);
+    }
+    else{
+        imgAlt ='nofoto.png'
+    }
 
     return(
     <div>
-        <Link className={style.Review_link} to={`/category/reviews/${lastReviewsOwners.id}`}> 
+        <Link className={style.Review_link} to={`/category/reviews/${lastReviewsOwners.id}`}>
+        {(lastReviewsOwners.length == 0 
+        
+        )?
+
+        <PreloaderSmall/>
+        : 
             <div  className={style.Review_wrap}>
                 <img 
                     className={style.Review_foto} 
-                    src={urlImg + lastReviewsOwners.main_img} 
+                    src={urlImg + img} 
                     alt={imgAlt}></img>
                 <div className={style.Review_deskription}>
                     <div>
@@ -43,7 +61,7 @@ export default function ReviewOwnerCard(props){
                         <p>{reviewDateDay} {reviewDateMounth}</p>
                     </div>
                 </div>
-            </div>            
+            </div>  }          
         </Link>
     </div>
 )}

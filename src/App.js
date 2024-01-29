@@ -8,7 +8,7 @@ import { request } from './Action/request';
 import PreloaderStartPage from './components/PreloaderStartPage/PreloaderStartPage';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { reloadMenu, loaderSwitch, addFavorite, addReview } from './redux/dataState';
+import { reloadMenu, loaderSwitch, addFavorite, addReview, reloadReviews } from './redux/dataState';
 import { Route, Routes } from 'react-router';
 import Home from './pages/Home/Home';
 import ListProducts from './pages/ListProducts/ListProducts';
@@ -39,11 +39,12 @@ library.add(fas)
 
 
 
-function App() {
+function App(props) {
 
 
     let loading = useSelector(state => state.dataState.value.app.loader);
     let dispatch = useDispatch();
+    let reviews = useSelector(state => state.dataState.value.reviews.data)
 
     useEffect(()=>{
 
@@ -96,7 +97,7 @@ function App() {
 
         
         requestToken(dispatch);
-        request('post', 'add-review', 
+        /*request('post', 'add-review', 
         (response) => {
             let addReviewsLocalstorage = []
             if(localStorage.getItem('add_review')){
@@ -117,10 +118,14 @@ function App() {
             for(let addReview of addReviewsSet){
                 addReviews.push(JSON.parse(addReview));
             }
-            dispatch(addReview(addReview))
+            dispatch(addReview(addReviews))
 
-        }, [  ])
-
+        }, [  ])*/
+        request('post', 'all-info-reviews', (response) => {
+            if (response.status === 200) {
+              dispatch(reloadReviews(response.data));            
+            }
+          }, []);
     },[])
 
     
@@ -148,9 +153,9 @@ function App() {
 
                             <Route path="/my" element={<CabinetClient/>}/>
                             <Route path="/my/ads" element={<Cars/>}/>
-                            <Route path="/category/reviews" element={<Reviews/>}/>
-                            <Route path="/category/reviews/add-review" element={<AddReview/>}/>
-                            <Route path="/category/reviews/:id" element={<ReviewCard/>}/>
+                            <Route path="/category/reviews" element={<Reviews reviews={props.reviews}/>}/>
+                            <Route path="/category/reviews/add-review" element={<AddReview reviews={props.reviews}/>}/>
+                            <Route path="/category/reviews/:id" element={<ReviewCard reviews={props.reviews}/>}/>
                         </Routes>
                     </div>
             }
