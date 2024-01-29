@@ -1,5 +1,7 @@
+import { Col, Container, Row } from "react-bootstrap";
 import Header from "../../UI/Header/Header";
 import CaruselWidget from "../../widgets/CaruselWidget/CaruselWidget";
+import CheckBeforePurchaseWidget from "../../widgets/CheckBeforePurchaseWidget/CheckBeforePurchaseWidget";
 import ReviewsOwnersWidget from "../../widgets/ReviewsOwnersWidget/ReviewsOwnersWidget";
 import style from './Home.module.sass'
 import { Link } from "react-router-dom";
@@ -22,8 +24,17 @@ export default function Home(props) {
             </div>
 
             <CaruselWidget />
-
-            <ReviewsOwnersWidget />
+            <Container className={style.content}>
+                <Row>
+                    <Col xs={9}>
+                        <ReviewsOwnersWidget />
+                    </Col>
+                    <Col xs={3}>
+                        <CheckBeforePurchaseWidget/>
+                    </Col>    
+                </Row>
+            </Container>
+            
 
         </div>
     )

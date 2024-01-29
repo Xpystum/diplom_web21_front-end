@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
-import styles from './Menu.module.sass';
+import styles from './MenuWidget.module.sass';
 
 import ItemsMenu from './ItemsMenu/ItemsMenu';
 
 import icon from './angel.svg'
 
 
-export default function Menu(props){
+export default function MenuWidget(props){
 
   let variation = 'defaultMenu';
   let menuItems = [];
@@ -50,14 +50,6 @@ export default function Menu(props){
                   }
                 </ul>
               </li>
-
-              // <li className={styles.submenu} key={item.id}>
-              //   <span>{item.item_name} <img src={icon} alt="" /></span>
-              //     <ul className={styles.submenu__ul}>
-              //       <SubMenu variation={variation} key={item.id} item={item} menuItems={menuItems}/>
-              //     </ul>
-              // </li>
-
              
               :
               ""

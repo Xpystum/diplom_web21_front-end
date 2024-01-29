@@ -11,6 +11,7 @@ export default function UserPanelWidget(props){
     let user = useSelector(state => state.dataState.value.user.data);
     function onLogout(){
         dispatch(removeToken());
+        localStorage.removeItem('uid');
         navigate("/sign");
     }
 
@@ -43,7 +44,7 @@ export default function UserPanelWidget(props){
                 </div>
 
                 <div className={style.profileBlock_item}>
-                    <Link className={style.profileBlock_itemBlock_link} to="#" onClick={()=>{}}>
+                    <Link className={style.profileBlock_itemBlock_link} to="/my/ads" onClick={()=>{}}>
                         <div className={style.profileBlock_itemBlock}>
                             <FontAwesomeIcon className={style.profileBlock_itemBlock_Icon} icon="fa-solid fa-car-side" />
                             <span>Объявление</span>

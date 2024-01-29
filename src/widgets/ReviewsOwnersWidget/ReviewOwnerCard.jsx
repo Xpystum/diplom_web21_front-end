@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import style from './ReviewOwnerCard.module.sass';
 import { URL_IMG } from '../../config';
-import PreloaderSmall from '../../components/PreloaderSmall/PreloaderSmall';
+import { Container } from 'react-bootstrap';
 
 
 
@@ -40,14 +40,9 @@ export default function ReviewOwnerCard(props){
     }
 
     return(
-    <div>
-        <Link className={style.Review_link} to={`/category/reviews/${lastReviewsOwners.id}`}>
-        {(lastReviewsOwners.length == 0 
+    <>
         
-        )?
-
-        <PreloaderSmall/>
-        : 
+        <Link className={style.Review_link} to={`/category/reviews/${lastReviewsOwners.id}`}> 
             <div  className={style.Review_wrap}>
                 <img 
                     className={style.Review_foto} 
@@ -61,7 +56,7 @@ export default function ReviewOwnerCard(props){
                         <p>{reviewDateDay} {reviewDateMounth}</p>
                     </div>
                 </div>
-            </div>  }          
+            </div>            
         </Link>
-    </div>
+    </>
 )}

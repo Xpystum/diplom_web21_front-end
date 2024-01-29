@@ -1,6 +1,5 @@
 import './App.css';
 import './ResetStyle.css';
-
 import { request } from './Action/request';
 
 // Компоненты
@@ -17,13 +16,11 @@ import Catalog from './pages/Catalog/Catalog';
 import Card from './pages/Card/Card';
 import Curtain from './components/Curtain/Curtain';
 import Sign from './pages/Sign/Sign';
-import CabinetClient from './pages/CabinetClient/CabinetClient';
 import requestToken from "./Action/requestToken";
-
+import Ads from './pages/CabinetClient/pages/Ads/Ads';
 
 // стили
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Cars from './pages/CabinetClient/Cars';
 
 
 // значки
@@ -32,7 +29,9 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from 'react';
 import Reviews from './pages/Reviews/Reviews';
 import ReviewCard from './pages/ReviewCard/ReviewCard';
+import CabinetClient from './pages/CabinetClient/pages/CabinetClient';
 import AddReview from './pages/AddReview/AddReview';
+
 
 library.add(fas)
 
@@ -97,30 +96,7 @@ function App(props) {
 
         
         requestToken(dispatch);
-        /*request('post', 'add-review', 
-        (response) => {
-            let addReviewsLocalstorage = []
-            if(localStorage.getItem('add_review')){
-                addReviewsLocalstorage = JSON.parse(localStorage.getItem('add_review'))
-            }
-            let addReviewBackend = response.data
-
-            let addReviews = addReviewsLocalstorage.concat(addReviewBackend)
-            let data = []
-            for(let addReview of addReviews){
-                data.push(JSON.stringify(addReview))
-            }
-            const addReviewsSet = new Set()
-            data.forEach((el)=>{
-                addReviewsSet.add(el);
-            })
-            addReviews = []
-            for(let addReview of addReviewsSet){
-                addReviews.push(JSON.parse(addReview));
-            }
-            dispatch(addReview(addReviews))
-
-        }, [  ])*/
+        
         request('post', 'all-info-reviews', (response) => {
             if (response.status === 200) {
               dispatch(reloadReviews(response.data));            
@@ -151,11 +127,12 @@ function App(props) {
                             <Route path="/category/:alias/card/:id" element={<Card />} />
                             <Route path="/sign" element={<Sign/>}/>
 
-                            <Route path="/my" element={<CabinetClient/>}/>
-                            <Route path="/my/ads" element={<Cars/>}/>
+                            <Route path="/my" element={<CabinetClient />}/>
+                            <Route path="/my/ads" element={<Ads />}/>
                             <Route path="/category/reviews" element={<Reviews reviews={props.reviews}/>}/>
                             <Route path="/category/reviews/add-review" element={<AddReview reviews={props.reviews}/>}/>
                             <Route path="/category/reviews/:id" element={<ReviewCard reviews={props.reviews}/>}/>
+
                         </Routes>
                     </div>
             }

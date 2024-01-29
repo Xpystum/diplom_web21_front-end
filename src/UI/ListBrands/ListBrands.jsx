@@ -1,6 +1,6 @@
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "./ListBrands.sass"
-import BrandColumn from "../../widgets/BrandColumn/BrandColumn";
+import BrandColumn from "../../widgets/BrandColumnWidget/BrandColumn";
 
 
 

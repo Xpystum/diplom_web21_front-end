@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { request } from "../../Action/request";
-import Header from "../../UI/Header/Header";
-import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, loaderUser, reloadUser } from "../../redux/dataState";
-import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
-import requestDataInToken from "../../Action/requestDataInToken";
+import { useNavigate } from "react-router-dom";
+import { authToken, loaderUser, reloadUser } from "../../../redux/dataState";
+import requestDataInToken from "../../../Action/requestDataInToken";
+import PreloaderSmall from "../../../components/PreloaderSmall/PreloaderSmall";
+import Header from "../../../UI/Header/Header";
 import Main from "./Main/Main";
+import { Col, Container, Row } from "react-bootstrap";
+import { request } from "../../../Action/request";
+import style from "./CabinetClient.module.sass";
+import MenuCabinet from "../components/MenuCabinet/MenuCabinet";
+import TopCabinetClient from "../components/TopCabinetClient/TopCabinetClient";
 
 export default function CabinetClient(props){
   let dispatch = useDispatch();
@@ -53,7 +57,20 @@ export default function CabinetClient(props){
         (select_user.loader)? 
         <PreloaderSmall/>
         :
-        <Main user={user} time={time}/>
+        <div className={style.wrap}> 
+          <TopCabinetClient user={user}/>
+          <Container>
+            <Row className={style.wrap_container}>
+                <Col  xs={9} className={style.content}>
+                    <Main user={user} time={time}/>
+                </Col>
+                <Col  xs={2} className={style.aside}>
+                    <MenuCabinet />
+                </Col>
+            </Row>  
+          </Container>
+          
+        </div>
       }
     </div>
   )

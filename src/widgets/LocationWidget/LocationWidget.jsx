@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import styles from './Location.module.sass';
+import styles from './LocationWidget.module.sass';
 import icon from './location.svg'
 
-export default function Location(props){
+export default function LocationWidget(props){
 
     return(
         <div className={styles.__wrap}>

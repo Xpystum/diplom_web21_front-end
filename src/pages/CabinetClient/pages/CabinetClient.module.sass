@@ -1,7 +1,7 @@
 .wrap
     font-size: 1.6rem
     text-align: left
-
+    background: #fff
     & .top
         background: linear-gradient( 290deg, hsl(33, 100%, 94%), hsl(339, 46%, 93%) )
         margin-bottom: 60px
@@ -9,13 +9,12 @@
         &__wrap
             height: 100%
             display: flex
-            justify-content: space-around
+            justify-content: space-between
+            align-items: center
             max-width: 1226px
             margin: 0 auto
             padding: 0 20px
-        & .user_wrap
-            display: flex
-            align-items: center
+
     & .avatar      
         height: 60px
         width: 60px
@@ -36,3 +35,11 @@
             font-size: 4rem
             font-weight: bold
             text-align: center
+.wrap_container
+    margin-left: 42px 
+
+.content
+    flex-grow: 1
+.aside
+    flex-grow: 3
+    padding-left: 3px 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { request } from "../../Action/request";
 import { loaderSwitch, reloadReviews } from "../../redux/dataState";
+import { Container, Row } from "react-bootstrap";
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 
 export default function ReviewsOwnersWidget(props){

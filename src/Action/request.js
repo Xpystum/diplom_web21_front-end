@@ -20,7 +20,7 @@ export function request(method, url, callback, data = {}){
         return true;
     })
     .catch(function (error) {
-        console.log(error);
+        // console.log(error);
         return false;
     });
 
