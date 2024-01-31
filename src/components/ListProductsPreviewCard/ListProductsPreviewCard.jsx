@@ -24,7 +24,7 @@ export default function ListProductsPreviewCard(props) {
             cars.map((car) =>
               
 
-              (car.moderation_status == "approved")?
+              (car.moderation_status_id == 1)?
                 <ProductPreviewCard
                   key={car.id}
                   car={car}

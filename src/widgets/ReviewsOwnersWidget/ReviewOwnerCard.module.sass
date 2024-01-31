@@ -2,23 +2,27 @@
     display: flex
     flex-wrap: wrap    
     width: 100%
-    justify-content: center
 .Reviews_owners_widget_wrap
     display: flex  
-    align-items: center
-    justify-self: center
+    // align-items: center
+    flex-direction: column
+    width: 100%
     & h2
         font-size: 3rem
         margin-bottom: 20px
+        
         text-align: left
         font-weight: 600
         width: 100%
         color: rgb(0,0,0)
+        transition: 0.1s ease      
         &:hover
-            color: rgb(223, 2, 27)        
+            color: rgb(223, 2, 27)
+            transition: 0.1s ease      
     .Reviews_owners_wrap
         flex-wrap: wrap
         display: flex
+        width: 100%
         justify-content: space-between
     .Review_wrap
         justify-content: column
