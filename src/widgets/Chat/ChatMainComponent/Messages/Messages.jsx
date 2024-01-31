@@ -20,7 +20,7 @@ export default function Messages(props){
       {
         messages ? 
         messages.map( (message, index) => {
-          return <Message message={message} key={index} />
+          return <Message message={message} key={index + 1} />
         })
         :
         ""

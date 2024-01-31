@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeToken } from "../../redux/dataState";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Avatar from 'react-avatar';
 import { URL_IMG } from "../../config";
 
@@ -14,10 +13,6 @@ export default function UserPanelWidget(props){
     const navigate = useNavigate();
     const user = useSelector(state => state.sliceUser.value.user.data);
     const userAvatar = user?.pathAvatar?.path?.resource;
-
-    useEffect(()=>{
-        console.log(user);
-    }, [])
 
     function onLogout(){
         dispatch(removeToken());

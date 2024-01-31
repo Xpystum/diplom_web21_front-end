@@ -40,7 +40,6 @@ library.add(fas)
 
 function App() {
 
-
     let loading = useSelector(state => state.dataState.value.app.loader);
     let dispatch = useDispatch();
 

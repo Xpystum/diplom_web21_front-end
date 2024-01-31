@@ -1,6 +1,7 @@
 import { configureStore, combineReducers , getDefaultMiddleware  } from '@reduxjs/toolkit'
 import dataSliceReducer from './dataState';
 import sliceUser from './sliceUser';
+import sliceChat from './sliceChat';
 //redux persist
 import { 
   persistStore,
@@ -18,6 +19,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 const rootReducer = combineReducers({
   dataState: dataSliceReducer,
   sliceUser: sliceUser,
+  sliceChat: sliceChat,
 });
 
 // const customizedMiddleware = getDefaultMiddleware({
@@ -27,8 +29,8 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'user',
   storage,
-  blacklist: ['dataState'],
-  whitelist: ['sliceUser']
+  blacklist: ['dataState', 'sliceChat'],
+  whitelist: ['sliceUser'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

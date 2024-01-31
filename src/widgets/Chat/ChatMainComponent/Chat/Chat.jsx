@@ -5,52 +5,88 @@ import Pusher from 'pusher-js';
 import { useEffect, useState } from 'react';
 import { request } from '../../../../Action/request';
 
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { loadMessages } from '../../../../redux/sliceChat';
+import { object } from 'prop-types';
+
 export default function Chat(){
 
-  // const socket = WebSocket()
+  let allMessages = useSelector(state => state.sliceChat.value.chat.messages);
+
+  const dispatch = useDispatch(); 
   
-  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState([]);
-  // let allMessage = [];
+  const [messages, setMessages] = useState([]);
+
 
   async function requestMessage(){
-
     await request('GET', 'chat', (response)=>{
-      console.log(1);
       if (response.status == 200 && response.data.length > 0) {
+        dispatch(loadMessages(response.data));
         setMessages(response.data);
-        // console.log(response.data, 'chat outside');
       }
     }, {})
-
-    // setMessage([]);
   }
 
-  useEffect(()=>{
+  function apiPusher(allMessages){
 
     Pusher.logToConsole = false;
+    const pusher = new Pusher('78ea49788a2c81fd0c1a', {
+      cluster: 'eu'
+    });
+    const channel = pusher.subscribe('chat');
+    channel.bind('message', function(data) {
 
-      const pusher = new Pusher('78ea49788a2c81fd0c1a', {
-        cluster: 'eu'
-      });
+      try {
 
-      const channel = pusher.subscribe('chat');
+        if(data.length != 0){
+            setMessage(data);
+        }
+      
+      } catch (err) {
+      
+        // обработка ошибки
+      
+      }
 
-      channel.bind('message', function(data) {
-        
-        // console.log('зашёл в пушер')
-        // console.log(data, '__data');
-        // allMessage.push(data);
-        // setMessages(allMessage);
-      });
+    });
 
-    // requestMessage();
+    pusher.connection.bind("connecting", function () {
+      console.log('соединение');
+    });
 
+    pusher.connection.bind("unavailable", function () {
+      console.log('соединение не установлено');
+    });
+
+    pusher.connection.bind("connected", function () {
+      console.log('соединение установлено');
+    });
+
+    pusher.connection.bind("error", function (error) {
+      console.error("Ошибка соединение", error);
+    });
+
+    console.log(pusher.connection.state, ':____состояние соединение');
+  }
+
+  //запуск запроса на получение сообщений + вебсокет
+  useEffect(()=>{
+    requestMessage();
+    apiPusher(allMessages);
   }, [])
 
-  useEffect(()=>{
-    // console.log(messages, '____messages');
-  }, [messages])
+  //добавление сообщение в чат
+  useEffect(()=>{ 
+
+    if(message.length != 0 ){
+      let copy = Object.assign([], messages);
+      copy?.push(message);
+      setMessages(copy);
+    }
+
+  }, [message])
 
  
 
@@ -58,7 +94,7 @@ export default function Chat(){
     <div className={style.wrappChat}>
     
       <Messages messages={messages}/>
-      <AddMessageForm requestMessage={requestMessage}/>
+      <AddMessageForm/>
       
     </div>
   )

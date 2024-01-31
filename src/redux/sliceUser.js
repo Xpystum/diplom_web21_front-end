@@ -13,7 +13,7 @@ export const sliceUser = createSlice({
 
     reducers: {
         loadUser: (state, action) => {
-         state.value.user.data = action.payload
+            state.value.user.data = action.payload
         },
     },
 })
