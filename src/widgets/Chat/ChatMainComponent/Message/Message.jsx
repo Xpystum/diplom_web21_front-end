@@ -25,7 +25,7 @@ export default function Message(props){
         <div className={style.wrappMessage}>
             <div className={style.wrappMessage_InfoAndTime}>
                 <div>
-                    <Avatar src={URL_IMG + avatarPath} size='40' round = {true}/> 
+                    <Avatar name={user.name} src={URL_IMG + avatarPath} size='40' round={true}/> 
                     <b className={style.authorName}>{user.name}</b>
                 </div>
                 <div className={style.InfoAndTime__wrappTime}>

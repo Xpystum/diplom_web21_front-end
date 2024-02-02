@@ -38,18 +38,11 @@ export default function Chat(){
     const channel = pusher.subscribe('chat');
     channel.bind('message', function(data) {
 
-      try {
-
-        if(data.length != 0){
-            setMessage(data);
-        }
-      
-      } catch (err) {
-      
-        // обработка ошибки
-      
+      //если у вебсокета случился обрыв?
+      if(data.length != 0){
+          setMessage(data);
       }
-
+      
     });
 
     pusher.connection.bind("connecting", function () {
