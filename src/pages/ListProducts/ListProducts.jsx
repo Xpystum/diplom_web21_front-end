@@ -124,7 +124,6 @@ export default function ListProducts(props){
       function onFilterCheck(evt){
         let copy = Object.assign({}, filters);
         let idFilter = evt.target.id;
-        console.log(filters)
         switch (idFilter) {
           case "brand": 
               copy.brand = evt.target.value

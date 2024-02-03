@@ -13,7 +13,10 @@ export const sliceUser = createSlice({
 
     reducers: {
         loadUser: (state, action) => {
-            state.value.user.data = action.payload
+            state.value.user.data = action.payload;
+        },
+        removeUser: (state, action) => {
+            state.value.user.data = [];
         },
     },
 })
@@ -21,6 +24,7 @@ export const sliceUser = createSlice({
 // Action creators are generated for each case reducer function
 export const { 
     loadUser,
+    removeUser,
 } = sliceUser.actions
 
 export default sliceUser.reducer

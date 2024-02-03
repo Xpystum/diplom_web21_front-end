@@ -2,11 +2,10 @@ import style from "./AddMessageForm.module.sass";
 import { useEffect, useState } from 'react';
 import { request } from '../../../../Action/request';
 import { Button, Flex, Input, message  } from 'antd';
-import { useSelector } from "react-redux";
 import { SendOutlined } from "@ant-design/icons";
 
 
-export default function AddMessageForm(){
+export default function AddMessageForm({userProps}){
 
     
     //state
@@ -19,8 +18,8 @@ export default function AddMessageForm(){
         //status Предупреждение
     const [messageApi, contextHolder] = message.useMessage();
 
-    //redux-persist
-    const user = useSelector(state => state.sliceUser.value.user.data);
+    //redux-persist - props
+    const user = userProps;
 
     //статик переменные
     const { TextArea } = Input;

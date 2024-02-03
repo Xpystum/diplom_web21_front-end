@@ -8,12 +8,13 @@ import { request } from '../../../../Action/request';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMessages } from '../../../../redux/sliceChat';
-import { object } from 'prop-types';
+
 
 export default function Chat(){
 
   let allMessages = useSelector(state => state.sliceChat.value.chat.messages);
-
+  const user = useSelector(state => state.sliceUser.value.user.data);
+  console.log(user, 'значение user в chat');
   const dispatch = useDispatch(); 
   
   const [message, setMessage] = useState([]);
@@ -85,9 +86,17 @@ export default function Chat(){
 
   return (
     <div className={style.wrappChat}>
-    
-      <Messages messages={messages}/>
-      <AddMessageForm/>
+      
+      {
+        (user.length != 0) ?
+        <>
+          <Messages messages={messages} />
+          <AddMessageForm userProps={user}/>
+        </>
+        :
+        <div>Войдите в Аккаунт</div>
+      }
+      
       
     </div>
   )

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import style from './UserPanelWidget.module.sass';
 import { useDispatch, useSelector } from "react-redux";
 import { removeToken } from "../../redux/dataState";
+import { removeUser  } from "../../redux/sliceUser";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
 import Avatar from 'react-avatar';
@@ -16,6 +17,7 @@ export default function UserPanelWidget(props){
 
     function onLogout(){
         dispatch(removeToken());
+        dispatch(removeUser());
         navigate("/sign");
     }   
 

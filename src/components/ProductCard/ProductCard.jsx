@@ -17,9 +17,12 @@ import { URL_IMG } from '../../config';
 
 export default function ProductCard(props) {
     let links = useParams();
+    
     let dispatch = useDispatch();
 
     let products = useSelector(state => state.dataState.value.products.data);
+
+    let [user, setUser] = useState([]);
 
     let [stateFavourites, setStateFavourites] = useState(false);
 
@@ -29,10 +32,24 @@ export default function ProductCard(props) {
 
     let favorites = useSelector(state => state.dataState.value.user.favorites);
 
+    useEffect(()=>{
+        console.log(user, ' user');
+    }, [user])
+
+    // useEffect(()=>{
+    //     console.log(select_product, 'select_product');
+    // }, [select_product])
+
+    // useEffect(()=>{
+    //     console.log(favorites, 'favorites');
+    // }, [favorites])
+
     let responseSelectproduct = (response)=>{
         if(response.status == 200){
-            dispatch(reloadSelectProduct(response.data))
+            console.log(response.data.product, ' response.data')
+            dispatch(reloadSelectProduct(response.data.product))
             dispatch(loadSelectProduct(false))
+            setUser(response.data.user);
         }
             
     }
@@ -63,7 +80,7 @@ export default function ProductCard(props) {
             setStateFavourites(true);
         }
       
-        
+      
     }, [])
     
     
