@@ -38,20 +38,20 @@ export default function AddMessageForm({userProps}){
     };
     
     //TODO предусмотреть когда при отправке (резко вырубается интернет)
-    function sendMessage(){
+    async function sendMessage(){
         setLoading(true);
-        const status = request('POST', 'chat/send', (response)=>{
+        const status = await request('POST', 'chat/send', (response)=>{
 
             setLoading(false);
-            SetStatusRequest(response.status);
             if ( response.status >= 200 && response.status <= 204 && response.data.lenght != 0)  {
                 // console.log(response.data, ' ответ от request после входа в цикл');
             }
-        }, {user_id: user.id, message: messageUser}, )
+        }, {user_id: user.id, message: messageUser}, (error) => {
+            SetStatusRequest(error.response.status);
+            console.log(error.response.status, 'error_callback')
+        })
 
         
-
-
         //вывести ошибку минимум 3 буквы.
         console.log(status, 'status error');
         if(!status){
@@ -61,25 +61,27 @@ export default function AddMessageForm({userProps}){
 
     useEffect(()=>{
 
-        // могут быть проблемы в условии про кодах.
-        console.log(statusRequest , 'statusRequest')
-        if( statusRequest != null && (statusRequest <= 200 && statusRequest >= 204) ) {
+        // могут быть проблемы в условии при кодах ошибки.
+        if( statusRequest != null && (statusRequest <= 200 || statusRequest >= 204) ) {
             switch(statusRequest){
 
                 case 401:{
                     warningAuthorization();
                     SetStatusRequest(null);
+                    console.log('вызов 401');
                     break;
                 }
 
                 case 422:{
                     warningCountSymbol();
+                    console.log('вызов 422');
                     break;
                 }
 
     
                 default:{
                     warning();
+                    console.log('вызов default');
                     SetStatusRequest(null);
                     break;
                 }
@@ -102,20 +104,25 @@ export default function AddMessageForm({userProps}){
             }
             <TextArea 
                 placeholder={defaultZoneValueText}
-                allowClear={false}
+                allowClear={true}
                 name={'messageText'} 
                 value={messageUser}
                 maxLength={400}
-                // status='warning'
+                className={style.textArea}
                 onChange={ (evt)=>{ setMessageUser(evt.target.value) } }
+                
+
             />
             <Flex vertical gap="small" style={{ width: '100%' }}>
                 <Button 
+                    size="large"
                     icon={<SendOutlined />}
                     loading={loading}
                     type="primary" 
                     onClick={ ()=>{ sendMessage() } } 
                     block
+                    disabled={loading}
+                    className={style.button}
                 >Отправить</Button>
             </Flex>
         </div>

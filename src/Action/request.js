@@ -8,10 +8,7 @@ import axios from 'axios';
 
 
 export function request(method, url, callback, data = {}, 
-    errorCallback = function bind( func = () => {} ) {
-        func();
-        return false;
-    } 
+    errorCallback = function () {} ,
 ){
 
     const token = localStorage.getItem("my_token");
@@ -30,7 +27,7 @@ export function request(method, url, callback, data = {},
         return true;
     })
     .catch(function (error) {
-        // errorCallback(error);
+        errorCallback(error);
         console.log(error);
         return false;
     });
