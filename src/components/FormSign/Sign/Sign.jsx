@@ -42,7 +42,6 @@ export default function Sign(props) {
       if (response.data.code === 201 && response.data.token.trim() !== "") {
         
         localStorage.setItem(response.data.token_name, response.data.token);
-        localStorage.setItem("uid", response.data.uid);
   
         navigate("/my");
   

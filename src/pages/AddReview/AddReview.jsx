@@ -42,7 +42,6 @@ export default function AddReview(props){
     let transmission = useSelector(state => state.dataState.value.transmission.data)
     let drive_unit = useSelector(state => state.dataState.value.drive_unit.data)
 
-    let [id, setId] = useState(localStorage.getItem("uid"))
     let navigate = useNavigate();
 
     useEffect(()=>{
@@ -58,13 +57,13 @@ export default function AddReview(props){
         }
       }, )
 
-      if (user.length === 0 || localStorage.getItem("uid") != user.id) {
+      if (user.length === 0) {
         dispatch(loaderUser(true))
         request('post', 'user', (response) => {
           if (response.status === 200) {
             dispatch(reloadUser(response.data))
           }
-        }, {'id': id});
+        }, {});
       }
       request('post', 'body-type', (response) => {
         if (response.status === 200) {

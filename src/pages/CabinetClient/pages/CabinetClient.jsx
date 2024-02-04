@@ -17,10 +17,10 @@ export default function CabinetClient(props){
   let navigate = useNavigate();
 
   let select_user = useSelector(state => state.dataState.value.user);
+  console.log(select_user);
   let user = select_user.data;
   let time;
 
-  let [id, setId] = useState(localStorage.getItem("uid"));
 
   if(user.created_at){
     let userTime = user.created_at;
@@ -33,22 +33,23 @@ export default function CabinetClient(props){
   useEffect(() => {
 
     
-    if (user.length === 0 || localStorage.getItem("uid") != user.id) {
+    if (user.length === 0) {
       dispatch(loaderUser(true));
       requestDataInToken(navigate, dispatch, {url: 'token'});
        
       request('post', 'user', (response) => {
+
         if (response.status === 200) {
           dispatch(loaderUser(false));
           dispatch(reloadUser(response.data));
         }
-      }, {'id': id});
+      }, {'my_token': localStorage.getItem("my_token")});
     }
     else{
       dispatch(authToken(localStorage.getItem("my_token")));
       
     }
-  }, [id]);  
+  }, []);  
 
   return (
     <div>
