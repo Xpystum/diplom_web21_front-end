@@ -2,7 +2,17 @@ import { URL_BACK } from '../config';
 import axios from 'axios';
 
 
-export function request(method, url, callback, data = {}){
+
+
+
+
+
+export function request(method, url, callback, data = {}, 
+    errorCallback = function bind( func = () => {} ) {
+        func();
+        return false;
+    } 
+){
 
     const token = localStorage.getItem("my_token");
     // console.log(token);
@@ -20,6 +30,7 @@ export function request(method, url, callback, data = {}){
         return true;
     })
     .catch(function (error) {
+        // errorCallback(error);
         console.log(error);
         return false;
     });

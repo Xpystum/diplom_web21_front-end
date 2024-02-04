@@ -8,13 +8,13 @@ import { request } from '../../../../Action/request';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMessages } from '../../../../redux/sliceChat';
+import MainUserChat from '../MainUserChat/MainUserChat';
 
 
-export default function Chat(){
+export default function Chat({userProps}){
 
   let allMessages = useSelector(state => state.sliceChat.value.chat.messages);
   const user = useSelector(state => state.sliceUser.value.user.data);
-  console.log(user, 'значение user в chat');
   const dispatch = useDispatch(); 
   
   const [message, setMessage] = useState([]);
@@ -90,6 +90,7 @@ export default function Chat(){
       {
         (user.length != 0) ?
         <>
+          <MainUserChat userProps={userProps}/>
           <Messages messages={messages} />
           <AddMessageForm userProps={user}/>
         </>

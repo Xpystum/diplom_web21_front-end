@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadSelectProduct, reloadProducts, reloadSelectProduct } from '../../redux/dataState';
 import PreloaderSmall from '../PreloaderSmall/PreloaderSmall';
 import { URL_IMG } from '../../config';
+import Chat from '../../widgets/Chat/ChatMainComponent/Chat/Chat';
 
 
 export default function ProductCard(props) {
@@ -33,8 +34,8 @@ export default function ProductCard(props) {
     let favorites = useSelector(state => state.dataState.value.user.favorites);
 
     useEffect(()=>{
-        console.log(user, ' user');
-    }, [user])
+        // console.log(user, ' user');
+    }, [user])  
 
     // useEffect(()=>{
     //     console.log(select_product, 'select_product');
@@ -46,7 +47,7 @@ export default function ProductCard(props) {
 
     let responseSelectproduct = (response)=>{
         if(response.status == 200){
-            console.log(response.data.product, ' response.data')
+            // console.log(response.data.product, ' response.data')
             dispatch(reloadSelectProduct(response.data.product))
             dispatch(loadSelectProduct(false))
             setUser(response.data.user);
@@ -199,7 +200,7 @@ export default function ProductCard(props) {
                     <div className={style.ProductCard}>
 
                         <div className={style.Headline}>
-
+                            
                             <div className={style.Labell}>
                                 <QuickLabelled
                                     iconName={'Star'} // Имя иконки подставляем из UI/Icons/Icons/icons.svg из id
@@ -243,6 +244,7 @@ export default function ProductCard(props) {
                                     }
                                     
                                 </div>
+                                
 
                                 <div className={style.QuickLabelleds}>
                                     <div className={style.Labell}>
@@ -261,6 +263,7 @@ export default function ProductCard(props) {
                                             actionFunction={onAddFavorite}
                                         />
                                     </div>
+                                    
                                     <div className={style.Labell}>
                                         <QuickLabelled
                                             iconName={'Complain'} // Имя иконки подставляем из UI/Icons/Icons/icons.svg из id
@@ -351,6 +354,10 @@ export default function ProductCard(props) {
 
                             <div className={style.СolumnRight}>
 
+                                <div>
+                                    <Chat userProps={user}/>
+                                </div>
+                                
                                 <div className={style.Prices}>
                                     <div className={style.Price}>
                                         <span>
