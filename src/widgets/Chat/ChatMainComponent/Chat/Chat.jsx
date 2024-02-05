@@ -1,5 +1,9 @@
+//компоненть
 import Messages from '../Messages/Messages';
 import AddMessageForm from '../AddMessageForm/AddMessageForm';
+import { Spin } from 'antd';
+
+
 import style from './Chat.module.sass';
 import Pusher from 'pusher-js';
 import { useEffect, useState } from 'react';
@@ -21,9 +25,12 @@ export default function Chat({userProps}){
   const [messages, setMessages] = useState([]);
 
 
-  async function requestMessage(){
+
+  async function requestMessages(){
+    console.log('Зашли в requestMessages');
     await request('GET', 'chat', (response)=>{
       if (response.status == 200 && response.data.length > 0) {
+        
         dispatch(loadMessages(response.data));
         setMessages(response.data);
       }
@@ -67,7 +74,7 @@ export default function Chat({userProps}){
 
   //запуск запроса на получение сообщений + вебсокет
   useEffect(()=>{
-    requestMessage();
+    requestMessages();
     apiPusher(allMessages);
   }, [])
 
@@ -80,13 +87,13 @@ export default function Chat({userProps}){
       setMessages(copy);
     }
 
-  }, [message])
+  }, [message]) 
 
- 
+
+
 
   return (
     <div className={style.wrappChat}>
-      
       {
         (user.length != 0) ?
         <>
@@ -97,8 +104,6 @@ export default function Chat({userProps}){
         :
         <div>Войдите в Аккаунт</div>
       }
-      
-      
     </div>
   )
 };

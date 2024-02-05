@@ -81,8 +81,8 @@ export default function AddMessageForm({userProps}){
     
                 default:{
                     warning();
-                    console.log('вызов default');
                     SetStatusRequest(null);
+                    console.log('вызов default');
                     break;
                 }
     
