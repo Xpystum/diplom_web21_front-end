@@ -1,41 +1,70 @@
 import style from "./AddMessageForm.module.sass";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { request } from '../../../../Action/request';
 import { Button, Flex, Input, message  } from 'antd';
 import { SendOutlined } from "@ant-design/icons";
 
 
 export default function AddMessageForm({userProps}){
-
-    
+   
+    //timer
+        //состояние таймера
+    let [timer, setTimer] = useState(60);
     //state
         //сообщение на отправку
     const [messageUser, setMessageUser] = useState('');
         //загрузка кнопки
     const [loading, setLoading] = useState(false);
         //status request
-    const [statusRequest, SetStatusRequest] = useState(null);
+    const [statusRequest, SetStatusRequest] = useState({value: null});
         //status Предупреждение
-    const [messageApi, contextHolder] = message.useMessage();
+    // const [messageApi, contextHolder] = message.useMessage();
 
-    //redux-persist - props
+    //redux-persist - userProps
     const user = userProps;
+
+    //Для Таймера
+    let timerFunc = useRef(null);
 
     //статик переменные
     const { TextArea } = Input;
-    const defaultZoneValueText = 'Введите Сообщение';   
+    const defaultZoneValueText = 'Введите Сообщение';  
+    
+    const objectError = {
+        warningAuthorization: () => {
+            message.warning('Ошибка Авторизации, перезайдите в аккаунт.');
+        },
 
-    const warningAuthorization = () => {
-        message.warning('Ошибка Авторизации, перезайдите в аккаунт.')
-    };
+        warningCountSymbol: () => {
+            message.warning('Введите минимум 3 символа.');
+        },
 
-    const warningCountSymbol = () => {
-        message.warning('Введите минимум 3 символа.')
-    };
+        warningManyRequest: () => {
+            message.warning(`Слишком много запросов. Попробуйте через: ${timer} секунд.`);
 
-    const warning = () => {
-        message.warning('Неизвестная ошибка.')
-    };
+            console.log(timerFunc);
+            if(timerFunc.current == null){
+                timerFunc.current = setInterval(function() {
+                    setTimer(timer--);
+                    console.log(timer);
+                }, 1000);
+                console.log(timerFunc);
+            }
+
+        },
+
+        warning: () => {
+            message.warning('Неизвестная ошибка.');
+        },
+    }
+
+    //для удаление таймера и возврата его в default
+    function resetTimer(timerServer = 60){
+        //timerServer - получать дефолтное значение с сервера
+        clearTimeout(timerFunc.current);
+        timerFunc.current = null;
+        setTimer(timerServer);
+    }
     
     //TODO предусмотреть когда при отправке (резко вырубается интернет)
     async function sendMessage(){
@@ -44,44 +73,52 @@ export default function AddMessageForm({userProps}){
 
             setLoading(false);
             if ( response.status >= 200 && response.status <= 204 && response.data.lenght != 0)  {
-                // console.log(response.data, ' ответ от request после входа в цикл');
+                resetTimer();
             }
         }, {user_id: user.id, message: messageUser}, (error) => {
-            SetStatusRequest(error.response.status);
-            console.log(error.response.status, 'error_callback')
-        })
 
+            //новая пемеренная нужна для того что бы statusRequest изменялся при изменении памяти переменной.
+            SetStatusRequest({value: error.response.status});
+        })
+        
         
         //вывести ошибку минимум 3 буквы.
-        console.log(status, 'status error');
+        // console.log(status, 'status error');
         if(!status){
-            setLoading(false);
+            setLoading(false);  
         }
     }
 
     useEffect(()=>{
-
         // могут быть проблемы в условии при кодах ошибки.
-        if( statusRequest != null && (statusRequest <= 200 || statusRequest >= 204) ) {
-            switch(statusRequest){
+        if( statusRequest.value != null && (statusRequest.value <= 200 || statusRequest.value >= 204) ) {
+            switch(statusRequest.value){
 
                 case 401:{
-                    warningAuthorization();
-                    SetStatusRequest(null);
+                    objectError.warningAuthorization();
+                    SetStatusRequest({value: null});
                     console.log('вызов 401');
                     break;
                 }
 
                 case 422:{
-                    warningCountSymbol();
+                    objectError.warningCountSymbol();
+                    SetStatusRequest({value: null});
                     console.log('вызов 422');
+                    break;
+                }
+
+                case 429:{
+                    objectError.warningManyRequest();
+                    SetStatusRequest({value: null});
+                    console.log('вызов 429');
                     break;
                 }
 
     
                 default:{
-                    warning();
-                    SetStatusRequest(null);
+                    objectError.warning();
+                    SetStatusRequest({value: null});
                     console.log('вызов default');
                     break;
                 }
@@ -91,6 +128,12 @@ export default function AddMessageForm({userProps}){
         
         
     }, [statusRequest])
+
+    useEffect(()=>{
+        if(timer == 0){
+            resetTimer();
+        }
+    }, [timer])
 
 
 

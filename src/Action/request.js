@@ -2,11 +2,6 @@ import { URL_BACK } from '../config';
 import axios from 'axios';
 
 
-
-
-
-
-
 export function request(method, url, callback, data = {}, 
     errorCallback = function () {} ,
 ){
@@ -21,7 +16,7 @@ export function request(method, url, callback, data = {},
         headers: {
             'Authorization': `Bearer ${(token)? token : ''}`
         },
-    })
+    })  
     .then(function (response) {
         callback(response);
         return true;
