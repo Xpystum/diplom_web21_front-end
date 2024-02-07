@@ -27,7 +27,6 @@ export default function Chat({userProps}){
 
 
   async function requestMessages(){
-    console.log('Зашли в requestMessages');
     await request('GET', 'chat', (response)=>{
       if (response.status == 200 && response.data.length > 0) {
         
