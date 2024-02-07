@@ -9,7 +9,7 @@ export default function AddMessageForm({userProps}){
    
     //timer
         //состояние таймера
-    let [timer, setTimer] = useState(60);
+    let [timer, setTimer] = useState(null);
     //state
         //сообщение на отправку
     const [messageUser, setMessageUser] = useState('');
@@ -18,7 +18,7 @@ export default function AddMessageForm({userProps}){
         //status request
     const [statusRequest, SetStatusRequest] = useState({value: null});
         //status Предупреждение
-    // const [messageApi, contextHolder] = message.useMessage();
+    // const [messageApi, contextHolder] = useState(null);
 
     //redux-persist - userProps
     const user = userProps;
@@ -59,7 +59,7 @@ export default function AddMessageForm({userProps}){
     }
 
     //для удаление таймера и возврата его в default
-    function resetTimer(timerServer = 60){
+    function resetTimer(timerServer = timer){
         //timerServer - получать дефолтное значение с сервера
         clearTimeout(timerFunc.current);
         timerFunc.current = null;
@@ -76,6 +76,8 @@ export default function AddMessageForm({userProps}){
                 resetTimer();
             }
         }, {user_id: user.id, message: messageUser}, (error) => {
+            
+            setTimer(error.response.headers['retry-after'])
 
             //новая пемеренная нужна для того что бы statusRequest изменялся при изменении памяти переменной.
             SetStatusRequest({value: error.response.status});
@@ -110,6 +112,7 @@ export default function AddMessageForm({userProps}){
 
                 case 429:{
                     objectError.warningManyRequest();
+                    // console.log(messageApi, 'messageApiErrorAxios');
                     SetStatusRequest({value: null});
                     console.log('вызов 429');
                     break;
