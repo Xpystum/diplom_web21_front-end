@@ -6,8 +6,9 @@ import { faVk } from '@fortawesome/free-brands-svg-icons';
 import { request } from '../../../Action/request';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite } from '../../../redux/dataState';
+import { addFavorite, loaderUser, reloadUser } from '../../../redux/dataState';
 import { authToken } from "../../../redux/dataState";
+import { keyboard } from '@testing-library/user-event/dist/keyboard';
 
 export default function Sign(props) {
     const navigate = useNavigate();
@@ -29,22 +30,21 @@ export default function Sign(props) {
         setError("Введите пароль");
         return;
       }
-  
+      
       request("post", "auth", authResponse, {
         email: mail,
         password: pass,
-        status: status,
       });
     }
   
     function authResponse(response) {
-      console.log(response);
       if (response.data.code === 201 && response.data.token.trim() !== "") {
         
         localStorage.setItem(response.data.token_name, response.data.token);
-  
+
         navigate("/my");
-  
+
+
         request("post", "favorites-sinc", (response) => {
           dispatch(authToken(localStorage.getItem("my_token")));
         }, { favorites });
@@ -52,7 +52,22 @@ export default function Sign(props) {
         setError("Неверный логин или пароль");
       }
     }
-  
+    useEffect(()=>
+      document.getElementById("desc_pass").addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.code == 'Enter') {
+          let loginButton = document.getElementById("loginButton");
+          
+          if(loginButton){
+            loginButton.click();
+          }
+        }
+
+      })
+    ,[]);
+      
+    
+
     return (
       <>
         <div className={style.controlName__selection_login}>
@@ -117,6 +132,7 @@ export default function Sign(props) {
             name={"Войти с паролем"}
             type={"button"}
             name_class={"button__form_sign"}
+            id={'loginButton'}
           />
           <Link className={style.link_vk} to={"#"}>
             <span className={style.brendVK__wrapp}>

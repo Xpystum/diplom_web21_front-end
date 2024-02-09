@@ -17,39 +17,25 @@ export default function CabinetClient(props){
   let navigate = useNavigate();
 
   let select_user = useSelector(state => state.dataState.value.user);
-  console.log(select_user);
+
   let user = select_user.data;
   let time;
-
+  useEffect(()=>{
+    dispatch(loaderUser(true));
+    request('post', 'user', (response) => {
+      if (response.status === 200) {
+          dispatch(loaderUser(false));
+          dispatch(reloadUser(response.data));
+      }
+      }, {'my_token': localStorage.getItem("my_token")}); 
+  },[]);
+  
 
   if(user.created_at){
     let userTime = user.created_at;
     time = userTime.split('T');
     time = time[0].split('-').join('')
   }  
-  
-  
-  
-  useEffect(() => {
-
-    
-    if (user.length === 0) {
-      dispatch(loaderUser(true));
-      requestDataInToken(navigate, dispatch, {url: 'token'});
-       
-      request('post', 'user', (response) => {
-
-        if (response.status === 200) {
-          dispatch(loaderUser(false));
-          dispatch(reloadUser(response.data));
-        }
-      }, {'my_token': localStorage.getItem("my_token")});
-    }
-    else{
-      dispatch(authToken(localStorage.getItem("my_token")));
-      
-    }
-  }, []);  
 
   return (
     <div>
@@ -58,8 +44,10 @@ export default function CabinetClient(props){
         (select_user.loader)? 
         <PreloaderSmall/>
         :
+        
         <div className={style.wrap}> 
           <TopCabinetClient user={user}/>
+          {(user.status != 'ban')?
           <Container>
             <Row className={style.wrap_container}>
                 <Col  xs={9} className={style.content}>
@@ -70,8 +58,18 @@ export default function CabinetClient(props){
                 </Col>
             </Row>  
           </Container>
+            :
+          <Container>
+            <Row className="justify-content-center">
+              <Col xs={6} >
+                Бан
+              </Col>
+            </Row>
+          </Container>
           
+          }
         </div>
+        
       }
     </div>
   )

@@ -65,7 +65,6 @@ export default function ReviewsBrandsList(props){
             
         }
     }
-    console.log(popularBrandsList)
     return(
         <div>
             {

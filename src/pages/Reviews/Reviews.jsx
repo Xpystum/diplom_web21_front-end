@@ -30,8 +30,6 @@ export default function Reviews(props){
         }, [{}]);
 
       },[]);
-    console.log(select_reviews)
-    console.log(select_review)
     return(
         <div>
             <Header/>

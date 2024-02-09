@@ -18,7 +18,7 @@ export default function Header(props) {
     const token = localStorage.getItem("my_token");
     setAuthToken(token);
   }, []);
-
+  let user = useSelector(state => state.dataState.value.user.data);
   return (
 
     <header className={style.header}>
@@ -34,7 +34,7 @@ export default function Header(props) {
         
         
         <div className={style.header__reg}>
-          <PostAdd />
+          <PostAdd  user={user}/>
 
           {
             (!authToken)?

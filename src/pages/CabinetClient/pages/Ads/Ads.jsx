@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import requestDataInToken from "../../../../Action/requestDataInToken";
 import PostAdd from "../../../../UI/PostAdd/PostAdd";
-import { Col, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import MenuCabinet from "../../components/MenuCabinet/MenuCabinet";
 import TopCabinetClient from "../../components/TopCabinetClient/TopCabinetClient";
 import style from "./Ads.module.sass";
+import NewPost from "../../../../components/NewPost/NewPost";
 
 export default function Ads(props){
   let dispatch = useDispatch();
@@ -21,12 +22,12 @@ export default function Ads(props){
     requestDataInToken(navigate, dispatch, {url: 'ads', parametrs: {x: 13}});
   }, []);
 
-  request('post', '', (response) => {
-    if (response.status === 200) {
-    // dispatch(loaderSwitchBrands(false));
-    // dispatch(reloadBrands(response.data));
-    }
-  }, {}); 
+  // request('post', '', (response) => {
+  //   if (response.status === 200) {
+  //   // dispatch(loaderSwitchBrands(false));
+  //   // dispatch(reloadBrands(response.data));
+  //   }
+  // }, {}); 
   return (
     <div className={style.wrap}>
       <Header user={user}/>
@@ -36,15 +37,18 @@ export default function Ads(props){
         :
         <div className={style.wrap}> 
           <TopCabinetClient user={user}/>
+          <Container>
+            <Row>
+                <Col  xs={9}>
+                    <NewPost user={user}/>
+                </Col>
+                <Col  xs={2}>
+                    <MenuCabinet />
+                </Col>
+            </Row>  
+          </Container>
+
           
-          <Row>
-              <Col  xs={9}>
-                  <PostAdd />
-              </Col>
-              <Col  xs={3}>
-                  <MenuCabinet />
-              </Col>
-          </Row>
         </div>
       }
     </div>

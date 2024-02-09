@@ -30,7 +30,7 @@ export default function ReviewCarousel(props){
     let carouselReviews = select_review.slice(-6) //отфильтровать за поледнюю неделю
     let loading = carouselReviews.length
     let screen = window.outerWidth
-    console.log(select_review.length)
+
   return (
     <div className={style.Carousel_main_Wrap}>
 

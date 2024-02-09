@@ -6,8 +6,8 @@ export default function  CheckBeforePurchaseWidget(props){
 
     return(
         <div className={styles.wrap}>
+            <Logo icon = "#DB001B" icon2 = "#fff" text = "#000"/>
             <Link to='#'>
-                <Logo icon = "#DB001B" icon2 = "#fff" text = "#000"/>
                 <h3>Проверь авто перед покупкой</h3>
                 <p>История продажи, пробеги, ДТП, ремонты, залоги и многое другое</p>
             </Link>

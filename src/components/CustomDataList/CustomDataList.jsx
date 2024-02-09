@@ -15,8 +15,7 @@ export default function CustomDataList(props) {
    const nameBack = props.nameBack; 
 
     // вывод в input
-    const massArr = props.content ?? ['Brave', 'Brave2', 'Brave3', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
-    // const testImage = [images];
+    const massArr = props.content.data ?? ['Brave', 'Brave2', 'Brave3', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
     let placeholder = props.placeholder ?? '';
     let IdDataList = props.IdDataList ?? '';
     let IdInput = props.IdInput ?? 'browser';
@@ -135,16 +134,16 @@ export default function CustomDataList(props) {
                     </div>
                     {
                         massArr.map((valueElement, index)=>
-                            (index == 5)?
+                            (valueElement.popular_cargo == true)?
                             <div key={index}>
                                 <div className={style.brLine_wrapp}>
                                     <div className={style.brLine}></div>
                                 </div>
-                                <option onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement} label={valueElement}></option>
+                                <option onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement.name} label={valueElement.name}></option>
                             </div>
                             :
                             <div key={index}>
-                                <option  onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement} label={valueElement}></option>
+                                <option  onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement.name} label={valueElement.name}></option>
                             </div>
                         ) 
                     }

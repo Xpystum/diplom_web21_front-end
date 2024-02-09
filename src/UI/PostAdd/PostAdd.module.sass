@@ -1,17 +1,13 @@
 .postadd
-    // display: flex
-    // align-items: center
-    // justify-content: center
     margin: 2.5px 0.5vw 2.5px 1vw
-    
     height: 40px
     font-size: clamp(1.2rem, 1.5vw, 1.5rem)
-    &__link
+    & a
+        user-select: none
         display: flex
         align-items: center
         max-width: 240px
         height: 100%
-        background: hsl(353, 100%, 43%)
         border-radius: 6px
         padding: 0 8px
         color: #fff
@@ -24,6 +20,14 @@
                 display: none
             &.xxl
                 display: block
+
+    &__disabled
+        background: #666
+        & p
+            color: #aaa
+    &__link
+        background: hsl(353, 100%, 43%)
+
         &:hover
             background: hsla(353, 100%, 37%, 1)
             transition: 0.1s ease

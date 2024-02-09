@@ -1,20 +1,23 @@
 import { Link } from "react-router-dom";
 import style from './UserPanelWidget.module.sass';
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, removeToken } from "../../redux/dataState";
+import { authToken, loaderUser, reloadUser, removeToken, removeUser } from "../../redux/dataState";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
+import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 
 export default function UserPanelWidget(props){
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let user = useSelector(state => state.dataState.value.user.data);
+
     function onLogout(){
         dispatch(removeToken());
         navigate("/sign");
     }
 
     return(
+        
         <div className={style.register_wrap}>
 
             <div className={style.wrappProfile}>
@@ -41,35 +44,37 @@ export default function UserPanelWidget(props){
                         </div>
                     </Link>
                 </div>
-
-                <div className={style.profileBlock_item}>
-                    <Link className={style.profileBlock_itemBlock_link} to="/my/ads" onClick={()=>{}}>
-                        <div className={style.profileBlock_itemBlock}>
-                            <FontAwesomeIcon className={style.profileBlock_itemBlock_Icon} icon="fa-solid fa-car-side" />
-                            <span>Объявление</span>
-                        </div>
-                    </Link>
-                </div>
-
-                <div className={style.profileBlock_item}>
-                    <Link className={style.profileBlock_itemBlock_link} to="#" onClick={()=>{}}>
-                        <div className={style.profileBlock_itemBlock} >
-                            <FontAwesomeIcon className={style.profileBlock_itemBlock_Icon} icon="fa-solid fa-chart-simple" />
-                            <span>Статистика</span>
-                        </div>
-                    </Link>
-                    
-                </div>
-
-                <div className={style.profileBlock_item}>
-                    <Link className={style.profileBlock_itemBlock_link}  to="#" onClick={()=>{}}>
-                        <div className={style.profileBlock_itemBlock} >
-                            <FontAwesomeIcon  className={style.profileBlock_itemBlock_Icon} icon="fa-solid fa-truck-moving" />
-                            <span>Отчеты по VIN</span>
-                        </div>
-                    </Link>
-                    
-                </div>
+                {(user.status != 'ban')?
+                <>
+                    <div className={style.profileBlock_item}>
+                        <Link className={style.profileBlock_itemBlock_link} to="/my/ads" onClick={()=>{}}>
+                            <div className={style.profileBlock_itemBlock}>
+                                <FontAwesomeIcon className={style.profileBlock_itemBlock_Icon} icon="fa-solid fa-car-side" />
+                                <span>Объявление</span>
+                            </div>
+                        </Link>
+                    </div>
+                    <div className={style.profileBlock_item}>
+                        <Link className={style.profileBlock_itemBlock_link} to="#" onClick={()=>{}}>
+                            <div className={style.profileBlock_itemBlock} >
+                                <FontAwesomeIcon className={style.profileBlock_itemBlock_Icon} icon="fa-solid fa-chart-simple" />
+                                <span>Статистика</span>
+                            </div>
+                        </Link>
+                        
+                    </div>
+                    <div className={style.profileBlock_item}>
+                        <Link className={style.profileBlock_itemBlock_link}  to="#" onClick={()=>{}}>
+                            <div className={style.profileBlock_itemBlock} >
+                                <FontAwesomeIcon  className={style.profileBlock_itemBlock_Icon} icon="fa-solid fa-truck-moving" />
+                                <span>Отчеты по VIN</span>
+                            </div>
+                        </Link>
+                    </div>
+                </>
+                :
+                ""
+                }
 
                 <div className={style.profileBlock_item}>
                     <Link className={style.profileBlock_itemBlock_link} to="#" onClick={()=>{}}>

@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 
 
 export default function Home(props) {
-    // requestToken();
+    
     return (
         <div className={style.wrap}>
 
-            <Header />
+            <Header user={props.user}/>
             <div className={style.container}>
                 <Link to="/category/auto" className={style.link}><h1 className={style.title}>Продажа авто в России</h1></Link>
                 <div className={style.location}>

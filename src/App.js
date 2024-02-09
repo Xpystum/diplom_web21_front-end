@@ -7,7 +7,7 @@ import { request } from './Action/request';
 import PreloaderStartPage from './components/PreloaderStartPage/PreloaderStartPage';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { reloadMenu, loaderSwitch, addFavorite, addReview, reloadReviews } from './redux/dataState';
+import { reloadMenu, loaderSwitch, addFavorite, addReview, reloadReviews, loaderUser, reloadUser } from './redux/dataState';
 import { Route, Routes } from 'react-router';
 import Home from './pages/Home/Home';
 import ListProducts from './pages/ListProducts/ListProducts';
@@ -31,6 +31,7 @@ import Reviews from './pages/Reviews/Reviews';
 import ReviewCard from './pages/ReviewCard/ReviewCard';
 import CabinetClient from './pages/CabinetClient/pages/CabinetClient';
 import AddReview from './pages/AddReview/AddReview';
+import CreateAnAd from './pages/CabinetClient/pages/CreateAnAd/CreateAnAd';
 
 
 library.add(fas)
@@ -102,6 +103,16 @@ function App(props) {
               dispatch(reloadReviews(response.data));            
             }
           }, []);
+        if(localStorage.getItem("my_token")){
+            request('post', 'user', (response) => {
+
+                if (response.status === 200) {
+                    dispatch(loaderUser(false));
+                    dispatch(reloadUser(response.data));
+                }
+            }, {'my_token': localStorage.getItem("my_token")});    
+        }
+        
     },[])
 
     
@@ -129,6 +140,7 @@ function App(props) {
 
                             <Route path="/my" element={<CabinetClient />}/>
                             <Route path="/my/ads" element={<Ads />}/>
+                            <Route path="/my/ads/new" element={<CreateAnAd />}/>
                             <Route path="/category/reviews" element={<Reviews reviews={props.reviews}/>}/>
                             <Route path="/category/reviews/add-review" element={<AddReview reviews={props.reviews}/>}/>
                             <Route path="/category/reviews/:id" element={<ReviewCard reviews={props.reviews}/>}/>

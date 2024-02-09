@@ -189,10 +189,9 @@ export const dataSlice = createSlice({
     reloadUserReview: (state, action) => {
       state.value.user_review.data = action.payload
     },
-    reloadModels: (state, action) => {//модэли
+    reloadModels: (state, action) => {//модели
       state.value.models.data = action.payload
     },
-
     reloadBodyType: (state, action) => {//кузов
       state.value.body_type.data = action.payload
     },
