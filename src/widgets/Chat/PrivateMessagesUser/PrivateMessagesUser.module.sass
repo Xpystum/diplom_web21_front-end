@@ -3,15 +3,63 @@
     min-width: 1020px
     .wrappBlockInner
         width: 95%
-        min-height: 450px
-        border: 1px solid black
+        min-height: 700px
+        border: 1px solid rgba(80,80,80, 0.2)
         margin: 40px auto
         display: flex
         .leftBlock_messages
+            display: flex
+            flex-direction: column
             width: 35%
-            background: black
-            border: 1px solid blue
+            background: #fff
+            border: 1px solid rgba(80,80,80, 0.1)
+            .selectStack
+                .selectSwitch
+                    display: flex
+                    align-content: center
+                    justify-content: center
+                    color: #db001b
+                    padding: 12px
+                    font-size: 1.45rem
+                    font-weight: 600
+                    border-bottom: 3px solid #db001b
+                    cursor: pointer
+            .emptyMessage
+                display: flex
+                flex-direction: column
+                .wraapIcon
+                    display: flex
+                    width: 100%
+                    justify-content: center 
+                    align-content: center
+                    margin: 14px 0
+                    .icon
+                        background-image: url('./iconMail.png') 
+                        background-repeat: no-repeat
+                        background-position: top
+                        width: 80px
+                        height: 80px
+                .text
+                    font-size: 1.4rem
+                    box-sizing: border-box
+                    margin: 24px auto 0
+                    max-width: 280px
+                    text-align: justify
+                h2
+                    width: 100%
+                    text-align: center
+                    margin: 16px 0
         .RightBlock_chat    
             width: 65%
-            background: black
-            border: 1px solid red
+            background: #f4f9fc
+            border: 1px solid rgba(80,80,80, 0.1)
+            .wrappChatEmpty
+                width: 100%
+                height: 100%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-content: center
+                color: #7189a9
+                font-size: 1.7rem
+                font-weight: 400
