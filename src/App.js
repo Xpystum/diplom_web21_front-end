@@ -32,6 +32,7 @@ import { useEffect } from 'react';
 import Reviews from './pages/Reviews/Reviews';
 import ReviewCard from './pages/ReviewCard/ReviewCard';
 import TestChatPage from './pages/TestChatPage/TestChatPage';
+import PrivateMessages from './pages/PrivateMessages/PrivateMessages';
 
 library.add(fas)
 
@@ -118,6 +119,8 @@ function App() {
                             <Route path="/category/reviews" element={<Reviews/>}/>
                             <Route path="/category/reviews/:id" element={<ReviewCard/>}/>
                             <Route path="/chat" element={<TestChatPage/>}/>
+
+                            <Route path="/PrivateMessages" element={<PrivateMessages/>}/>
                         </Routes>
                     </div>
             }
