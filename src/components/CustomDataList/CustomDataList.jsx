@@ -15,7 +15,11 @@ export default function CustomDataList(props) {
    const nameBack = props.nameBack; 
 
     // вывод в input
-    const massArr = props.content.data ?? ['Brave', 'Brave2', 'Brave3', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
+
+    let massArr = props.content ?? ['Brave', 'Brave2', 'Brave3', 'Chrome' ,  'Edge'  , 'Firefox'  , 'Internet Explorer'  , 'Opera'  , 'Safari'  , 'Vivaldi'];
+    // 
+
+
     let placeholder = props.placeholder ?? '';
     let IdDataList = props.IdDataList ?? '';
     let IdInput = props.IdInput ?? 'browser';
@@ -79,6 +83,7 @@ export default function CustomDataList(props) {
 
 
     const countRedux = useSelector(state => state.dataState.value.filter.data.dataList)
+    // console.log(countRedux);
     const dispatch = useDispatch()  
     const inputRef = useRef(null);
 
@@ -135,16 +140,16 @@ export default function CustomDataList(props) {
                     {
                         massArr.map((valueElement, index)=>
                             (valueElement.popular_cargo == true)?
-                            <div key={index}>
-                                <div className={style.brLine_wrapp}>
-                                    <div className={style.brLine}></div>
+                                <div key={index}>
+                                    <div className={style.brLine_wrapp}>
+                                        <div className={style.brLine}></div>
+                                    </div>
+                                    <option onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement.name} label={valueElement.name}></option>
                                 </div>
-                                <option onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement.name} label={valueElement.name}></option>
-                            </div>
                             :
-                            <div key={index}>
-                                <option  onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement.name} label={valueElement.name}></option>
-                            </div>
+                                <div key={index}>
+                                    <option  onClick={(evt)=>{ OnClick_Option(evt, IdInput, IdDataList) }} value={valueElement.name} label={valueElement.name}></option>
+                                </div>
                         ) 
                     }
                 </datalist>

@@ -12,15 +12,15 @@ import { loaderSwitchBrands, reloadBrands } from "../../redux/dataState";
 
 export default function Catalog(){
     let dispatch = useDispatch();
-    let brands = useSelector(state => state.dataState.value.brands);
-    if(brands.loader){
-        request('post', 'brands', (response) => {
-            if (response.status === 200) {
-            dispatch(loaderSwitchBrands(false));
-            dispatch(reloadBrands(response.data));
-            }
-        }, {}); 
-    }
+    // let brands = useSelector(state => state.dataState.value.brands);
+    // if(brands.loader){
+    //     request('post', 'brands', (response) => {
+    //         if (response.status === 200) {
+    //         dispatch(loaderSwitchBrands(false));
+    //         dispatch(reloadBrands(response.data));
+    //         }
+    //     }, {}); 
+    // }
 
     return (
     <div>
@@ -29,7 +29,7 @@ export default function Catalog(){
             <h2>Каталог автомобилей - технические характеристики автомобилей, цены, комплектации</h2>
             <section className={style.search}>
                 <div className={style.search__brand}>
-                    <ListBrands brands={brands}/>
+                    {/* <ListBrands brands={brands}/> */}
                 </div>
                 <div className={style.search__button}>
                     <Link to="/catalog/advanced-search/">

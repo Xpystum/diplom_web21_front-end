@@ -7,13 +7,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Filter } from '../../components/Filter/Filter';
 import style from "./ListProducts.module.sass";
 
-import { reloadProducts, loaderSwitchProducts } from "../../redux/dataState";
+import { reloadProducts, loaderSwitchProducts, reloadBrands, loaderSwitchBrands } from "../../redux/dataState";
 
 
 export default function ListProducts(props){
     let dispatch = useDispatch();
     let { alias } = useParams();
-
+    let cars = useSelector(state => state.dataState.value.products.data);
+    
     useEffect(()=>{
       dispatch(loaderSwitchProducts(true));
       request('post', 'all-info-products', (response) => {
@@ -22,13 +23,13 @@ export default function ListProducts(props){
           dispatch(reloadProducts(response.data));
         }
       }, {alias: (alias != undefined)? alias: null});
-
+      
 
     },[window.location.pathname]);
-
     
-    let cars = useSelector(state => state.dataState.value.products.data);
-      // let [filterPrice, setFilterPrice] = useState({ maxPrice: "", minPrice: "" });
+      
+    
+    
 
       let [filters, setFilters] = useState({brand: '', model: '', truePhoto: false});
 

@@ -64,8 +64,16 @@ export function Filter(props){
     statusOpen,
     setStatusOpen,
    } = useLogicFilterHook();
-
-
+  //  сумма для фильтра от и до 
+  let currency = [];
+  let year = [];
+  for(let i= 50000; i <= 2000000; i+=50000){
+    currency.push({ value: new Intl.NumberFormat("ru-RU").format(i), label: new Intl.NumberFormat("ru-RU").format(i) });
+  }
+  let now = new Date().getFullYear();
+  for(let i= 1940; i <= now; i++){
+    year.push({ value: i, label: i });
+  }
   return (
     <div className={style.wrappFilterProcent}>
       
@@ -90,13 +98,13 @@ export function Filter(props){
 
           <div className={style.block_info_wrapp}>
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' />
-              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='Цена до' />
+              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleLeft'} placeholder='Цена от, ₽' arrItem={currency}/>
+              <CustomDataListNumber resetState={resetState} styleSelect={'DataListDoubleRight'} placeholder='Цена до' arrItem={currency}/>
             </div>
 
             <div className={style.block_info_double + ' ' + style.block_info}>
-              <CustomDataListNumber resetState={resetState} arrItem={arrYear} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
-              <CustomDataListNumber resetState={resetState} arrItem={arrYear} styleSelect={'DataListDoubleRight'} placeholder='Год до' />
+              <CustomDataListNumber resetState={resetState} arrItem={year} styleSelect={'DataListDoubleLeft'} placeholder='Год от' />
+              <CustomDataListNumber resetState={resetState} arrItem={year} styleSelect={'DataListDoubleRight'} placeholder='Год до'/>
             </div>
 
             <div className={style.block_info_one}>
