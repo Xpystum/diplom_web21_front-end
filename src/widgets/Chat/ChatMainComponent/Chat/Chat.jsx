@@ -27,13 +27,15 @@ export default function Chat({userProps}){
 
 
   async function requestMessages(){
-    await request('GET', 'chat', (response)=>{
+    await request('GET', 'messages', (response)=>{
+      console.log(user, ' ___user');
       if (response.status == 200 && response.data.length > 0) {
-        
+        console.log(user, ' ___user');
         dispatch(loadMessages(response.data));
         setMessages(response.data);
       }
-    }, {})
+      //TODO остановка тут
+    }, {'user_main': user.id, 'user_minor': userProps.id})
   }
 
   function apiPusher(allMessages){
