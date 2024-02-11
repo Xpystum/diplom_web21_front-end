@@ -9,6 +9,10 @@ export default function Messages(props){
   const [statusRequestSpinner , setStatusRequestSpinner] = useState(true);
 
   useEffect(()=>{ 
+  
+    if(messagesProps?.chatGroupDown){
+      setStatusRequestSpinner(false);
+    }
 
     if(messagesProps.length > 0){
       setMessages(messagesProps);
@@ -23,12 +27,14 @@ export default function Messages(props){
       <Spin spinning={statusRequestSpinner}>
         <div className={style.wrappMessages}>
           {
-            messages ? 
+            (messagesProps?.chatGroupDown) ? 
+            <div className={style.infoChatGroupDown}>
+              <span>Сообщений нет, начните диалог</span>
+            </div>
+            :
             messages.map( (message, index) => {
               return <Message message={message} key={index + 1} />
             })
-            :
-            ""
           }
         </div>
       </Spin>

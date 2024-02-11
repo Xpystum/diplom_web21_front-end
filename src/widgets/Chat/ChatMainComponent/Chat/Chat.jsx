@@ -18,24 +18,40 @@ import MainUserChat from '../MainUserChat/MainUserChat';
 export default function Chat({userProps}){
 
   let allMessages = useSelector(state => state.sliceChat.value.chat.messages);
-  const user = useSelector(state => state.sliceUser.value.user.data);
+  const userFrom = useSelector(state => state.sliceUser.value.user.data);
   const dispatch = useDispatch(); 
   
+
+  //состояние сообщений
   const [message, setMessage] = useState([]);
   const [messages, setMessages] = useState([]);
+
+  const [groupChatId, setGroupChatId] = useState()
 
 
 
   async function requestMessages(){
-    await request('GET', 'messages', (response)=>{
-      console.log(user, ' ___user');
+    await request('post', 'chat/messages', (response)=>{
+
       if (response.status == 200 && response.data.length > 0) {
-        console.log(user, ' ___user');
+
+        console.log(' __status 200');
         dispatch(loadMessages(response.data));
         setMessages(response.data);
+
       }
-      //TODO остановка тут
-    }, {'user_main': user.id, 'user_minor': userProps.id})
+
+      if(response.status == 202){
+        console.log( ' __status 202');
+        setMessages({chatGroupDown: true});
+      }
+
+    }, {'user_from_id': userFrom.id, 'user_to_id': userProps.id}, (error) => {
+
+      console.log(userFrom.id, "__user.id");
+      console.log(userProps, "__userProps.id");
+
+    })
   }
 
   function apiPusher(allMessages){
@@ -73,9 +89,16 @@ export default function Chat({userProps}){
     console.log(pusher.connection.state, ':____состояние соединение');
   }
 
+
+
   //запуск запроса на получение сообщений + вебсокет
   useEffect(()=>{
-    requestMessages();
+    if(userProps.length != 0){
+      requestMessages();
+    }
+  }, [userProps])
+
+  useEffect(()=>{
     apiPusher(allMessages);
   }, [])
 
@@ -96,11 +119,11 @@ export default function Chat({userProps}){
   return (
     <div className={style.wrappChat}>
       {
-        (user.length != 0) ?
+        (userFrom.length != 0) ?
         <>
           <MainUserChat userProps={userProps}/>
           <Messages messages={messages} />
-          <AddMessageForm userProps={user}/>
+          <AddMessageForm userProps={userFrom}/>
         </>
         :
         <div>Войдите в Аккаунт</div>

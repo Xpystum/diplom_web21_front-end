@@ -6,7 +6,6 @@ import { URL_IMG } from '../../../../config';
 export default function MainUserChat({userProps}){
     const user = userProps;
     const avatarPath = user.pathAvatar?.path.resource
-    console.log(user);
 
   return (
     <div className={style.wrappMainUserChat}>
