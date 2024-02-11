@@ -37,10 +37,13 @@ export default function Header(props) {
           <PostAdd  user={user}/>
 
           {
-            (!authToken)?
-            <LoginRegisterWidget />
+            (user != '' && authToken)?
+            <div>
+              <UserPanelWidget user={props.user}/>
+            </div>
             :
-            <UserPanelWidget user={props.user}/>
+            <LoginRegisterWidget />
+            
               
           }  
 
