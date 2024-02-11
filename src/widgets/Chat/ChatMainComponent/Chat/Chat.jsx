@@ -28,16 +28,38 @@ export default function Chat({userProps}){
 
   const [groupChatId, setGroupChatId] = useState()
 
+  //user
+  // const [userFrom, setUserForm] = useState([]);
+  // const [userTo, setuserTo] = useState('');
+  // const [chatGroup_id, setChatGroup_id] = useState('');
+
+  // useEffect(()=>{
+  //     setUserForm(props.userForm);
+  //     console.log(props.userForm , 'props.userForm');
+  // }, [props.userForm])
+
+  // useEffect(()=>{
+  //     setuserTo(props.userTo);
+  //     console.log(props.userTo , 'props.userTo');
+  // }, [props.userTo])
+
+  // useEffect(()=>{
+  //     setChatGroup_id(props.groupChatId);
+  //     console.log(props.groupChatId , 'groupChatId');
+  // }, [props.groupChatId])
+
+  // useEffect(()=>{
+  //   setUserForm(userFromRedux);
+  // } , [userFromRedux] )
 
 
   async function requestMessages(){
     await request('post', 'chat/messages', (response)=>{
+      if (response.status == 200 && response.data.data[0].length > 0) {
 
-      if (response.status == 200 && response.data.length > 0) {
-
-        console.log(' __status 200');
-        dispatch(loadMessages(response.data));
-        setMessages(response.data);
+        setGroupChatId(response.data.chatgroup_id);
+        dispatch(loadMessages(response.data.data[0]));
+        setMessages(response.data.data[0]);
 
       }
 
@@ -48,8 +70,7 @@ export default function Chat({userProps}){
 
     }, {'user_from_id': userFrom.id, 'user_to_id': userProps.id}, (error) => {
 
-      console.log(userFrom.id, "__user.id");
-      console.log(userProps, "__userProps.id");
+
 
     })
   }
@@ -123,7 +144,7 @@ export default function Chat({userProps}){
         <>
           <MainUserChat userProps={userProps}/>
           <Messages messages={messages} />
-          <AddMessageForm userProps={userFrom}/>
+          <AddMessageForm groupChatId={groupChatId} userFrom={userFrom} userTo={userProps}/>
         </>
         :
         <div>Войдите в Аккаунт</div>

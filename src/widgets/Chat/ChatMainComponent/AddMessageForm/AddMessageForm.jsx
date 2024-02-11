@@ -5,8 +5,7 @@ import { Button, Flex, Input, message  } from 'antd';
 import { SendOutlined } from "@ant-design/icons";
 
 
-export default function AddMessageForm({userProps}){
-   
+export default function AddMessageForm(props){
     //timer
         //состояние таймера
     let [timer, setTimer] = useState(null);
@@ -20,16 +19,19 @@ export default function AddMessageForm({userProps}){
         //status Предупреждение
     // const [messageApi, contextHolder] = useState(null);
 
-    //redux-persist - userProps
-    const user = userProps;
+    //redux-persist - userFrom - юсер отправитель
+        //state для отправки в send
+    const [userForm, setUserForm] = useState(props.userFrom);
+    const [userTo, setuserTo] = useState('');
+    const [chatGroup_id, setChatGroup_id] = useState('');
 
     //Для Таймера
     let timerFunc = useRef(null);
 
     //статик переменные
     const { TextArea } = Input;
-    const defaultZoneValueText = 'Введите Сообщение';  
-    
+    const defaultZoneValueText = 'Введите Сообщение'; 
+       
     const objectError = {
         warningAuthorization: () => {
             message.warning('Ошибка Авторизации, перезайдите в аккаунт.');
@@ -42,13 +44,10 @@ export default function AddMessageForm({userProps}){
         warningManyRequest: () => {
             message.warning(`Слишком много запросов. Попробуйте через: ${timer} секунд.`);
 
-            console.log(timerFunc);
             if(timerFunc.current == null){
                 timerFunc.current = setInterval(function() {
                     setTimer(timer--);
-                    console.log(timer);
                 }, 1000);
-                console.log(timerFunc);
             }
 
         },
@@ -68,6 +67,7 @@ export default function AddMessageForm({userProps}){
     
     //TODO предусмотреть когда при отправке (резко вырубается интернет)
     async function sendMessage(){
+        
         setLoading(true);
         const status = await request('POST', 'chat/send', (response)=>{
 
@@ -75,7 +75,7 @@ export default function AddMessageForm({userProps}){
             if ( response.status >= 200 && response.status <= 204 && response.data.lenght != 0)  {
                 resetTimer();
             }
-        }, {user_id: user.id, message: messageUser}, (error) => {
+        }, {user_from_id: userForm.id, user_to_id: userTo.id , message: messageUser, chatgroup_id: chatGroup_id}, (error) => {
             
             setTimer(error.response.headers['retry-after'])
 
@@ -90,6 +90,8 @@ export default function AddMessageForm({userProps}){
             setLoading(false);  
         }
     }
+
+   
 
     useEffect(()=>{
         // могут быть проблемы в условии при кодах ошибки.
@@ -137,6 +139,23 @@ export default function AddMessageForm({userProps}){
             resetTimer();
         }
     }, [timer])
+
+    //Состояние пользователей для send
+
+    useEffect(()=>{
+        setUserForm(props.userFrom);
+        // console.log(props.userFrom , 'props.userForm');
+    }, [props.userForm])
+
+    useEffect(()=>{
+        setuserTo(props.userTo);
+        // console.log(props.userTo , 'props.userTo');
+    }, [props.userTo])
+
+    useEffect(()=>{
+        setChatGroup_id(props.groupChatId);
+        // console.log(props.groupChatId , 'groupChatId');
+    }, [props.groupChatId])
 
 
 

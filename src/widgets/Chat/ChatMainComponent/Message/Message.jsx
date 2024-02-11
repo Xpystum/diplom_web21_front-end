@@ -12,12 +12,13 @@ export default function Message(props){
     }
     const message = props.message ?? message1;
     const user = message.user ?? null;
-    const avatarPath = user.pathAvatar.path.resource ?? '';
+    const avatarPath = user?.pathAvatar?.path?.resource ?? '';
     const timeYear = message.timeYear ?? '';
     const timeHour = message.timeHour ?? '';
     
+
     useEffect(()=>{
-        // console.log(userTime, 'message');
+        // console.log(message, ' user');
     }, [])
 
     return (

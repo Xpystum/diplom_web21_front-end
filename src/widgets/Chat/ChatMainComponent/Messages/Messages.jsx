@@ -13,8 +13,8 @@ export default function Messages(props){
     if(messagesProps?.chatGroupDown){
       setStatusRequestSpinner(false);
     }
-
-    if(messagesProps.length > 0){
+    
+    if(messagesProps?.length > 0){
       setMessages(messagesProps);
       setStatusRequestSpinner(false);
     }
