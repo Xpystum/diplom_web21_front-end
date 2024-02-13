@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadSelectProduct, reloadProducts, reloadSelectProduct } from '../../redux/dataState';
 import PreloaderSmall from '../PreloaderSmall/PreloaderSmall';
 import { URL_IMG } from '../../config';
-import Chat from '../../widgets/Chat/ChatMainComponent/Chat/Chat';
+import {Chat} from '../../widgets/Chat/ChatMainComponent/Chat/Chat';
 
 
 export default function ProductCard(props) {

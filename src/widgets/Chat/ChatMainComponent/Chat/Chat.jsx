@@ -1,13 +1,12 @@
 //компоненть
 import Messages from '../Messages/Messages';
 import AddMessageForm from '../AddMessageForm/AddMessageForm';
-import { URL_BACK_FILES } from '../../../../config';
 
 
 
 import style from './Chat.module.sass';
 import Pusher from 'pusher-js';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext  } from 'react';
 import { request } from '../../../../Action/request';
 
 //redux
@@ -15,9 +14,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadMessages } from '../../../../redux/sliceChat';
 import MainUserChat from '../MainUserChat/MainUserChat';
 
+//context
+const contextChatGroup = createContext('');
 
 
-export default function Chat({userProps}){
+function Chat({userProps}){
 
   let allMessages = useSelector(state => state.sliceChat.value.chat.messages);
   const userFrom = useSelector(state => state.sliceUser.value.user.data);
@@ -28,7 +29,15 @@ export default function Chat({userProps}){
   const [message, setMessage] = useState([]);
   const [messages, setMessages] = useState([]);
 
-  const [groupChatId, setGroupChatId] = useState()
+  const [groupChatId, setGroupChatId] = useState(null);
+
+  //pusher
+  const [pusher, setPusher] = useState(null);
+  const [statusPusher, setStatusPusher] = useState(false);
+
+  //принудительный рирендер
+  const [, forceUpdate] = useState();
+  const rerender = () => forceUpdate({});
 
   async function requestMessages(){
     await request('post', 'chat/messages', (response)=>{
@@ -53,8 +62,73 @@ export default function Chat({userProps}){
   }
 
   function apiPusher(groupChatId){
-    // console.log(`$('meta[name="csrf-token"]').attr('content')` , 'sdfwebgeb');
-    Pusher.logToConsole = true;  
+
+    // const pusher = new Pusher('78ea49788a2c81fd0c1a', 
+    // {
+    //   authEndpoint: 'http://127.0.0.1:8000/api/custom/broadcasting/auth',
+    //   cluster: 'eu',
+    //   // authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
+    //   auth: {
+    //       headers: {
+    //         "Authorization": `Bearer ${(localStorage.getItem("my_token"))? localStorage.getItem("my_token") : ''}`,
+    //         // "Authorization": `Bearer ${localStorage.getItem("my_token")}`,
+    //         "Access-Control-Allow-Origin": "*"
+    //       }
+    //   },
+    // });
+    
+    const channel = pusher.subscribe('private-chat.' + groupChatId);
+    channel.bind('message', function(data) {
+      console.log(data , 'вызвался broadcasting');
+      //если у вебсокета случился обрыв?
+      if(data.length != 0){
+        setMessage(data);
+      }
+    
+    });
+
+
+    pusher.connection.bind("connecting", function () {
+      console.log('соединение');
+    });
+
+    pusher.connection.bind("unavailable", function () {
+      console.log('соединение не установлено');
+    });
+
+    pusher.connection.bind("connected", function () {
+      console.log('соединение установлено');
+      setStatusPusher(true);
+    });
+
+    pusher.connection.bind("error", function (error) {
+      console.error("Ошибка соединение", error);
+    });
+
+    pusher.connection.bind("state_change", function (states) {
+      console.error("Состояние соединенеи: ", states);
+    });
+
+    console.log(pusher.connection.state, ':____состояние соединение');
+    
+    
+  }
+
+  const funcSetIdGroup = id => {
+    setGroupChatId(id);
+  }
+
+  //запуск запроса на получение сообщений + вебсокет
+  useEffect(()=>{
+    if(userProps.length != 0){
+      requestMessages();
+    }
+  }, [userProps])
+
+  useEffect(()=>{
+
+    Pusher.logToConsole = false;  
+
     const pusher = new Pusher('78ea49788a2c81fd0c1a', 
     {
       authEndpoint: 'http://127.0.0.1:8000/api/custom/broadcasting/auth',
@@ -69,53 +143,18 @@ export default function Chat({userProps}){
       },
     });
 
-    console.log(pusher.connection.socket_id , '_________');
+    setPusher(pusher);
 
-    const channel = pusher.subscribe('private-chat.' + groupChatId);
-
-    console.log(channel , 'status channel')
-    channel.bind('message', function(data) {
-
-      console.log('chat' + groupChatId , 'пришло уведомление уже в ответе на броад кастинг');
-      //если у вебсокета случился обрыв?
-      if(data.length != 0){
-          setMessage(data);
-      }
-      
-    });
-
-    pusher.connection.bind("connecting", function () {
-      console.log('соединение');
-    });
-
-    pusher.connection.bind("unavailable", function () {
-      console.log('соединение не установлено');
-    });
-
-    pusher.connection.bind("connected", function () {
-      console.log('соединение установлено');
-    });
-
-    pusher.connection.bind("error", function (error) {
-      console.error("Ошибка соединение", error);
-    });
-
-    console.log(pusher.connection.state, ':____состояние соединение');
-  }
-
-
-
-  //запуск запроса на получение сообщений + вебсокет
-  useEffect(()=>{
-    if(userProps.length != 0){
-      requestMessages();
+    return () => {
+      pusher.disconnect();
     }
-  }, [userProps])
+  }, [])
 
 
   useEffect(()=>{
+    console.log(groupChatId , 'groupChatId')
+    if(typeof groupChatId !== "undefined" && pusher !== null){
 
-    if(typeof groupChatId !== "undefined"){
       apiPusher(groupChatId);
     }
 
@@ -133,8 +172,6 @@ export default function Chat({userProps}){
   }, [message]) 
 
 
-
-
   return (
     <div className={style.wrappChat}>
       {
@@ -142,7 +179,9 @@ export default function Chat({userProps}){
         <>
           <MainUserChat userProps={userProps}/>
           <Messages messages={messages} />
-          <AddMessageForm groupChatId={groupChatId} userFrom={userFrom} userTo={userProps}/>
+          <contextChatGroup.Provider value={funcSetIdGroup}>
+            <AddMessageForm groupChatId={groupChatId} userFrom={userFrom} userTo={userProps}/>
+          </contextChatGroup.Provider>
         </>
         :
         <div>Войдите в Аккаунт</div>
@@ -150,4 +189,5 @@ export default function Chat({userProps}){
     </div>
   )
 };
-  
+
+export {Chat , contextChatGroup};

@@ -1,4 +1,4 @@
-import Chat from "./Chat/Chat";
+import {Chat} from "./Chat/Chat";
 import style from "./ChatMainComponent.module.sass";
 
 export default function ChatMainComponent(){

@@ -7,6 +7,7 @@ export default function Messages(props){
   const messagesProps = props.messages;
   const [messages, setMessages] = useState([]);
   const [statusRequestSpinner , setStatusRequestSpinner] = useState(true);
+  const [statusEmptyBoxMessage, SetStatusEmptyBoxMessage] = useState(true);
 
   useEffect(()=>{ 
   
@@ -15,19 +16,21 @@ export default function Messages(props){
     }
     
     if(messagesProps?.length > 0){
+      
       setMessages(messagesProps);
       setStatusRequestSpinner(false);
+      SetStatusEmptyBoxMessage(false);
     }
 
   }, [messagesProps] )
-  
+
 
   return (
     <>
       <Spin spinning={statusRequestSpinner}>
         <div className={style.wrappMessages}>
           {
-            (messagesProps?.chatGroupDown) ? 
+            (statusEmptyBoxMessage) ? 
             <div className={style.infoChatGroupDown}>
               <span>Сообщений нет, начните диалог</span>
             </div>
