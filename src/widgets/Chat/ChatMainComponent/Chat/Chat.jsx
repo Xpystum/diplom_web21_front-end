@@ -1,7 +1,8 @@
 //компоненть
 import Messages from '../Messages/Messages';
 import AddMessageForm from '../AddMessageForm/AddMessageForm';
-import { Spin } from 'antd';
+import { URL_BACK_FILES } from '../../../../config';
+
 
 
 import style from './Chat.module.sass';
@@ -13,6 +14,7 @@ import { request } from '../../../../Action/request';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMessages } from '../../../../redux/sliceChat';
 import MainUserChat from '../MainUserChat/MainUserChat';
+
 
 
 export default function Chat({userProps}){
@@ -27,31 +29,6 @@ export default function Chat({userProps}){
   const [messages, setMessages] = useState([]);
 
   const [groupChatId, setGroupChatId] = useState()
-
-  //user
-  // const [userFrom, setUserForm] = useState([]);
-  // const [userTo, setuserTo] = useState('');
-  // const [chatGroup_id, setChatGroup_id] = useState('');
-
-  // useEffect(()=>{
-  //     setUserForm(props.userForm);
-  //     console.log(props.userForm , 'props.userForm');
-  // }, [props.userForm])
-
-  // useEffect(()=>{
-  //     setuserTo(props.userTo);
-  //     console.log(props.userTo , 'props.userTo');
-  // }, [props.userTo])
-
-  // useEffect(()=>{
-  //     setChatGroup_id(props.groupChatId);
-  //     console.log(props.groupChatId , 'groupChatId');
-  // }, [props.groupChatId])
-
-  // useEffect(()=>{
-  //   setUserForm(userFromRedux);
-  // } , [userFromRedux] )
-
 
   async function requestMessages(){
     await request('post', 'chat/messages', (response)=>{
@@ -70,20 +47,36 @@ export default function Chat({userProps}){
 
     }, {'user_from_id': userFrom.id, 'user_to_id': userProps.id}, (error) => {
 
-
+      console.log('вернул ошибку request: ', error);
 
     })
   }
 
-  function apiPusher(allMessages){
-
-    Pusher.logToConsole = false;
-    const pusher = new Pusher('78ea49788a2c81fd0c1a', {
-      cluster: 'eu'
+  function apiPusher(groupChatId){
+    // console.log(`$('meta[name="csrf-token"]').attr('content')` , 'sdfwebgeb');
+    Pusher.logToConsole = true;  
+    const pusher = new Pusher('78ea49788a2c81fd0c1a', 
+    {
+      authEndpoint: 'http://127.0.0.1:8000/api/custom/broadcasting/auth',
+      cluster: 'eu',
+      // authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
+      auth: {
+          headers: {
+            "Authorization": `Bearer ${(localStorage.getItem("my_token"))? localStorage.getItem("my_token") : ''}`,
+            // "Authorization": `Bearer ${localStorage.getItem("my_token")}`,
+            "Access-Control-Allow-Origin": "*"
+          }
+      },
     });
-    const channel = pusher.subscribe('chat');
+
+    console.log(pusher.connection.socket_id , '_________');
+
+    const channel = pusher.subscribe('private-chat.' + groupChatId);
+
+    console.log(channel , 'status channel')
     channel.bind('message', function(data) {
 
+      console.log('chat' + groupChatId , 'пришло уведомление уже в ответе на броад кастинг');
       //если у вебсокета случился обрыв?
       if(data.length != 0){
           setMessage(data);
@@ -119,9 +112,14 @@ export default function Chat({userProps}){
     }
   }, [userProps])
 
+
   useEffect(()=>{
-    apiPusher(allMessages);
-  }, [])
+
+    if(typeof groupChatId !== "undefined"){
+      apiPusher(groupChatId);
+    }
+
+  }, [groupChatId])
 
   //добавление сообщение в чат
   useEffect(()=>{ 

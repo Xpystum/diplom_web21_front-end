@@ -5,9 +5,9 @@ import axios from 'axios';
 export function request(method, url, callback, data = {}, 
     errorCallback = function () {} ,
 ){
-
+  
     const token = localStorage.getItem("my_token");
-    // console.log(token);
+    // console.log(token);  
     //при каждем запросе будет отправлять токен (middlware на сервере уже будет проверять доступ
     const promise = axios({
         "method": method,
