@@ -11,6 +11,7 @@ import { contextChatGroup } from './../Chat/Chat';
 
 export default function AddMessageForm(props){
 
+    const styleSelect = props.styleSelect ?? '';
     //context
         //переменная контекста группы Id
     const {funcSetIdGroup, setStatusMessageFirst, infoFirstMessage} = useContext(contextChatGroup);
@@ -200,7 +201,7 @@ export default function AddMessageForm(props){
                     onClick={ ()=>{ sendMessage() } } 
                     block
                     disabled={loading}
-                    className={style.button}
+                    className={(styleSelect == 'profileGeneral' )? style.buttonMyProfile : style.button}
                 >Отправить</Button>
             </Flex>
         </div>

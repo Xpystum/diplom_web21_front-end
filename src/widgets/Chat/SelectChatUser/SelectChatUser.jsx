@@ -49,7 +49,13 @@ const SelectChatUser = React.memo( ({chatGroup}) => {
         }
         const channel = pusher.subscribe(nameChannel + userMain.id);
         channel.bind('allGroup', function(data) {
+
             console.log(data , 'вебсокет вернул изменённые данные');
+
+            if(data.length != 0){
+                setChatGroupProps(data);
+            }
+
         });
         console.log(channel, 'ПОДКЛЮЧЕНИЕ К КАНАЛУ - НАЗВАНИЕ КАНАЛА');
         

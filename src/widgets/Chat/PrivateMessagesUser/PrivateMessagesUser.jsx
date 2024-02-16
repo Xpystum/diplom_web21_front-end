@@ -90,7 +90,7 @@ function PrivateMessagesUser(props){
                     {
                         (targetChat != null)?
                             // <Chat user={targetChat.user}  chatId={targetChat.chatgroup_id}/>
-                            <Chat targetChat={targetChat}/>
+                            <Chat styleSelect={'profileGeneral'} targetChat={targetChat}/>
                         : 
                         <div className={style.wrappChatEmpty}>
                             <span>Выберите диалог из списка слева</span>

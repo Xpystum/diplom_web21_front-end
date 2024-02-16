@@ -4,6 +4,8 @@ import style from "./Messages.module.sass";
 import { Spin } from 'antd';
 
 export default function Messages(props){
+
+  const styleSelect = props.styleSelect ?? '';
   const messagesProps = props.messages;
   const [messages, setMessages] = useState([]);
   const [statusRequestSpinner , setStatusRequestSpinner] = useState(true);
@@ -28,15 +30,15 @@ export default function Messages(props){
   return (
     <>
       <Spin spinning={statusRequestSpinner}>
-        <div className={style.wrappMessages}>
+        <div className={(styleSelect == 'profileGeneral' )? style.wrappMessagesMyProfile : style.wrappMessages}>
           {
             (statusEmptyBoxMessage) ? 
-            <div className={style.infoChatGroupDown}>
+            <div className={(styleSelect == 'profileGeneral' )? style.infoChatGroupDownMyProfile : style.infoChatGroupDown}>
               <span>Сообщений нет, начните диалог</span>
             </div>
             :
             messages.map( (message, index) => {
-              return <Message message={message} key={index + 1} />
+              return <Message styleSelect={styleSelect} message={message} key={index + 1} />
             })
           }
         </div>

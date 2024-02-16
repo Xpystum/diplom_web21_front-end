@@ -25,6 +25,8 @@ const contextChatGroup = createContext('');
 
 const Chat = React.memo ( (prop) => {
 
+  const styleSelect = prop.styleSelect ?? '';
+
   const [userProps, setUserProps] = useState(prop.targetChat.user);
   const [groupChatId, setGroupChatId] = useState(prop.targetChat.chatId);
 
@@ -45,8 +47,6 @@ const Chat = React.memo ( (prop) => {
   const [statusPusherFirstMessage, setStatusPusher] = useState(true);
   const [firstMessage, setFirstMessage] = useState(null);
 
-  // fakeGroupId
-  const [fakeGroupId, setFakeGroupId] = useState(null);
 
   function firstRequestAndMessage(){
     //логика для отправки первого сообщение уже после подписки на канал broadcats (если не будет, то при первом сообщении не будет обновление в чате)
@@ -76,16 +76,9 @@ const Chat = React.memo ( (prop) => {
   }
 
   async function requestMessages(){
+
     await request('post', 'chat/messages', (response)=>{
 
-      console.log(response , 'response');
-
-      if(response.data?.gtoupChannel){
-        setFakeGroupId(response.data?.gtoupChannel);
-        setMessages({chatGroupDown: true});
-        
-        console.log( response.data?.gtoupChannel , 'gtoupChannel, существует');
-      }
 
       if (response.status == 200 && response.data.data[0].length > 0) {
 
@@ -104,13 +97,11 @@ const Chat = React.memo ( (prop) => {
       console.log('вернул ошибку request: ', error);
 
     })
+
   }
 
   function apiPusher(groupChatId){
 
-    if(pusher.connection.state == 'connected'){
-    }
-    console.log(fakeGroupId);
     const channel = pusher.subscribe(nameChannel + groupChatId );
     activeSubscriptions.push(channel);
     channel.bind('message', function(data) {
@@ -240,18 +231,14 @@ const Chat = React.memo ( (prop) => {
   //изменил может сломаться
 
   useEffect(()=>{
-
-    if(fakeGroupId !== null){
-      apiPusher(fakeGroupId);
-    }
     
-    if( (typeof groupChatId !== "undefined" && groupChatId !== null)  && pusher !== null ){
+    if( typeof groupChatId !== "undefined" && pusher !== null ){
       console.log('проверка пройдена');
       apiPusher(groupChatId);
     }
    
 
-  }, [groupChatId, pusher, fakeGroupId ])
+  }, [groupChatId, pusher ])
 
   //добавление сообщение в чат
   useEffect(()=>{ 
@@ -267,14 +254,14 @@ const Chat = React.memo ( (prop) => {
 
   return (
     (userFrom.id != userProps.id)?
-    <div className={style.wrappChat}>
+    <div className={(styleSelect == 'profileGeneral' )? style.wrappChatMyProfile : style.wrappChat}>
       {
         (userFrom.length != 0) ?
         <>
-          <MainUserChat user={userProps}/>
-          <Messages messages={messages} />
+          <MainUserChat styleSelect={styleSelect} user={userProps}/>
+          <Messages styleSelect={styleSelect} messages={messages} />
           <contextChatGroup.Provider value={{funcSetIdGroup , setStatusMessageFirst, infoFirstMessage}}>
-            <AddMessageForm groupChatId={groupChatId} userFrom={userFrom} userTo={userProps}/>
+            <AddMessageForm styleSelect={styleSelect} groupChatId={groupChatId} userFrom={userFrom} userTo={userProps}/>
           </contextChatGroup.Provider>
         </>
         :

@@ -10,6 +10,11 @@ export default function Message(props){
         author: 'Maksim',
         text: 'Hello Friend',
     }
+
+    //выбор стилей
+    const styleSelect = props.styleSelect ?? '';
+
+
     const message = props.message ?? message1;
     const user = message.user ?? null;
     const avatarPath = user?.pathAvatar?.path?.resource ?? '';
@@ -23,23 +28,23 @@ export default function Message(props){
 
     return (
 
-        <div className={style.wrappMessage}>
-            <div className={style.wrappMessage_InfoAndTime}>
-                <div>
+        <div className={(styleSelect == 'profileGeneral' )? style.wrappMessageMyProfile : style.wrappMessage}>
+            <div className={(styleSelect == 'profileGeneral' )? style.wrappMessage_InfoAndTimeMyProfile : style.wrappMessage_InfoAndTime}>
+                <div className={ (styleSelect == 'profileGeneral' )? style.blockwrappAvatar : ''}>
                     <Avatar name={user.name} src={URL_IMG + avatarPath} size='40' round={true}/> 
-                    <b className={style.authorName}>{user.name}</b>
+                    <b className={(styleSelect == 'profileGeneral' )? style.authorNameMyProfile : style.authorName}>{user.name}</b>
                 </div>
-                <div className={style.InfoAndTime__wrappTime}>
-                    <span className={style.wrappMessage_InfoAndTime__spanTime}>{timeYear}</span>
-                    <span className={style.wrappMessage_InfoAndTime__spanTime}>{timeHour}</span>
+                <div className={(styleSelect == 'profileGeneral' )? style.InfoAndTime__wrappTimeMyProfile : style.InfoAndTime__wrappTime}>
+                    <span className={(styleSelect == 'profileGeneral' )? style.wrappMessage_InfoAndTime__spanTimeMyProfile : style.wrappMessage_InfoAndTime__spanTime}>{timeYear}</span>
+                    <span className={(styleSelect == 'profileGeneral' )? style.wrappMessage_InfoAndTime__spanTimeMyProfile : style.wrappMessage_InfoAndTime__spanTime}>{timeHour}</span>
                 </div>
             </div>
 
-            <div className={style.messageText}>
+            <div className={(styleSelect == 'profileGeneral' )? style.messageTextMyProfile : style.messageText}>
                 {message.message}
             </div>
             
-            <div className={style.lineSeparator}> </div>
+            <div className={(styleSelect == 'profileGeneral' )? style.lineSeparatorMyProfile : style.lineSeparator}></div>
         </div>
 
     )
