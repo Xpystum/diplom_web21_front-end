@@ -6,41 +6,87 @@ import AddMessageForm from '../AddMessageForm/AddMessageForm';
 
 import style from './Chat.module.sass';
 import Pusher from 'pusher-js';
-import { useEffect, useState, createContext  } from 'react';
+import React, { useEffect, useState, createContext  } from 'react';
 import { request } from '../../../../Action/request';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMessages } from '../../../../redux/sliceChat';
 import MainUserChat from '../MainUserChat/MainUserChat';
+import name from '../../../../pages/Card/Card';
 
 //context
 const contextChatGroup = createContext('');
 
+// targetChat = {
+// name: name
+// chatId: chatId
+// }
 
-function Chat({userProps}){
+const Chat = React.memo ( (prop) => {
 
+  const [userProps, setUserProps] = useState(prop.targetChat.user);
+  const [groupChatId, setGroupChatId] = useState(prop.targetChat.chatId);
+
+  let activeSubscriptions = [];
   let allMessages = useSelector(state => state.sliceChat.value.chat.messages);
   const userFrom = useSelector(state => state.sliceUser.value.user.data);
   const dispatch = useDispatch(); 
-  
+
+  const nameChannel = 'private-chat.';
 
   //состояние сообщений
   const [message, setMessage] = useState([]);
   const [messages, setMessages] = useState([]);
 
-  const [groupChatId, setGroupChatId] = useState(null);
 
   //pusher
   const [pusher, setPusher] = useState(null);
-  const [statusPusher, setStatusPusher] = useState(false);
+  const [statusPusherFirstMessage, setStatusPusher] = useState(true);
+  const [firstMessage, setFirstMessage] = useState(null);
 
-  //принудительный рирендер
-  const [, forceUpdate] = useState();
-  const rerender = () => forceUpdate({});
+  // fakeGroupId
+  const [fakeGroupId, setFakeGroupId] = useState(null);
+
+  function firstRequestAndMessage(){
+    //логика для отправки первого сообщение уже после подписки на канал broadcats (если не будет, то при первом сообщении не будет обновление в чате)
+    if(statusPusherFirstMessage && typeof firstMessage !== "undefined" && firstMessage !== null){
+
+      request('POST', 'chat/send', (response)=>{
+  
+        if ( response.status >= 200 && response.status <= 204 && response.data.lenght != 0)  {
+          //todo
+        }
+
+        }, {
+
+          user_from_id: firstMessage.user_from_id, 
+          user_to_id: firstMessage.user_to_id , 
+          message: firstMessage.message, 
+          chatgroup_id: firstMessage.chatgroup_id
+
+        }, (error) => {
+          //todo error
+      })
+
+      setStatusPusher(false);
+      setFirstMessage(null);
+    }
+
+  }
 
   async function requestMessages(){
     await request('post', 'chat/messages', (response)=>{
+
+      console.log(response , 'response');
+
+      if(response.data?.gtoupChannel){
+        setFakeGroupId(response.data?.gtoupChannel);
+        setMessages({chatGroupDown: true});
+        
+        console.log( response.data?.gtoupChannel , 'gtoupChannel, существует');
+      }
+
       if (response.status == 200 && response.data.data[0].length > 0) {
 
         setGroupChatId(response.data.chatgroup_id);
@@ -50,7 +96,6 @@ function Chat({userProps}){
       }
 
       if(response.status == 202){
-        console.log( ' __status 202');
         setMessages({chatGroupDown: true});
       }
 
@@ -63,31 +108,24 @@ function Chat({userProps}){
 
   function apiPusher(groupChatId){
 
-    // const pusher = new Pusher('78ea49788a2c81fd0c1a', 
-    // {
-    //   authEndpoint: 'http://127.0.0.1:8000/api/custom/broadcasting/auth',
-    //   cluster: 'eu',
-    //   // authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
-    //   auth: {
-    //       headers: {
-    //         "Authorization": `Bearer ${(localStorage.getItem("my_token"))? localStorage.getItem("my_token") : ''}`,
-    //         // "Authorization": `Bearer ${localStorage.getItem("my_token")}`,
-    //         "Access-Control-Allow-Origin": "*"
-    //       }
-    //   },
-    // });
-    
-    const channel = pusher.subscribe('private-chat.' + groupChatId);
+    if(pusher.connection.state == 'connected'){
+    }
+    console.log(fakeGroupId);
+    const channel = pusher.subscribe(nameChannel + groupChatId );
+    activeSubscriptions.push(channel);
     channel.bind('message', function(data) {
-      console.log(data , 'вызвался broadcasting');
+
       //если у вебсокета случился обрыв?
       if(data.length != 0){
         setMessage(data);
       }
     
     });
-
-
+    console.log(channel , 'название КАНАЛ ПРИ ПОДПИСКЕ')
+    //вызов логики первого сообщение
+    firstRequestAndMessage();
+   
+    
     pusher.connection.bind("connecting", function () {
       console.log('соединение');
     });
@@ -102,15 +140,14 @@ function Chat({userProps}){
     });
 
     pusher.connection.bind("error", function (error) {
-      console.error("Ошибка соединение", error);
+      // console.error("Ошибка соединение", error);
     });
 
     pusher.connection.bind("state_change", function (states) {
-      console.error("Состояние соединенеи: ", states);
+      // console.error("Состояние соединение: ", states);
     });
 
     console.log(pusher.connection.state, ':____состояние соединение');
-    
     
   }
 
@@ -118,15 +155,28 @@ function Chat({userProps}){
     setGroupChatId(id);
   }
 
-  //запуск запроса на получение сообщений + вебсокет
-  useEffect(()=>{
-    if(userProps.length != 0){
-      requestMessages();
+  const setStatusMessageFirst = (status = null) => {
+    //setStatusMessageFirst для стату первой отправки сообщение и создание группы
+    if(status == null) {
+      return statusPusherFirstMessage;
+    }else{
+      statusPusherFirstMessage(status);
     }
-  }, [userProps])
+  }
 
-  useEffect(()=>{
+  const infoFirstMessage = (user_from_id, user_to_id , message, chatgroup_id) => {
 
+    setFirstMessage({
+      user_from_id: user_from_id,
+      user_to_id: user_to_id,
+      message: message,
+      chatgroup_id: chatgroup_id,
+    });
+
+  }
+
+  function connectApiPuser(){
+    console.log('создалось подключение к пушеру');
     Pusher.logToConsole = false;  
 
     const pusher = new Pusher('78ea49788a2c81fd0c1a', 
@@ -144,21 +194,64 @@ function Chat({userProps}){
     });
 
     setPusher(pusher);
-
-    return () => {
-      pusher.disconnect();
-    }
-  }, [])
-
+  }
 
   useEffect(()=>{
-    console.log(groupChatId , 'groupChatId')
-    if(typeof groupChatId !== "undefined" && pusher !== null){
 
-      apiPusher(groupChatId);
+    setUserProps(prop.targetChat.user);
+    setGroupChatId(prop.targetChat.chatId);
+
+    if(pusher != null){
+
+      console.log( 'PUSHER NE NULL ОТРУБАЕМСЯ ОТ НЕГО')
+      pusher.disconnect();
+      connectApiPuser();
+
     }
 
-  }, [groupChatId])
+  }, [prop])
+
+  //запуск запроса на получение сообщений + вебсокет
+  useEffect(()=>{
+    if(userProps.length != 0){
+      requestMessages();
+    }
+  }, [userProps])
+
+  useEffect(()=>{
+
+    if(pusher == null){
+
+      connectApiPuser();
+
+    }
+
+    return () => {
+
+      console.log(pusher , 'pusher');
+      if(pusher != null){
+        pusher.disconnect();
+      }
+
+    }
+
+  }, [])
+
+  //изменил может сломаться
+
+  useEffect(()=>{
+
+    if(fakeGroupId !== null){
+      apiPusher(fakeGroupId);
+    }
+    
+    if( (typeof groupChatId !== "undefined" && groupChatId !== null)  && pusher !== null ){
+      console.log('проверка пройдена');
+      apiPusher(groupChatId);
+    }
+   
+
+  }, [groupChatId, pusher, fakeGroupId ])
 
   //добавление сообщение в чат
   useEffect(()=>{ 
@@ -173,13 +266,14 @@ function Chat({userProps}){
 
 
   return (
+    (userFrom.id != userProps.id)?
     <div className={style.wrappChat}>
       {
         (userFrom.length != 0) ?
         <>
-          <MainUserChat userProps={userProps}/>
+          <MainUserChat user={userProps}/>
           <Messages messages={messages} />
-          <contextChatGroup.Provider value={funcSetIdGroup}>
+          <contextChatGroup.Provider value={{funcSetIdGroup , setStatusMessageFirst, infoFirstMessage}}>
             <AddMessageForm groupChatId={groupChatId} userFrom={userFrom} userTo={userProps}/>
           </contextChatGroup.Provider>
         </>
@@ -187,7 +281,9 @@ function Chat({userProps}){
         <div>Войдите в Аккаунт</div>
       }
     </div>
+    :
+    ''
   )
-};
+});
 
 export {Chat , contextChatGroup};

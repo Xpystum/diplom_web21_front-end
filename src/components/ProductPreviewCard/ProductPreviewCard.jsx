@@ -21,7 +21,6 @@ export default function ProductPreviewCard(props) {
   
   let favorites = useSelector(state => state.dataState.value.user.favorites);
   let auth = useSelector(state => state.dataState.value.app.auth);
-  console.log(auth, ' auth пользователь');
   
   const textIconStar = {
     initial: 'Добавить в избранное',

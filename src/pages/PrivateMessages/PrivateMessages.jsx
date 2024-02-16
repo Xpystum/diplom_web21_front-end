@@ -1,6 +1,6 @@
 
 import style from "./PrivateMessages.module.sass";
-import PrivateMessagesUser from "../../widgets/Chat/PrivateMessagesUser/PrivateMessagesUser";
+import {PrivateMessagesUser} from "../../widgets/Chat/PrivateMessagesUser/PrivateMessagesUser";
 import Header from "../../UI/Header/Header";
 
 

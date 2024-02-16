@@ -355,7 +355,10 @@ export default function ProductCard(props) {
                             <div className={style.СolumnRight}>
 
                                 <div>
-                                    <Chat userProps={user}/>
+                                    <Chat targetChat={{
+                                        user: user,
+                                        chatId: null,
+                                    }}/>
                                 </div>
                                 
                                 <div className={style.Prices}>

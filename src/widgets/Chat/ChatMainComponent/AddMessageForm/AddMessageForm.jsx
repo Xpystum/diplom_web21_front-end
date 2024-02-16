@@ -13,7 +13,7 @@ export default function AddMessageForm(props){
 
     //context
         //переменная контекста группы Id
-    const funcSetIdGroup = useContext(contextChatGroup);
+    const {funcSetIdGroup, setStatusMessageFirst, infoFirstMessage} = useContext(contextChatGroup);
     //timer
         //состояние таймера
     let [timer, setTimer] = useState(null);
@@ -81,34 +81,23 @@ export default function AddMessageForm(props){
 
             setLoading(false);
             if ( response.status >= 200 && response.status <= 204 && response.data.lenght != 0)  {
+
                 resetTimer();
 
                 if(response.data.chatgroup_id) { 
-                    console.log(response.data.chatgroup_id , 'response.data.chatgroup_id')
                     funcSetIdGroup(response.data.chatgroup_id);
-                    let chatgroup_id = response.data.chatgroup_id;
-                    //после получение groupId наш broadcat подпишется на канал и будет получать первое сообщение в realTime
-                    request('POST', 'chat/send', (response) => {
-
-                        if ( response.status >= 200 && response.status <= 204 && response.data.lenght != 0)  {
-                            console.log('вызов двойного request и response.data.chatgroup_id', chatgroup_id,);
-                            console.log(response.data);
-                        }
-
-                    }, {user_from_id: userForm.id, user_to_id: userTo.id , message: messageUser, chatgroup_id: chatgroup_id}, (error) => {
-                        
-                      
-
-                    });
-
+                    let chatGroup_id = response.data.chatgroup_id;
+                    //установка первых данных о первом сообщение (для подключение к pusher каналу где подставляется chatGroup_id)
+                    if(setStatusMessageFirst()){
+                        infoFirstMessage(userForm.id, userTo.id, messageUser, chatGroup_id)
+                    }
                 }
 
-                console.log(response.data, ' response.dataresponse.dataresponse.dataresponse.data');
             }
         }, {user_from_id: userForm.id, user_to_id: userTo.id , message: messageUser, chatgroup_id: chatGroup_id}, (error) => {
             
             if(error){
-                setTimer(error.response.headers['retry-after'])
+                setTimer(error.response?.headers['retry-after'])
                 console.log(error, 'errorerrorerrorerror response.dataresponse.dataresponse.dataresponse.data')
                 //новая пемеренная нужна для того что бы statusRequest изменялся при изменении памяти переменной.
                 SetStatusRequest({value: error.response.status});
@@ -191,12 +180,6 @@ export default function AddMessageForm(props){
 
     return (
         <div className={style.wrapp_messageForm}>
-            {
-                // (statusRequest)? 
-                // contextHolder
-                // :
-                // ''
-            }
             <TextArea 
                 placeholder={defaultZoneValueText}
                 allowClear={true}

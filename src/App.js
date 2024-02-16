@@ -120,7 +120,7 @@ function App() {
                             <Route path="/category/reviews/:id" element={<ReviewCard/>}/>
                             <Route path="/chat" element={<TestChatPage/>}/>
 
-                            <Route path="/PrivateMessages" element={<PrivateMessages/>}/>
+                            <Route path="/private/messages" element={<PrivateMessages/>}/>
                         </Routes>
                     </div>
             }
