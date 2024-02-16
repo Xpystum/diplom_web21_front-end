@@ -1,12 +1,10 @@
 
 import style from "./PrivateMessagesUser.module.sass";
 import {Chat} from "../ChatMainComponent/Chat/Chat";
-import EmptyMessage from "./EmptyMessage.jsx";
 import {SelectChatUser} from "./../SelectChatUser/SelectChatUser.jsx";
-import { createContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { request } from "../../../Action/request.js";
-import { object } from "prop-types";
 
 const groupChatSelect = createContext('');
 
@@ -78,12 +76,9 @@ function PrivateMessagesUser(props){
                         </div>
                     </nav>  
                     {
-                        true ?
                         <groupChatSelect.Provider value={{clickSelectGroupChat, }}>
                             <SelectChatUser chatGroup={chatGroup}/>
                         </groupChatSelect.Provider>
-                        :
-                        <EmptyMessage />
                     }
                 </section>
                 <section className={style.RightBlock_chat}>

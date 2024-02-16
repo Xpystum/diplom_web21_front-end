@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { groupChatSelect } from './../PrivateMessagesUser/PrivateMessagesUser'; 
 import Pusher from 'pusher-js';
 import { useSelector } from "react-redux";
+import EmptyMessage from "../PrivateMessagesUser/EmptyMessage";
 
 
 const SelectChatUser = React.memo( ({chatGroup}) => {
@@ -116,6 +117,8 @@ const SelectChatUser = React.memo( ({chatGroup}) => {
     }
     
     return (
+
+        (chatGroupProps.length != 0) ?
         <ul className={style.wrappBlock}>
             {
                 chatGroupProps.map((item, key)=>{
@@ -132,6 +135,8 @@ const SelectChatUser = React.memo( ({chatGroup}) => {
                 })
             }
         </ul>
+        :
+        <EmptyMessage />
     )
 });
 

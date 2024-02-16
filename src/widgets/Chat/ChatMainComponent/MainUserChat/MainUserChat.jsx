@@ -21,7 +21,9 @@ export default function  MainUserChat(props) {
 
   return (
     <>
-        <div className={ (styleSelect !=  'selectUser')? style['wrappMainUserChat'] : style['wrappMainUserSelectChatUser'] }>
+        <div className={ (styleSelect !=  'selectUser')? ( (styleSelect == 'profileGeneral' )? style['wrappMainUserChatMyProfile'] : style['wrappMainUserChat'] )
+        : style['wrappMainUserSelectChatUser'] 
+        }>
             <div className={(styleSelect !=  'selectUser')? style['avatarUserWrapp'] : style['infoBlockWrapp'] }>
                 <Avatar name={user?.name} src={URL_IMG + avatarPath} size='40' round={true}/> 
                 <div className={(styleSelect !=  'selectUser')? style['blockInfoUser'] : style['blockInfoUser']}>

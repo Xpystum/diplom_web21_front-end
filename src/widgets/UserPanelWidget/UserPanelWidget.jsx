@@ -98,7 +98,7 @@ export default function UserPanelWidget(props){
 
             <div className={style.wrappInfoIcon}>
                 <div>
-                    <Link className={style.LinkInfoIcon} to="#" onClick={()=>{}}>
+                    <Link className={style.LinkInfoIcon} to="/private/messages" onClick={()=>{}}>
                         <FontAwesomeIcon className={style.InfoIcon} icon="fa-solid fa-comment" />
                     </Link>
                 </div>
