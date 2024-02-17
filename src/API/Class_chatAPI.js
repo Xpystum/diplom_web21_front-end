@@ -66,6 +66,7 @@ export class Class_chatAPI {
   subscribeEventChannel(channelName, nameSubscribe, functionCallBack){
     
     const channel =  this._SubscriptionChannel.find(channel => channel.name === `${channelName}`);
+    // console.log(channel, 'channel');
     channel.bind(`${nameSubscribe}`, function(data) {
       //передача значение при событии
       functionCallBack(data);

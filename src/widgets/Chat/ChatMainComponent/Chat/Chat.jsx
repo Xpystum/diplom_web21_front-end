@@ -201,7 +201,7 @@ const Chat = React.memo ( (prop) => {
   useEffect(()=>{
     
     //&& groupChatId !== null - добавлять проверку что бы бесполезных подписей на каналов не было.
-
+    // console.log(pusher , 'зашли в эффект');
     if( typeof groupChatId !== "undefined" && pusher !== null ){
       apiPusher(groupChatId);
     }
