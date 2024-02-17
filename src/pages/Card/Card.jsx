@@ -5,7 +5,6 @@ export default function name(props) {
     return (
         <div>
             <Header />
-
             <ProductCard />
         </div>
     )

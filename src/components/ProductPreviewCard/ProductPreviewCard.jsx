@@ -21,16 +21,14 @@ export default function ProductPreviewCard(props) {
   
   let favorites = useSelector(state => state.dataState.value.user.favorites);
   let auth = useSelector(state => state.dataState.value.app.auth);
-
   
   const textIconStar = {
     initial: 'Добавить в избранное',
     reverse: 'Удалить из избранного',
   };
 
-
-
   const car = props.car;
+  
   useEffect(()=>{
 
     let flag = false;
@@ -56,7 +54,7 @@ export default function ProductPreviewCard(props) {
   let urlImg = URL_IMG
 
   function onFavorite() {
-    console.log('Проверка выполения функции =>', onFavorite.name);
+    // console.log('Проверка выполения функции =>', onFavorite.name);
 
     // удаление
     if(stateFavourites){
@@ -113,7 +111,7 @@ export default function ProductPreviewCard(props) {
 
       
     }
-
+    
         
   }
   return (

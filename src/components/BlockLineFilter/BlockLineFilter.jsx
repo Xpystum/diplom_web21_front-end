@@ -12,7 +12,6 @@ export default function BlockLineFilter(props){
     let dispatch = useDispatch();
     const isAdd = props.isAdd;
     const isFirst = props.isFirst;
-
     let resetState = props.resetState;
     let brands = useSelector(state => state.dataState.value.brands);
     let models = useSelector(state => state.dataState.value.models);
@@ -30,9 +29,6 @@ export default function BlockLineFilter(props){
       })
     }
     
-       
-
-
     return(
         <>
             <div className={style.block_info_wrapp}>
@@ -48,6 +44,7 @@ export default function BlockLineFilter(props){
                   
                   <CustomDataListImg resetState={resetState} placeholder={"Поколение"}/>
                   <div className={style.block_info_icon}>
+
                       {
                         (isFirst) ?
                           (isAdd) ? 
@@ -56,7 +53,7 @@ export default function BlockLineFilter(props){
                           </> 
                           :
                           <>
-                            <ButtonPlus method={ props.addLineBlock } IconContent="fa-solid fa-plus" size='2x'/>
+                            {/* <ButtonPlus method={ props.deletedLineBlock } IconContent="fa-solid fa-plus" size='2x'/> */}
                           </> 
                         :
                           <>

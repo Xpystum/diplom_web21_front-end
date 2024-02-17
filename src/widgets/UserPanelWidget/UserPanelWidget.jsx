@@ -1,35 +1,45 @@
 import { Link } from "react-router-dom";
 import style from './UserPanelWidget.module.sass';
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, loaderUser, reloadUser, removeToken, removeUser } from "../../redux/dataState";
+
+
+import { removeToken } from "../../redux/dataState";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
-import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
+
+
+import { removeUser  } from "../../redux/sliceUser";
+import Avatar from 'react-avatar';
+import { URL_IMG } from "../../config";
+
 
 export default function UserPanelWidget(props){
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    let user = useSelector(state => state.dataState.value.user.data);
+
+    const user = useSelector(state => state.sliceUser.value.user.data);
+    const userAvatar = user?.pathAvatar?.path?.resource;
+
 
     function onLogout(){
         dispatch(removeToken());
+        dispatch(removeUser());
         navigate("/sign");
-    }
+    }   
 
     return(
         
         <div className={style.register_wrap}>
-
+            
             <div className={style.wrappProfile}>
                 <div className={style.wrapp_avatar}>
                     <div className={style.avatar}>
-                    <Link className={style.profileBlock_itemBlock_link} to="/my" onClick={()=>{}}>
+                    <Link className={style.profileBlock_itemBlock_link} to="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" onClick={()=>{}}>
                         {
-                            (user.name)? 
-                                <span className={style.avatar__name}>{user.name[0]}</span>
-                                :
-                                <FontAwesomeIcon className={style.avatar__icon} icon="fa-solid fa-user-tie"/>
-                            
+                            (user.length != 0)? 
+                            <Avatar name={user.name} className={style.profileBlock_itemBlock_link} src={URL_IMG + userAvatar} size='35' round = {true}/> 
+                            :
+                            <FontAwesomeIcon className={style.avatar__icon} icon="fa-solid fa-user-tie" /> 
                         }
                     </Link> 
                     </div >
@@ -97,7 +107,7 @@ export default function UserPanelWidget(props){
 
             <div className={style.wrappInfoIcon}>
                 <div>
-                    <Link className={style.LinkInfoIcon} to="#" onClick={()=>{}}>
+                    <Link className={style.LinkInfoIcon} to="/private/messages" onClick={()=>{}}>
                         <FontAwesomeIcon className={style.InfoIcon} icon="fa-solid fa-comment" />
                     </Link>
                 </div>

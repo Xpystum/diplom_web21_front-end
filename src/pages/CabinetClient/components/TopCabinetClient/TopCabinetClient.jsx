@@ -2,25 +2,27 @@ import { Col, Container, Row } from "react-bootstrap";
 import style from "./TopCabinetClient.module.sass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { URL_IMG } from "../../../../config";
+import Avatar from "react-avatar";
 
 export default function TopCabinetClient(props){
     
     let user = props.user;
+    const pathAvatar = user.pathAvatar.path.resource;
 
     return(
         <div className={style.top}>
             <Container className={style.top__wrap}>
                 <div className={style.user__wrap}>
                     <div className={style.avatar}>
-                        <span className={style.avatar__name}>
                         {
                             (user.name)? 
-                                <span className={style.avatar__name}>{user.name[0]}</span>
+                                // <span className={style.avatar__name}>{user.name[0]}</span>
+                                <Avatar name={user?.name} src={URL_IMG + pathAvatar} size='60' round={true}/> 
                                 :
                                 <FontAwesomeIcon className={style.avatar__icon} icon="fa-solid fa-user-tie"/>
                             
                         } 
-                        </span>
                     </div>
                     <div className={style.user__content}>
                         <p className={style.user__name}>{(user.name)? user.name: "Гость"}</p>

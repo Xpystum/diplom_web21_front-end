@@ -29,9 +29,12 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from 'react';
 import Reviews from './pages/Reviews/Reviews';
 import ReviewCard from './pages/ReviewCard/ReviewCard';
+
 import CabinetClient from './pages/CabinetClient/pages/CabinetClient';
 import AddReview from './pages/AddReview/AddReview';
 import CreateAnAd from './pages/CabinetClient/pages/CreateAnAd/CreateAnAd';
+
+import PrivateMessages from './pages/PrivateMessages/PrivateMessages';
 
 
 library.add(fas)
@@ -40,7 +43,6 @@ library.add(fas)
 
 
 function App(props) {
-
 
     let loading = useSelector(state => state.dataState.value.app.loader);
     let dispatch = useDispatch();
@@ -115,13 +117,6 @@ function App(props) {
         
     },[])
 
-    
-
-
-
-    
-
-
     return (
         <div className="App">
             {
@@ -138,12 +133,14 @@ function App(props) {
                             <Route path="/category/:alias/card/:id" element={<Card />} />
                             <Route path="/sign" element={<Sign/>}/>
 
-                            <Route path="/my" element={<CabinetClient />}/>
+                            <Route path="/my" element={<CabinetClient/>}/>
                             <Route path="/my/ads" element={<Ads />}/>
                             <Route path="/my/ads/new" element={<CreateAnAd />}/>
                             <Route path="/category/reviews" element={<Reviews reviews={props.reviews}/>}/>
                             <Route path="/category/reviews/add-review" element={<AddReview reviews={props.reviews}/>}/>
                             <Route path="/category/reviews/:id" element={<ReviewCard reviews={props.reviews}/>}/>
+
+                            <Route path="/private/messages" element={<PrivateMessages/>}/>
 
                         </Routes>
                     </div>

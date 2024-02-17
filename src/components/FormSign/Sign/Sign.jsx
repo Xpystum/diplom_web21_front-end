@@ -6,21 +6,59 @@ import { faVk } from '@fortawesome/free-brands-svg-icons';
 import { request } from '../../../Action/request';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite, loaderUser, reloadUser } from '../../../redux/dataState';
-import { authToken } from "../../../redux/dataState";
-import { keyboard } from '@testing-library/user-event/dist/keyboard';
+
+import { reloadUser, authToken } from '../../../redux/dataState';
+import { loadUser } from '../../../redux/sliceUser';
+
 
 export default function Sign(props) {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const favorites = useSelector((state) => state.dataState.value.user.favorites);
-    const authToken = useSelector((state) => state.dataState.value.app.auth.token);
-  
-    const [mail, setMail] = useState("");
-    const [pass, setPass] = useState("");
+    let navigate = useNavigate();
+    let dispatch = useDispatch();
+    let favorites = useSelector(state => state.dataState.value.user.favorites);
+    // let authToken = useSelector(state => state.dataState.value.app.auth.token);
+
+    let [mail, setMail] = useState("");
+    let [pass, setPass] = useState("");
     const [status, setStatus] = useState("");
     const [error, setError] = useState("");
   
+
+    function authResponse(response){
+        
+        if(response.data.code == 201 && response.data.token.trim() != ""){
+            console.log(response.data.token_name, 'response.data.token_name');
+            localStorage.setItem(response.data.token_name, response.data.token);
+            localStorage.setItem("uid", response.data.uid);
+            const id = localStorage.getItem("uid");
+
+            request('post', 'user', (responseUser) => {     
+                // console.log(responseUser, '_________response');
+                if (responseUser.status === 200) {
+
+                    dispatch(reloadUser(responseUser.data));
+                    dispatch(loadUser(responseUser.data));
+
+                }
+            }, {'id': id} );
+            
+            request("post", 'favorites-sinc', (response)=>{
+                
+                dispatch(authToken(localStorage.getItem("my_token")))
+                // dispatch(addFavorite(response.data));
+                
+                    
+            }, {"favorites":favorites} )
+
+            navigate("/my");
+
+        }
+
+        if(response.data.code == 403){
+            console.log(403, '______ошибка');
+        }
+
+    }
+
     function clickButton() {
       if (mail.trim() === ""){
         setError("Введите почту");
@@ -36,23 +74,9 @@ export default function Sign(props) {
         password: pass,
       });
     }
-  
-    function authResponse(response) {
-      if (response.data.code === 201 && response.data.token.trim() !== "") {
-        
-        localStorage.setItem(response.data.token_name, response.data.token);
 
-        navigate("/my");
-
-
-        request("post", "favorites-sinc", (response) => {
-          dispatch(authToken(localStorage.getItem("my_token")));
-        }, { favorites });
-      } else if (response.data.code === 403) {
-        setError("Неверный логин или пароль");
-      }
-    }
-    useEffect(()=>
+    useEffect(()=>{
+      
       document.getElementById("desc_pass").addEventListener("keyup", function(event) {
         event.preventDefault();
         if (event.code == 'Enter') {
@@ -62,9 +86,10 @@ export default function Sign(props) {
             loginButton.click();
           }
         }
+  
+        })
 
-      })
-    ,[]);
+    },[]);
       
     
 
