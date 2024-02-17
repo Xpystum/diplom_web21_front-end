@@ -66,7 +66,6 @@ export class Class_chatAPI {
   subscribeEventChannel(channelName, nameSubscribe, functionCallBack){
     
     const channel =  this._SubscriptionChannel.find(channel => channel.name === `${channelName}`);
-    console.log(channel , 'channel');
     channel.bind(`${nameSubscribe}`, function(data) {
       //передача значение при событии
       functionCallBack(data);
@@ -74,9 +73,21 @@ export class Class_chatAPI {
     
   }
 
+  isExisistChannel(channelName){
+    const channel = this._SubscriptionChannel.find(channel => channel.name === `${channelName}`);
+
+    if(channel) { 
+      return true
+    }else{
+      return false;
+    }
+
+  }
+
   disconnectPusher(){
 
     this._PusherObject.disconnect();
+    this._SubscriptionChannel = [];
     if(this._interval != null){
       clearInterval(this._interval);
       this._interval = null;

@@ -40,10 +40,6 @@ function PrivateMessagesUser(props){
         setTargetChat(user);
     }
 
-    useEffect(()=>{
-
-
-    }, [targetChat])
 
     useEffect(()=>{
 

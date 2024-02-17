@@ -42,28 +42,12 @@ const SelectChatUser = React.memo( ({chatGroup}) => {
         // pusherAPIref.current.turnOnErrorConsole();
         setPusher(pusherAPIref.current.pusher);
     
-        // const pusher = new Pusher('78ea49788a2c81fd0c1a', 
-        // {
-        //   authEndpoint: 'http://127.0.0.1:8000/api/custom/broadcasting/auth',
-        //   cluster: 'eu',
-        //   auth: {
-        //       headers: {
-        //         "Authorization": `Bearer ${(localStorage.getItem("my_token"))? localStorage.getItem("my_token") : ''}`,
-        //         // "Authorization": `Bearer ${localStorage.getItem("my_token")}`,
-        //         "Access-Control-Allow-Origin": "*"
-        //       }
-        //   },
-        // });
-        // setPusher(pusher);
-        // console.log('создание пушера');
-
     }
 
     function apiPusher(groupChatId){
         pusherAPIref.current.subscribeChannel(nameChannel, userMain.id);
         pusherAPIref.current.subscribeEventChannel(nameChannel + userMain.id, 'allGroup', 
             function (data) {
-                // console.log(data, 'получил дату из коллбэка');
 
                 //если обрыв?
                 if(data.length != 0){
@@ -118,7 +102,7 @@ const SelectChatUser = React.memo( ({chatGroup}) => {
                             onClick={() => handleItemClick(key, item)}
 
                         >
-                            <MainUserChat  styleSelect={'selectUser'} user={item.user}/>
+                            <MainUserChat styleSelect={'selectUser'} user={item.user}/>
                         </li>
                     )
                 })

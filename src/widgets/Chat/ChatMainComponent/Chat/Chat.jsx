@@ -51,6 +51,7 @@ const Chat = React.memo ( (prop) => {
 
   async function requestMessages(){
 
+
     await request('post', 'chat/messages', (response)=>{
 
 
@@ -115,16 +116,19 @@ const Chat = React.memo ( (prop) => {
     );
     //вызов логики первого сообщение
     firstRequestAndMessage();
-    console.log(pusherAPIref.current);
 
   }
 
   function connectApiPuser(){
 
-    const token = localStorage.getItem("my_token") ? localStorage.getItem("my_token") : '';
-    pusherAPIref.current = new Class_chatAPI(KEY_PUSHER, AUTH_ENDPOINT, CLUSTER, token);
-    // pusherAPIref.current.turnOnErrorConsole();
-    setPusher(pusherAPIref.current.pusher);
+    // if(pusherAPIref.current == null){
+      //есть прорблема с созданием множество pusher (сделать проверку на существование пушера)
+      const token = localStorage.getItem("my_token") ? localStorage.getItem("my_token") : '';
+      pusherAPIref.current = new Class_chatAPI(KEY_PUSHER, AUTH_ENDPOINT, CLUSTER, token);
+      // pusherAPIref.current.turnOnErrorConsole();
+      setPusher(pusherAPIref.current.pusher);
+    // }
+   
 
   }
 
@@ -196,12 +200,14 @@ const Chat = React.memo ( (prop) => {
 
   useEffect(()=>{
     
-    if( typeof groupChatId !== "undefined" && groupChatId !== null && pusher !== null ){
+    //&& groupChatId !== null - добавлять проверку что бы бесполезных подписей на каналов не было.
+
+    if( typeof groupChatId !== "undefined" && pusher !== null ){
       apiPusher(groupChatId);
     }
    
 
-  }, [groupChatId, pusher ])
+  }, [groupChatId, pusher])
 
   //добавление сообщение в чат
   useEffect(()=>{ 

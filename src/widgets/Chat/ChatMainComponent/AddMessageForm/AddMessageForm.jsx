@@ -133,10 +133,6 @@ export default function AddMessageForm(props){
     
     //TODO предусмотреть когда при отправке (резко вырубается интернет)
     async function sendMessage(){
-        console.log(userForm.id, 'userForm.id', 'зашли в чат');
-        console.log(userTo.id, 'userTo.id', 'зашли в чат');
-        console.log(messageUser, 'message', 'зашли в чат');
-        console.log(chatGroup_id, 'chatGroup_id', 'зашли в чат');
         
         setLoading(true);
         const status = await request('POST', 'chat/send', (response)=>{
@@ -144,7 +140,6 @@ export default function AddMessageForm(props){
             setLoading(false);
             if ( response.status >= 200 && response.status <= 204 && response.data.lenght != 0)  {
                 
-                console.log(response , response);
                 resetTimer();
 
                 if(response.data.chatgroup_id) { 
@@ -160,7 +155,8 @@ export default function AddMessageForm(props){
         }, {user_from_id: userForm.id, user_to_id: userTo.id , message: messageUser, chatgroup_id: chatGroup_id}, (error) => {
             
             if(error){
-                console.log(error , 'ошибка сенда')
+
+                console.log(error , 'error send')
                 setTimer(error.response?.headers['retry-after'])
                 //новая пемеренная нужна для того что бы statusRequest изменялся при изменении памяти переменной.
 
@@ -174,6 +170,8 @@ export default function AddMessageForm(props){
                     setLoading(true);
                     
                 }
+
+                // if()
                 
             }
         })
@@ -183,7 +181,8 @@ export default function AddMessageForm(props){
 
             // setLoading(false);  
         }
-    }
+    } 
+
     useEffect(()=>{
         // могут быть проблемы в условии при кодах ошибки.
         if( statusRequest.value != null && (statusRequest.value <= 200 || statusRequest.value >= 204 || statusRequest.value == 'ERR_NETWORK') ) {
@@ -199,6 +198,7 @@ export default function AddMessageForm(props){
                 case 422:{
                     objectError.warningCountSymbol();
                     SetStatusRequest({value: null});
+                    setLoading(false);
                     console.log('вызов 422');
                     break;
                 }
