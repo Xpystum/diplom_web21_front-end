@@ -27,7 +27,7 @@ export default function UserPanelWidget(props){
             <div className={style.wrappProfile}>
                 <div className={style.wrapp_avatar}>
                     <div className={style.avatar}>
-                    <Link className={style.profileBlock_itemBlock_link} to="/my" onClick={()=>{}}>
+                    <Link className={style.profileBlock_itemBlock_link} to="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" onClick={()=>{}}>
                         {
                             (user.length != 0)? 
                             <Avatar name={user.name} className={style.profileBlock_itemBlock_link} src={URL_IMG + userAvatar} size='35' round = {true}/> 

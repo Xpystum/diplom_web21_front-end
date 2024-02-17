@@ -1,11 +1,19 @@
 
 import style from "./SelectChatUser.module.sass";
 import MainUserChat from "./../ChatMainComponent/MainUserChat/MainUserChat";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { groupChatSelect } from './../PrivateMessagesUser/PrivateMessagesUser'; 
 import Pusher from 'pusher-js';
 import { useSelector } from "react-redux";
 import EmptyMessage from "../PrivateMessagesUser/EmptyMessage";
+
+//Puhser API
+import { Class_chatAPI } from "../../../API/Class_chatAPI.js";
+
+//config
+import {KEY_PUSHER} from './../../../config';
+import {AUTH_ENDPOINT} from './../../../config';
+import {CLUSTER} from './../../../config';
 
 
 const SelectChatUser = React.memo( ({chatGroup}) => {
@@ -19,6 +27,7 @@ const SelectChatUser = React.memo( ({chatGroup}) => {
     ///pusher
         //state Pusher
         const [pusher, setPusher] = useState(null);
+        const pusherAPIref = useRef(null);
 
     //название канала
     const nameChannel = 'private-chatGroup.';
@@ -27,62 +36,48 @@ const SelectChatUser = React.memo( ({chatGroup}) => {
     const [isSelected, setIsSelected] = useState(null);
 
     function connectApiPuser(){
+
+        const token = localStorage.getItem("my_token") ? localStorage.getItem("my_token") : '';
+        pusherAPIref.current = new Class_chatAPI(KEY_PUSHER, AUTH_ENDPOINT, CLUSTER, token);
+        // pusherAPIref.current.turnOnErrorConsole();
+        setPusher(pusherAPIref.current.pusher);
     
-        const pusher = new Pusher('78ea49788a2c81fd0c1a', 
-        {
-          authEndpoint: 'http://127.0.0.1:8000/api/custom/broadcasting/auth',
-          cluster: 'eu',
-          auth: {
-              headers: {
-                "Authorization": `Bearer ${(localStorage.getItem("my_token"))? localStorage.getItem("my_token") : ''}`,
-                // "Authorization": `Bearer ${localStorage.getItem("my_token")}`,
-                "Access-Control-Allow-Origin": "*"
-              }
-          },
-        });
-        setPusher(pusher);
-        console.log('создание пушера');
+        // const pusher = new Pusher('78ea49788a2c81fd0c1a', 
+        // {
+        //   authEndpoint: 'http://127.0.0.1:8000/api/custom/broadcasting/auth',
+        //   cluster: 'eu',
+        //   auth: {
+        //       headers: {
+        //         "Authorization": `Bearer ${(localStorage.getItem("my_token"))? localStorage.getItem("my_token") : ''}`,
+        //         // "Authorization": `Bearer ${localStorage.getItem("my_token")}`,
+        //         "Access-Control-Allow-Origin": "*"
+        //       }
+        //   },
+        // });
+        // setPusher(pusher);
+        // console.log('создание пушера');
+
     }
 
     function apiPusher(groupChatId){
+        pusherAPIref.current.subscribeChannel(nameChannel, userMain.id);
+        pusherAPIref.current.subscribeEventChannel(nameChannel + userMain.id, 'allGroup', 
+            function (data) {
+                // console.log(data, 'получил дату из коллбэка');
 
-        if(pusher.connection.state == 'connected'){
-        }
-        const channel = pusher.subscribe(nameChannel + userMain.id);
-        channel.bind('allGroup', function(data) {
-
-            console.log(data , 'вебсокет вернул изменённые данные');
-
-            if(data.length != 0){
-                setChatGroupProps(data);
+                //если обрыв?
+                if(data.length != 0){
+                    setChatGroupProps(data);
+                }
             }
-
-        });
-        console.log(channel, 'ПОДКЛЮЧЕНИЕ К КАНАЛУ - НАЗВАНИЕ КАНАЛА');
-        
-        pusher.connection.bind("connecting", function () {
-          console.log('соединение');
-        });
-    
-        pusher.connection.bind("unavailable", function () {
-          console.log('соединение не установлено');
-        });
-    
-        pusher.connection.bind("connected", function () {
-          console.log('соединение установлено');
-        });
-    
-        pusher.connection.bind("error", function (error) {
-          console.error("Ошибка соединение", error);
-        });
-    
-        pusher.connection.bind("state_change", function (states) {
-          console.error("Состояние соединение: ", states);
-        });
-    
-        console.log(pusher.connection.state, ':____состояние соединение');
-        
+        );
     }
+
+    function handleItemClick(key, item){
+        setIsSelected(key);
+        clickSelectGroupChat(item);
+    }
+    
 
     useEffect(()=>{
 
@@ -95,27 +90,21 @@ const SelectChatUser = React.memo( ({chatGroup}) => {
     useEffect(()=>{
 
         connectApiPuser();
+        return () => {
+            pusherAPIref.current.disconnectPusher();
+        }
         
     }, [])
 
     useEffect(()=>{
 
-
-        if(typeof chatGroupProps !== "undefined" && pusher !== null ){
-            
+        if( pusher !== null ){
             apiPusher(chatGroupProps);
-
         }
     
-    }, [chatGroupProps, pusher])
+    }, [pusher])
 
-   
 
-    function handleItemClick(key, item){
-        setIsSelected(key);
-        clickSelectGroupChat(item);
-    }
-    
     return (
 
         (chatGroupProps.length != 0) ?

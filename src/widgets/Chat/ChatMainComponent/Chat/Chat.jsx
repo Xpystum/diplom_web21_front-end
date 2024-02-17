@@ -1,27 +1,26 @@
-//компоненть
-import Messages from '../Messages/Messages';
+//config
+import {KEY_PUSHER} from './../../../../config';
+import {AUTH_ENDPOINT} from './../../../../config';
+import {CLUSTER} from './../../../../config';
+import { Class_chatAPI } from '../../../../API/Class_chatAPI';
+
+//компонент
+import {Messages} from '../Messages/Messages';
 import AddMessageForm from '../AddMessageForm/AddMessageForm';
 
 
-
 import style from './Chat.module.sass';
-import Pusher from 'pusher-js';
-import React, { useEffect, useState, createContext  } from 'react';
+import React, { useEffect, useState, createContext, useRef  } from 'react';
 import { request } from '../../../../Action/request';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMessages } from '../../../../redux/sliceChat';
 import MainUserChat from '../MainUserChat/MainUserChat';
-import name from '../../../../pages/Card/Card';
 
 //context
 const contextChatGroup = createContext('');
 
-// targetChat = {
-// name: name
-// chatId: chatId
-// }
 
 const Chat = React.memo ( (prop) => {
 
@@ -30,7 +29,6 @@ const Chat = React.memo ( (prop) => {
   const [userProps, setUserProps] = useState(prop.targetChat.user);
   const [groupChatId, setGroupChatId] = useState(prop.targetChat.chatId);
 
-  let activeSubscriptions = [];
   let allMessages = useSelector(state => state.sliceChat.value.chat.messages);
   const userFrom = useSelector(state => state.sliceUser.value.user.data);
   const dispatch = useDispatch(); 
@@ -46,6 +44,35 @@ const Chat = React.memo ( (prop) => {
   const [pusher, setPusher] = useState(null);
   const [statusPusherFirstMessage, setStatusPusher] = useState(true);
   const [firstMessage, setFirstMessage] = useState(null);
+    //ref
+    const pusherAPIref = useRef(null);
+
+ 
+
+  async function requestMessages(){
+
+    await request('post', 'chat/messages', (response)=>{
+
+
+      if (response.status == 200 && response.data.data[0].length > 0) {
+
+        setGroupChatId(response.data.chatgroup_id);
+        dispatch(loadMessages(response.data.data[0]));
+        setMessages(response.data.data[0]);
+
+      }
+
+      if(response.status == 202){
+        setMessages({chatGroupDown: true});
+      }
+
+    }, {'user_from_id': userFrom.id, 'user_to_id': userProps.id}, (error) => {
+
+      console.log('вернул ошибку request: ', error);
+
+    })
+
+  }
 
 
   function firstRequestAndMessage(){
@@ -75,72 +102,32 @@ const Chat = React.memo ( (prop) => {
 
   }
 
-  async function requestMessages(){
-
-    await request('post', 'chat/messages', (response)=>{
-
-
-      if (response.status == 200 && response.data.data[0].length > 0) {
-
-        setGroupChatId(response.data.chatgroup_id);
-        dispatch(loadMessages(response.data.data[0]));
-        setMessages(response.data.data[0]);
-
-      }
-
-      if(response.status == 202){
-        setMessages({chatGroupDown: true});
-      }
-
-    }, {'user_from_id': userFrom.id, 'user_to_id': userProps.id}, (error) => {
-
-      console.log('вернул ошибку request: ', error);
-
-    })
-
-  }
-
   function apiPusher(groupChatId){
 
-    const channel = pusher.subscribe(nameChannel + groupChatId );
-    activeSubscriptions.push(channel);
-    channel.bind('message', function(data) {
+    pusherAPIref.current.subscribeChannel(nameChannel, groupChatId);
+    pusherAPIref.current.subscribeEventChannel(nameChannel + groupChatId, 'message', 
+        function (data) {
 
-      //если у вебсокета случился обрыв?
-      if(data.length != 0){
-        setMessage(data);
-      }
-    
-    });
-    console.log(channel , 'название КАНАЛ ПРИ ПОДПИСКЕ')
+            if(data.length != 0){
+              setMessage(data);
+            }
+        }
+    );
     //вызов логики первого сообщение
     firstRequestAndMessage();
-   
-    
-    pusher.connection.bind("connecting", function () {
-      console.log('соединение');
-    });
+    console.log(pusherAPIref.current);
 
-    pusher.connection.bind("unavailable", function () {
-      console.log('соединение не установлено');
-    });
-
-    pusher.connection.bind("connected", function () {
-      console.log('соединение установлено');
-      setStatusPusher(true);
-    });
-
-    pusher.connection.bind("error", function (error) {
-      // console.error("Ошибка соединение", error);
-    });
-
-    pusher.connection.bind("state_change", function (states) {
-      // console.error("Состояние соединение: ", states);
-    });
-
-    console.log(pusher.connection.state, ':____состояние соединение');
-    
   }
+
+  function connectApiPuser(){
+
+    const token = localStorage.getItem("my_token") ? localStorage.getItem("my_token") : '';
+    pusherAPIref.current = new Class_chatAPI(KEY_PUSHER, AUTH_ENDPOINT, CLUSTER, token);
+    // pusherAPIref.current.turnOnErrorConsole();
+    setPusher(pusherAPIref.current.pusher);
+
+  }
+
 
   const funcSetIdGroup = id => {
     setGroupChatId(id);
@@ -166,26 +153,6 @@ const Chat = React.memo ( (prop) => {
 
   }
 
-  function connectApiPuser(){
-    console.log('создалось подключение к пушеру');
-    Pusher.logToConsole = false;  
-
-    const pusher = new Pusher('78ea49788a2c81fd0c1a', 
-    {
-      authEndpoint: 'http://127.0.0.1:8000/api/custom/broadcasting/auth',
-      cluster: 'eu',
-      // authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
-      auth: {
-          headers: {
-            "Authorization": `Bearer ${(localStorage.getItem("my_token"))? localStorage.getItem("my_token") : ''}`,
-            // "Authorization": `Bearer ${localStorage.getItem("my_token")}`,
-            "Access-Control-Allow-Origin": "*"
-          }
-      },
-    });
-
-    setPusher(pusher);
-  }
 
   useEffect(()=>{
 
@@ -194,8 +161,7 @@ const Chat = React.memo ( (prop) => {
 
     if(pusher != null){
 
-      console.log( 'PUSHER NE NULL ОТРУБАЕМСЯ ОТ НЕГО')
-      pusher.disconnect();
+      pusherAPIref.current.disconnectPusher();
       connectApiPuser();
 
     }
@@ -212,28 +178,25 @@ const Chat = React.memo ( (prop) => {
   useEffect(()=>{
 
     if(pusher == null){
-
       connectApiPuser();
-
     }
+
 
     return () => {
 
-      console.log(pusher , 'pusher');
-      if(pusher != null){
-        pusher.disconnect();
+      if(pusherAPIref.current.pusher != null){
+        //отключаемся отпушера при размотировании компонента
+        pusherAPIref.current.disconnectPusher();
       }
 
     }
 
   }, [])
-
-  //изменил может сломаться
+  
 
   useEffect(()=>{
     
-    if( typeof groupChatId !== "undefined" && pusher !== null ){
-      console.log('проверка пройдена');
+    if( typeof groupChatId !== "undefined" && groupChatId !== null && pusher !== null ){
       apiPusher(groupChatId);
     }
    
@@ -261,7 +224,7 @@ const Chat = React.memo ( (prop) => {
           <MainUserChat styleSelect={styleSelect} user={userProps}/>
           <Messages styleSelect={styleSelect} messages={messages} />
           <contextChatGroup.Provider value={{funcSetIdGroup , setStatusMessageFirst, infoFirstMessage}}>
-            <AddMessageForm styleSelect={styleSelect} groupChatId={groupChatId} userFrom={userFrom} userTo={userProps}/>
+            <AddMessageForm pusher={pusher} styleSelect={styleSelect} groupChatId={groupChatId} userFrom={userFrom} userTo={userProps}/>
           </contextChatGroup.Provider>
         </>
         :

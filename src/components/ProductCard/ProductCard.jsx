@@ -17,6 +17,7 @@ import {Chat} from '../../widgets/Chat/ChatMainComponent/Chat/Chat';
 
 
 export default function ProductCard(props) {
+
     let links = useParams();
     
     let dispatch = useDispatch();
@@ -33,21 +34,17 @@ export default function ProductCard(props) {
 
     let favorites = useSelector(state => state.dataState.value.user.favorites);
 
+
     useEffect(()=>{
-        // console.log(user, ' user');
-    }, [user])  
+        if(user.length == 0){
+            request("post", 'product', responseSelectproduct, {"id": links.id});
+        }
+        
+    }, [user])
 
-    // useEffect(()=>{
-    //     console.log(select_product, 'select_product');
-    // }, [select_product])
-
-    // useEffect(()=>{
-    //     console.log(favorites, 'favorites');
-    // }, [favorites])
 
     let responseSelectproduct = (response)=>{
         if(response.status == 200){
-            // console.log(response.data.product, ' response.data')
             dispatch(reloadSelectProduct(response.data.product))
             dispatch(loadSelectProduct(false))
             setUser(response.data.user);
@@ -84,8 +81,6 @@ export default function ProductCard(props) {
       
     }, [])
     
-    
-
 
 
     function imgListProduct(){

@@ -11,7 +11,6 @@ const groupChatSelect = createContext('');
 
 function PrivateMessagesUser(props){
     const [chatGroup, setChatGroup] = useState([]);
-    // const memoizedData = useMemo(() => chatGroup, [chatGroup]);
     
     //выбранный Group Chat и user
     const [targetChat, setTargetChat] = useState(null);
@@ -23,7 +22,7 @@ function PrivateMessagesUser(props){
         request('post', 'chat/allgroup', (response)=>{
             if (response.status == 200 && response.data.length > 0) {
     
-                // console.log(response.data , 'response.data');
+
                 setChatGroup(response.data);
             }
       
@@ -41,11 +40,8 @@ function PrivateMessagesUser(props){
         setTargetChat(user);
     }
 
-
-
     useEffect(()=>{
 
-        // console.log(targetChat , 'target ПОМЕНЯЛСЯ СУКА')
 
     }, [targetChat])
 
@@ -54,17 +50,6 @@ function PrivateMessagesUser(props){
         firstRequest();
 
     }, [])
-
-    useEffect(()=>{
-
-        //todo
-
-    }, [chatGroup] )
-
-
-    //пропсы что нужно передать
-
-  
 
     return (
         <div className={style.wrappBlock}>

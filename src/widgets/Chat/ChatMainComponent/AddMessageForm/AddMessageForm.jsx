@@ -10,6 +10,8 @@ import { contextChatGroup } from './../Chat/Chat';
 
 
 export default function AddMessageForm(props){
+    //ref interval
+        const interval = useRef(null);
 
     const styleSelect = props.styleSelect ?? '';
     //context
@@ -40,8 +42,35 @@ export default function AddMessageForm(props){
     //статик переменные
     const { TextArea } = Input;
     const defaultZoneValueText = 'Введите Сообщение'; 
+
+    function keyHandler(eventKey){
+        
+        switch(eventKey.keyCode){
+
+            case 13:{
+                
+                eventKey.preventDefault();
+                sendMessage();
+                setMessageUser('');
+                break;
+            }
+
+            default:{
+
+                break;
+            }
+
+        }
+
+    }
        
     const objectError = {
+
+        warningErrorInternet: () => {
+            message.warning('Ошибка подключения к интернету.');
+        },  
+
+
         warningAuthorization: () => {
             message.warning('Ошибка Авторизации, перезайдите в аккаунт.');
         },
@@ -73,16 +102,49 @@ export default function AddMessageForm(props){
         timerFunc.current = null;
         setTimer(timerServer);
     }
+
+    function checkConnection(){
+
+        const pusher = props.pusher;
+        
+        if(pusher != null){
+
+            switch(pusher.connection.state){
+                case 'connected':{
+
+                    setLoading(false);
+                    break;
+                }
+            
+                default:{
+
+                    if(!loading){
+
+                        setLoading(true);
+
+                    }
+
+                    break;
+                }
+            }
+        }
+
+    }
     
     //TODO предусмотреть когда при отправке (резко вырубается интернет)
     async function sendMessage(){
+        console.log(userForm.id, 'userForm.id', 'зашли в чат');
+        console.log(userTo.id, 'userTo.id', 'зашли в чат');
+        console.log(messageUser, 'message', 'зашли в чат');
+        console.log(chatGroup_id, 'chatGroup_id', 'зашли в чат');
         
         setLoading(true);
         const status = await request('POST', 'chat/send', (response)=>{
-
+           
             setLoading(false);
             if ( response.status >= 200 && response.status <= 204 && response.data.lenght != 0)  {
-
+                
+                console.log(response , response);
                 resetTimer();
 
                 if(response.data.chatgroup_id) { 
@@ -98,24 +160,33 @@ export default function AddMessageForm(props){
         }, {user_from_id: userForm.id, user_to_id: userTo.id , message: messageUser, chatgroup_id: chatGroup_id}, (error) => {
             
             if(error){
+                console.log(error , 'ошибка сенда')
                 setTimer(error.response?.headers['retry-after'])
-                console.log(error, 'errorerrorerrorerror response.dataresponse.dataresponse.dataresponse.data')
                 //новая пемеренная нужна для того что бы statusRequest изменялся при изменении памяти переменной.
-                SetStatusRequest({value: error.response.status});
+
+                if(error?.response?.status){
+
+                    SetStatusRequest({value: error.response.status});
+
+                }else{
+
+                    SetStatusRequest({value: error?.code ?? null});
+                    setLoading(true);
+                    
+                }
+                
             }
         })
         
-        //вывести ошибку минимум 3 буквы.
-        // console.log(status, 'status error');
+        //ПРОВЕРИТЬ ПОТОМ НА РАБОТОСПОСОБНОСТЬ
         if(!status){
-            setLoading(false);  
+
+            // setLoading(false);  
         }
     }
-
-
     useEffect(()=>{
         // могут быть проблемы в условии при кодах ошибки.
-        if( statusRequest.value != null && (statusRequest.value <= 200 || statusRequest.value >= 204) ) {
+        if( statusRequest.value != null && (statusRequest.value <= 200 || statusRequest.value >= 204 || statusRequest.value == 'ERR_NETWORK') ) {
             switch(statusRequest.value){
 
                 case 401:{
@@ -140,6 +211,14 @@ export default function AddMessageForm(props){
                     break;
                 }
 
+                case "ERR_NETWORK":{
+                    objectError.warningErrorInternet();
+                    // console.log(messageApi, 'messageApiErrorAxios');
+                    SetStatusRequest({value: null});
+                    console.log('вызов ошибки соединение');
+                    break;
+                }
+
     
                 default:{
                     objectError.warning();
@@ -160,24 +239,47 @@ export default function AddMessageForm(props){
         }
     }, [timer])
 
+    useEffect(()=>{
+
+       
+        if(interval.current != null){
+            clearInterval(interval);
+        }
+
+    }, [])
+
     //Состояние пользователей для send
+    useEffect(()=>{
+
+        if(props.pusher != null){
+
+            interval.current = setInterval(checkConnection.bind(props.pusher), 20000);
+
+            return () => {
+
+                if(interval.current != null){
+                    clearInterval(interval);
+                }
+                
+            }
+        }
+        
+
+    }, [props.pusher])
 
     useEffect(()=>{
         setUserForm(props.userFrom);
-        // console.log(props.userFrom , 'props.userForm');
+
     }, [props.userForm])
 
     useEffect(()=>{
         setuserTo(props.userTo);
-        // console.log(props.userTo , 'props.userTo');
     }, [props.userTo])
 
     useEffect(()=>{
         setChatGroup_id(props.groupChatId);
-        // console.log(props.groupChatId , 'groupChatId');
+        
     }, [props.groupChatId])
-
-
 
     return (
         <div className={style.wrapp_messageForm}>
@@ -189,8 +291,8 @@ export default function AddMessageForm(props){
                 maxLength={400}
                 className={style.textArea}
                 onChange={ (evt)=>{ setMessageUser(evt.target.value) } }
-                
-
+                onKeyDown={keyHandler}
+                tabIndex={0}
             />
             <Flex vertical gap="small" style={{ width: '100%' }}>
                 <Button 
@@ -202,6 +304,7 @@ export default function AddMessageForm(props){
                     block
                     disabled={loading}
                     className={(styleSelect == 'profileGeneral' )? style.buttonMyProfile : style.button}
+                    
                 >Отправить</Button>
             </Flex>
         </div>
