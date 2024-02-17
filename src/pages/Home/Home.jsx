@@ -10,10 +10,13 @@ import { loaderSwitchWidgets, reloadWidgets } from "../../redux/dataState";
 import { useEffect } from "react";
 import { request } from "../../Action/request";
 import LocalCityWidget from "../../widgets/LocalCityWidget/LocalCityWidget";
-
+import LocationWidget from "../../widgets/LocationWidget/LocationWidget";
+import MenuWidget from "../../widgets/MenuWidget/MenuWidget";
+import BrandColumnWidget from "../../widgets/BrandColumnWidget/BrandColumnWidget";
+import RelevanceProductWidget from "../../widgets/RelevanceProductWidget/RelevanceProductWidget";
+import LoginRegisterWidget from "../../widgets/LoginRegisterWidget/LoginRegisterWidget";
 
 export default function Home(props) {
-
     let dispatch = useDispatch();
     let widgets = useSelector(state => state.dataState.value.widgets.data)
     useEffect(()=>{
@@ -29,7 +32,13 @@ export default function Home(props) {
     let componentMap = {
         CaruselWidget: CaruselWidget,
         LocalCityWidget: LocalCityWidget,
-
+        ReviewsOwnersWidget: ReviewsOwnersWidget,
+        RelevanceProductWidget: RelevanceProductWidget,
+        MenuWidget: MenuWidget,
+        LocationWidget: LocationWidget,
+        BrandColumnWidget: BrandColumnWidget,
+        CheckBeforePurchaseWidget: CheckBeforePurchaseWidget,
+        LoginRegisterWidget:LoginRegisterWidget,
     };
       
     // Парсинг результатов и расстановка значений в объекте position
@@ -37,62 +46,44 @@ export default function Home(props) {
         let widgetPosition = widget.position_main;
         let widgetName = widget.name;
         let WidgetComponent = componentMap[widgetName];
-        console.log
-        // switch (widgetPosition) {
-        //     case 'header-panel-left': position['header-panel-left'] = widgetName; break;
-        //     case 'header-panel-center': position['header-panel-center'] = widgetName; break;
-        //     case 'header-panel-right': position['header-panel-right'] = widgetName; break;
-        //     case 'hero-top-one': position['hero-top-one'] = widgetName; break;
-        //     case 'hero-top-two': position['hero-top-two'] = widgetName; break;
-        //     case 'content-top-one': position['content-top-one'] = widgetName; break;
-        //     case 'content-top-two': position['hero-top-one'] = widgetName; break;
-        //     case 'content-top-three': position['hero-top-one'] = widgetName; break;
-        //     case 'content-top-four': position['hero-top-one'] = widgetName; break;
-        //     case 'content-main': position['hero-top-one'] = widgetName; break;
-        //     case 'content-bottom-one': position['hero-top-one'] = widgetName; break;
-        //     case 'content-bottom-two': position['hero-top-one'] = widgetName; break;
-        //     case 'content-bottom-three': position['hero-top-one'] = widgetName; break;
-        //     case 'content-bottom-four': position['hero-top-one'] = widgetName; break;
 
-        //     case 'top-content-two': console.log('top-content-two\nname:',widgetName); break;
-        //     case 'top-panel-right': console.log('top-panel-right\nname:',widgetName); break;
-        //     case 'top-content-one': console.log('top-content-one\nname:',widgetName); break;
-        //     case 'top-content-two': console.log('top-content-two\nname:',widgetName); break;
-        //     case 'top-panel-right': console.log('top-panel-right\nname:',widgetName); break;
-        //     default: break;
-        // }
+        switch (widgetPosition) {
+            case 'header-panel-left': position['header-panel-left'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'header-panel-center': position['header-panel-center'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'header-panel-right': position['header-panel-right'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
 
+            case 'hero-top-one': position['hero-top-one'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'hero-top-two': position['hero-top-two'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
 
-        
-    //     function SomeComponent({ widgetName }){
-    //     // выбираем компонент на основе значения widgetName из объекта componentMap
+            case 'content-top-one': position['content-top-one'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'content-top-two': position['content-top-two'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'content-top-three': position['content-top-three'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'content-top-four': position['content-top-four'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'content-main': position['content-main'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'content-bottom-one': position['content-bottom-one'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'content-bottom-two': position['content-bottom-two'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'content-bottom-three': position['content-bottom-three'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'content-bottom-four': position['content-bottom-four'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
 
-      
-    //     // если нет подходящего компонента, выводим сообщение об ошибке или рендерим пустой блок
-    //     if (!WidgetComponent) {
-    //       return <p>Неизвестный виджет</p>;
-    //     //   или return null;
-    //     }
-      
-    //     // рендер выбранного компонента
-    //     return <WidgetComponent />;
-    //   };
+            case 'extra-top-one': position['extra-top-one'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'extra-top-two': position['extra-top-two'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'extra-bottom-one': position['extra-bottom-one'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+            case 'extra-bottom-two': position['extra-bottom-two'] = (widget.status_main != null)? <WidgetComponent/> : ''; break;
+
+            default: break;
+        }
     });
 
     return (
         <div className={style.wrap}>
-            <Header user={props.user}/>
-            {}
-            {/* { position['hero-top-one'] } */}
-            <LocalCityWidget />
+            <Header user={props.user} />
+            { position['hero-top-one'] }
             { position['hero-top-two'] }
-            <CaruselWidget />
             
             <Container className={style.content}>
                 <Row>
                     <Col xs={9}>
                         { position['content-top-one'] }
-                        <ReviewsOwnersWidget />
                         { position['content-top-two'] }
                         { position['content-top-three'] }
                         { position['content-top-four'] }
@@ -103,7 +94,10 @@ export default function Home(props) {
                         { position['content-bottom-four'] }
                     </Col>
                     <Col xs={3}>
-                        <CheckBeforePurchaseWidget/>
+                        { position['extra-top-one'] }
+                        { position['extra-top-two'] }
+                        { position['extra-bottom-one'] }
+                        { position['extra-bottom-two'] }
                     </Col>    
                 </Row>
             </Container>

@@ -1,8 +1,8 @@
 import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
 import BrandCard from "./BrandCard/BrandCard";
-import style from './BrandColumn.module.sass';
+import style from './BrandColumnWidget.module.sass';
 
-export default function BrandColumn(props){
+export default function BrandColumnWidget(props){
     let mass = props.brands
     let brands = mass.data
     const chunkedBrands = chunkArray(brands, 4);
