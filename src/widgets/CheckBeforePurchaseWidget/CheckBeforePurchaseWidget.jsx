@@ -14,7 +14,6 @@ export default function  CheckBeforePurchaseWidget(props){
             <Link to='https://vin.drom.ru/example/1' className={styles.example} target="_blank">Пример отчета</Link>
             <input type="text" placeholder="VIN / № кузова / госномер"/>
             <button type="button">Проверить авто</button>
-        </div>
-        
+        </div> 
     )
 }

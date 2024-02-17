@@ -3,7 +3,7 @@ import Logo from '../Logo/Logo';
 import Location from '../../widgets/LocationWidget/LocationWidget';
 import LoginRegisterWidget from '../../widgets/LoginRegisterWidget/LoginRegisterWidget';
 import PostAdd from '../PostAdd/PostAdd';
-import UserPanelWidget from '../../widgets/UserPanelWidget/UserPanelWidget';
+import UserPanelWidget from '../../widgets/LoginRegisterWidget/UserPanel/UserPanelWidget';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import MenuWidget from '../../widgets/MenuWidget/MenuWidget';

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import style from './UserPanelWidget.module.sass';
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, loaderUser, reloadUser, removeToken, removeUser } from "../../redux/dataState";
+import { authToken, loaderUser, reloadUser, removeToken, removeUser } from "../../../redux/dataState";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
-import PreloaderSmall from "../../components/PreloaderSmall/PreloaderSmall";
+import PreloaderSmall from "../../../components/PreloaderSmall/PreloaderSmall";
 
 export default function UserPanelWidget(props){
     const dispatch = useDispatch();
