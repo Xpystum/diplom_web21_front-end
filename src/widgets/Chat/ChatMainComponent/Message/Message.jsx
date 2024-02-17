@@ -32,7 +32,7 @@ export default function Message(props){
             <div className={(styleSelect == 'profileGeneral' )? style.wrappMessage_InfoAndTimeMyProfile : style.wrappMessage_InfoAndTime}>
                 <div className={ (styleSelect == 'profileGeneral' )? style.blockwrappAvatar : ''}>
                     <Avatar name={user.name} src={URL_IMG + avatarPath} size='40' round={true}/> 
-                    <b className={(styleSelect == 'profileGeneral' )? style.authorNameMyProfile : style.authorName}>{user.name}</b>
+                    <b className={(styleSelect == 'profileGeneral' )? style.authorNameMyProfile : style.authorName}>{user?.name && 'test'}</b>
                 </div>
                 <div className={(styleSelect == 'profileGeneral' )? style.InfoAndTime__wrappTimeMyProfile : style.InfoAndTime__wrappTime}>
                     <span className={(styleSelect == 'profileGeneral' )? style.wrappMessage_InfoAndTime__spanTimeMyProfile : style.wrappMessage_InfoAndTime__spanTime}>{timeYear}</span>
