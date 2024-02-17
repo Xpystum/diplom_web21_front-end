@@ -100,11 +100,13 @@ function App(props) {
         
         requestToken(dispatch);
         
-        request('post', 'all-info-reviews', (response) => {
-            if (response.status === 200) {
-              dispatch(reloadReviews(response.data));            
-            }
-          }, []);
+        //Дениса закоментил
+        // request('post', 'all-info-reviews', (response) => {
+        //     if (response.status === 200) {
+        //       dispatch(reloadReviews(response.data));            
+        //     }
+        //   }, []);
+
         if(localStorage.getItem("my_token")){
             request('post', 'user', (response) => {
 

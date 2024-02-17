@@ -26,6 +26,7 @@ export default function Sign(props) {
     function authResponse(response){
         
         if(response.data.code == 201 && response.data.token.trim() != ""){
+
             console.log(response.data.token_name, 'response.data.token_name');
             localStorage.setItem(response.data.token_name, response.data.token);
             localStorage.setItem("uid", response.data.uid);
@@ -34,7 +35,7 @@ export default function Sign(props) {
             request('post', 'user', (responseUser) => {     
                 // console.log(responseUser, '_________response');
                 if (responseUser.status === 200) {
-
+                    console.log(responseUser.data, 'responseUser.data')
                     dispatch(reloadUser(responseUser.data));
                     dispatch(loadUser(responseUser.data));
 

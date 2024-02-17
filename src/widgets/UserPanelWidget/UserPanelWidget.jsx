@@ -19,7 +19,7 @@ export default function UserPanelWidget(props){
 
     const user = useSelector(state => state.sliceUser.value.user.data);
     const userAvatar = user?.pathAvatar?.path?.resource;
-
+    // console.log(user , 'user');
 
     function onLogout(){
         dispatch(removeToken());

@@ -189,7 +189,7 @@ export default function ProductCard(props) {
     let allTime;
     if(!select_product.loader){
         let time = select_product.data.created_at
-        console.log(time)
+        // console.log(time)
         time = time.split('T')
         let YMD = time[0].split('-').join('')
         let HMS = time[1].substring(0, 8).split(':').join('')
